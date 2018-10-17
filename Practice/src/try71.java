@@ -16,6 +16,8 @@ public class try71 {
 		System.out.println(s3.concat(" "));
 		char[] c = { 'c', 'r', 'a', 'b', 'c' };
 		System.out.println(String.copyValueOf(c, 0, 4));
+		String s6 =String.copyValueOf(c);
+		System.out.println(s6+" this");
 		String s4 = "abcd";
 		String s5 = "bcd";
 		System.out.println(s4.endsWith(s5));
