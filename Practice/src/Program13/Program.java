@@ -20,5 +20,6 @@ public class Program {
 		String[] sArr = { "math", "sport" };
 		College c1 = new College(sArr, dArr);
 		System.out.println(c1);
+		
 	}
 }
