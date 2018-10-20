@@ -21,6 +21,5 @@ public class Program {
 		College c1 = new College(sArr, dArr);
 		System.out.println(c1);
 		
-		
 	}
 }
