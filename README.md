@@ -4,4 +4,4 @@
 ##### 2) Scr->
 ##### 3) Date->
 ##### 4) All HomeWork be there <(^_^)>
-###### *Copyright -\nIs written by LichayTiram
+###### *Copyright -Is written by LichayTiram
