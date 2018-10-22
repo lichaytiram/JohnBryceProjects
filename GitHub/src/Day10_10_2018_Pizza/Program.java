@@ -1,4 +1,4 @@
-package Day10_10_2018;
+package Day10_10_2018_Pizza;
 
 public class Program {
 	public static void main(String[] args) {
