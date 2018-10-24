@@ -1,6 +1,6 @@
 package Program15;
 
-public class Moon extends Shape implements IVertices {
+public class Moon extends Shape implements IVertices, IRoll,IShapeWithVertices {
 	private int circle1;
 	private int circle2;
 
@@ -13,6 +13,10 @@ public class Moon extends Shape implements IVertices {
 	public int vertices() {
 		System.out.println("vertices is ");
 		return 2;
+	}
+
+	public String roll() {
+		return "Moon is shape roll";
 	}
 
 	@Override

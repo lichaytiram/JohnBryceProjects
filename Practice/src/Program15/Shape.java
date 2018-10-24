@@ -9,7 +9,8 @@ public abstract class Shape {
 		this.thick = thick > 0 ? thick : 1;
 		this.color = color;
 	}
-
+	
+	
 	@Override
 	public String toString() {
 		return "Shape [thick=" + thick + ", color=" + color + "]\n";
