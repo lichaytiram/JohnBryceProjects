@@ -18,7 +18,5 @@ public class Program {
 			g1.getIndex(u2.getC(), scan.nextInt(), scan.nextInt());
 		}
 		scan.close();
-		
-		
 	}
 }
