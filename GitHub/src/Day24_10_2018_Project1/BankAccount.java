@@ -83,7 +83,7 @@ public class BankAccount {
 			System.out.println("action has succeed");
 			if (getIsOverDraftAllowed())
 				System.out.println("You in overdraft in your account");
-		}else
+		} else
 			System.out.println("no money to withdrawal\nYou in overdraft in your account");
 
 	}
