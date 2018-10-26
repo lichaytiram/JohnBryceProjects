@@ -21,7 +21,7 @@ public class TestBankAccount {
 
 		// Account 2
 		System.out.println();
-		BankAccount b2 = new BankAccount("lichay", "ab123456", true, 5000);
+		BankAccount b2 = new BankAccount("Doron", "ab123456", true, 5000);
 		System.out.println(b2);
 		b2.deposit(100000);
 		System.out.println(b2.withdrawal(1500));
