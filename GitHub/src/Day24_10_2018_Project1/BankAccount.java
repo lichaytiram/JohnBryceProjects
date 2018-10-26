@@ -69,7 +69,7 @@ public class BankAccount {
 		this.balance += money > 0 ? money : 0;
 	}
 
-	public double withdrawal(double money) { // The method return double
+	public String withdrawal(double money) { // The method return double
 		double withdrawal = 0;
 		money = money > 0 ? money : 0;
 		if (balance >= money) {
@@ -90,8 +90,7 @@ public class BankAccount {
 
 		} else
 			System.out.println("no money to withdrawal\nYou in overdraft in your account");
-
-		return withdrawal;
+		return "withdrawal " + withdrawal + "$";
 	}
 
 	// print
