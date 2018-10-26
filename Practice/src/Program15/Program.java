@@ -23,5 +23,6 @@ public class Program {
 		System.out.println(((Moon) sArr[2]).roll());
 		System.out.println(((Circle) sArr[3]).roll());
 		System.out.println(((Ellipse) sArr[4]).roll());
+
 	}
 }
