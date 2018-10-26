@@ -19,7 +19,7 @@ public class Program {
 				sumvertices += ((Moon) sArr[i]).vertices();
 		}
 		System.out.println("The sum of vertices is " + sumvertices);
-		System.out.println(((Triangle)sArr[1]).shapeWithVertices(sArr[0], sArr[1]));
-		
+		System.out.println(((Triangle) sArr[1]).shapeWithVertices(sArr[0], sArr[1]));
+
 	}
 }
