@@ -20,6 +20,8 @@ public class Program {
 		}
 		System.out.println("The sum of vertices is " + sumvertices);
 		System.out.println(((Triangle) sArr[1]).shapeWithVertices(sArr[0], sArr[1]));
-
+		System.out.println(((Moon) sArr[2]).roll());
+		System.out.println(((Circle) sArr[3]).roll());
+		System.out.println(((Ellipse) sArr[4]).roll());
 	}
 }
