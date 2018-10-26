@@ -91,8 +91,9 @@ public class BankAccount {
 	// print
 	@Override
 	public String toString() {
-		return "BankAccount [accountName=" + accountName + ", accountNum=" + accountNum + ", balance=" + balance
-				+ ", isOverDraftAllowed=" + isOverDraftAllowed + ", overDraftSum=" + overDraftSum + "]";
+		return "BankAccount [accountName=" + getAccountName() + ", accountNum=" + getAccountNum() + ", balance="
+				+ getBalance() + ", isOverDraftAllowed=" + getIsOverDraftAllowed() + ", overDraftSum="
+				+ getOverDraftSum() + "]";
 	}
 
 }
