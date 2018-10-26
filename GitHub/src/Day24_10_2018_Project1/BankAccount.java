@@ -69,23 +69,29 @@ public class BankAccount {
 		this.balance += money > 0 ? money : 0;
 	}
 
-	public void withdrawal(double money) {
+	public double withdrawal(double money) { // The method return double
+		double withdrawal = 0;
 		money = money > 0 ? money : 0;
 		if (balance >= money) {
+			withdrawal = money;
 			balance -= money;
 			System.out.println("action has succeed");
 		} else if (getOverDraftSum() + balance >= money) { // if getOverDraftSum() is false -> getOverDraftSum() = 0
+			withdrawal = money;
 			balance -= money;
 			System.out.println("action has succeed");
 			System.out.println("You in overdraft in your account");
 		} else if (balance > -getOverDraftSum()) {
+			withdrawal = balance + getOverDraftSum();
 			balance += -(balance + getOverDraftSum());
 			System.out.println("action has succeed");
 			if (getIsOverDraftAllowed())
 				System.out.println("You in overdraft in your account");
+
 		} else
 			System.out.println("no money to withdrawal\nYou in overdraft in your account");
 
+		return withdrawal;
 	}
 
 	// print
