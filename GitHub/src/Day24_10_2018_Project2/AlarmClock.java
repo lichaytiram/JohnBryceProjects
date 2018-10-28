@@ -14,7 +14,19 @@ public class AlarmClock {
 
 	}
 
+	// getter and setter
+
+	public ExtendedTime getCurrentTime() {
+		return currentTime;
+	}
+	
+	public void setCurrentTime(ExtendedTime currentTime) {
+		this.currentTime = currentTime;
+	}
+
 	// methods
+
+
 
 	public void setAlarm(int sumOfTimeToAlarm, Alarm alarm) {
 		this.sumOfTimeToAlarm = sumOfTimeToAlarm;

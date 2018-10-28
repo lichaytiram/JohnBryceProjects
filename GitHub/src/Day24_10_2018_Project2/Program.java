@@ -24,10 +24,18 @@ public class Program {
 		System.out.println(e);
 
 		// second check options - Alarm
-		
+		System.out.println("a1");
 		AlarmClock a1 = new AlarmClock();
-		
 		a1.setAlarm(0, 0, 0);
+		
 		System.out.println(a1);
+		System.out.println("a2");
+		AlarmClock a2 = new AlarmClock();
+		Alarm alarm1 = new Alarm(new ExtendedTime(), true, 2, true);
+		a2.setAlarm(3, alarm1);
+		ExtendedTime e3 = new ExtendedTime(9, 30, 30, true);
+		a2.setCurrentTime(e3);
+		System.out.println(a2);
+
 	}
 }

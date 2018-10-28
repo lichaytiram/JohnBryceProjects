@@ -1,12 +1,12 @@
 package Day24_10_2018_Project2;
-             
+
 public class ExtendedTime extends SimpleTime {
 	private boolean is24Hours;
 
 	// default constructor
 
 	public ExtendedTime() {
-		super(0, 0, 0);
+		super();
 		this.is24Hours = true;
 	}
 
