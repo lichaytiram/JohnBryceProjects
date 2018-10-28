@@ -10,7 +10,7 @@ public class AlarmClock {
 	public AlarmClock() {
 		this.alarm = new Alarm();
 		this.currentTime = new ExtendedTime();
-		this.sumOfTimeToAlarm = 0;
+		this.sumOfTimeToAlarm = 1;
 
 	}
 
@@ -19,14 +19,12 @@ public class AlarmClock {
 	public ExtendedTime getCurrentTime() {
 		return currentTime;
 	}
-	
+
 	public void setCurrentTime(ExtendedTime currentTime) {
 		this.currentTime = currentTime;
 	}
 
 	// methods
-
-
 
 	public void setAlarm(int sumOfTimeToAlarm, Alarm alarm) {
 		this.sumOfTimeToAlarm = sumOfTimeToAlarm;
@@ -43,7 +41,7 @@ public class AlarmClock {
 		if (this.currentTime.getHour() == alarm.getTime().getHour()
 				&& this.currentTime.getMinute() == alarm.getTime().getMinute()
 				&& this.currentTime.getSecond() == alarm.getTime().getSecond() && alarm.getIsSet())
-			return "AlarmClock [bZzZzZzZz..]";
+			return "AlarmClock [bZzZzZzZz..] " + sumOfTimeToAlarm + "-times";
 		else
 			return "";
 	}
