@@ -23,7 +23,6 @@ public class Program {
 		if (pacman.getisWin()) {
 			PacmanV2 p1 = new PacmanV2();
 			game2(user, p1);
-
 		}
 	}
 
