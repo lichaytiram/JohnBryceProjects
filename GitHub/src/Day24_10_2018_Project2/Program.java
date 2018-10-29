@@ -19,7 +19,7 @@ public class Program {
 		System.out.println(t1);
 		System.out.println(t3);
 		System.out.println(t1.equalss(t3));
-		ExtendedTime e = new ExtendedTime(12, 2, 2, false);
+		ExtendedTime e = new ExtendedTime(20, 2, 2, false);
 		System.out.println();
 		System.out.println(e);
 
