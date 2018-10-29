@@ -8,10 +8,12 @@ public class PacmanV2 {
 
 	public PacmanV2() {
 		super();
+		System.out.println(
+				"The game is started Good luck!\nLevel two\nWhere you want to go press w/s/a/d and after press enter\nRules: \n1) You are is C.\n2) Don't touch the X this is a bombs(can kill you).\n3) Go to W to win this level.\n4) Must take all money ($) from this map for win this level.");
 		startArena();
 		this.gameIsOver = false;
 		this.isWin = false;
-		// default
+		// default this level
 		game[4][0] = 'C';
 		game[0][1] = 'X';
 		game[1][3] = 'X';
@@ -81,7 +83,7 @@ public class PacmanV2 {
 		}
 		if (!isWin && Row == 4 && Col == 4) {
 			game[4][4] = 'W';
-		    game[row][col] = 'C';
+			game[row][col] = 'C';
 		}
 
 	}
@@ -97,7 +99,7 @@ public class PacmanV2 {
 			if (isWin)
 				System.out.println("Good job you Won the Level two of game -> next level\n");
 			else
-				System.out.println("Nice try ,You lose Level two of game\nmaybe next time <(^_^)>");
+				System.out.println("Nice try ,You lose Level two of game\nMaybe next time <(^_^)>");
 
 			return true;
 		} else

@@ -7,10 +7,12 @@ public class PacmanV1 {
 
 	public PacmanV1() {
 		super();
+		System.out.println(
+				"The game is started Good luck!\nLevel one\nWhere you want to go press w/s/a/d and after press enter\nRules: \n1) You are is C.\n2) Don't touch the X this is a bombs(can kill you).\n3) Go to W to win this level.");
 		startArena();
 		this.gameIsOver = false;
 		this.isWin = false;
-		// default
+		// default this level
 		game[3][0] = 'C';
 		game[1][1] = 'X';
 		game[2][2] = 'X';
@@ -73,7 +75,7 @@ public class PacmanV1 {
 			if (isWin)
 				System.out.println("Good job you Won the Level one of game -> next level\n");
 			else
-				System.out.println("Nice try ,You lose Level one of game\nmaybe next time <(^_^)>");
+				System.out.println("Nice try ,You lose Level one of game\nMaybe next time <(^_^)>");
 
 			return true;
 		} else
