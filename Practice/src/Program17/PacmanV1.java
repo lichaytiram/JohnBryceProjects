@@ -1,11 +1,11 @@
 package Program17;
 
-public class Pacman {
+public class PacmanV1 {
 	private char[][] game = new char[4][4]; // size of arena
 	private boolean gameIsOver; // if the game is finish
 	private boolean isWin; // if win or loss
 
-	public Pacman() {
+	public PacmanV1() {
 		super();
 		startArena();
 		this.gameIsOver = false;
@@ -30,7 +30,7 @@ public class Pacman {
 
 	// players step
 	public void step(char step) {
-		int row = 0, col = 0; // dell
+		int row = 0, col = 0; // C
 		for (int i = 0; i < game.length; i++) {
 			for (int j = 0; j < game[i].length; j++) {
 				if (game[i][j] == 'C') {
@@ -49,9 +49,6 @@ public class Pacman {
 		if (step == 's' && Row < 3)
 			Row++;
 
-		game[1][1] = 'X';
-		game[2][2] = 'X';
-
 		game[row][col] = '*';
 		game[Row][Col] = 'C';
 		if (Row == 1 && Col == 1)
@@ -65,14 +62,18 @@ public class Pacman {
 
 	}
 
+	public boolean getisWin() {
+		return isWin;
+	}
+
 	// if the game is finish
 
 	public boolean getGameIsOver() {
 		if (gameIsOver) {
 			if (isWin)
-				System.out.println("Good job you Won the game");
+				System.out.println("Good job you Won the Level one of game -> next level\n");
 			else
-				System.out.println("Nice try , maybe next time <(^_^)>");
+				System.out.println("Nice try ,You lose Level one of game\nmaybe next time <(^_^)>");
 
 			return true;
 		} else
@@ -86,6 +87,7 @@ public class Pacman {
 			}
 			System.out.println("\n");
 		}
+		System.out.println();
 	}
 
 }
