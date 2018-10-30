@@ -56,6 +56,7 @@ public class PacmanV3 {
 		game[6][3] = 'H';
 
 		game[2][4] = 'M';
+
 		game[7][7] = 'W';
 	}
 
@@ -220,7 +221,7 @@ public class PacmanV3 {
 	public boolean getGameIsOver() {
 		if (gameIsOver) {
 			if (isWin)
-				System.out.println("Good job you Won the game!\n");
+				System.out.println("Good job you Won the game! ,more Levels coming soon\nCredit to Lichay Tiram");
 			else
 				System.out.println("Nice try ,You lose Level three of game\nMaybe next time <(^_^)>");
 
