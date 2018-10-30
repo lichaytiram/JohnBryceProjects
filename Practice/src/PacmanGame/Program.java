@@ -1,4 +1,4 @@
-package Program17;
+package PacmanGame;
 
 import java.util.Scanner;
 
@@ -9,7 +9,6 @@ public class Program {
 		User u1 = new User("lichay", "tiram");
 		PacmanV1 p1 = new PacmanV1();
 		game1(u1, p1);
-
 	}
 
 	public static void game1(User user, PacmanV1 pacman) {

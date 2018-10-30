@@ -1,4 +1,4 @@
-package Program17;
+package PacmanGame;
 
 public class User {
 

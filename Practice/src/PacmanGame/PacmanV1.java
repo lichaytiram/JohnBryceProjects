@@ -1,30 +1,22 @@
-package Program17;
+package PacmanGame;
 
-public class PacmanV2 {
-	private char[][] game = new char[5][5]; // size of arena
+public class PacmanV1 {
+	private char[][] game = new char[4][4]; // size of arena
 	private boolean gameIsOver; // if the game is finish
 	private boolean isWin; // if win or loss
-	private int pickAllMoney = 3;
 
-	public PacmanV2() {
+	public PacmanV1() {
 		super();
 		System.out.println(
-				"The game is started Good luck!\nLevel two\nWhere you want to go press w/s/a/d and after press enter\nRules: \n1) You are is C.\n2) Don't touch the X this is a bombs(can kill you).\n3) Go to W to win this level.\n4) Must take all money ($) from this map for win this level.");
+				"The game is started Good luck!\nLevel one\nWhere you want to go press w/s/a/d and after press enter\nRules: \n1) You are is C.\n2) Don't touch the X this is a bombs(can kill you).\n3) Go to W to win this level.");
 		startArena();
 		this.gameIsOver = false;
 		this.isWin = false;
 		// default this level
-		game[4][0] = 'C';
-		game[0][1] = 'X';
-		game[1][3] = 'X';
-		game[2][1] = 'X';
-		game[2][4] = 'X';
-		game[3][2] = 'X';
-		game[4][3] = 'X';
-		game[0][0] = '$';
-		game[1][4] = '$';
-		game[4][2] = '$';
-		game[4][4] = 'W';
+		game[3][0] = 'C';
+		game[1][1] = 'X';
+		game[2][2] = 'X';
+		game[1][2] = 'W';
 	}
 
 	// start game
@@ -50,40 +42,24 @@ public class PacmanV2 {
 			}
 		}
 		int Row = row, Col = col; // move
-		if (step == 'd' && Col < 4)
+		if (step == 'd' && Col < game.length - 1)
 			Col++;
 		if (step == 'a' && Col > 0)
 			Col--;
 		if (step == 'w' && Row > 0)
 			Row--;
-		if (step == 's' && Row < 4)
+		if (step == 's' && Row < game.length - 1)
 			Row++;
 
-		if (game[Row][Col] == '$')
-			pickAllMoney--;
 		game[row][col] = '*';
 		game[Row][Col] = 'C';
-
-		if (Row == 0 && Col == 1)
+		if (Row == 1 && Col == 1)
 			gameIsOver = true;
-		if (Row == 1 && Col == 3)
+		if (Row == 2 && Col == 2)
 			gameIsOver = true;
-		if (Row == 2 && Col == 1)
-			gameIsOver = true;
-		if (Row == 2 && Col == 4)
-			gameIsOver = true;
-		if (Row == 3 && Col == 2)
-			gameIsOver = true;
-		if (Row == 4 && Col == 3)
-			gameIsOver = true;
-
-		if (Row == 4 && Col == 4 && pickAllMoney == 0) {
+		if (Row == 1 && Col == 2) {
 			isWin = true;
 			gameIsOver = true;
-		}
-		if (!isWin && Row == 4 && Col == 4) {
-			game[4][4] = 'W';
-			game[row][col] = 'C';
 		}
 
 	}
@@ -97,9 +73,9 @@ public class PacmanV2 {
 	public boolean getGameIsOver() {
 		if (gameIsOver) {
 			if (isWin)
-				System.out.println("Good job you Won the Level two of game -> next level\n");
+				System.out.println("Good job you Won the Level one of game -> next level\n");
 			else
-				System.out.println("Nice try ,You lose Level two of game\nMaybe next time <(^_^)>");
+				System.out.println("Nice try ,You lose Level one of game\nMaybe next time <(^_^)>");
 
 			return true;
 		} else
