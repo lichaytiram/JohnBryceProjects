@@ -1,17 +1,18 @@
 package Program18;
 
-public abstract class vehicle {
+import java.util.Date;
+
+public abstract class Vehicle {
 
 	private int numberOfwheel;
 	private int sizeEngine;
 	private int numberOfLicense;
-	private String lastTest;
+	private Date newTest;
 
-	public vehicle(int numberOfwheel, int sizeEngine, int numberOfLicense) {
+	public Vehicle(int numberOfwheel, int sizeEngine, int numberOfLicense) {
 		this.numberOfwheel = numberOfwheel;
 		this.sizeEngine = sizeEngine;
 		this.numberOfLicense = numberOfLicense;
-		this.lastTest = null;
 	}
 
 	public int getNumberOfwheel() {
@@ -38,15 +39,15 @@ public abstract class vehicle {
 		this.numberOfLicense = numberOfLicense;
 	}
 
-	public void lastTest(String test) {
+	public void newTest() {
 		System.out.println("you did a test for your car");
-		this.lastTest = test;
+		this.newTest = new Date();
 	}
 
 	@Override
 	public String toString() {
-		return "vehicle [numberOfwheel=" + numberOfwheel + ", sizeEngine=" + sizeEngine + ", numberOfLicense="
-				+ numberOfLicense + ", lastTest=" + lastTest + "]";
+		return "Vehicle [numberOfwheel=" + numberOfwheel + ", sizeEngine=" + sizeEngine + ", numberOfLicense="
+				+ numberOfLicense + ", newTest=" + newTest + "]";
 	}
 
 }
