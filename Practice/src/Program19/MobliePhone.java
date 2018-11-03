@@ -10,16 +10,49 @@ public class MobliePhone {
 	}
 
 	public void addPhone(MobliePhone.Contact c) {
-		if (Contactlist.equals(c))
+		boolean haveInside = true;
+		for (int i = 0; i < Contactlist.size(); i++) {
+			if (Contactlist.get(i).getName() == c.getName())
+				haveInside = false;
+		}
+		if (haveInside)
 			Contactlist.add(c);
+	}
+
+	public void updateContact(MobliePhone mobliePhone, String name, int number, String changeToNewName,
+			int changeToNewNumber) {
+		int nameI = 0, numberI = 0;
+		for (int i = 0; i < Contactlist.size(); i++) {
+			if (Contactlist.get(i).getName() == name)
+				nameI = i;
+			if (Contactlist.get(i).getNumberPhone() == number)
+				numberI = i;
+		}
+		Contactlist.get(nameI).setName(changeToNewName);
+		Contactlist.get(numberI).setNumberPhone(changeToNewNumber);
 	}
 
 	public void deletePhone(MobliePhone.Contact c) {
 		Contactlist.remove(c);
 	}
 
-	public void show() {
+	public void deletePhoneByName(String name) {
+		for (int i = 0; i < Contactlist.size(); i++) {
+			if (Contactlist.get(i).getName() == name)
+				Contactlist.remove(i);
+		}
+	}
 
+	public void show(String name) {
+		for (int i = 0; i < Contactlist.size(); i++) {
+			if (Contactlist.get(i).getName() == name)
+				System.out.println(Contactlist.get(i).toString());
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "MobliePhone [Contactlist=" + Contactlist + "]";
 	}
 
 	public class Contact {
