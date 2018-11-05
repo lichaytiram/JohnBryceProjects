@@ -10,6 +10,11 @@ public class Product {
 		this.weight = weight > 0 ? weight : 0;
 	}
 
+	public Product(Product product) {
+		this.nameProduct = product.nameProduct;
+		this.weight = product.weight;
+	}
+
 	public String getNameProduct() {
 		return nameProduct;
 	}

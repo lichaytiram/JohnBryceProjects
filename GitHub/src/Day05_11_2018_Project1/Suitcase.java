@@ -15,10 +15,12 @@ public class Suitcase {
 
 	public void addProductToSuitcase(Product product) {
 		this.product.add(product);
+		this.allItems++;
 	}
 
 	public void removeProductToSuitcase(Product product) {
 		this.product.remove(product);
+		this.allItems--;
 	}
 
 	public ArrayList<Product> getProduct() {

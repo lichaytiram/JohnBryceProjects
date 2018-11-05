@@ -3,20 +3,82 @@ package Day05_11_2018_Project1;
 public class Program {
 	public static void main(String[] args) {
 
+		Suitcase s1 = new Suitcase();
+		howMuch(s1);
+		Traveler t1 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
+		System.out.println(t1);
+
+	}
+
+	public static void howMuch(Suitcase s1) {
+		int howMuchProduceInside = howMuchProduceInside();
+
+		Product p0 = new Product("water", randomPlaceInSuitcase());
 		Product p1 = new Product("apple", randomPlaceInSuitcase());
 		Product p2 = new Product("pizza", randomPlaceInSuitcase());
 		Product p3 = new Product("computer", randomPlaceInSuitcase());
 		Product p4 = new Product("camera", randomPlaceInSuitcase());
-		Suitcase s1 = new Suitcase();
-		int howMuchProduceInside = howMuchProduceInside();
+		Product p5 = new Product("macbook", randomPlaceInSuitcase());
+		Product p6 = new Product("psp", randomPlaceInSuitcase());
+		Product p7 = new Product("pcPro", randomPlaceInSuitcase());
+		Product p8 = new Product("iphoneX", randomPlaceInSuitcase());
+		Product p9 = new Product("galaxyS10", randomPlaceInSuitcase());
+		Product p10 = new Product("dvd", randomPlaceInSuitcase());
+		Product p11 = new Product("dvd", randomPlaceInSuitcase());
+		Product p12 = new Product("TV", randomPlaceInSuitcase());
+		Product p13 = new Product("glasses", randomPlaceInSuitcase());
+		Product p14 = new Product("ball", randomPlaceInSuitcase());
+		Product p15 = new Product("bag", randomPlaceInSuitcase());
+		Product p16 = new Product("shoes", randomPlaceInSuitcase());
+		Product p17 = new Product("laptop", randomPlaceInSuitcase());
+		Product p18 = new Product("xboxOne", randomPlaceInSuitcase());
+		Product p19 = new Product("Toster", randomPlaceInSuitcase());
+
 		while (howMuchProduceInside > 0) {
-			int rand = (int) (Math.random() * 6 + 5);
-			s1.addProductToSuitcase(product);
+			int rand = (int) (Math.random() * 20);
+			if (rand == 0)
+				s1.addProductToSuitcase(new Product(p0));
+			else if (rand == 1)
+				s1.addProductToSuitcase(new Product(p1));
+			else if (rand == 2)
+				s1.addProductToSuitcase(new Product(p2));
+			else if (rand == 3)
+				s1.addProductToSuitcase(new Product(p3));
+			else if (rand == 4)
+				s1.addProductToSuitcase(new Product(p4));
+			else if (rand == 5)
+				s1.addProductToSuitcase(new Product(p5));
+			else if (rand == 6)
+				s1.addProductToSuitcase(new Product(p6));
+			else if (rand == 7)
+				s1.addProductToSuitcase(new Product(p7));
+			else if (rand == 8)
+				s1.addProductToSuitcase(new Product(p8));
+			else if (rand == 9)
+				s1.addProductToSuitcase(new Product(p9));
+			else if (rand == 10)
+				s1.addProductToSuitcase(new Product(p10));
+			else if (rand == 11)
+				s1.addProductToSuitcase(new Product(p11));
+			else if (rand == 12)
+				s1.addProductToSuitcase(new Product(p12));
+			else if (rand == 13)
+				s1.addProductToSuitcase(new Product(p13));
+			else if (rand == 14)
+				s1.addProductToSuitcase(new Product(p14));
+			else if (rand == 15)
+				s1.addProductToSuitcase(new Product(p15));
+			else if (rand == 16)
+				s1.addProductToSuitcase(new Product(p16));
+			else if (rand == 17)
+				s1.addProductToSuitcase(new Product(p17));
+			else if (rand == 18)
+				s1.addProductToSuitcase(new Product(p18));
+			else if (rand == 19)
+				s1.addProductToSuitcase(new Product(p19));
 			howMuchProduceInside--;
+			s1.getAllItems();
 		}
-
-		Traveler t1 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
-
 	}
 
 	public static int howMuchProduceInside() {
