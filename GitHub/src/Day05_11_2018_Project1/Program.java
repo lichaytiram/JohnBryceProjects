@@ -9,15 +9,13 @@ public class Program {
 		Suitcase s1 = new Suitcase();
 		howMuch(s1);
 		Traveler t1 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
-		System.out.println(t1);
 		yesOrNo(t1);
-
 		Traveler t2 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
-		System.out.println(t2);
 		yesOrNo(t2);
 	}
 
 	public static void yesOrNo(Traveler t1) {
+		System.out.println(t1);
 		System.out.println("Do you want pey Extra kg for suitcase?\nYes or No");
 		String choose = scan.next();
 		if (choose.equals("yes")) {
