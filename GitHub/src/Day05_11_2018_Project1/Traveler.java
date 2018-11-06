@@ -3,13 +3,13 @@ package Day05_11_2018_Project1;
 public class Traveler {
 
 	private int price;
-	private int moneyPerSuitcase;
+	private int kgAllowedPerSuitcase;
 	private Suitcase suitcase;
 	private int moneyForExtraPlace;
 
-	public Traveler(int price, int moneyPerSuitcase, Suitcase suitcase, int moneyForExtraPlace) {
+	public Traveler(int price, int kgAllowedPerSuitcase, Suitcase suitcase, int moneyForExtraPlace) {
 		this.price = price;
-		this.moneyPerSuitcase = moneyPerSuitcase;
+		this.kgAllowedPerSuitcase = kgAllowedPerSuitcase;
 		this.suitcase = suitcase;
 		this.moneyForExtraPlace = moneyForExtraPlace;
 	}
@@ -18,8 +18,8 @@ public class Traveler {
 		return price;
 	}
 
-	public int getMoneyPerSuitcase() {
-		return moneyPerSuitcase;
+	public int getKgAllowedPerSuitcase() {
+		return kgAllowedPerSuitcase;
 	}
 
 	public Suitcase getSuitcase() {
@@ -32,8 +32,8 @@ public class Traveler {
 
 	@Override
 	public String toString() {
-		return "Traveler [getPrice()=" + getPrice() + ", getMoneyPerSuitcase()=" + getMoneyPerSuitcase()
-				+ ", getSuitcase()=" + getSuitcase() + ", getMoneyForExtraPlace()=" + getMoneyForExtraPlace() + "]";
+		return "Traveler [Price=" + getPrice() + ", kgAllowedPerSuitcase=" + getKgAllowedPerSuitcase()
+				+ ", Suitcase=" + getSuitcase() + ", MoneyForExtraPlace=" + getMoneyForExtraPlace() + "]";
 	}
 
 }

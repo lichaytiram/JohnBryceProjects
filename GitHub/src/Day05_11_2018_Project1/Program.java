@@ -1,13 +1,39 @@
 package Day05_11_2018_Project1;
 
-public class Program {
-	public static void main(String[] args) {
+import java.util.Scanner;
 
+public class Program {
+	public static Scanner scan = new Scanner(System.in);
+
+	public static void main(String[] args) {
 		Suitcase s1 = new Suitcase();
 		howMuch(s1);
 		Traveler t1 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
 		System.out.println(t1);
+		yesOrNo(t1);
 
+		Traveler t2 = new Traveler(randomFlight(), randomKg(), s1, randomExtraKg());
+		System.out.println(t2);
+		yesOrNo(t2);
+	}
+
+	public static void yesOrNo(Traveler t1) {
+		System.out.println("Do you want pey Extra kg for suitcase?\nYes or No");
+		String choose = scan.next();
+		if (choose.equals("yes")) {
+			if (t1.getMoneyForExtraPlace() * (t1.getSuitcase().getAllItems() - t1.getKgAllowedPerSuitcase()) > 0)
+				System.out.println("You need to pay more "
+						+ t1.getMoneyForExtraPlace() * (t1.getSuitcase().getAllItems() - t1.getKgAllowedPerSuitcase())
+						+ '#');
+			else
+				System.out.println("You got enough space in your Suitcase!\nNo need additional pay.");
+		} else {
+			while (t1.getSuitcase().getAllItems() > t1.getKgAllowedPerSuitcase()) {
+				t1.getSuitcase().removeProductToSuitcase(
+						t1.getSuitcase().getProduct().get(t1.getSuitcase().getProduct().size() - 1));
+			}
+		}
+		System.out.println(t1 + "\n");
 	}
 
 	public static void howMuch(Suitcase s1) {
