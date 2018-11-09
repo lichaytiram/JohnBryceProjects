@@ -18,6 +18,7 @@ public class Program {
 		System.out.println(peopleList.remove(p1));
 		System.out.println(peopleList);
 
+		
 		System.out.println("---------------------------------------------");
 		ArrayList<Integer> listInit = new ArrayList<>();
 		listInit.add(12);
