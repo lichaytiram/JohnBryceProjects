@@ -18,8 +18,6 @@ public class try73 {
 		String s3 = "omge1";
 		String s4 = "omge1";
 		System.out.println(s3.endsWith(s4));
-		String tryString = "hiWorlds";
-		char[] arrc = new char[5];
 
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		System.out.println(list);
@@ -33,5 +31,7 @@ public class try73 {
 		list.remove(1);
 		System.out.println(list);
 		
+//		String tryString = "hiWorlds";
+//		char[] arrc = new char[5];
 	}
 }
