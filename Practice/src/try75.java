@@ -23,7 +23,6 @@ public class try75 {
 
 	public static class Name<a> {
 		a s;
-
 		@Override
 		public String toString() {
 			return "name [s=" + s + "]";
