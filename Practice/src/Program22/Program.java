@@ -8,7 +8,6 @@ public class Program {
 		People p2 = new People("doron", 36);
 		People p3 = new People("shlomit", 6);
 
-		
 		ArrayList<People> peopleList = new ArrayList<People>();
 		peopleList.add(p1);
 		peopleList.add(p2);
@@ -18,7 +17,6 @@ public class Program {
 		System.out.println(peopleList.remove(p1));
 		System.out.println(peopleList);
 
-		
 		System.out.println("---------------------------------------------");
 		ArrayList<Integer> listInit = new ArrayList<>();
 		listInit.add(12);
