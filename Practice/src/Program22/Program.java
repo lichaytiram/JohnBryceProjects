@@ -28,6 +28,5 @@ public class Program {
 		Integer x = 80;
 		System.out.println(listInit.remove(x));
 		System.out.println(listInit);
-
 	}
 }
