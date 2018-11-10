@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class Program {
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		Person p1 = new Person("moshe");
-		Person p2 = new Person("doron");
+		Person p1 = new Person("Moshe");
+		Person p2 = new Person("Doron");
 		BankAccount b1 = new BankAccount(p1);
 		BankAccount b2 = new BankAccount(p2);
 		Bank bank = new Bank();
@@ -20,15 +20,15 @@ public class Program {
 		System.out.println(bank);
 
 		while (q.size() != 0) {
-			System.out.println("What do you need to do in our Bank?");
+			System.out.println(q.peek().getPerson().getName() + ", What do you need to do in our Bank?");
 			String action = scan.next();
-			if(action.equals("deposite"))
+			if (action.equals("deposite"))
 				q.poll().deposite(55.3);
-			if(action.equals("withdraw"))
+			if (action.equals("withdraw"))
 				q.poll().withdraw(100);
-			if(action.equals("info"))
+			if (action.equals("info"))
 				System.out.println(q.poll());
-				
+
 		}
 		System.out.println(bank);
 		scan.close();

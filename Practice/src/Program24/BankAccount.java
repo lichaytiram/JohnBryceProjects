@@ -10,6 +10,10 @@ public class BankAccount {
 		this.person = person;
 	}
 
+	public Person getPerson() {
+		return person;
+	}
+
 	public void deposite(double money) {
 		balance += money;
 	}
