@@ -14,7 +14,6 @@ public class try36 {
 
 		
 		
-		
 		for (int i = 0; i < fruitBasket.length; i++) {
 			if (fruitBasket[i].contains("rotten"))
 				fruitBasket[i] = fruitBasket[i].replaceAll("rotten", "").toLowerCase();
