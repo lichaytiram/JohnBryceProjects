@@ -1,5 +1,7 @@
 package Day07_11_2018_Project1;
 
+import java.util.Arrays;
+
 public class Task<T> {
 
 	private T taskContent;
@@ -10,8 +12,10 @@ public class Task<T> {
 		this.taskDuration = taskDuration;
 	}
 
-	public T getTaskContent() {
-		return taskContent; // Don't print well Generic Arrays
+	public String getTaskContent() {
+		if (taskContent instanceof String)
+			return (String) taskContent;
+		return Arrays.deepToString((Object[]) taskContent);
 	}
 
 	public void setTaskContent(T taskContent) {
