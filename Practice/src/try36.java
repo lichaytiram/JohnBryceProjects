@@ -9,9 +9,10 @@ public class try36 {
 	}
 
 	public static String[] removeRotten(String[] fruitBasket) {
-		if (fruitBasket.equals(""))
+		if (fruitBasket.length==0)
 			return new String[0];
 
+		
 		for (int i = 0; i < fruitBasket.length; i++) {
 			if (fruitBasket[i].contains("rotten"))
 				fruitBasket[i] = fruitBasket[i].replaceAll("rotten", "").toLowerCase();
