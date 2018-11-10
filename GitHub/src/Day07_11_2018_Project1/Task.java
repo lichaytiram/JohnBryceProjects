@@ -12,10 +12,11 @@ public class Task<T> {
 		this.taskDuration = taskDuration;
 	}
 
-	public String getTaskContent() {
-		if (taskContent instanceof String)
-			return (String) taskContent;
-		return Arrays.deepToString((Object[]) taskContent);
+	@SuppressWarnings("unchecked")
+	public T getTaskContent() {
+		if (taskContent instanceof Object[])
+			return (T) Arrays.deepToString((Object[]) taskContent);
+		return taskContent;
 	}
 
 	public void setTaskContent(T taskContent) {
