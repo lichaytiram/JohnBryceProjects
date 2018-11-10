@@ -21,7 +21,6 @@ public class Program {
 		listQ1.add(t2);
 		listQ2.add(t3);
 		listQ2.add(t4);
-		
 		@SuppressWarnings("rawtypes")
 		Hashtable<String, Queue<Task>> listH = new Hashtable<>();
 		listH.put("Bob", listQ1);
