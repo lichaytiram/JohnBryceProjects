@@ -5,5 +5,6 @@ public class try77 {
 		System.out.println(s.indexOf('c',2));
 		System.out.println(s.indexOf('c'));
 		System.out.println(s.lastIndexOf('c',8));
+		
 	}
 }
