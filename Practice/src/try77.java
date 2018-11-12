@@ -13,6 +13,10 @@ public class try77 {
 		System.out.println();
 
 		String[][] sTry1 = { { "4", "f" }, { "f" } };
+		String[][] sTry2 = new String[][] { new String[] {"1"}, new String[] {"2","3"} };
+		String[][][] sTry3 = { { {"d"} }, { {"d"}} };
 		System.out.println(Arrays.deepToString(sTry1));
+		System.out.println(Arrays.deepToString(sTry2));
+		System.out.println(Arrays.deepToString(sTry3));
 	}
 }
