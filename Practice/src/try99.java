@@ -7,6 +7,8 @@ public class try99 {
 	}
 
 	public static String reverseWords(final String original) {
+		if (original.isEmpty())
+			return "";
 		String fullString = "";
 		int index = 0;
 		boolean firstTime = true;
@@ -25,7 +27,8 @@ public class try99 {
 				}
 			}
 		}
-		return fullString;
+		return fullString.charAt(fullString.length() - 1) == ' ' ? fullString.substring(0, fullString.length() - 1)
+				: fullString;
 
 	}
 }
