@@ -1,4 +1,4 @@
-package page5;
+package LabGuidePage5;
 
 import java.util.Scanner;
 

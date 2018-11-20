@@ -1,7 +1,34 @@
-
 import java.sql.*;
 
 public class try104 {
+
+	public static void main(String[] args) {
+
+		try {
+
+			// הוראה לג'אווה להכיר את הדרייבר של דרבי
+			// דרייבר הוא מנגנון ההתחברות למסד הנתונים
+			Class.forName("org.apache.derby.jdbc.ClientDriver");
+
+			buildDB();
+
+			insert("Apple", 3.5);
+			insert("Banana", 4.7);
+			insert("Peach", 3.2);
+			insert("Orange", 5.2);
+			insert("Grapes", 7.3);
+
+			update(4, "Blueberry", 10.7);
+
+			delete(5);
+			delete(700);
+
+			readAll();
+		} catch (Exception ex) {
+			System.out.println("Error: " + ex.getMessage());
+		}
+
+	}
 
 	// מחרוזת המתארת היכן מסד הנתונים נמצא:
 	private static String connectionString = "jdbc:derby://localhost:1527/JBDB;create=true";
@@ -120,34 +147,6 @@ public class try104 {
 		preparedStatement.executeUpdate();
 
 		System.out.println("Delete succeeded.");
-	}
-
-	public static void main(String[] args) {
-
-		try {
-
-			// הוראה לג'אווה להכיר את הדרייבר של דרבי
-			// דרייבר הוא מנגנון ההתחברות למסד הנתונים
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
-
-			buildDB();
-
-			insert("Apple", 3.5);
-			insert("Banana", 4.7);
-			insert("Peach", 3.2);
-			insert("Orange", 5.2);
-			insert("Grapes", 7.3);
-
-			update(4, "Blueberry", 10.7);
-
-			delete(5);
-			delete(700);
-
-			readAll();
-		} catch (Exception ex) {
-			System.out.println("Error: " + ex.getMessage());
-		}
-
 	}
 
 }
