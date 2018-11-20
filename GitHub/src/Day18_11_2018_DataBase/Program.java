@@ -11,15 +11,14 @@ public class Program {
 			make();
 			insert("moshe", 21.6);
 			insert("dima", 23);
-			update(107, "dodi", 12);
+			update(7, "davidovzki", 12);
 			delete(3);
+			delete(10);
 			readAll();
 
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
-
 		}
-
 	}
 
 	private static String connectionString = "jdbc:derby://localhost:1527/JBDB;create=true";
@@ -40,8 +39,8 @@ public class Program {
 	public static void make() {
 		try {
 			Connection connection = DriverManager.getConnection(connectionString);
-			String sql = "create table Students ("
-					+ "id integer not null primary key generated always as identity(start with 1, increment by 1), "
+			String sql = "create table Students"
+					+ "(id integer not null primary key generated always as identity(start with 1, increment by 1), "
 					+ "name varchar(20) not null, " + "age double not null)";
 
 			Statement statment = connection.createStatement();
@@ -62,7 +61,6 @@ public class Program {
 		resultSet.next();
 		int id = resultSet.getInt(1);
 		System.out.println("Insert succeeded. New create id: " + id);
-
 	}
 
 	public static void readAll() throws SQLException {
