@@ -7,7 +7,7 @@ public class Program {
 
 		try {
 			Class.forName("org.apache.derby.jdbc.ClientDriver");
-			drop();
+//			drop();
 			make();
 			insert("moshe", 21.6);
 			insert("dima", 23);
@@ -15,6 +15,9 @@ public class Program {
 			delete(3);
 			delete(10);
 			readAll();
+
+			System.out.println("--------------------");
+//			read(4);
 
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
@@ -36,6 +39,7 @@ public class Program {
 		}
 	}
 
+	// if not exist
 	public static void make() {
 		try {
 			Connection connection = DriverManager.getConnection(connectionString);
@@ -75,6 +79,15 @@ public class Program {
 			System.out.println("id: " + resultSet.getInt("id") + ", name: " + resultSet.getString("name") + ", age: "
 					+ resultSet.getDouble("age"));
 		}
+	}
+
+	public static void read(int index) throws SQLException {
+		Connection connection = DriverManager.getConnection(connectionString);
+		Statement statement = connection.createStatement();
+		String sql = "select * from Students where id=index";
+		ResultSet resultSet = statement.executeQuery(sql);
+		while (resultSet.next())
+			System.out.println(resultSet);
 	}
 
 	public static void update(int id, String name, double age) throws SQLException {
