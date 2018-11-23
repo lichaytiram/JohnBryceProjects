@@ -42,7 +42,6 @@ public class Program {
 		}
 	}
 
-	// if not exist
 	public static void make() {
 		try {
 			Connection connection = DriverManager.getConnection(connectionString);
