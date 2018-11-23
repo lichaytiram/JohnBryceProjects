@@ -6,18 +6,21 @@ public class Program {
 	public static void main(String[] args) {
 
 		try {
-			Class.forName("org.apache.derby.jdbc.ClientDriver");
-//			drop();
+//			Class.forName("org.apache.derby.jdbc.ClientDriver");
+			drop();
 			make();
 			insert("moshe", 21.6);
 			insert("dima", 23);
+			insert("shosh", 24);
+			insert("lin", 29);
+			insert("dori", 22);
 			update(7, "davidovzki", 12);
 			delete(3);
 			delete(10);
 			readAll();
 
-			System.out.println("--------------------");
-//			read(4);
+			System.out.println("<------------------------------->");
+			read(4);
 
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
@@ -84,10 +87,11 @@ public class Program {
 	public static void read(int index) throws SQLException {
 		Connection connection = DriverManager.getConnection(connectionString);
 		Statement statement = connection.createStatement();
-		String sql = "select * from Students where id=index";
+		String sql = "select * from Students where id=" + index;
 		ResultSet resultSet = statement.executeQuery(sql);
 		while (resultSet.next())
-			System.out.println(resultSet);
+			System.out.println("id: " + resultSet.getInt("id") + ", name: " + resultSet.getString("name") + ", age: "
+					+ resultSet.getDouble("age"));
 	}
 
 	public static void update(int id, String name, double age) throws SQLException {
