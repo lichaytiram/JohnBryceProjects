@@ -10,18 +10,22 @@ public class try108 {
 //			create();
 			insert("cat", 'm');
 			insert("dog", 'f');
-			deleteByName("cat");
+//			deleteByName("cat");
 //			deleteAll();
-			showAll();
+//			showAll();
+			merge2To1();
 
 		} catch (SQLException e) {
 			System.out.println(e);
 		}
+
 	}
 
 	public static void create() throws SQLException {
 		Connection con = DriverManager.getConnection(connection);
-		con.createStatement().execute("create table Animals( name varchar(20) ," + "type char )");
+		con.createStatement().execute(
+				"create table Animals( id int not null primary key generated always as identity(start with 1 ,increment by 1),name varchar(20) ,"
+						+ "type char )");
 		System.out.println("table is create!");
 	}
 
@@ -42,7 +46,8 @@ public class try108 {
 		Connection con = DriverManager.getConnection(connection);
 		ResultSet re = con.createStatement().executeQuery("select * from Animals");
 		while (re.next())
-			System.out.println("-Name: " + re.getString("name") + " -Type: " + re.getString("type"));
+			System.out.println(
+					"-Id: " + re.getInt("id") + " -Name: " + re.getString("name") + " -Type: " + re.getString("type"));
 
 	}
 
@@ -55,5 +60,13 @@ public class try108 {
 		Connection con = DriverManager.getConnection(connection);
 		con.createStatement().execute("delete from Animals");
 		System.out.println("All deleted");
+	}
+
+	public static void merge2To1() throws SQLException {
+		Connection con = DriverManager.getConnection(connection);
+		ResultSet re = con.createStatement().executeQuery("select Animals.name,Person.name from Animals join Person");
+		while (re.next())
+			System.out.println(re);
+
 	}
 }

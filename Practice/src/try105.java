@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class try105 {
 	public static final String connection = "jdbc:derby://localhost:1527/JBDB;create=true";
-//	public static final String co = "org.apache.derby.jdbc.ClientDriver";
+	public static final String co = "org.apache.derby.jdbc.ClientDriver";
 
 	public static void main(String[] args) {
 		System.out.println("This is DataBase");
