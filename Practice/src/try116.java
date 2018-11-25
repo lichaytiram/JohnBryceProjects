@@ -23,9 +23,6 @@ public class try116 {
 					break;
 			}
 		}
-		if (!s.equals(array1)) // need work on it
-			return new String[] {};
 		return s.split(" ");
 	}
-// dont work yet
 }

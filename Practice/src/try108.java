@@ -6,14 +6,15 @@ public class try108 {
 
 	public static void main(String[] args) {
 		try {
-//			drop();
-//			create();
+			drop();
+			create();
 			insert("cat", 'm');
 			insert("dog", 'f');
+			insert("bird", 'f');
 //			deleteByName("cat");
 //			deleteAll();
-//			showAll();
-			merge2To1();
+			showAll();
+//			merge2To1();
 
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -64,9 +65,9 @@ public class try108 {
 
 	public static void merge2To1() throws SQLException {
 		Connection con = DriverManager.getConnection(connection);
-		ResultSet re = con.createStatement().executeQuery("select Animals.name,Person.name from Animals join Person");
+		ResultSet re = con.createStatement()
+				.executeQuery("select Animals.name,Products.name from Animals join Products on Animals.name");
 		while (re.next())
 			System.out.println(re);
-
 	}
 }
