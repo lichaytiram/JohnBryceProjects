@@ -15,8 +15,7 @@ public class try115 {
 					s += array2[i] + " ";
 			}
 		}
-		String[] need = s.split(" ");
-		return need;
+		return s.split(" ");
 	}
 
 }
