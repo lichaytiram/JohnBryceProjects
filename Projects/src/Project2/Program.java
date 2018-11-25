@@ -1,7 +1,7 @@
+package Project2;
 
-public class try118 {
+public class Program {
 	public static void main(String[] args) {
 
 	}
-
 }
