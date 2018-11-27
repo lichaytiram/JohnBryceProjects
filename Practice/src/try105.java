@@ -72,7 +72,7 @@ public class try105 {
 			ResultSet re = con.createStatement().executeQuery("select * from Person");
 			while (re.next()) {
 				System.out.println(
-						"id:" + re.getInt("id") + ", name:" + re.getString("name") + ", age:" + re.getInt("age"));
+						"id: " + re.getInt("id") + ", name:" + re.getString("name") + ", age:" + re.getInt("age"));
 			}
 		} catch (SQLException e) {
 			System.out.println("Can't show! " + e);
@@ -84,7 +84,7 @@ public class try105 {
 			Connection con = DriverManager.getConnection(connection);
 			ResultSet re = con.createStatement().executeQuery("select * from Person where name='" + name + "'");
 			while (re.next()) {
-				System.out.println("id:" + re.getInt("id") + ", name:" + re.getString("name") + ", age:"
+				System.out.println("id: " + re.getInt("id") + ", name:" + re.getString("name") + ", age:"
 						+ re.getInt("age") + " by name!");
 			}
 		} catch (SQLException e) {
@@ -97,8 +97,8 @@ public class try105 {
 			Connection con = DriverManager.getConnection(connection);
 			ResultSet re = con.createStatement().executeQuery("select * from Person where age=" + age);
 			while (re.next()) {
-				System.out.println("id" + re.getInt("id") + ", name:" + re.getString("name") + ", age:"
-						+ re.getInt("age") + " by name!");
+				System.out.println("id: " + re.getInt("id") + ", name:" + re.getString("name") + ", age:"
+						+ re.getInt("age") + " by age!");
 			}
 		} catch (SQLException e) {
 			System.out.println("Can't show! " + e);

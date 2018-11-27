@@ -3,18 +3,20 @@ import java.sql.*;
 public class try108 {
 
 	public static final String connection = "jdbc:derby://localhost:1527/JBDB;create=true";
-
+	public static final String co = "org.apache.derby.jdbc.ClientDriver";
+	
 	public static void main(String[] args) {
 		try {
 			drop();
 			create();
 			insert("cat", 'm');
+			insert("dor", 'm');
 			insert("dog", 'f');
 			insert("bird", 'f');
 //			deleteByName("cat");
 //			deleteAll();
 			showAll();
-//			merge2To1();
+			merge2To1();
 
 		} catch (SQLException e) {
 			System.out.println(e);
@@ -65,9 +67,9 @@ public class try108 {
 
 	public static void merge2To1() throws SQLException {
 		Connection con = DriverManager.getConnection(connection);
-		ResultSet re = con.createStatement()
-				.executeQuery("select Animals.name,Products.name from Animals join Products on Animals.name");
+		ResultSet re = con.createStatement().executeQuery(
+				"select * from Animals join Products on Animals.id=Products.id");
 		while (re.next())
-			System.out.println(re);
+			System.out.println(re.getString("name"));
 	}
 }
