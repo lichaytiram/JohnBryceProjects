@@ -13,7 +13,7 @@ public class try104 {
 			buildDB();
 
 			insert("Apple", 3.5);
-			insert("Banana", 4.7);
+			insert("dor", 4.7);
 			insert("Peach", 3.2);
 			insert("Orange", 5.2);
 			insert("Grapes", 7.3);

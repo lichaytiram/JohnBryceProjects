@@ -4,7 +4,7 @@ public class try108 {
 
 	public static final String connection = "jdbc:derby://localhost:1527/JBDB;create=true";
 	public static final String co = "org.apache.derby.jdbc.ClientDriver";
-	
+
 	public static void main(String[] args) {
 		try {
 			drop();
@@ -67,9 +67,13 @@ public class try108 {
 
 	public static void merge2To1() throws SQLException {
 		Connection con = DriverManager.getConnection(connection);
-		ResultSet re = con.createStatement().executeQuery(
-				"select * from Animals join Products on Animals.id=Products.id");
+		ResultSet re = con.createStatement()
+				.executeQuery("select * from Animals join Products on Animals.name=Products.name");
 		while (re.next())
-			System.out.println(re.getString("name"));
+			System.out.println(re.getInt(1) + " " + re.getString(2) + " " + re.getString(3) + " " + re.getInt(4) + " "
+					+ re.getString(5) + " " + re.getInt(6));
+		re.close();
+		con.close();
+		
 	}
 }
