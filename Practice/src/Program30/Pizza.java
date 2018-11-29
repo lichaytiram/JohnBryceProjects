@@ -13,6 +13,30 @@ public class Pizza {
 		this.price = price;
 	}
 
+	public toppings getTop() {
+		return top;
+	}
+
+	public void setTop(toppings top) {
+		this.top = top;
+	}
+
+	public Size getSi() {
+		return si;
+	}
+
+	public void setSi(Size si) {
+		this.si = si;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	@Override
 	public String toString() {
 		return "Pizza [top=" + top + ", si=" + si + ", price=" + price + "]";

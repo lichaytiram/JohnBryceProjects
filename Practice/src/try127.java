@@ -24,16 +24,21 @@ public class try127 {
 		System.out.println(Arrays.toString(arr2));
 		Arrays.sort(arr2);
 		System.out.println("-----------3--------------");
-		ArrayList<Integer> list = new ArrayList<>();
-		list.add(2);
-		list.add(5);
-		list.add(3);
-		list.add(9);
-		list.add(8);
+		ArrayList<String> list = new ArrayList<>();
+		list.add("2");
+		list.add("5");
+		list.add("3");
+		list.add("9");
+		list.add("8");
 		System.out.println(list);
 		Collections.sort(list);
 		System.out.println(list);
 		Collections.sort(list, Collections.reverseOrder());
+		System.out.println(list);
+		Collections.sort(list);
+		System.out.println(list);
+		System.out.println("----------way 2-----------");
+		Collections.reverse(list);
 		System.out.println(list);
 	}
 }
