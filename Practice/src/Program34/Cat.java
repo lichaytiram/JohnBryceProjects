@@ -18,6 +18,10 @@ public class Cat extends Animal implements IIsBite {
 		return timesLick;
 	}
 
+	public void lick() {
+		timesLick++;
+	}
+
 	@Override
 	public String isBite() {
 		return "Maybe Once a year";
