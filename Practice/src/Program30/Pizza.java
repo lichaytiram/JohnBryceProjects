@@ -1,6 +1,6 @@
 package Program30;
 
-public class Pizza {
+public class Pizza implements Comparable<Pizza> {
 
 	private toppings top;
 	private Size si;
@@ -35,6 +35,15 @@ public class Pizza {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	@Override
+	public int compareTo(Pizza p) {
+		if (price > p.price)
+			return 1;
+		else if (price < p.price)
+			return -1;
+		return 0;
 	}
 
 	@Override
