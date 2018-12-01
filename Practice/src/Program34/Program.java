@@ -2,6 +2,8 @@ package Program34;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Program {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -46,5 +48,18 @@ public class Program {
 		Arrays.sort(catArr, new ArrSortByAge());
 		System.out.println("Cat Array\n" + Arrays.toString(catArr));
 
+		System.out.println("Now we do queue of Cat");
+		Queue<Cat> CQ = new LinkedList<>();
+		CQ.add(catArr[0]);
+		CQ.add(catArr[1]);
+		CQ.add(catArr[2]);
+		System.out.println("Ready to delete....");
+		int size = CQ.size();
+		for (int i = 0; i < size; i++) {
+			System.out.println("delete: " + CQ.peek());
+			System.out.println(CQ);
+			CQ.poll();
+		}
+		System.out.println(CQ);
 	}
 }
