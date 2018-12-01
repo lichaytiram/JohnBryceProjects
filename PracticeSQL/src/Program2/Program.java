@@ -5,7 +5,7 @@ import java.sql.*;
 public class Program {
 	public static final String connection = "jdbc:derby://localhost:1527/JBDB;create=true";
 	public static final String co = "org.apache.derby.jdbc.ClientDriver";
-
+	
 	public static void main(String[] args) {
 		Person p1 = new Person("Moshe", 123456789, 21);
 		Person p2 = new Person("Gil", 4245654, 7);
