@@ -3,7 +3,7 @@ package Program1;
 import java.sql.*;
 
 public class Program {
-	private static String USERNAME = null;
+	private static String USERNAME = "root";
 	private static String PASSWORD = null;
 	private static String URL = "jdbc:mysql://localhost:3306";
 
