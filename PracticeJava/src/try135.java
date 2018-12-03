@@ -7,10 +7,9 @@ public class try135 {
 
 	public static String[][] partlist(String[] arr) {
 		String[][] arrS = new String[arr.length - 1][2];
-		for (int i = 0; i < arrS.length; i++) {
+		for (int i = 0; i < arrS.length; i++)
 			for (int j = 0; j < arrS[i].length; j++)
 				arrS[i][j] = "";
-		}
 		int start = 1;
 		for (int i = 0; i < arrS.length; i++) {
 			for (int j = 0; j < start; j++) {
