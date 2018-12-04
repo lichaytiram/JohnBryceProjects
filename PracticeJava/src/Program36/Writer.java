@@ -12,7 +12,10 @@ public class Writer implements Runnable {
 	@Override
 	public void run() {
 		for (int i = 0; i < 5; i++) {
-			Program.stringList.add(this.name);
+			synchronized (Program.stringList) {
+				Program.stringList.add(this.name);
+			}
+			System.out.print("run: " + i + " ");
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

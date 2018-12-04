@@ -1,7 +1,7 @@
 
 public class try131 {
 	public static void main(String[] args) {
-		System.out.println(solve("abracadabra", 50));
+		System.out.println(solve("abracadabra", 8));
 
 	}
 
