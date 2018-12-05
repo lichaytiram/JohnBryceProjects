@@ -21,6 +21,7 @@ public class Writer implements Runnable {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
 		}
 	}
 
