@@ -14,6 +14,7 @@ public class Program {
 			Customers.create();
 			Companies.insert("omer", "Sss", "s232s");
 			Companies.insert("omsr", "Sss", "s232s");
+			Customers.insert("dedo", "oh", "eee", "123");
 			Companies.delete(40);
 			Companies.update("os", "s3", "234", 42);
 			Companies.showAll();

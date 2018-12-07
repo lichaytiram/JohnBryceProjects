@@ -11,5 +11,8 @@ public class try141 {
 		}
 		System.out.println(x);
 		System.out.println("End");
+		double d =22.345678;
+		System.out.println(d);
+		System.out.println(String.format("", d));
 	}
 }
