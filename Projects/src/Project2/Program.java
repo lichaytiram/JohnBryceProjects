@@ -10,8 +10,12 @@ public class Program {
 	public static void main(String[] args) {
 		try {
 			Class.forName(Driver);
+
+			Coupons.drop();
+			Coupons.create();
 			Companies.create();
 			Customers.create();
+			Categories.create();
 			Companies.insert("omer", "Sss", "s232s");
 			Companies.insert("omsr", "Sss", "s232s");
 			Customers.insert("dedo", "oh", "eee", "123");

@@ -9,7 +9,7 @@ public class Categories {
 	public static void create() throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate(
-				"CREATE TABLE IF NOT EXISTS categories (ID INT(255) NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,PRIMARY KEY(ID))");
+				"CREATE TABLE IF NOT EXISTS categories (ID INT(200) NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,PRIMARY KEY(ID))");
 		System.out.println("The table categories has created");
 	}
 
