@@ -1,7 +1,7 @@
 
 public class try140 {
 	public static void main(String[] args) {
-		System.out.println(random(new String[] { "Lichay", "Dor", "Maor", "Nil", "Talia" }));
+		System.out.println(random(new String[] { "Dor", "Maor", "Nil", "Talia" }));
 	}
 
 	public static String random(String[] project) {
@@ -13,7 +13,7 @@ public class try140 {
 				rand = rand(length);
 			values += project[rand] + " ";
 		}
-		values += "\nTeam 2: ";
+		values += "\nTeam 2: Lichay ";
 		for (int i = 0; i < project.length; i++)
 			if (!values.contains(project[i]))
 				values += project[i] + " ";
