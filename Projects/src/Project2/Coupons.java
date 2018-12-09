@@ -23,13 +23,14 @@ public class Coupons {
 		System.out.println("The table coupons is a drop");
 	}
 
-	public static void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			String amount, float price, String image) throws SQLException {
+// add to insert foreign key
+	public static void insert(String title, String text, Date startDate, Date endDate, String amount, float price,
+			String image) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate(
-				"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
-						+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + startDate + "," + endDate
-						+ ",'" + amount + "'," + price + ",'" + image + "')");
+				"insert into coupons (TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ('" + title
+						+ "','" + text + "'," + startDate + "," + endDate + ",'" + amount + "'," + price + ",'" + image
+						+ "')");
 		System.out.println("insert coupons has succeed");
 	}
 
@@ -40,12 +41,14 @@ public class Coupons {
 	}
 
 	// change double if can^
-	public static void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			Integer amount, float price, String image, int index) throws SQLException {
+	// add foreign key
+	public static void update(String title, String text, Date startDate, Date endDate, Integer amount, float price,
+			String image, int index) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
-		con.createStatement().executeUpdate("UPDATE coupons SET COMPANY_ID=" + companyId + ", CATEGORY_ID=" + categoryId
-				+ ", TITLE='" + title + "', DESCRIPTION='" + text + "', START_DATE=" + startDate + ", END_DATE="
-				+ endDate + ", AMOUNT=" + amount + ", PRICE=" + price + ", IMAGE='" + image + "' WHERE ID=" + index);
+		con.createStatement()
+				.executeUpdate("UPDATE coupons SET TITLE='" + title + "',DESCRIPTION='" + text + "', START_DATE="
+						+ startDate + ", END_DATE=" + endDate + ", AMOUNT=" + amount + ", PRICE=" + price + ", IMAGE='"
+						+ image + "' WHERE ID=" + index);
 		System.out.println("update coupons has done");
 	}
 

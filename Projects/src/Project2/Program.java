@@ -12,6 +12,7 @@ public class Program {
 			Class.forName(Driver);
 
 //			Coupons.drop();
+//			CustomersVsCoupons.drop();
 			CustomersVsCoupons.create();
 			Coupons.create();
 			Companies.create();
