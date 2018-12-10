@@ -24,7 +24,7 @@ public class Coupons {
 	}
 
 // add to insert foreign key
-	public static void insert(String title, String text, Date startDate, Date endDate, String amount, float price,
+	public static void insert(String title, String text, Date startDate, Date endDate, Integer amount, float price,
 			String image) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate(
@@ -42,8 +42,8 @@ public class Coupons {
 
 	// change double if can^
 	// add foreign key
-	public static void update(String title, String text, Date startDate, Date endDate, Integer amount, float price,
-			String image, int index) throws SQLException {
+	public static void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
+			Integer amount, float price, String image, int index) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement()
 				.executeUpdate("UPDATE coupons SET TITLE='" + title + "',DESCRIPTION='" + text + "', START_DATE="

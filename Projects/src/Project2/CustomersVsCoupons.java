@@ -34,10 +34,12 @@ public class CustomersVsCoupons {
 				"DELETE FROM customersVsCoupons WHERE ID=CUSTOMER_ID" + customerId + ", COUPON_ID=" + couponId);
 		System.out.println("delete from customersVsCoupons has done");
 	}
+
 // add where 2 items and add set
 	public static void update(int customerId, int couponId) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
-		con.createStatement().executeUpdate("UPDATE customersVsCoupons SET NAME='" + customerId + "' WHERE ID=" + couponId);
+		con.createStatement()
+				.executeUpdate("UPDATE customersVsCoupons SET CUSTOMER_ID=" + customerId + " COUPON_ID=" + couponId);
 		System.out.println("update customersVsCoupons has done");
 	}
 
