@@ -55,8 +55,7 @@ public class Program {
 			Coupons.insert("title", "free text", new Date(), new Date(), 3, 30, "dont have");
 			Coupons.insert("title", "free text", new Date(), new Date(), 3, 30, "dont have");
 			Coupons.update("title2 cahnge", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
-			
-			
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
