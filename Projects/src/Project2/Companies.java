@@ -5,43 +5,43 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Companies {
+public class Companies implements ICompaniesDAO {
 
-	public static void create() throws SQLException {
+	public void create() throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate(
-				"CREATE TABLE IF NOT EXISTS companies (ID INT(200) NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
+				"CREATE TABLE IF NOT EXISTS companies (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
 						+ "EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
 		System.out.println("The table companies has created");
 	}
 
-	public static void drop() throws SQLException {
+	public void drop() throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate("DROP TABLE companies");
 		System.out.println("The table companies is a drop");
 	}
 
-	public static void insert(String name, String email, String password) throws SQLException {
+	public void insert(String name, String email, String password) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + name + "','"
 				+ email + "','" + password + "')");
 		System.out.println("insert companies has done");
 	}
 
-	public static void delete(int indexToDelete) throws SQLException {
+	public void delete(int indexToDelete) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate("DELETE FROM companies WHERE ID=" + indexToDelete);
 		System.out.println("delete from customers has done");
 	}
 
-	public static void update(String name, String email, String passWord, int index) throws SQLException {
+	public void update(String name, String email, String passWord, int index) throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		con.createStatement().executeUpdate("UPDATE companies SET NAME='" + name + "', EMAIL='" + email
 				+ "', PASSWORD='" + passWord + "' WHERE ID=" + index);
 		System.out.println("update companies has done");
 	}
 
-	public static void showAll() throws SQLException {
+	public void showAll() throws SQLException {
 		Connection con = DriverManager.getConnection(Program.URL, Program.USERNAME, Program.PASSWORD);
 		ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
 		while (re.next())

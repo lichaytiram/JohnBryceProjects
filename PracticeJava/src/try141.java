@@ -1,3 +1,4 @@
+import java.util.Date;
 
 public class try141 {
 	public static void main(String[] args) {
@@ -11,8 +12,10 @@ public class try141 {
 		}
 		System.out.println(x);
 		System.out.println("End");
-		double d =22.345678;
+		double d = 22.345678;
 		System.out.println(d);
 		System.out.println(String.format("", d));
+		System.out.println(new Date());
+
 	}
 }

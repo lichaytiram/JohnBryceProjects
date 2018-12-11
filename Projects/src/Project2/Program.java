@@ -3,26 +3,37 @@ package Project2;
 import java.util.Date;
 
 public class Program {
-	public static String USERNAME = "root";
-	public static String PASSWORD = null;
+//	public static String USERNAME = "root";
+//	public static String PASSWORD = null;
 
-	public final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+//	public final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
 	public static void main(String[] args) {
+		ConnectionPool.getInstance();
+		checkAllWork();
+
+	}
+
+	private static void checkAllWork() {
 		try {
 			Class.forName(Driver);
 
+			Companies companies = new Companies();
+			Customers customers = new Customers();
+			Categories categories = new Categories();
+			Coupons coupons = new Coupons();
+			CustomersVsCoupons customersVsCoupons = new CustomersVsCoupons();
 //			Companies.drop();
 //			Customers.drop();
 //			Categories.drop();
 //			Coupons.drop();
 //			CustomersVsCoupons.drop();
-			Companies.create();
-			Customers.create();
-			Categories.create();
-			Coupons.create();
-			CustomersVsCoupons.create();
+			companies.create();
+			customers.create();
+			categories.create();
+			coupons.create();
+			customersVsCoupons.create();
 
 //			// Companies
 //			Companies.insert("omer", "Sss", "s232s");
@@ -49,16 +60,26 @@ public class Program {
 //			Categories.delete(3);
 //			Categories.showAll();
 
-			// Coupons
+			// Coupons -> need to fix if
 
-			Coupons.insert("title", "free text", new Date(), new Date(), 3, 30, "dont have");
-			Coupons.insert("title", "free text", new Date(), new Date(), 3, 30, "dont have");
-			Coupons.insert("title", "free text", new Date(), new Date(), 3, 30, "dont have");
-			Coupons.update("title2 cahnge", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
+//			Coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30F, "dont have");
+//		    Coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30, "dont have");
+//		    Coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30, "dont have");
+//		    Coupons.update(2, 2, "title2 cahnge", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
+//		    Coupons.delete(2);
+//			Coupons.showAll();
+
+			// CustomersVsCoupons
+
+//			CustomersVsCoupons.insert(1, 3);
+//			CustomersVsCoupons.insert(1, 4);
+//			CustomersVsCoupons.insert(1, 5);
+//			CustomersVsCoupons.update(9, 10, 1, 3);
+//			CustomersVsCoupons.delete(9, 3);
+//			CustomersVsCoupons.showAll();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 	}
 }
