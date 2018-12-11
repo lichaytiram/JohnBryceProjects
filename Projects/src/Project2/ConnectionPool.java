@@ -7,7 +7,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class ConnectionPool {
-
+	// don't finish yet
+	// singleton ConnectionPool -->
 	private static String USERNAME = "root";
 	private static String PASSWORD = null;
 	private final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
