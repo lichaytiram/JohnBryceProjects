@@ -3,10 +3,10 @@ package Project2;
 import java.util.Date;
 
 public class Program {
-//	public static String USERNAME = "root";
-//	public static String PASSWORD = null;
+	public static String USERNAME = "root";
+	public static String PASSWORD = null;
 
-//	public final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	public final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
 	public static void main(String[] args) {
