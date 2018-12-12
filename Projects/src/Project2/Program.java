@@ -10,6 +10,7 @@ public class Program {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
 	public static void main(String[] args) {
+		
 		ConnectionPool.getInstance();
 		checkAllWork();
 
