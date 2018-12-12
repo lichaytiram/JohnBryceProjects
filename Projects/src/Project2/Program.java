@@ -10,7 +10,7 @@ public class Program {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
 	public static void main(String[] args) {
-		
+
 		ConnectionPool.getInstance();
 		checkAllWork();
 
@@ -25,11 +25,11 @@ public class Program {
 			Categories categories = new Categories();
 			Coupons coupons = new Coupons();
 			CustomersVsCoupons customersVsCoupons = new CustomersVsCoupons();
-//			Companies.drop();
-//			Customers.drop();
-//			Categories.drop();
-//			Coupons.drop();
-//			CustomersVsCoupons.drop();
+//			companies.drop();
+//			customers.drop();
+//			categories.drop();
+//			coupons.drop();
+//			customersVsCoupons.drop();
 			companies.create();
 			customers.create();
 			categories.create();
