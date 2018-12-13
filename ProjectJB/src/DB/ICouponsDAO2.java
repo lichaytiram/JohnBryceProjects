@@ -1,4 +1,4 @@
-package Project2;
+package DB;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -6,10 +6,10 @@ import java.util.Date;
 public interface ICouponsDAO2 extends IMainDAO {
 
 	void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate, Integer amount,
-			float price, String image) throws SQLException;
+			float price, String image) throws Exception;
 
-	void delete(int indexToDelete) throws SQLException;
+	void delete(int indexToDelete) throws Exception;
 
 	void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate, Integer amount,
-			float price, String image, int index) throws SQLException;
+			float price, String image, int index) throws Exception;
 }
