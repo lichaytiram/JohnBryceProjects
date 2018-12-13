@@ -62,7 +62,7 @@ public class Program {
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30F, "dont have");
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30, "dont have");
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30, "dont have");
-//			coupons.update(2, 2, "title2 cahnge", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
+//			coupons.update(2, 2, "title2 change", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
 //			coupons.delete(2);
 //			coupons.showAll();
 
