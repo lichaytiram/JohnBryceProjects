@@ -1,8 +1,6 @@
 package DB;
 
-import java.sql.SQLException;
-
-public interface ICustomersVsCouponsDAO2 extends IMainDAO {
+public interface ICustomersVsCouponsDAO extends IMainDAO {
 
 	void insert(int customerId, int couponId) throws Exception;
 

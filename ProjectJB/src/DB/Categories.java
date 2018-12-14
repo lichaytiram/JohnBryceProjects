@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Categories implements ICategoriesDAO2 {
+public class Categories implements ICategoriesDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 

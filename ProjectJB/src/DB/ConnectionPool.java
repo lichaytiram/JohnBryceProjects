@@ -8,8 +8,8 @@ import java.util.Queue;
 
 public class ConnectionPool {
 
-	private static String USERNAME = "root";
-	private static String PASSWORD = null;
+	private final static String USERNAME = "root";
+	private final static String PASSWORD = null;
 	private final static String URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
 	private Queue<Connection> connectionList = new LinkedList<>();

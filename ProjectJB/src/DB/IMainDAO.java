@@ -1,7 +1,5 @@
 package DB;
 
-import java.sql.SQLException;
-
 public interface IMainDAO {
 
 	void create() throws Exception;

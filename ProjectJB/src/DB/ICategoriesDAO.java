@@ -1,8 +1,6 @@
 package DB;
 
-import java.sql.SQLException;
-
-public interface ICategoriesDAO2 extends IMainDAO {
+public interface ICategoriesDAO extends IMainDAO {
 
 	void insert(String Name) throws Exception;
 

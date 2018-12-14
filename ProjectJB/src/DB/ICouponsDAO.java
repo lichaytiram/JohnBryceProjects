@@ -1,9 +1,8 @@
 package DB;
 
-import java.sql.SQLException;
 import java.util.Date;
 
-public interface ICouponsDAO2 extends IMainDAO {
+public interface ICouponsDAO extends IMainDAO {
 
 	void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate, Integer amount,
 			float price, String image) throws Exception;

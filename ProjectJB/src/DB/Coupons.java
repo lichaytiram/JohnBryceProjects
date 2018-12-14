@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class Coupons implements ICouponsDAO2 {
+public class Coupons implements ICouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -14,11 +14,11 @@ public class Coupons implements ICouponsDAO2 {
 		try {
 			con = connection.getConnection();
 			con.createStatement()
-					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID INT(200) NOT NULL AUTO_INCREMENT ,"
-							+ " COMPANY_ID int(10) NOT NULL REFERENCES companies(ID),"
-							+ " CATEGORY_ID int(10) NOT NULL REFERENCES categories(ID),"
+					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,"
+							+ " COMPANY_ID int(10) UNSIGNED NOT NULL REFERENCES companies(ID),"
+							+ " CATEGORY_ID int(10) UNSIGNED NOT NULL REFERENCES categories(ID),"
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200), PRICE FLOAT(30),IMAGE VARCHAR(20) ,PRIMARY KEY(ID) )");
+							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE FLOAT(30) UNSIGNED,IMAGE VARCHAR(20) ,PRIMARY KEY(ID) )");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

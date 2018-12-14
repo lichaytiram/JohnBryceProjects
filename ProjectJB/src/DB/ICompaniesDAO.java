@@ -1,7 +1,5 @@
 package DB;
 
-import java.sql.SQLException;
-
 public interface ICompaniesDAO extends IMainDAO {
 
 	void insert(String name, String email, String password) throws Exception;
