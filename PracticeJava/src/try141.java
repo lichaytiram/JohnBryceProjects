@@ -40,6 +40,7 @@ public class try141 {
 				System.out.println("digit error");
 			checkDigit++;
 		}
+		System.out.println("-------------------------");
 		String s2 = "lichay.tiram@g.mail.com";
 		if (!s2.contains("@"))
 			System.out.println("no 1");
