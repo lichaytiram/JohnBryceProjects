@@ -10,15 +10,20 @@ public class SumAdd implements Runnable {
 			e.printStackTrace();
 		}
 		while (true) {
+			
 			synchronized (Program.sum) {
 				Program.sum++;
-				System.out.println(Program.sum++);
+				System.out.println(Program.sum);
 				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
+					System.out.println("before");
+					Thread.sleep(1000);
+					wait();
+					System.out.println("after");
+
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
+
 			}
 		}
 

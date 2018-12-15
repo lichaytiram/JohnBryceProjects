@@ -10,10 +10,9 @@ public class Program {
 		Thread t2 = new Thread(sl, "Second Thread");
 		System.out.println(t1.getName());
 		System.out.println(t2.getName());
-			t1.start();
-			t2.start();
-			
-			
-
+		t1.start();
+		
+		t2.start();
+//		System.out.println("The sum is: " + sum);
 	}
 }

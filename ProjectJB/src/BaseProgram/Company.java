@@ -27,7 +27,7 @@ public class Company extends SecondBaseAttribute {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", name=" + getName() + "]";
+		return "Company->" + super.toString() + ", name=" + getName() + "]";
 	}
 
 }
