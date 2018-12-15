@@ -5,6 +5,8 @@ import Exception.ExceptionName;
 
 public abstract class SecondBaseAttribute extends BaseAttribute {
 
+	// properties
+	
 	private String password;
 	private String email;
 	private ArrayList<Coupon> CouponList;

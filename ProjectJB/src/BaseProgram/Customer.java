@@ -4,14 +4,20 @@ import Exception.ExceptionName;
 
 public class Customer extends SecondBaseAttribute {
 
+	// properties
+
 	private String firstName;
 	private String lastName;
+
+	// constructor
 
 	public Customer(int id, String password, String email, String firstName, String lastName) throws ExceptionName {
 		super(id, password, email);
 		setFirstName(firstName);
 		setLastName(lastName);
 	}
+
+	// getter & setter
 
 	public String getFirstName() {
 		return firstName;
@@ -43,7 +49,7 @@ public class Customer extends SecondBaseAttribute {
 
 	@Override
 	public String toString() {
-		return "Customer->" + super.toString() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + "]";
+		return "Customer->[" + super.toString() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + "]";
 	}
 
 }

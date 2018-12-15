@@ -3,6 +3,9 @@ package BaseProgram;
 import Exception.ExceptionName;
 
 public class Company extends SecondBaseAttribute {
+
+	// properties
+
 	private String name;
 
 	// constructor
@@ -27,7 +30,7 @@ public class Company extends SecondBaseAttribute {
 
 	@Override
 	public String toString() {
-		return "Company->" + super.toString() + ", name=" + getName() + "]";
+		return "Company->[" + super.toString() + ", name=" + getName() + "]";
 	}
 
 }

@@ -4,6 +4,8 @@ import Exception.ExceptionName;
 
 public abstract class BaseAttribute {
 
+	// properties
+	
 	private int id;
 
 	// constructor
@@ -30,7 +32,7 @@ public abstract class BaseAttribute {
 
 	@Override
 	public String toString() {
-		return "[id=" + getId();
+		return "id=" + getId();
 	}
 
 }
