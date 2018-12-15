@@ -52,7 +52,6 @@ public class try141 {
 		System.out.println((char) (s2.charAt(0) - 32));
 		System.out.println("-------------------------");
 		String s3 = "aaA";
-
 		System.out.println(s3.charAt(0) <= 'Z' ? s3.charAt(0) + s3.substring(1, s3.length()).toLowerCase()
 				: (char) (s3.charAt(0) - 32) + s3.substring(1, s3.length()).toLowerCase());
 
