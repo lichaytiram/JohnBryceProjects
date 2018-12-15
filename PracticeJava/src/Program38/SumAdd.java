@@ -10,7 +10,6 @@ public class SumAdd implements Runnable {
 			e.printStackTrace();
 		}
 		while (true) {
-			
 			synchronized (Program.sum) {
 				Program.sum++;
 				System.out.println(Program.sum);
