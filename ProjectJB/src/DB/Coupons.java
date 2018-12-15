@@ -18,7 +18,7 @@ public class Coupons implements ICouponsDAO {
 							+ " COMPANY_ID int(10) UNSIGNED NOT NULL REFERENCES companies(ID),"
 							+ " CATEGORY_ID int(10) UNSIGNED NOT NULL REFERENCES categories(ID),"
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE FLOAT(30) UNSIGNED,IMAGE VARCHAR(20) ,PRIMARY KEY(ID) )");
+							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED,IMAGE VARCHAR(20) ,PRIMARY KEY(ID) )");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -42,7 +42,7 @@ public class Coupons implements ICouponsDAO {
 
 	// try fix
 	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			Integer amount, float price, String image) throws Exception {
+			Integer amount, double price, String image) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -71,10 +71,9 @@ public class Coupons implements ICouponsDAO {
 		}
 	}
 
-	// change double if can^
 	// try fix
 	public void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			Integer amount, float price, String image, int index) throws Exception {
+			Integer amount, double price, String image, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
