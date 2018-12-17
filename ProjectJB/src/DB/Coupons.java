@@ -40,7 +40,8 @@ public class Coupons implements ICouponsDAO {
 		}
 	}
 
-	// try fix
+	// try fix date
+
 	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
 			Integer amount, double price, String image) throws Exception {
 		Connection con = null;
@@ -71,7 +72,7 @@ public class Coupons implements ICouponsDAO {
 		}
 	}
 
-	// try fix
+	// try fix date
 	public void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
 			Integer amount, double price, String image, int index) throws Exception {
 		Connection con = null;
@@ -97,10 +98,10 @@ public class Coupons implements ICouponsDAO {
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons");
 			while (re.next())
 				System.out.println("ID: " + re.getInt("ID") + " ,COMPANY_ID: " + re.getInt("COMPANY_ID")
-						+ " ,CATEGORY_ID: " + re.getInt("CATEGORY_ID") + "TITLE: " + re.getInt("TITLE")
+						+ " ,CATEGORY_ID: " + re.getInt("CATEGORY_ID") + "TITLE: " + re.getString("TITLE")
 						+ " ,DESCRIPTION: " + re.getString("DESCRIPTION") + " ,START_DATE: " + re.getDate("START_DATE")
 						+ " ,END_DATE: " + re.getDate("END_DATE") + " ,AMOUNT: " + re.getInt("AMOUNT") + " ,PRICE: "
-						+ re.getFloat("PRICE") + " ,IMAGE: " + re.getString("IMAGE"));
+						+ re.getDouble("PRICE") + " ,IMAGE: " + re.getString("IMAGE"));
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {

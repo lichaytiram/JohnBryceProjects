@@ -61,7 +61,9 @@ public class Coupon extends BaseAttribute {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String title) throws ExceptionName {
+		if (title.length() < 2)
+			throw new ExceptionName("The title too short");
 		this.title = title;
 	}
 
@@ -85,6 +87,8 @@ public class Coupon extends BaseAttribute {
 		return endDate;
 	}
 
+	// check if endDate after or same as startDate
+
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
@@ -93,7 +97,9 @@ public class Coupon extends BaseAttribute {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(int amount) throws ExceptionName {
+		if (amount < 0)
+			throw new ExceptionName("The amount must be more then 0 or equal");
 		this.amount = amount;
 	}
 
@@ -101,15 +107,20 @@ public class Coupon extends BaseAttribute {
 		return price;
 	}
 
-	public void setPrice(double price) {
-		this.price = price;
+	public void setPrice(double price) throws ExceptionName {
+		if (price > 0)
+			this.price = price;
+		else
+			throw new ExceptionName("The price must be more then 0$");
 	}
 
 	public String getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(String image) throws ExceptionName {
+		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
+			throw new ExceptionName("The image file invalid.");
 		this.image = image;
 	}
 
