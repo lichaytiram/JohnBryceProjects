@@ -16,7 +16,7 @@ public class SumAdd implements Runnable {
 				try {
 					System.out.println("before");
 					Thread.sleep(1000);
-					wait();
+					Program.sum.wait(2000);
 					System.out.println("after");
 
 				} catch (Exception e) {

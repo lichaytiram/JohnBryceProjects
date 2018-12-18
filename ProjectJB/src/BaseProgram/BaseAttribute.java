@@ -5,17 +5,16 @@ import Exception.ExceptionName;
 public abstract class BaseAttribute {
 
 	// properties
-	
+
 	private int id;
 
 	// constructor
 
-	
 	public BaseAttribute(int id) throws ExceptionName {
 		super();
 		setId(id);
 	}
-	
+
 	// getter & setter
 
 	public int getId() {

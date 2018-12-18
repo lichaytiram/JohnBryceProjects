@@ -44,6 +44,7 @@ public class Coupons implements ICouponsDAO {
 
 	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
 			Integer amount, double price, String image) throws Exception {
+		
 		Connection con = null;
 		try {
 			con = connection.getConnection();

@@ -7,8 +7,8 @@ public class SumLess implements Runnable {
 	public void run() {
 		try {
 			Thread.sleep(1000);
-			notify();
-			wait();
+			// notify();
+			// wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
