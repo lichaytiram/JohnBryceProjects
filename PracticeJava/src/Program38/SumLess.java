@@ -1,19 +1,27 @@
 package Program38;
 
 public class SumLess implements Runnable {
-	long sum = Program.sum;
 
 	@Override
 	public void run() {
-		try {
-			Thread.sleep(1000);
-			// notify();
-			// wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		Program.sum--;
 
+		while (true) {
+			try {
+				synchronized (Program.sum) {
+					Thread.sleep(1000);
+					Program.sum.notify();
+					Program.sum++;
+					System.out.println(Program.sum);
+					System.out.println("before LESS");
+					synchronized (Program.sum) {
+						Program.sum.wait();
+					}
+					System.out.println("after LESS");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

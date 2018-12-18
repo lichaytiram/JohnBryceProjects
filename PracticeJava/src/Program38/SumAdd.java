@@ -4,25 +4,22 @@ public class SumAdd implements Runnable {
 
 	@Override
 	public void run() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+
 		while (true) {
-			synchronized (Program.sum) {
-				Program.sum++;
-				System.out.println(Program.sum);
-				try {
-					System.out.println("before");
+			try {
+				synchronized (Program.sum) {
 					Thread.sleep(1000);
-					Program.sum.wait(2000);
-					System.out.println("after");
-
-				} catch (Exception e) {
-					e.printStackTrace();
+					Program.sum.notify();
+					Program.sum++;
+					System.out.println(Program.sum);
+					System.out.println("before ADD");
+					synchronized (Program.sum) {
+						Program.sum.wait();
+					}
+					System.out.println("after ADD");
 				}
-
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
