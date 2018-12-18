@@ -9,7 +9,7 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	private String password;
 	private String email;
-	private ArrayList<Coupon> CouponList;
+	private ArrayList<Coupon> couponList;
 
 	// constructor
 
@@ -17,19 +17,22 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 		super(id);
 		setPassword(password);
 		setEmail(email);
-		CouponList = new ArrayList<>();
+		couponList = new ArrayList<>();
 	}
 
 	// getter & setter
 
 	// fix show list
 	public ArrayList<Coupon> getCouponList() {
-		return CouponList;
+		return couponList;
 	}
 
-	// after Coupon finish
-	public void setCouponList(Coupon couponList) {
-
+	public void setCouponList(Coupon coupon) throws ExceptionName {
+		for (int i = 0; i < couponList.size(); i++)
+			if (couponList.get(i).getId() == coupon.getId() && couponList.get(i).getCompanyId() == coupon.getCompanyId()
+					&& couponList.get(i).getCategory().equals(coupon.getCategory()))
+				throw new ExceptionName("The coupon already exists");
+		couponList.add(coupon);
 	}
 
 	public String getPassword() {
@@ -94,7 +97,7 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", password=" + getPassword() + ", email=" + getEmail() + ", CouponList="
+		return super.toString() + ", password=" + getPassword() + ", email=" + getEmail() + ", couponList="
 				+ getCouponList();
 	}
 

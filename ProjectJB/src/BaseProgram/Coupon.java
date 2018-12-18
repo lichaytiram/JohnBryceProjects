@@ -8,8 +8,6 @@ public class Coupon extends BaseAttribute {
 
 	// properties
 
-	// don't finish yet->
-
 	private int companyId;
 	private Category category;
 	private String title;
