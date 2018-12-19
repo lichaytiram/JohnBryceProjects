@@ -40,18 +40,17 @@ public class Coupons implements ICouponsDAO {
 		}
 	}
 
-	// try fix date
+	// try fix date -->
 
 	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
 			Integer amount, double price, String image) throws Exception {
-		
+
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
-							+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + startDate + ","
-							+ endDate + "," + amount + "," + price + ",'" + image + "')");
+			con.prepareStatement(
+					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? ,?)");
+
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -59,6 +58,25 @@ public class Coupons implements ICouponsDAO {
 			connection.restoreConnection(con);
 		}
 	}
+
+//	 coppy work well 
+//	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
+//			Integer amount, double price, String image) throws Exception {
+//		
+//		Connection con = null;
+//		try {
+//			con = connection.getConnection();
+//			con.createStatement().executeUpdate(
+//					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
+//							+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + startDate + ","
+//							+ endDate + "," + amount + "," + price + ",'" + image + "')");
+//			System.out.println("insert coupons has succeed");
+//		} catch (SQLException ex) {
+//			System.out.println(ex.getMessage());
+//		} finally {
+//			connection.restoreConnection(con);
+//		}
+//	}
 
 	public void delete(int indexToDelete) throws Exception {
 		Connection con = null;
