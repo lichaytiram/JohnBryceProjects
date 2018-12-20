@@ -10,15 +10,16 @@ public class Program {
 		Thread t2 = new Thread(sl, "Second Thread");
 		System.out.println(t1.getName());
 		System.out.println(t2.getName());
+		System.out.println("The Theads start run...");
 		t1.start();
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		t2.start();
 
-//		System.out.println("The sum is: " + sum);
+		try {
+			t1.join();
+			t2.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("The sum is: " + sum);
 	}
 }

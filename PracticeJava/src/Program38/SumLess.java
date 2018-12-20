@@ -9,19 +9,20 @@ public class SumLess implements Runnable {
 			try {
 				synchronized (Program.sum) {
 					Thread.sleep(1000);
-					Program.sum.notify();
 					Program.sum++;
 					System.out.println(Program.sum);
 					System.out.println("before LESS");
-					synchronized (Program.sum) {
-						Program.sum.wait();
-					}
+					notify();
+//					synchronized (Program.sum) {
+//						Program.sum.wait();
+//					}
 					System.out.println("after LESS");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 }

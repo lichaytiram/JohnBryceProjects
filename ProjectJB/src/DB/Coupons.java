@@ -3,7 +3,10 @@ package DB;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
+
+import com.mysql.jdbc.PreparedStatement;
 
 public class Coupons implements ICouponsDAO {
 
@@ -42,34 +45,25 @@ public class Coupons implements ICouponsDAO {
 
 	// try fix date -->
 
-	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			Integer amount, double price, String image) throws Exception {
-
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.prepareStatement(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? ,?)");
-
-			System.out.println("insert coupons has succeed");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-//	 coppy work well 
 //	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-//			Integer amount, double price, String image) throws Exception {
-//		
+//			int amount, double price, String image) throws Exception {
+//
 //		Connection con = null;
 //		try {
 //			con = connection.getConnection();
-//			con.createStatement().executeUpdate(
-//					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
-//							+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + startDate + ","
-//							+ endDate + "," + amount + "," + price + ",'" + image + "')");
+//
+//			PreparedStatement p = (PreparedStatement) con.prepareStatement(
+//					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? ,?)");
+//			p.setInt(1, companyId);
+//			p.setInt(2, categoryId);
+//			p.setString(3, title);
+//			p.setString(4, text);
+//			p.setDate(5, startDate);
+//			p.setDate(6, endDate);
+//			p.setInt(7, amount);
+//			p.setDouble(8, price);
+//			p.setString(9, image);
+//
 //			System.out.println("insert coupons has succeed");
 //		} catch (SQLException ex) {
 //			System.out.println(ex.getMessage());
@@ -77,6 +71,25 @@ public class Coupons implements ICouponsDAO {
 //			connection.restoreConnection(con);
 //		}
 //	}
+
+//	 copy work, well 
+	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
+			int amount, double price, String image) throws Exception {
+		LocalDate localdate = LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDay());
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			con.createStatement().executeUpdate(
+					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
+							+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + localdate + ","
+							+ localdate + "," + amount + "," + price + ",'" + image + "')");
+			System.out.println("insert coupons has succeed");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+	}
 
 	public void delete(int indexToDelete) throws Exception {
 		Connection con = null;
@@ -93,7 +106,7 @@ public class Coupons implements ICouponsDAO {
 
 	// try fix date
 	public void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			Integer amount, double price, String image, int index) throws Exception {
+			int amount, double price, String image, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
