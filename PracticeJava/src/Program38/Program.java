@@ -22,6 +22,7 @@ public class Program {
 		}
 		
 		
+		
 		System.out.println("The sum is: " + sum);
 	}
 }
