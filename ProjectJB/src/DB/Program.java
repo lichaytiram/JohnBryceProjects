@@ -57,7 +57,6 @@ public class Program {
 //			categories.delete(3);
 //			categories.showAll();
 
-			
 			// Coupons -> need to fix if
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
