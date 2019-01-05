@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomersVsCoupons implements ICustomersVsCouponsDAO {
+public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 

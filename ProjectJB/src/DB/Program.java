@@ -16,11 +16,11 @@ public class Program {
 		try {
 			Class.forName(Driver);
 
-			Companies companies = new Companies();
-			Customers customers = new Customers();
-			Categories categories = new Categories();
-			Coupons coupons = new Coupons();
-			CustomersVsCoupons customersVsCoupons = new CustomersVsCoupons();
+			CompaniesDBDAO companies = new CompaniesDBDAO();
+			CustomersDBDAO customers = new CustomersDBDAO();
+			CategoriesDBDAO categories = new CategoriesDBDAO();
+			CouponsDBDAO coupons = new CouponsDBDAO();
+			CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
 			companies.drop();
 			customers.drop();
 			categories.drop();
@@ -58,12 +58,12 @@ public class Program {
 //			categories.showAll();
 
 			// Coupons -> need to fix if
-			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
+//			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
 //			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
 //			coupons.update(2, 2, "title2 change", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
 //			coupons.delete(2);
-			coupons.showAll();
+//			coupons.showAll();
 
 			// CustomersVsCoupons
 

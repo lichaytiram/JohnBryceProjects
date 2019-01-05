@@ -1,19 +1,11 @@
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
+import java.util.Scanner;
 
 public class try143 {
 	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int in = scan.nextInt();
+		System.out.println(in);
 
-		String name = "myxe name is lichay!%$ 100x";
-		String p = "(\\D)";
-
-		Pattern check = Pattern.compile(p);
-		Matcher m = check.matcher(name);
-
-		if (m.find()) {
-			System.out.println("Found value: " + m.group(0));
-			System.out.println("Found value: " + m.group(1));
-		}
-
+		scan.close();
 	}
 }

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Customers implements ICustomersDAO {
+public class CustomersDBDAO implements ICustomersDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 

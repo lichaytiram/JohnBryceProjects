@@ -8,7 +8,7 @@ import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
-public class Coupons implements ICouponsDAO {
+public class CouponsDBDAO implements ICouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
