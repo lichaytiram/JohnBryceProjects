@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import BaseProgram.Company;
+
 public class CompaniesDBDAO implements ICompaniesDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
@@ -36,12 +38,12 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
-	public void insert(String name, String email, String password) throws Exception {
+	public void insert(Company c) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + name + "','"
-					+ email + "','" + password + "')");
+			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + c.getName()
+					+ "','" + c.getEmail() + "','" + c.getPassword() + "')");
 			System.out.println("insert companies has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -63,12 +65,12 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
-	public void update(String name, String email, String passWord, int index) throws Exception {
+	public void update(Company c, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + name + "', EMAIL='" + email
-					+ "', PASSWORD='" + passWord + "' WHERE ID=" + index);
+			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + c.getName() + "', EMAIL='"
+					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + index);
 			System.out.println("update companies has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

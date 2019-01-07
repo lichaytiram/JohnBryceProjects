@@ -8,6 +8,8 @@ import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
+import BaseProgram.Coupon;
+
 public class CouponsDBDAO implements ICouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
@@ -73,16 +75,15 @@ public class CouponsDBDAO implements ICouponsDAO {
 //	}
 
 //	 copy work, well 
-	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			int amount, double price, String image) throws Exception {
-		LocalDate localdate = LocalDate.of(startDate.getYear(), startDate.getMonth(), startDate.getDay());
+	public void insert(Coupon c, int categoryId) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			con.createStatement().executeUpdate(
 					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
-							+ companyId + "," + categoryId + ",'" + title + "','" + text + "'," + localdate + ","
-							+ localdate + "," + amount + "," + price + ",'" + image + "')");
+							+ c.getCompanyId() + "," + categoryId + ",'" + c.getTitle() + "','" + c.getDescription()
+							+ "'," + c.getStartDate() + "," + c.getEndDate() + "," + c.getAmount() + "," + c.getPrice()
+							+ ",'" + c.getImage() + "')");
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -105,16 +106,15 @@ public class CouponsDBDAO implements ICouponsDAO {
 	}
 
 	// try fix date
-	public void update(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			int amount, double price, String image, int index) throws Exception {
+	public void update(Coupon c, int categoryId, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			con.createStatement()
-					.executeUpdate("UPDATE coupons SET COMPANY_ID=" + companyId + ", CATEGORY_ID=" + categoryId
-							+ ", TITLE='" + title + "', DESCRIPTION='" + text + "', START_DATE=" + startDate
-							+ ", END_DATE=" + endDate + ", AMOUNT=" + amount + ", PRICE=" + price + ", IMAGE='" + image
-							+ "' WHERE ID=" + index);
+					.executeUpdate("UPDATE coupons SET COMPANY_ID=" + c.getCompanyId() + ", CATEGORY_ID=" + categoryId
+							+ ", TITLE='" + c.getTitle() + "', DESCRIPTION='" + c.getDescription() + "', START_DATE="
+							+ c.getStartDate() + ", END_DATE=" + c.getEndDate() + ", AMOUNT=" + c.getAmount()
+							+ ", PRICE=" + c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + index);
 			System.out.println("update coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

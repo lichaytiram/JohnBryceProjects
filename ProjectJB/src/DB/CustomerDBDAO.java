@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CustomersDBDAO implements ICustomersDAO {
+import BaseProgram.Customer;
+
+public class CustomerDBDAO implements ICustomersDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -35,12 +37,13 @@ public class CustomersDBDAO implements ICustomersDAO {
 		}
 	}
 
-	public void insert(String firstName, String lastName, String email, String password) throws Exception {
+	public void insert(Customer c) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("insert into customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) values ('"
-					+ firstName + "','" + lastName + "','" + email + "','" + password + "')");
+			con.createStatement().executeUpdate(
+					"insert into customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) values ('" + c.getFirstName() + "','"
+							+ c.getLastName() + "','" + c.getEmail() + "','" + c.getPassword() + "')");
 			System.out.println("insert customers has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -62,12 +65,14 @@ public class CustomersDBDAO implements ICustomersDAO {
 		}
 	}
 
-	public void update(String firstName, String lastName, String email, String passWord, int index) throws Exception {
+	public void update(Customer c, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("UPDATE customers SET FIRST_NAME='" + firstName + "',lAST_NAME='"
-					+ lastName + "', EMAIL='" + email + "', PASSWORD='" + passWord + "' WHERE ID=" + index);
+			con.createStatement()
+					.executeUpdate("UPDATE customers SET FIRST_NAME='" + c.getFirstName() + "',lAST_NAME='"
+							+ c.getLastName() + "', EMAIL='" + c.getEmail() + "', PASSWORD='" + c.getPassword()
+							+ "' WHERE ID=" + index);
 			System.out.println("update customers has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

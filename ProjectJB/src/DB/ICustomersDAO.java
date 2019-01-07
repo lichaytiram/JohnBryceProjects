@@ -1,10 +1,12 @@
 package DB;
 
+import BaseProgram.Customer;
+
 public interface ICustomersDAO extends IMainDAO {
 
-	void insert(String firstName, String lastName, String email, String password) throws Exception;
+	void insert(Customer c) throws Exception;
 
 	void delete(int indexToDelete) throws Exception;
 
-	void update(String firstName, String lastName, String email, String passWord, int index) throws Exception;
+	void update(Customer c, int index) throws Exception;
 }

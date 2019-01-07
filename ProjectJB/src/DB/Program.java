@@ -17,7 +17,7 @@ public class Program {
 			Class.forName(Driver);
 
 			CompaniesDBDAO companies = new CompaniesDBDAO();
-			CustomersDBDAO customers = new CustomersDBDAO();
+			CustomerDBDAO customers = new CustomerDBDAO();
 			CategoriesDBDAO categories = new CategoriesDBDAO();
 			CouponsDBDAO coupons = new CouponsDBDAO();
 			CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
