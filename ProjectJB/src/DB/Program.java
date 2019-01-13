@@ -2,6 +2,9 @@ package DB;
 
 import java.util.Date;
 
+import BaseProgram.Company;
+import BaseProgram.Customer;
+
 public class Program {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
@@ -32,20 +35,30 @@ public class Program {
 			coupons.create();
 			customersVsCoupons.create();
 
-//			// Companies
-//			companies.insert("omer", "Sss", "s232s");
-//			companies.insert("omsr", "Sss", "s232s");
-//			companies.insert("omsr", "Sss", "s232s");
+			// Companies
+//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
+//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
+//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
+//			companies.insert(company1);
+//			companies.insert(company2);
+//			companies.insert(company3);
 //			companies.delete(2);
-//			companies.update("os", "s3", "234", 42);
+//			companies.update(company3, 1);
+//			System.out.println(companies.getOneCompany(1));
+//			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
 //			companies.showAll();
 
 			// Customers
-//			customers.insert("sss1", "omshe", "com", "sdsd123");
-//			customers.insert("sss2", "omshe", "com", "sdsd123");
-//			customers.insert("sss3", "omshe", "com", "sdsd123");
-//			customers.update("lol", "omshe", "com", "sdsd123" ,1);
+//			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
+//			Customer customer2 = new Customer(2, "sdS23x1", "dsxd@gmail.com", "dod", "p1p");
+//			Customer customer3 = new Customer(4, "sdS23x2", "dsd@gmail.com", "dod", "p2p");
+//			customers.insert(customer1);
+//			customers.insert(customer2);
+//			customers.insert(customer3);
+//			customers.update(customer1, 3);
 //			customers.delete(2);
+//			System.out.println(customers.getOneCustomer(2));
+//			System.out.println(customers.isCustomerExists("dsxd@gmail.com", "sdS23x1"));
 //			customers.showAll();
 
 			// Categories

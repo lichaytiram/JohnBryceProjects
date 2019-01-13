@@ -140,4 +140,21 @@ public class CouponsDBDAO implements ICouponsDAO {
 			connection.restoreConnection(con);
 		}
 	}
+
+	public Coupon getOneCoupon(int couponID) throws Exception {
+		Connection con = null;
+		Coupon c = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
+			if (re.next())
+				c = new Coupon(re.getInt("ID"), companyId, category, title, description, startDate, endDate, amount, price, image);
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return c;
+	}
 }

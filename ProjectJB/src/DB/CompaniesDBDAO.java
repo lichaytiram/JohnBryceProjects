@@ -93,4 +93,40 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 			connection.restoreConnection(con);
 		}
 	}
+
+	public boolean isCompanyExists(String email, String password) throws Exception {
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (re.next()) {
+				if (re.getString("EMAIL").equals(email) && re.getString("PASSWORD").equals(password))
+					return true;
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
+		return false;
+	}
+
+	public Company getOneCompany(int companyID) throws Exception {
+		Connection con = null;
+		Company c = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
+			if (re.next())
+				c = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"), re.getString("NAME"));
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return c;
+	}
 }

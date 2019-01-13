@@ -20,9 +20,7 @@ public class Program {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		System.out.println("The sum is: " + sum);
 	}
 }

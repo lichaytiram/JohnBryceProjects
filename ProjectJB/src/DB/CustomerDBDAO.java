@@ -52,11 +52,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
-	public void delete(int indexToDelete) throws Exception {
+	public void delete(int customerID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("DELETE FROM customers WHERE ID=" + indexToDelete);
+			con.createStatement().executeUpdate("DELETE FROM customers WHERE ID=" + customerID);
 			System.out.println("delete from customers has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -97,4 +97,40 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	public boolean isCustomerExists(String email, String password) throws Exception {
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (re.next()) {
+				if (re.getString("EMAIL").equals(email) && re.getString("PASSWORD").equals(password))
+					return true;
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
+		return false;
+	}
+
+	public Customer getOneCustomer(int customerID) throws Exception {
+		Connection con = null;
+		Customer c = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + customerID);
+			if (re.next())
+				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return c;
+	}
 }
