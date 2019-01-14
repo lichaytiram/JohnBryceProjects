@@ -46,47 +46,24 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-	// try fix date -->
+	public void insert(Coupon c, int categoryId) throws Exception {
 
-	public void insert(int companyId, int categoryId, String title, String text, Date startDate, Date endDate,
-			int amount, double price, String image) throws Exception {
-
-		
-		
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			PreparedStatement p = (PreparedStatement) con.prepareStatement(
 					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? ,?)");
-			p.setInt(1, companyId);
+			p.setInt(1, c.getCompanyId());
 			p.setInt(2, categoryId);
-			p.setString(3, title);
-			p.setString(4, text);
-			p.setDate(5, DateUtils.javaDateToSqlDate(startDate));
-			p.setDate(6, DateUtils.javaDateToSqlDate(endDate));
-			p.setInt(7, amount);
-			p.setDouble(8, price);
-			p.setString(9, image);
+			p.setString(3, c.getTitle());
+			p.setString(4, c.getDescription());
+			p.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
+			p.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
+			p.setInt(7, c.getAmount());
+			p.setDouble(8, c.getPrice());
+			p.setString(9, c.getImage());
 
-			System.out.println("insert coupons has succeed");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-//	 copy work, well 
-	public void insert(Coupon c, int categoryId) throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ("
-							+ c.getCompanyId() + "," + categoryId + ",'" + c.getTitle() + "','" + c.getDescription()
-							+ "'," + c.getStartDate() + "," + c.getEndDate() + "," + c.getAmount() + "," + c.getPrice()
-							+ ",'" + c.getImage() + "')");
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -144,22 +121,22 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-//	public Coupon getOneCoupon(int couponID) throws Exception {
-//		Connection con = null;
-//		Coupon c = null;
-//		try {
-//			con = connection.getConnection();
-//			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
-//			if (re.next())
-//				c = new Coupon(re.getInt("ID"), re.getString("COMPANY_ID"), category, re.getString("TITLE"),
-//						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getString("END_DATE"),
-//						re.getInt("AMOUNT"), re.getString("PRICE"), re.getString("IMAGE"));
-//
-//		} catch (SQLException ex) {
-//			System.out.println(ex.getMessage());
-//		} finally {
-//			connection.restoreConnection(con);
-//		}
-//		return c;
-//	}
+	public Coupon getOneCoupon(int couponID) throws Exception {
+		Connection con = null;
+		Coupon c = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
+			if (re.next())
+				c = new Coupon(re.getInt("ID"), re.getString("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getString("END_DATE"),
+						re.getInt("AMOUNT"), re.getString("PRICE"), re.getString("IMAGE"));
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return c;
+	}
 }
