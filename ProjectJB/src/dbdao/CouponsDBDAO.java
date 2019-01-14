@@ -1,4 +1,4 @@
-package DB;
+package dbdao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +9,7 @@ import java.util.Date;
 import com.mysql.jdbc.PreparedStatement;
 
 import BaseProgram.Coupon;
+import dao.ICouponsDAO;
 import utils.DateUtils;
 
 public class CouponsDBDAO implements ICouponsDAO {

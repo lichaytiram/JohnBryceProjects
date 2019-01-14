@@ -1,4 +1,4 @@
-package DB;
+package dbdao;
 
 public interface IMainDAO {
 

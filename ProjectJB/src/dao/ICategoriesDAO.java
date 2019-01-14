@@ -1,4 +1,6 @@
-package DB;
+package dao;
+
+import dbdao.IMainDAO;
 
 public interface ICategoriesDAO extends IMainDAO {
 

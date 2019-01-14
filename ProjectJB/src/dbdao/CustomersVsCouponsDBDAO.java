@@ -1,8 +1,10 @@
-package DB;
+package dbdao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import dao.ICustomersVsCouponsDAO;
 
 public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 

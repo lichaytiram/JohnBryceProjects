@@ -1,10 +1,11 @@
-package DB;
+package dbdao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import BaseProgram.Company;
+import dao.ICompaniesDAO;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
 

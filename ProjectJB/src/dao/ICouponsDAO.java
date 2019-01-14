@@ -1,6 +1,7 @@
-package DB;
+package dao;
 
 import BaseProgram.Coupon;
+import dbdao.IMainDAO;
 
 public interface ICouponsDAO extends IMainDAO {
 
