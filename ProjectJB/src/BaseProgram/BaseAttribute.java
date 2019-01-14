@@ -15,6 +15,10 @@ public abstract class BaseAttribute {
 		setId(id);
 	}
 
+	public BaseAttribute() throws ExceptionName {
+		super();
+	}
+
 	// getter & setter
 
 	public int getId() {

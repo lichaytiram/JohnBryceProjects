@@ -148,7 +148,9 @@ public class CouponsDBDAO implements ICouponsDAO {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
 			if (re.next())
-				c = new Coupon(re.getInt("ID"), companyId, category, title, description, startDate, endDate, amount, price, image);
+				c = new Coupon(re.getInt("ID"), re.getString("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getString("END_DATE"),
+						re.getInt("AMOUNT"), re.getString("PRICE"), re.getString("IMAGE"));
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

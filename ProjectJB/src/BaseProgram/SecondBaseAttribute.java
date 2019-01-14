@@ -20,6 +20,13 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 		couponList = new ArrayList<>();
 	}
 
+	public SecondBaseAttribute(String password, String email) throws ExceptionName {
+		super();
+		setPassword(password);
+		setEmail(email);
+		couponList = new ArrayList<>();
+	}
+
 	// getter & setter
 
 	// fix show list
