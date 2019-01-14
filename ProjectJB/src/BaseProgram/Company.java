@@ -16,6 +16,12 @@ public class Company extends SecondBaseAttribute {
 
 	}
 
+	public Company(String password, String email, String name) throws ExceptionName {
+		super(password, email);
+		setName(name);
+
+	}
+
 	// getter & setter
 
 	public String getName() {

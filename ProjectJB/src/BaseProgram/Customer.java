@@ -17,6 +17,12 @@ public class Customer extends SecondBaseAttribute {
 		setLastName(lastName);
 	}
 
+	public Customer(String password, String email, String firstName, String lastName) throws ExceptionName {
+		super(password, email);
+		setFirstName(firstName);
+		setLastName(lastName);
+	}
+
 	// getter & setter
 
 	public String getFirstName() {
