@@ -36,17 +36,17 @@ public class Program {
 			customersVsCoupons.create();
 
 			// Companies
-//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
-//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
-//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
-//			companies.insert(company1);
-//			companies.insert(company2);
-//			companies.insert(company3);
-//			companies.delete(2);
-//			companies.update(company3, 1);
-//			System.out.println(companies.getOneCompany(1));
-//			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
-//			companies.showAll();
+			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
+			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
+			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
+			companies.insert(company1);
+			companies.insert(company2);
+			companies.insert(company3);
+			companies.delete(2);
+			companies.update(company3, 1);
+			System.out.println(companies.getOneCompany(1));
+			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
+			companies.showAll();
 
 			// Customers
 //			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
