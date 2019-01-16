@@ -12,9 +12,9 @@ public class SumAdd implements Runnable {
 					Program.sum++;
 					System.out.println(Program.sum);
 					System.out.println("before ADD");
-					Program.sum.notify();
+					notify();
 					synchronized (Program.sum) {
-						Program.sum.wait();
+						wait();
 					}
 					System.out.println("after ADD");
 				}

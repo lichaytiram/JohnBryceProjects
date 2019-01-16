@@ -12,9 +12,9 @@ public class SumLess implements Runnable {
 					Program.sum++;
 					System.out.println(Program.sum);
 					System.out.println("before LESS");
-					Program.sum.notify();
+					notify();
 					synchronized (Program.sum) {
-						Program.sum.wait();
+						wait();
 					}
 					System.out.println("after LESS");
 				}
