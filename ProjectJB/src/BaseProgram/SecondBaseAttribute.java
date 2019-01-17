@@ -1,6 +1,9 @@
 package BaseProgram;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import Exception.ExceptionName;
 
 public abstract class SecondBaseAttribute extends BaseAttribute {
@@ -69,6 +72,15 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// functions
 
+//	// regex password need to fix
+//	private boolean checkPassword(String password) {
+//		String pattern = "[a-z|A-Z|0-9] {3,}";
+//		Pattern checkPattern = Pattern.compile(pattern);
+//		Matcher checkMatch = checkPattern.matcher(password);
+//		return checkMatch.matches();
+//	}
+
+	// function password
 	private boolean checkPassword(String password) {
 		if (password == null)
 			return false;
