@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import baseProgram.Company;
 import dao.ICompaniesDAO;
+import javaBeans.Company;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
 

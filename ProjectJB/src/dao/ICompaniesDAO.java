@@ -1,6 +1,6 @@
 package dao;
 
-import baseProgram.Company;
+import javaBeans.Company;
 
 public interface ICompaniesDAO extends IMainDAO {
 

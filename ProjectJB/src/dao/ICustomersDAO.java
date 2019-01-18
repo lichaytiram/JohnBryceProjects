@@ -1,6 +1,6 @@
 package dao;
 
-import baseProgram.Customer;
+import javaBeans.Customer;
 
 public interface ICustomersDAO extends IMainDAO {
 

@@ -2,10 +2,10 @@ package dbdao;
 
 import java.util.Date;
 
-import baseProgram.Category;
-import baseProgram.Company;
-import baseProgram.Coupon;
-import baseProgram.Customer;
+import javaBeans.Category;
+import javaBeans.Company;
+import javaBeans.Coupon;
+import javaBeans.Customer;
 
 public class Program {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";

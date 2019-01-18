@@ -1,6 +1,6 @@
 package dao;
 
-import baseProgram.Coupon;
+import javaBeans.Coupon;
 
 public interface ICouponsDAO extends IMainDAO {
 

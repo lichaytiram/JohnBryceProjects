@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import baseProgram.Customer;
 import dao.ICustomersDAO;
+import javaBeans.Customer;
 
 public class CustomerDBDAO implements ICustomersDAO {
 

@@ -8,9 +8,9 @@ import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import baseProgram.Category;
-import baseProgram.Coupon;
 import dao.ICouponsDAO;
+import javaBeans.Category;
+import javaBeans.Coupon;
 import utils.DateUtils;
 
 public class CouponsDBDAO implements ICouponsDAO {

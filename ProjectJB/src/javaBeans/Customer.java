@@ -1,4 +1,4 @@
-package baseProgram;
+package javaBeans;
 
 import exception.ExceptionName;
 
