@@ -1,6 +1,6 @@
-package BaseProgram;
+package baseProgram;
 
-import Exception.ExceptionName;
+import exception.ExceptionName;
 
 public abstract class BaseAttribute {
 

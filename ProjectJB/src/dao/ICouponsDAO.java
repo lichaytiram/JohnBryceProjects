@@ -1,11 +1,10 @@
 package dao;
 
-import BaseProgram.Coupon;
-import dbdao.IMainDAO;
+import baseProgram.Coupon;
 
 public interface ICouponsDAO extends IMainDAO {
 
-	void insert(Coupon c, int categoryId) throws Exception;
+	void insert(Coupon c) throws Exception;
 
 	void delete(int indexToDelete) throws Exception;
 

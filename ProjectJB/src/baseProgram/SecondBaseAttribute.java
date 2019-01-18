@@ -1,10 +1,10 @@
-package BaseProgram;
+package baseProgram;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import Exception.ExceptionName;
+import exception.ExceptionName;
 
 public abstract class SecondBaseAttribute extends BaseAttribute {
 

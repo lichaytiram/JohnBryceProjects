@@ -1,4 +1,4 @@
-package Exception;
+package exception;
 
 @SuppressWarnings("serial")
 public class ExceptionName extends Exception {

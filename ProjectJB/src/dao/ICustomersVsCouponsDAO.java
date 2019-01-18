@@ -1,7 +1,5 @@
 package dao;
 
-import dbdao.IMainDAO;
-
 public interface ICustomersVsCouponsDAO extends IMainDAO {
 
 	void insert(int customerId, int couponId) throws Exception;

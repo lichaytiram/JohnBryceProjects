@@ -2,8 +2,10 @@ package dbdao;
 
 import java.util.Date;
 
-import BaseProgram.Company;
-import BaseProgram.Customer;
+import baseProgram.Category;
+import baseProgram.Company;
+import baseProgram.Coupon;
+import baseProgram.Customer;
 
 public class Program {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
@@ -36,17 +38,17 @@ public class Program {
 			customersVsCoupons.create();
 
 			// Companies
-			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
-			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
-			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
-			companies.insert(company1);
-			companies.insert(company2);
-			companies.insert(company3);
-			companies.delete(2);
-			companies.update(company3, 1);
-			System.out.println(companies.getOneCompany(1));
-			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
-			companies.showAll();
+//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
+//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
+//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
+//			companies.insert(company1);
+//			companies.insert(company2);
+//			companies.insert(company3);
+//			companies.delete(2);
+//			companies.update(company3, 1);
+//			System.out.println(companies.getOneCompany(1));
+//			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
+//			companies.showAll();
 
 			// Customers
 //			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
@@ -71,11 +73,18 @@ public class Program {
 //			categories.showAll();
 
 			// Coupons -> need to fix if
-//			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
-//			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
-//			coupons.insert(2, 2, "title", "free text", new Date(), new Date(), 3, 30.6, "dont have");
+//			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+//					"ismg.txt");
+//			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
+//					2.3, "ismg.txt");
+//			Coupon coupons3 = new Coupon(1, Category.Weaponsý, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+//					"ismg.txt");
+//			coupons.insert(coupons1);
+//			coupons.insert(coupons2);
+//			coupons.insert(coupons3);
 //			coupons.update(2, 2, "title2 change", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
 //			coupons.delete(2);
+//			System.out.println(coupons.getOneCoupon(0));
 //			coupons.showAll();
 
 			// CustomersVsCoupons

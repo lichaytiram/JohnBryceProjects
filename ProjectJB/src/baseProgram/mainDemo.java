@@ -1,8 +1,8 @@
-package BaseProgram;
+package baseProgram;
 
 import java.util.Date;
 
-import Exception.ExceptionName;
+import exception.ExceptionName;
 
 public class mainDemo {
 	public static void main(String[] args) {

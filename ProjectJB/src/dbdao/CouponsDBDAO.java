@@ -8,7 +8,8 @@ import java.util.Date;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import BaseProgram.Coupon;
+import baseProgram.Category;
+import baseProgram.Coupon;
 import dao.ICouponsDAO;
 import utils.DateUtils;
 
@@ -25,7 +26,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 							+ " COMPANY_ID int(10) UNSIGNED NOT NULL REFERENCES companies(ID),"
 							+ " CATEGORY_ID int(10) UNSIGNED NOT NULL REFERENCES categories(ID),"
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED,IMAGE VARCHAR(20) ,PRIMARY KEY(ID) )");
+							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) )");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -47,16 +48,16 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-	public void insert(Coupon c, int categoryId) throws Exception {
+	public void insert(Coupon c) throws Exception {
 
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			PreparedStatement p = (PreparedStatement) con.prepareStatement(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? ,?)");
+					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? )");
 			p.setInt(1, c.getCompanyId());
-			p.setInt(2, categoryId);
+			p.setInt(2, c.getCategoryId());
 			p.setString(3, c.getTitle());
 			p.setString(4, c.getDescription());
 			p.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
@@ -86,7 +87,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-	// try fix date
+	// fix soon
 	public void update(Coupon c, int categoryId, int index) throws Exception {
 		Connection con = null;
 		try {
@@ -109,12 +110,14 @@ public class CouponsDBDAO implements ICouponsDAO {
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons");
-			while (re.next())
+			while (re.next()) {
+				System.out.println("check");
 				System.out.println("ID: " + re.getInt("ID") + " ,COMPANY_ID: " + re.getInt("COMPANY_ID")
 						+ " ,CATEGORY_ID: " + re.getInt("CATEGORY_ID") + "TITLE: " + re.getString("TITLE")
 						+ " ,DESCRIPTION: " + re.getString("DESCRIPTION") + " ,START_DATE: " + re.getDate("START_DATE")
 						+ " ,END_DATE: " + re.getDate("END_DATE") + " ,AMOUNT: " + re.getInt("AMOUNT") + " ,PRICE: "
 						+ re.getDouble("PRICE") + " ,IMAGE: " + re.getString("IMAGE"));
+			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -128,10 +131,18 @@ public class CouponsDBDAO implements ICouponsDAO {
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
-			if (re.next())
-				c = new Coupon(re.getInt("ID"), re.getString("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getString("END_DATE"),
-						re.getInt("AMOUNT"), re.getString("PRICE"), re.getString("IMAGE"));
+			Category category = null;
+			if (re.next()) {
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				c = new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE"));
+
+			}
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

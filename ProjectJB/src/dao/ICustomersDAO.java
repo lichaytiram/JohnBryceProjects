@@ -1,7 +1,6 @@
 package dao;
 
-import BaseProgram.Customer;
-import dbdao.IMainDAO;
+import baseProgram.Customer;
 
 public interface ICustomersDAO extends IMainDAO {
 

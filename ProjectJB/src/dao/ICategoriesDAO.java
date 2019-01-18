@@ -1,7 +1,5 @@
 package dao;
 
-import dbdao.IMainDAO;
-
 public interface ICategoriesDAO extends IMainDAO {
 
 	void insert(String Name) throws Exception;

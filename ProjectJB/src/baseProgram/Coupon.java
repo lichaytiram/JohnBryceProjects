@@ -1,8 +1,8 @@
-package BaseProgram;
+package baseProgram;
 
 import java.util.Date;
 
-import Exception.ExceptionName;
+import exception.ExceptionName;
 
 public class Coupon extends BaseAttribute {
 
@@ -63,6 +63,10 @@ public class Coupon extends BaseAttribute {
 
 	public Category getCategory() {
 		return category;
+	}
+
+	public int getCategoryId() {
+		return getCategory().ordinal();
 	}
 
 	public void setCategory(Category category) {
