@@ -19,6 +19,5 @@ public class mainDemo {
 		} catch (ExceptionName e) {
 			System.out.println(e);
 		}
-
 	}
 }
