@@ -15,6 +15,7 @@ class Car {
 
 	/**
 	 * ..
+	 * 
 	 * @param company .. etc
 	 * @param price   .. etc
 	 */
