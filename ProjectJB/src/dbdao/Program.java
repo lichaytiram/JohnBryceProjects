@@ -73,19 +73,20 @@ public class Program {
 //			categories.showAll();
 
 			// Coupons -> need to fix if
-//			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
-//					"ismg.txt");
-//			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
-//					2.3, "ismg.txt");
-//			Coupon coupons3 = new Coupon(1, Category.Weaponsý, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
-//					"ismg.txt");
-//			coupons.insert(coupons1);
-//			coupons.insert(coupons2);
-//			coupons.insert(coupons3);
-//			coupons.update(2, 2, "title2 change", "free text", new Date(), new Date(), 800, 800, "dont have", 1);
+			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+					"ismg.txt");
+			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
+					2.3, "ismg.txt");
+			Coupon coupons3 = new Coupon(1, Category.Weaponsý, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+					"ismg.txt");
+			coupons.insert(coupons1);
+			coupons.insert(coupons2);
+			coupons.insert(coupons3);
+//			coupons.update(coupons2, 1);
 //			coupons.delete(2);
-//			System.out.println(coupons.getOneCoupon(0));
-//			coupons.showAll();
+			System.out.println(coupons.getOneCoupon(0));
+//			coupons.addCouponPurchase(8, 45);
+			coupons.showAll();
 
 			// CustomersVsCoupons
 

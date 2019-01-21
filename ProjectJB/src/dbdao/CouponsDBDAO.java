@@ -88,15 +88,14 @@ public class CouponsDBDAO implements ICouponsDAO {
 	}
 
 	// fix soon
-	public void update(Coupon c, int categoryId, int index) throws Exception {
+	public void update(Coupon c, int index) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement()
-					.executeUpdate("UPDATE coupons SET COMPANY_ID=" + c.getCompanyId() + ", CATEGORY_ID=" + categoryId
-							+ ", TITLE='" + c.getTitle() + "', DESCRIPTION='" + c.getDescription() + "', START_DATE="
-							+ c.getStartDate() + ", END_DATE=" + c.getEndDate() + ", AMOUNT=" + c.getAmount()
-							+ ", PRICE=" + c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + index);
+			con.createStatement().executeUpdate("UPDATE coupons SET COMPANY_ID=" + c.getCompanyId() + ", CATEGORY_ID="
+					+ c.getCategoryId() + ", TITLE='" + c.getTitle() + "', DESCRIPTION='" + c.getDescription()
+					+ "', START_DATE=" + c.getStartDate() + ", END_DATE=" + c.getEndDate() + ", AMOUNT=" + c.getAmount()
+					+ ", PRICE=" + c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + index);
 			System.out.println("update coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -150,5 +149,36 @@ public class CouponsDBDAO implements ICouponsDAO {
 			connection.restoreConnection(con);
 		}
 		return c;
+	}
+
+	@Override
+	public void addCouponPurchase(int customerId, int couponId) throws Exception {
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			con.createStatement().executeUpdate("insert into customersVsCoupons (CUSTOMER_ID,COUPON_ID) values ("
+					+ customerId + "," + couponId + ")");
+			System.out.println("insert customersVsCoupons has succeed");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+	}
+
+	@Override
+	public void deleteCouponPurchase(int customerId, int couponId) throws Exception {
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			con.createStatement().executeUpdate(
+					"DELETE FROM customersVsCoupons WHERE CUSTOMER_ID =" + customerId + " AND COUPON_ID =" + couponId);
+			System.out.println("delete from customersVsCoupons has done");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
 	}
 }
