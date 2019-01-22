@@ -65,7 +65,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 			p.setInt(7, c.getAmount());
 			p.setDouble(8, c.getPrice());
 			p.setString(9, c.getImage());
-
+			p.execute();
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -129,7 +129,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 		Coupon c = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + couponID);
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons where id=" + couponID);
 			Category category = null;
 			if (re.next()) {
 				for (Category ca : Category.values())

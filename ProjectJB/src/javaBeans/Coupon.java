@@ -142,7 +142,7 @@ public class Coupon extends BaseAttribute {
 
 	@Override
 	public String toString() {
-		return "Coupon->[" + super.toString() + "companyId=" + getCompanyId() + ", category=" + getCategory()
+		return "Coupon->[" + super.toString() + ", companyId=" + getCompanyId() + ", category=" + getCategory()
 				+ ", title=" + getTitle() + ", description=" + getDescription() + ", startDate=" + getStartDate()
 				+ ", endDate=" + getEndDate() + ", amount=" + getAmount() + ", price=" + getPrice() + ", image="
 				+ getImage() + "]";

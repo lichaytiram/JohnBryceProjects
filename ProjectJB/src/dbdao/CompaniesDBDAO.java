@@ -116,18 +116,19 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 
 	public Company getOneCompany(int companyID) throws Exception {
 		Connection con = null;
-		Company c = null;
+		Company company = null;
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
 			if (re.next())
-				c = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"), re.getString("NAME"));
+				company = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("NAME"));
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
 			connection.restoreConnection(con);
 		}
-		return c;
+		return company;
 	}
 }

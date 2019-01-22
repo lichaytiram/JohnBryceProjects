@@ -72,7 +72,7 @@ public class Program {
 //			categories.delete(3);
 //			categories.showAll();
 
-			// Coupons -> need to fix if
+			// Coupons 
 			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
 					"ismg.txt");
 			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
@@ -84,9 +84,9 @@ public class Program {
 			coupons.insert(coupons3);
 //			coupons.update(coupons2, 1);
 //			coupons.delete(2);
-			System.out.println(coupons.getOneCoupon(0));
-//			coupons.addCouponPurchase(8, 45);
-			coupons.showAll();
+			System.out.println(coupons.getOneCoupon(1));
+//			coupons.addCouponhase(8, 45);
+//			coupons.showAll();
 
 			// CustomersVsCoupons
 
