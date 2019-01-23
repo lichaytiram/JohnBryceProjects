@@ -72,7 +72,7 @@ public class Program {
 //			categories.delete(3);
 //			categories.showAll();
 
-			// Coupons 
+			// Coupons
 			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
 					"ismg.txt");
 			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
