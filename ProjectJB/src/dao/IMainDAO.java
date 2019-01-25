@@ -6,6 +6,4 @@ public interface IMainDAO {
 
 	void drop() throws Exception;
 
-	void showAll() throws Exception;
-
 }

@@ -3,8 +3,10 @@ package dbdao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.ICompaniesDAO;
+import exception.ExceptionName;
 import javaBeans.Company;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
@@ -43,6 +45,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (re.next())
+				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
+						&& re.getString("NAME").equals(c.getName()))
+					throw new ExceptionName("The companies already exist on data base");
 			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + c.getName()
 					+ "','" + c.getEmail() + "','" + c.getPassword() + "')");
 			System.out.println("insert companies has done");
@@ -70,6 +77,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (re.next())
+				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
+						&& re.getString("NAME").equals(c.getName()))
+					throw new ExceptionName("The company already exist on data base");
 			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + c.getName() + "', EMAIL='"
 					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + index);
 			System.out.println("update companies has done");
@@ -80,19 +92,22 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
-	public void showAll() throws Exception {
+	@Override
+	public ArrayList<Company> getAllCompany() throws Exception {
 		Connection con = null;
+		ArrayList<Company> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
 			while (re.next())
-				System.out.println("ID: " + re.getInt("ID") + " ,NAME: " + re.getString("NAME") + " ,EMAIL: "
-						+ re.getString("EMAIL") + " ,PASSWORD:" + re.getString("PASSWORD"));
+				list.add(new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("NAME")));
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
 			connection.restoreConnection(con);
 		}
+		return list;
 	}
 
 	public boolean isCompanyExists(String email, String password) throws Exception {
@@ -131,4 +146,5 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 		return company;
 	}
+
 }

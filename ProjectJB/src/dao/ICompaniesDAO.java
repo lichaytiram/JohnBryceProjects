@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import javaBeans.Company;
 
 public interface ICompaniesDAO extends IMainDAO {
@@ -11,6 +13,8 @@ public interface ICompaniesDAO extends IMainDAO {
 	void update(Company c, int index) throws Exception;
 
 	boolean isCompanyExists(String email, String password) throws Exception;
+	
+	ArrayList<Company> getAllCompany() throws Exception;
 
 	Company getOneCompany(int companyID) throws Exception;
 }

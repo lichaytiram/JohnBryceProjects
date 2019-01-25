@@ -3,8 +3,10 @@ package dbdao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.ICustomersDAO;
+import exception.ExceptionName;
 import javaBeans.Customer;
 
 public class CustomerDBDAO implements ICustomersDAO {
@@ -42,6 +44,14 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (re.next())
+				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
+						&& re.getString("FIRST_NAME").equals(c.getFirstName())
+						&& re.getString("lAST_NAME").equals(c.getLastName()))
+					throw new ExceptionName("The customer already exist on data base");
+
 			con.createStatement().executeUpdate(
 					"insert into customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) values ('" + c.getFirstName() + "','"
 							+ c.getLastName() + "','" + c.getEmail() + "','" + c.getPassword() + "')");
@@ -70,6 +80,14 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (re.next())
+				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
+						&& re.getString("FIRST_NAME").equals(c.getFirstName())
+						&& re.getString("lAST_NAME").equals(c.getLastName()))
+					throw new ExceptionName("The customer already exist on data base");
+
 			con.createStatement()
 					.executeUpdate("UPDATE customers SET FIRST_NAME='" + c.getFirstName() + "',lAST_NAME='"
 							+ c.getLastName() + "', EMAIL='" + c.getEmail() + "', PASSWORD='" + c.getPassword()
@@ -82,20 +100,23 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
-	public void showAll() throws Exception {
+	@Override
+	public ArrayList<Customer> getAllCustomer() throws Exception {
+		ArrayList<Customer> list = new ArrayList<>();
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (re.next())
-				System.out.println("ID: " + re.getInt("ID") + " ,FIRST_NAME: " + re.getString("FIRST_NAME")
-						+ " ,lAST_NAME: " + re.getString("lAST_NAME") + " ,EMAIL: " + re.getString("EMAIL")
-						+ " ,PASSWORD:" + re.getString("PASSWORD"));
+				list.add(new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("FIRST_NAME"), re.getString("lAST_NAME")));
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
 			connection.restoreConnection(con);
 		}
+
+		return list;
 	}
 
 	public boolean isCustomerExists(String email, String password) throws Exception {
@@ -134,4 +155,5 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 		return c;
 	}
+
 }

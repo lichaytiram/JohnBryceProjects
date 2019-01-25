@@ -1,5 +1,6 @@
 package dbdao;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javaBeans.Category;
@@ -38,17 +39,19 @@ public class Program {
 			customersVsCoupons.create();
 
 			// Companies
-//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer");
-//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf");
-//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt");
+//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer0");
+//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf1");
+//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt2");
 //			companies.insert(company1);
 //			companies.insert(company2);
 //			companies.insert(company3);
-//			companies.delete(2);
+//			companies.insert(company3);
 //			companies.update(company3, 1);
+//			companies.delete(2);
 //			System.out.println(companies.getOneCompany(1));
 //			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
-//			companies.showAll();
+//			ArrayList<Company> companyList = companies.getAllCompany();
+//			System.out.println(companyList);
 
 			// Customers
 //			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
@@ -57,11 +60,13 @@ public class Program {
 //			customers.insert(customer1);
 //			customers.insert(customer2);
 //			customers.insert(customer3);
+//			customers.insert(customer3);
 //			customers.update(customer1, 3);
 //			customers.delete(2);
 //			System.out.println(customers.getOneCustomer(2));
 //			System.out.println(customers.isCustomerExists("dsxd@gmail.com", "sdS23x1"));
-//			customers.showAll();
+//			ArrayList<Customer> customersList = customers.getAllCustomer();
+//			System.out.println(customersList);
 
 			// Categories
 //			categories.insert("od");
@@ -73,20 +78,22 @@ public class Program {
 //			categories.showAll();
 
 			// Coupons
-			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
-					"ismg.txt");
-			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
-					2.3, "ismg.txt");
-			Coupon coupons3 = new Coupon(1, Category.Weaponsý, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
-					"ismg.txt");
-			coupons.insert(coupons1);
-			coupons.insert(coupons2);
-			coupons.insert(coupons3);
-//			coupons.update(coupons2, 1);
+//			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+//					"ismg.txt");
+//			Coupon coupons2 = new Coupon(1, Category.Electricity, "bestCoupon", "for all", new Date(), new Date(), 0,
+//					2.3, "ismg.txt");
+//			Coupon coupons3 = new Coupon(3, Category.Weaponsý, "bestCoupon", "for all", new Date(), new Date(), 0, 2.3,
+//					"ismg.txt");
+//			coupons.insert(coupons1);
+//			coupons.insert(coupons2);
+//			coupons.insert(coupons3);
+//			coupons.insert(coupons3);
+//			coupons.update(coupons3, 1);
 //			coupons.delete(2);
-			System.out.println(coupons.getOneCoupon(1));
-//			coupons.addCouponhase(8, 45);
-//			coupons.showAll();
+//			System.out.println(coupons.getOneCoupon(1));
+//			coupons.addCouponPurchase(8, 45);
+//			ArrayList<Coupon> couponList = coupons.getAllCoupon();
+//			System.out.println(couponList);
 
 			// CustomersVsCoupons
 
