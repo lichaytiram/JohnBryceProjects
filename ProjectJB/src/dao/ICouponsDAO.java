@@ -8,7 +8,7 @@ public interface ICouponsDAO extends IMainDAO {
 
 	void insert(Coupon c) throws Exception;
 
-	void delete(int indexToDelete) throws Exception;
+	void delete(int couponID) throws Exception;
 
 	void update(Coupon c, int index) throws Exception;
 

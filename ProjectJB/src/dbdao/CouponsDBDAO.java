@@ -81,11 +81,11 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-	public void delete(int indexToDelete) throws Exception {
+	public void delete(int couponID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + indexToDelete);
+			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
 			System.out.println("delete from coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

@@ -8,7 +8,7 @@ public interface ICustomersDAO extends IMainDAO {
 
 	void insert(Customer c) throws Exception;
 
-	void delete(int indexToDelete) throws Exception;
+	void delete(int customerID) throws Exception;
 
 	void update(Customer c, int index) throws Exception;
 

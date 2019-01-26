@@ -60,12 +60,12 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
-	public void delete(int indexToDelete) throws Exception {
+	public void delete(int companyID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("DELETE FROM companies WHERE ID=" + indexToDelete);
-			System.out.println("delete from customers has done");
+			con.createStatement().executeUpdate("DELETE FROM companies WHERE ID=" + companyID);
+			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -75,6 +75,7 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 
 	public void update(Company c, int index) throws Exception {
 		Connection con = null;
+
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
