@@ -17,7 +17,6 @@ public class Connection extends HttpServlet {
 
 	public static int number = 0;
 
-	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -37,6 +36,7 @@ public class Connection extends HttpServlet {
 		else
 			response.getWriter().append("<h1 style=color:grey>" + "try again!!: " + number + "</h1>");
 		number++;
+		System.out.println(number);
 
 	}
 
