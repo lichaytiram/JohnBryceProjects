@@ -36,7 +36,7 @@ public class Connection extends HttpServlet {
 		else
 			response.getWriter().append("<h1 style=color:grey>" + "try again!!: " + number + "</h1>");
 		number++;
-		System.out.println(number);
+		System.out.println("The number is: " + number);
 
 	}
 
