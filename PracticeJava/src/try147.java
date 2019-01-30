@@ -8,15 +8,14 @@ public class try147 {
 		String[] array = { "omer", "dor", "shani", "batel", "lichay" };
 		System.out.println(Arrays.toString(array) + " This is a toString");
 		JSONArray jsonArray = new JSONArray();
-		JSONObject jsonObject = new JSONObject();
 		for (int i = 0; i < array.length; i++) {
+			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("name", array[i]);
 			System.out.println("jsonObject:" + jsonObject);
 			jsonArray.add(jsonObject);
 		}
 
-		System.out.println("This^" + jsonObject); // why this print only lichay
-		System.out.println("This^" + jsonArray); // and how lichay print 5 times (only i==length-1 happen only one time)
+		System.out.println("This^" + jsonArray);
 		JSONObject jsonObject2 = new JSONObject();
 		jsonObject2.put("id", "123456");
 		jsonArray.add(jsonObject2);
@@ -44,9 +43,9 @@ public class try147 {
 		System.out.println(jO);
 		System.out.println("------------------------2-----------------------------");
 		for (int i = 0; i < 3; i++) {
-
 			jA.add(i);
 		}
+
 		jO.put("array", jO.toString());
 		System.out.println("JSONArray: " + jA);
 		System.out.println("JSONObject: " + jO);
