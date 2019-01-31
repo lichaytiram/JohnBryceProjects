@@ -3,6 +3,8 @@ package ClassWork1;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +45,90 @@ public class studentServlet extends HttpServlet {
 		double grade = Double.parseDouble(request.getParameter("grade"));
 		String sort = request.getParameter("sortBy");
 		myList.add(new Student(name, age, grade));
+
+		Comparator<Student> ageAcd = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getAge() > s2.getAge())
+					return 1;
+				else if (s1.getAge() < s2.getAge())
+					return -1;
+				return 0;
+			}
+		};
+		Comparator<Student> ageDesc = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getAge() < s2.getAge())
+					return 1;
+				else if (s1.getAge() > s2.getAge())
+					return -1;
+				return 0;
+			}
+		};
+		Comparator<Student> gradeAcd = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getGrade() > s2.getGrade())
+					return 1;
+				else if (s1.getGrade() < s2.getGrade())
+					return -1;
+				return 0;
+			}
+		};
+		Comparator<Student> gradeDesc = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getGrade() < s2.getGrade())
+					return 1;
+				else if (s1.getGrade() > s2.getGrade())
+					return -1;
+				return 0;
+			}
+		};
+
+		Comparator<Student> nameAcd = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getName().charAt(0) > s2.getName().charAt(0))
+					return 1;
+				else if (s1.getName().charAt(0) < s2.getName().charAt(0))
+					return -1;
+				return 0;
+			}
+		};
+		Comparator<Student> nameDesc = new Comparator<Student>() {
+			@Override
+			public int compare(Student s1, Student s2) {
+				if (s1.getName().charAt(0) < s2.getName().charAt(0))
+					return 1;
+				else if (s1.getName().charAt(0) > s2.getName().charAt(0))
+					return -1;
+				return 0;
+			}
+		};
+
+		switch (sort) {
+		case "ageDesc":
+			Collections.sort(myList, ageDesc);
+			break;
+		case "ageAcd":
+			Collections.sort(myList, ageAcd);
+			break;
+		case "gradeDesc":
+			Collections.sort(myList, gradeDesc);
+			break;
+		case "gradeAcd":
+			Collections.sort(myList, gradeAcd);
+			break;
+		case "nameDesc":
+			Collections.sort(myList, nameDesc);
+			break;
+		case "nameAcd":
+			Collections.sort(myList, nameAcd);
+			break;
+		}
+
 		JSONArray jsonArr = new JSONArray();
 		for (Student student : myList) {
 			JSONObject jsonO = new JSONObject();
@@ -51,35 +137,10 @@ public class studentServlet extends HttpServlet {
 			jsonO.put("grade", student.getGrade());
 			jsonArr.add(jsonO);
 		}
-		switch (sort) {
-		case "ageDesc":
-			jsonArr = sortByageDesc(jsonArr);
-			break;
-		case "ageAcd":
-			break;
-		case "gradeDesc":
-			break;
-		case "gradeAcd":
-			break;
-		case "nameDesc":
-			break;
-		case "nameAcd":
-			break;
-		}
 		response.getWriter().append(jsonArr.toString());
 
 	}
 
-	public static JSONArray sortByageDesc(JSONArray json) {
-		JSONArray jsontoreturn = null;
-
-		for (int i = 0; i < json.size(); i++) {
-//			json
-		}
-		return jsontoreturn;
-	}
-
-	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
