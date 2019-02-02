@@ -39,9 +39,9 @@ public class Program {
 			customersVsCoupons.create();
 
 			// Companies
-//			Company company1 = new Company(1, "31Sd", "sd@g.m", "compyomer0");
-//			Company company2 = new Company(2, "31Sd", "s1d@g.m", "ggf1");
-//			Company company3 = new Company(8, "31Sd", "s2d@g.m", "ggt2");
+//			Company company1 = new Company("31Sd", "sd@g.m", "compyomer0");
+//			Company company2 = new Company("31Sd", "s1d@g.m", "ggf1");
+//			Company company3 = new Company("31Sd", "s2d@g.m", "ggt2");
 //			companies.insert(company1);
 //			companies.insert(company2);
 //			companies.insert(company3);

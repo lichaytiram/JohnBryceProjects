@@ -47,8 +47,7 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
 			while (re.next())
-				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
-						&& re.getString("NAME").equals(c.getName()))
+				if (re.getString("EMAIL").equals(c.getEmail()) || re.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The companies already exist on data base");
 			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + c.getName()
 					+ "','" + c.getEmail() + "','" + c.getPassword() + "')");
