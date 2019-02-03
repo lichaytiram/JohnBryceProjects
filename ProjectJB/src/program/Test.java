@@ -5,7 +5,6 @@ import java.util.Date;
 
 import dbdao.CategoriesDBDAO;
 import dbdao.CompaniesDBDAO;
-import dbdao.ConnectionPool;
 import dbdao.CouponsDBDAO;
 import dbdao.CustomerDBDAO;
 import dbdao.CustomersVsCouponsDBDAO;

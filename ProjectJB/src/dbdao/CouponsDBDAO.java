@@ -1,11 +1,10 @@
 package dbdao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import dao.ICouponsDAO;
 import exception.ExceptionName;
@@ -61,8 +60,9 @@ public class CouponsDBDAO implements ICouponsDAO {
 						&& re.getString("IMAGE").equals(c.getImage()))
 					throw new ExceptionName("The coupon already exist on data base");
 
-			PreparedStatement p = (PreparedStatement) con.prepareStatement(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? )");
+			PreparedStatement p = con.prepareStatement(
+					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
+			System.out.println("hi");
 			p.setInt(1, c.getCompanyId());
 			p.setInt(2, c.getCategoryId());
 			p.setString(3, c.getTitle());
