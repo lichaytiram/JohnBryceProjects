@@ -1,24 +1,23 @@
-package dbdao;
+package program;
 
 import java.util.ArrayList;
 import java.util.Date;
 
+import dbdao.CategoriesDBDAO;
+import dbdao.CompaniesDBDAO;
+import dbdao.ConnectionPool;
+import dbdao.CouponsDBDAO;
+import dbdao.CustomerDBDAO;
+import dbdao.CustomersVsCouponsDBDAO;
 import javaBeans.Category;
 import javaBeans.Company;
 import javaBeans.Coupon;
 import javaBeans.Customer;
 
-public class Program {
+public class Test {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 
-	public static void main(String[] args) {
-
-		ConnectionPool.getInstance();
-		checkAllWork();
-
-	}
-
-	private static void checkAllWork() {
+	public static void testAll() {
 		try {
 			Class.forName(Driver);
 
