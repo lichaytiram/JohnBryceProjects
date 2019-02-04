@@ -95,7 +95,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 	}
 
 	// fix soon
-	public void update(Coupon c, int index) throws Exception {
+	public void update(Coupon c) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -112,7 +112,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 							+ c.getCategoryId() + ", TITLE='" + c.getTitle() + "', DESCRIPTION='" + c.getDescription()
 							+ "', START_DATE='" + DateUtils.javaDateToSqlDate(c.getStartDate()) + "', END_DATE='"
 							+ DateUtils.javaDateToSqlDate(c.getEndDate()) + "', AMOUNT=" + c.getAmount() + ", PRICE="
-							+ c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + index);
+							+ c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + c.getId());
 			System.out.println("update coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

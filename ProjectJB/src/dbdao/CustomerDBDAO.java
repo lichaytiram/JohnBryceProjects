@@ -76,7 +76,7 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
-	public void update(Customer c, int index) throws Exception {
+	public void update(Customer c) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -91,7 +91,7 @@ public class CustomerDBDAO implements ICustomersDAO {
 			con.createStatement()
 					.executeUpdate("UPDATE customers SET FIRST_NAME='" + c.getFirstName() + "',lAST_NAME='"
 							+ c.getLastName() + "', EMAIL='" + c.getEmail() + "', PASSWORD='" + c.getPassword()
-							+ "' WHERE ID=" + index);
+							+ "' WHERE ID=" + c.getId());
 			System.out.println("update customers has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

@@ -10,7 +10,7 @@ public interface ICouponsDAO extends IMainDAO {
 
 	void delete(int couponID) throws Exception;
 
-	void update(Coupon c, int index) throws Exception;
+	void update(Coupon c) throws Exception;
 
 	ArrayList<Coupon> getAllCoupon() throws Exception;
 

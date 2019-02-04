@@ -10,7 +10,7 @@ public interface ICustomersDAO extends IMainDAO {
 
 	void delete(int customerID) throws Exception;
 
-	void update(Customer c, int index) throws Exception;
+	void update(Customer c) throws Exception;
 
 	public boolean isCustomerExists(String email, String password) throws Exception;
 

@@ -72,7 +72,7 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
-	public void update(Company c, int index) throws Exception {
+	public void update(Company c) throws Exception {
 		Connection con = null;
 
 		try {
@@ -83,7 +83,7 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 						&& re.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The company already exist on data base");
 			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + c.getName() + "', EMAIL='"
-					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + index);
+					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + c.getId());
 			System.out.println("update companies has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

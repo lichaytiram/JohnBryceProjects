@@ -10,7 +10,7 @@ public interface ICompaniesDAO extends IMainDAO {
 
 	void delete(int companyID) throws Exception;
 
-	void update(Company c, int index) throws Exception;
+	void update(Company c) throws Exception;
 
 	boolean isCompanyExists(String email, String password) throws Exception;
 
