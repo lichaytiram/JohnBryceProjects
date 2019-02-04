@@ -23,10 +23,10 @@ public class LoginManager {
 
 		if (clientType.equals(ClientType.Administrator))
 			return new AdminFacade(email, password);
-//		else if (clientType.equals(ClientType.Company))
-//			return new CompanyFacade(email,password);
-//		else if (clientType.equals(ClientType.Customer))
-//			return new CustomerFacade(email,password);
+		else if (clientType.equals(ClientType.Company))
+			return new CompanyFacade(email, password);
+		else if (clientType.equals(ClientType.Customer))
+			return new CustomerFacade(email, password);
 
 		return null;
 	}

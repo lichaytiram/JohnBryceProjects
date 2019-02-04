@@ -47,10 +47,8 @@ public class CustomerDBDAO implements ICustomersDAO {
 
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (re.next())
-				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
-						&& re.getString("FIRST_NAME").equals(c.getFirstName())
-						&& re.getString("lAST_NAME").equals(c.getLastName()))
-					throw new ExceptionName("The customer already exist on data base");
+				if (re.getString("EMAIL").equals(c.getEmail()))
+					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			con.createStatement().executeUpdate(
 					"insert into customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) values ('" + c.getFirstName() + "','"
@@ -83,10 +81,8 @@ public class CustomerDBDAO implements ICustomersDAO {
 
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (re.next())
-				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
-						&& re.getString("FIRST_NAME").equals(c.getFirstName())
-						&& re.getString("lAST_NAME").equals(c.getLastName()))
-					throw new ExceptionName("The customer already exist on data base");
+				if (re.getString("EMAIL").equals(c.getEmail()))
+					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			con.createStatement()
 					.executeUpdate("UPDATE customers SET FIRST_NAME='" + c.getFirstName() + "',lAST_NAME='"
