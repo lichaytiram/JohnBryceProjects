@@ -44,7 +44,7 @@ public class Test {
 //			companies.insert(company2);
 //			companies.insert(company3);
 //			companies.insert(company3);
-//			companies.update(company3, 1);
+//			companies.update(company3);
 //			companies.delete(2);
 //			System.out.println(companies.getOneCompany(1));
 //			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
@@ -59,7 +59,7 @@ public class Test {
 //			customers.insert(customer2);
 //			customers.insert(customer3);
 //			customers.insert(customer3);
-//			customers.update(customer1, 3);
+//			customers.update(customer1);
 //			customers.delete(2);
 //			System.out.println(customers.getOneCustomer(2));
 //			System.out.println(customers.isCustomerExists("dsxd@gmail.com", "sdS23x1"));
@@ -86,7 +86,7 @@ public class Test {
 //			coupons.insert(coupons2);
 //			coupons.insert(coupons3);
 //			coupons.insert(coupons3);
-//			coupons.update(coupons3, 1);
+//			coupons.update(coupons3);
 //			coupons.delete(2);
 //			System.out.println(coupons.getOneCoupon(1));
 //			coupons.addCouponPurchase(8, 45);

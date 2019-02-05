@@ -27,7 +27,7 @@ public class LoginManager {
 			return new CompanyFacade(email, password);
 		else if (clientType.equals(ClientType.Customer))
 			return new CustomerFacade(email, password);
-
-		return null;
+		else
+			return null;
 	}
 }

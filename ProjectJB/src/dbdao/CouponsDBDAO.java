@@ -62,7 +62,6 @@ public class CouponsDBDAO implements ICouponsDAO {
 
 			PreparedStatement p = con.prepareStatement(
 					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
-			System.out.println("hi");
 			p.setInt(1, c.getCompanyId());
 			p.setInt(2, c.getCategoryId());
 			p.setString(3, c.getTitle());

@@ -1,6 +1,8 @@
 package facade;
 
+import dbdao.CouponsDBDAO;
 import exception.ExceptionName;
+import javaBeans.Coupon;
 
 public class CompanyFacade extends ClientFacade {
 
@@ -16,4 +18,12 @@ public class CompanyFacade extends ClientFacade {
 		return false;
 	}
 
+	public void addCoupon(Coupon c) throws Exception {
+		CouponsDBDAO coupon = new CouponsDBDAO();
+		coupon.insert(c);
+	}
+	
+	
+	
+	
 }
