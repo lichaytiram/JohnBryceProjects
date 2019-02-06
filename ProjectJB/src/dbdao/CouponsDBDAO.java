@@ -93,7 +93,6 @@ public class CouponsDBDAO implements ICouponsDAO {
 		}
 	}
 
-	// fix soon
 	public void update(Coupon c) throws Exception {
 		Connection con = null;
 		try {

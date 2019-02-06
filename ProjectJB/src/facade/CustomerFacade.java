@@ -1,8 +1,11 @@
 package facade;
 
+import dbdao.CustomerDBDAO;
 import exception.ExceptionName;
 
 public class CustomerFacade extends ClientFacade {
+
+	private int customerID;
 
 	public CustomerFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
@@ -11,9 +14,17 @@ public class CustomerFacade extends ClientFacade {
 
 	@Override
 	boolean login(String email, String password) {
-		if (email.equals("admin@admin.com") && password.equals("admin"))
-			return true;
+		CustomerDBDAO customer = new CustomerDBDAO();
+		try {
+			if (customer.isCustomerExists(email, password))
+				return true;
+		} catch (Exception e) {
+		}
 		return false;
+	}
+
+	public void addCouponPurchase(int customerId, int couponId) throws Exception {
+
 	}
 
 }
