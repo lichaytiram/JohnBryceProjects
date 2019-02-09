@@ -2,6 +2,7 @@ package facade;
 
 import dbdao.CustomerDBDAO;
 import exception.ExceptionName;
+import javaBeans.Customer;
 
 public class CustomerFacade extends ClientFacade {
 
@@ -30,6 +31,17 @@ public class CustomerFacade extends ClientFacade {
 	}
 
 	public void addCouponPurchase(int customerId, int couponId) throws Exception {
+
+	}
+
+	public Customer getCustomerDetails() {
+		CustomerDBDAO customer = new CustomerDBDAO();
+		try {
+			return customer.getOneCustomer(customerID);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return null;
 
 	}
 
