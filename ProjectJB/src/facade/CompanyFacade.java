@@ -15,8 +15,8 @@ import javaBeans.Coupon;
 
 public class CompanyFacade extends ClientFacade {
 
-	private ConnectionPool connection = ConnectionPool.getInstance();
 	private int companyID;
+	private ConnectionPool connection = ConnectionPool.getInstance();
 
 	public CompanyFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
@@ -61,7 +61,7 @@ public class CompanyFacade extends ClientFacade {
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE ID=" + companyID);
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
 			while (re.next()) {
 				Category category = null;
 				for (Category ca : Category.values())
@@ -87,7 +87,7 @@ public class CompanyFacade extends ClientFacade {
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE ID=" + companyID);
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
 			while (re.next()) {
 				if (category.ordinal() == re.getInt("CATEGORY_ID"))
 					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
@@ -108,7 +108,7 @@ public class CompanyFacade extends ClientFacade {
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE ID=" + companyID);
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
 
 			while (re.next()) {
 				Category category = null;
