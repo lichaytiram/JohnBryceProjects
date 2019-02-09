@@ -31,8 +31,12 @@ public class CompanyFacade extends ClientFacade {
 
 	@Override
 	boolean login(String email, String password) {
-		if (email.equals("admin@admin.com") && password.equals("admin"))
-			return true;
+		CompaniesDBDAO companies = new CompaniesDBDAO();
+		try {
+			if (companies.isCompanyExists(email, password))
+				return true;
+		} catch (Exception e) {
+		}
 		return false;
 	}
 
