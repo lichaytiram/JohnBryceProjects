@@ -17,4 +17,8 @@ public interface ICustomersDAO extends IMainDAO {
 	ArrayList<Customer> getAllCustomer() throws Exception;
 
 	Customer getOneCustomer(int customerID) throws Exception;
+	
+	Customer getOneCustomerByEmailAndPassword(String email, String password) throws Exception;
+	
+	
 }

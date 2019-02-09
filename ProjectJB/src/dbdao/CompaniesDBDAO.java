@@ -147,4 +147,23 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		return company;
 	}
 
+	public Company getOneCompanyByEmailAndPassword(String email, String password) throws Exception {
+		Connection con = null;
+		Company company = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery(
+					"SELECT * FROM companies where EMAIL='" + email + "' AND PASSWORD='" + password + "'");
+			if (re.next())
+				company = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("NAME"));
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return company;
+	}
+
 }

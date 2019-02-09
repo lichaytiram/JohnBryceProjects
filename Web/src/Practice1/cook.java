@@ -1,29 +1,26 @@
-package ClassWork2;
+package Practice1;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import ClassWork2.StudentList.Student;
+import org.apache.catalina.tribes.util.Arrays;
 
 /**
- * Servlet implementation class StudentServlet
+ * Servlet implementation class cook
  */
-@WebServlet("/StudentServlet")
-public class StudentServlet extends HttpServlet {
+@WebServlet("/cook")
+public class cook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public StudentServlet() {
+	public cook() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,33 +29,26 @@ public class StudentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String chosen = request.getParameter("name");
-		JSONArray jsonArray = new JSONArray();
-
-		for (Student student : StudentList.getInstance().list) {
-			if (chosen == null || student.getName().equals(chosen)) {
-
-				JSONObject object = new JSONObject();
-				object.put("id", student.getId());
-				object.put("name", student.getName());
-				object.put("age", student.getAge());
-				object.put("grade", student.getGrade());
-				jsonArray.add(object);
+		Cookie[] cookieArray = request.getCookies();
+		String nameToAdd = request.getParameter("add");
+		String fullCook = "";
+		if (cookieArray != null)
+			for (Cookie cookie : cookieArray) {
+				if (cookie.getName().equals("key4"))
+					fullCook = cookie.getValue();
 			}
-		}
+		fullCook += nameToAdd;
 
-		String submit = "";
-		if (chosen == null)
-			submit = jsonArray.toString();
-		else
-			submit = jsonArray.get(0).toString();
-
-		response.getWriter().append(submit);
+		if (nameToAdd != null)
+			if (!nameToAdd.equals("")) {
+				Cookie c = new Cookie("key4", fullCook + "&");
+				c.setMaxAge(60 * 60 * 24 * 365);
+				response.addCookie(c);
+			}
+		response.getWriter();
 	}
 
 	/**

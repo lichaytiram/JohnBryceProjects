@@ -17,4 +17,6 @@ public interface ICompaniesDAO extends IMainDAO {
 	ArrayList<Company> getAllCompany() throws Exception;
 
 	Company getOneCompany(int companyID) throws Exception;
+
+	Company getOneCompanyByEmailAndPassword(String email, String password) throws Exception;
 }

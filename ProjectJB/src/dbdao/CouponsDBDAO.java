@@ -54,10 +54,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons");
 			while (re.next())
-				if (re.getInt("COMPANY_ID") == c.getCompanyId() && re.getInt("CATEGORY_ID") == c.getCategoryId()
-						&& re.getString("TITLE").equals(c.getTitle())
-						&& re.getString("DESCRIPTION").equals(c.getDescription())
-						&& re.getString("IMAGE").equals(c.getImage()))
+				if (re.getInt("COMPANY_ID") == c.getCompanyId() && re.getString("TITLE").equals(c.getTitle()))
 					throw new ExceptionName("The coupon already exist on data base");
 
 			PreparedStatement p = con.prepareStatement(
@@ -123,7 +120,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 	@Override
 	public ArrayList<Coupon> getAllCoupon() throws Exception {
 		Connection con = null;
-		ArrayList<Coupon> list = new ArrayList<>(); // try it = null
+		ArrayList<Coupon> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons");

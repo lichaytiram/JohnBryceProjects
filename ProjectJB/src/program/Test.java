@@ -52,19 +52,20 @@ public class Test {
 //			System.out.println(companyList);
 
 			// Customers
-//			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
-//			Customer customer2 = new Customer(2, "sdS23x1", "dsxd@gmail.com", "dod", "p1p");
-//			Customer customer3 = new Customer(4, "sdS23x2", "dsd@gmail.com", "dod", "p2p");
-//			customers.insert(customer1);
-//			customers.insert(customer2);
-//			customers.insert(customer3);
+			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
+			Customer customer2 = new Customer(2, "sdS23x1", "dsxd@gmail.com", "dod", "p1p");
+			Customer customer3 = new Customer(4, "sdS23x2", "dsxcccd@gmail.com", "dod", "p2p");
+			customers.insert(customer1);
+			customers.insert(customer2);
+			customers.insert(customer3);
 //			customers.insert(customer3);
 //			customers.update(customer1);
 //			customers.delete(2);
 //			System.out.println(customers.getOneCustomer(2));
-//			System.out.println(customers.isCustomerExists("dsxd@gmail.com", "sdS23x1"));
-//			ArrayList<Customer> customersList = customers.getAllCustomer();
-//			System.out.println(customersList);
+//			System.out.println(customers.isCustomerExists("dsxcccd@gmail.com", "sdS23x2"));
+			System.out.println(customers.getOneCustomerByEmailAndPassword("dsd@gmail.com", "sdS23x2"));
+			ArrayList<Customer> customersList = customers.getAllCustomer();
+			System.out.println(customersList);
 
 			// Categories
 //			categories.insert("od");

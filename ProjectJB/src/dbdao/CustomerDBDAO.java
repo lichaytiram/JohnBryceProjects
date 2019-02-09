@@ -152,4 +152,23 @@ public class CustomerDBDAO implements ICustomersDAO {
 		return c;
 	}
 
+	public Customer getOneCustomerByEmailAndPassword(String email, String password) throws Exception {
+		Connection con = null;
+		Customer c = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery(
+					"SELECT * FROM customers where email='" + email + "' AND PASSWORD='" + password + "'");
+			if (re.next())
+				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return c;
+	}
+
 }

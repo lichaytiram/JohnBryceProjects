@@ -1,13 +1,8 @@
 package facade;
 
-import dao.ICompaniesDAO;
-import dao.ICustomersDAO;
 import exception.ExceptionName;
 
 public class LoginManager {
-
-	private ICompaniesDAO CompaniesDAO;
-	private ICustomersDAO CustomersDAO;
 
 	private static LoginManager log = new LoginManager();
 
@@ -16,7 +11,6 @@ public class LoginManager {
 	}
 
 	private LoginManager() {
-
 	}
 
 	public ClientFacade login(String email, String password, ClientType clientType) throws ExceptionName {
