@@ -15,6 +15,7 @@ public class mainDemo {
 			System.out.println(cu1);
 			c1.getCouponList().add(cou);
 			c1.getCouponList().add(cou);
+
 			System.out.println(c1);
 		} catch (ExceptionName e) {
 			System.out.println(e);

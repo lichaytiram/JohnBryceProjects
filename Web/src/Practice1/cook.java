@@ -33,18 +33,19 @@ public class cook extends HttpServlet {
 			throws ServletException, IOException {
 
 		Cookie[] cookieArray = request.getCookies();
+
 		String nameToAdd = request.getParameter("add");
 		String fullCook = "";
 		if (cookieArray != null)
 			for (Cookie cookie : cookieArray) {
-				if (cookie.getName().equals("key4"))
+				if (cookie.getName().equals("key"))
 					fullCook = cookie.getValue();
 			}
 		fullCook += nameToAdd;
 
 		if (nameToAdd != null)
 			if (!nameToAdd.equals("")) {
-				Cookie c = new Cookie("key4", fullCook + "&");
+				Cookie c = new Cookie("key", fullCook + "&");
 				c.setMaxAge(60 * 60 * 24 * 365);
 				response.addCookie(c);
 			}

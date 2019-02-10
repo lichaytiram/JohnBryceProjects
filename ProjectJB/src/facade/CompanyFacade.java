@@ -57,6 +57,7 @@ public class CompanyFacade extends ClientFacade {
 
 	public ArrayList<Coupon> getCompanyCoupons() throws Exception {
 
+		
 		Connection con = null;
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
