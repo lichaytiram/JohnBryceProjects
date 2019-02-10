@@ -28,8 +28,8 @@ public class Test {
 			companies.drop();
 			customers.drop();
 			categories.drop();
-			coupons.drop();
 			customersVsCoupons.drop();
+			coupons.drop();
 			companies.create();
 			customers.create();
 			categories.create();

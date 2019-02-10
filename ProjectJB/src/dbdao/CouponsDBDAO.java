@@ -22,10 +22,11 @@ public class CouponsDBDAO implements ICouponsDAO {
 			con = connection.getConnection();
 			con.createStatement()
 					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,"
-							+ " COMPANY_ID int(10) UNSIGNED NOT NULL REFERENCES companies(ID),"
-							+ " CATEGORY_ID int(10) UNSIGNED NOT NULL REFERENCES categories(ID),"
+							+ " COMPANY_ID int(10) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) )");
+							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
+							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) ,"
+							+ " FOREIGN KEY(CATEGORY_ID) REFERENCES categories(ID))");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
