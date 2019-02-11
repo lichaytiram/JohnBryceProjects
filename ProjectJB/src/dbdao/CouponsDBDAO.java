@@ -201,4 +201,79 @@ public class CouponsDBDAO implements ICouponsDAO {
 
 	}
 
+	public ArrayList<Coupon> getCompanyCouponsByID(int companyID) throws Exception {
+
+		Connection con = null;
+		ArrayList<Coupon> list = new ArrayList<>();
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+			while (re.next()) {
+				Category category = null;
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return list;
+	}
+
+	public ArrayList<Coupon> getCompanyCouponsByIdAndMaxPrice(double maxPrice, int companyID) throws Exception {
+		Connection con = null;
+		ArrayList<Coupon> list = new ArrayList<>();
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+
+			while (re.next()) {
+				Category category = null;
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				if (re.getDouble("PRICE") < maxPrice)
+					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return list;
+
+	}
+
+	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception {
+		Connection con = null;
+		ArrayList<Coupon> list = new ArrayList<>();
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+			while (re.next()) {
+				if (category.ordinal() == re.getInt("CATEGORY_ID"))
+					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return list;
+	}
+
 }

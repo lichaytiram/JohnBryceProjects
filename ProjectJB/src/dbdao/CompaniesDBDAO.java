@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 import dao.ICompaniesDAO;
 import exception.ExceptionName;
+import javaBeans.Category;
 import javaBeans.Company;
+import javaBeans.Coupon;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
 
@@ -165,5 +167,7 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 		return company;
 	}
+
+	
 
 }

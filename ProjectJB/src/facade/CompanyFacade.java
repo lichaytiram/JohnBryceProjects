@@ -1,12 +1,7 @@
 package facade;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
 import dbdao.CompaniesDBDAO;
-import dbdao.ConnectionPool;
 import dbdao.CouponsDBDAO;
 import exception.ExceptionName;
 import javaBeans.Category;
@@ -16,7 +11,6 @@ import javaBeans.Coupon;
 public class CompanyFacade extends ClientFacade {
 
 	private int companyID;
-	private ConnectionPool connection = ConnectionPool.getInstance();
 
 	public CompanyFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
@@ -56,81 +50,18 @@ public class CompanyFacade extends ClientFacade {
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons() throws Exception {
-
-		
-		Connection con = null;
-		ArrayList<Coupon> list = new ArrayList<>();
-		try {
-			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
-			while (re.next()) {
-				Category category = null;
-				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
-						category = ca;
-						break;
-					}
-				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-		return list;
+		CouponsDBDAO coupon = new CouponsDBDAO();
+		return coupon.getCompanyCouponsByID(companyID);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons(Category category) throws Exception {
-
-		Connection con = null;
-		ArrayList<Coupon> list = new ArrayList<>();
-		try {
-			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
-			while (re.next()) {
-				if (category.ordinal() == re.getInt("CATEGORY_ID"))
-					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-		return list;
+		CouponsDBDAO coupon = new CouponsDBDAO();
+		return coupon.getCompanyCouponsByCategory(category, companyID);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons(double maxPrice) throws Exception {
-
-		Connection con = null;
-		ArrayList<Coupon> list = new ArrayList<>();
-		try {
-			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
-
-			while (re.next()) {
-				Category category = null;
-				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
-						category = ca;
-						break;
-					}
-				if (re.getDouble("PRICE") < maxPrice)
-					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
-			}
-
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-		return list;
-
+		CouponsDBDAO coupon = new CouponsDBDAO();
+		return coupon.getCompanyCouponsByIdAndMaxPrice(maxPrice, companyID);
 	}
 
 	public Company getCompanyDetails() {

@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import javaBeans.Company;
+import javaBeans.Coupon;
 
 public interface ICompaniesDAO extends IMainDAO {
 
@@ -19,4 +20,7 @@ public interface ICompaniesDAO extends IMainDAO {
 	Company getOneCompany(int companyID) throws Exception;
 
 	Company getOneCompanyByEmailAndPassword(String email, String password) throws Exception;
+
+
+
 }

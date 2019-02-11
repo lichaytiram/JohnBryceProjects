@@ -25,11 +25,11 @@ public class Test {
 			CategoriesDBDAO categories = new CategoriesDBDAO();
 			CouponsDBDAO coupons = new CouponsDBDAO();
 			CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+			customersVsCoupons.drop();
+			coupons.drop();
 			companies.drop();
 			customers.drop();
 			categories.drop();
-			customersVsCoupons.drop();
-			coupons.drop();
 			companies.create();
 			customers.create();
 			categories.create();

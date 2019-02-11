@@ -2,6 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
+import javaBeans.Category;
 import javaBeans.Coupon;
 
 public interface ICouponsDAO extends IMainDAO {
@@ -20,4 +21,9 @@ public interface ICouponsDAO extends IMainDAO {
 
 	void deleteCouponPurchase(int customerId, int couponId) throws Exception;
 
+	public ArrayList<Coupon> getCompanyCouponsByID(int companyID) throws Exception;
+
+	public ArrayList<Coupon> getCompanyCouponsByIdAndMaxPrice(double maxPrice, int companyID) throws Exception;
+
+	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception;
 }

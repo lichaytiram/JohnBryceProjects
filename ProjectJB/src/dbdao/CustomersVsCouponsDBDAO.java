@@ -15,9 +15,10 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		try {
 			con = connection.getConnection();
 			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID INT(200) UNSIGNED NOT NULL REFERENCES customers(ID),"
-							+ "COUPON_ID INT(200) UNSIGNED NOT NULL REFERENCES coupons(ID),"
-							+ "PRIMARY KEY(CUSTOMER_ID,COUPON_ID))");
+					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID INT(200) UNSIGNED NOT NULL ,"
+							+ "COUPON_ID INT(200) UNSIGNED NOT NULL ," + "PRIMARY KEY(CUSTOMER_ID,COUPON_ID),"
+							+ "FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID),"
+							+ "FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
 			System.out.println("The table customersVsCoupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
