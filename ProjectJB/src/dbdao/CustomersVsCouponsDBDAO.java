@@ -3,8 +3,12 @@ package dbdao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import dao.ICustomersVsCouponsDAO;
+import exception.ExceptionName;
+import javaBeans.Category;
+import javaBeans.Coupon;
 
 public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 
@@ -89,13 +93,59 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
 			while (re.next())
-				System.out.println(
-						"CUSTOMER_ID: " + re.getInt("CUSTOMER_ID") + " ,COUPON_ID: " + re.getString("COUPON_ID"));
+				System.out
+						.println("CUSTOMER_ID: " + re.getInt("CUSTOMER_ID") + " ,COUPON_ID: " + re.getInt("COUPON_ID"));
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
 			connection.restoreConnection(con);
 		}
+	}
+
+	public void checkIfCustomerBought(int customerId, int couponId) throws Exception {
+
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
+			while (re.next())
+				if (customerId == re.getInt("CUSTOMER_ID") && couponId == re.getInt("COUPON_ID"))
+					throw new ExceptionName("The customer already bought this coupon");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+	}
+
+	public ArrayList<Coupon> getCustomerCouponByCustomerID(int customerID) throws Exception {
+		ArrayList<Coupon> list = new ArrayList<Coupon>();
+
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery(
+					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="+customerID);
+			Category category = null;
+			while (re.next()) {
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+
+				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
+		return list;
 	}
 
 }

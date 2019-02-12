@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import dbdao.ConnectionPool;
+import dbdao.CouponsDBDAO;
 import dbdao.CustomerDBDAO;
+import dbdao.CustomersVsCouponsDBDAO;
 import exception.ExceptionName;
 import javaBeans.Category;
 import javaBeans.Coupon;
@@ -41,33 +43,16 @@ public class CustomerFacade extends ClientFacade {
 
 	public void purchaseCoupon(Coupon coupon) throws Exception {
 
+		int couponID = coupon.getId();
+		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
+		CouponsDBDAO newcoupon = new CouponsDBDAO();
+		newcoupon.addCouponPurchase(customerID, couponID);
 	}
 
-	
 	public ArrayList<Coupon> getCustomerCoupons() throws Exception {
-
-		Connection con = null;
-		ArrayList<Coupon> list = new ArrayList<>();
-		try {
-			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + customerID);
-			while (re.next()) {
-				Category category = null;
-				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
-						category = ca;
-						break;
-					}
-				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
-			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-		return list;
+		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		return customersVsCoupons.getCustomerCouponByCustomerID(customerID);
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons(Category category) throws Exception {
@@ -75,7 +60,7 @@ public class CustomerFacade extends ClientFacade {
 		return null;
 	}
 
-	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception{
+	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception {
 
 		return null;
 	}

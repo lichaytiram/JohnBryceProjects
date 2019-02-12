@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.ICouponsDAO;
 import exception.ExceptionName;
@@ -25,8 +26,8 @@ public class CouponsDBDAO implements ICouponsDAO {
 							+ " COMPANY_ID int(10) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
 							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
-							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) ,"
-							+ " FOREIGN KEY(CATEGORY_ID) REFERENCES categories(ID))");
+							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
+//							+ " FOREIGN KEY(CATEGORY_ID) REFERENCES categories(ID))");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -50,6 +51,8 @@ public class CouponsDBDAO implements ICouponsDAO {
 
 	public void insert(Coupon c) throws Exception {
 
+		if (!(c.getStartDate().before(c.getEndDate())))
+			throw new ExceptionName("This date isn't well! (must be start date before end date)");
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -92,6 +95,10 @@ public class CouponsDBDAO implements ICouponsDAO {
 	}
 
 	public void update(Coupon c) throws Exception {
+
+		if (!(c.getStartDate().before(c.getEndDate())))
+			throw new ExceptionName("This date isn't well! (must be start date before end date)");
+
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -175,6 +182,15 @@ public class CouponsDBDAO implements ICouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			Coupon newCoupon = getOneCoupon(couponId);
+			if (newCoupon.getAmount() < 1)
+				throw new ExceptionName("Don't have anymore from this coupon!");
+			if (!(newCoupon.getStartDate().before(new Date()) && newCoupon.getEndDate().after(new Date())))
+				throw new ExceptionName(
+						"The date can be only in (" + newCoupon.getStartDate() + " - " + newCoupon.getEndDate() + ")");
+			newCoupon.setAmount(newCoupon.getAmount() - 1);
+			update(newCoupon);
+
 			con.createStatement().executeUpdate("insert into customersVsCoupons (CUSTOMER_ID,COUPON_ID) values ("
 					+ customerId + "," + couponId + ")");
 			System.out.println("insert customersVsCoupons has succeed");

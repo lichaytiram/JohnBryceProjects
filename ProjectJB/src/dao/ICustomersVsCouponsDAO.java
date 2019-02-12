@@ -1,5 +1,9 @@
 package dao;
 
+import java.util.ArrayList;
+
+import javaBeans.Coupon;
+
 public interface ICustomersVsCouponsDAO extends IMainDAO {
 
 	void insert(int customerId, int couponId) throws Exception;
@@ -7,4 +11,8 @@ public interface ICustomersVsCouponsDAO extends IMainDAO {
 	void delete(int customerId, int couponId) throws Exception;
 
 	void update(int oldCustomerId, int newCustomerId, int oldCouponId, int newCouponId) throws Exception;
+
+	public void checkIfCustomerBought(int customerId, int couponId) throws Exception;
+	
+	public ArrayList<Coupon> getCustomerCouponByCustomerID(int customerID) throws Exception;
 }
