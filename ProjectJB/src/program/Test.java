@@ -78,7 +78,6 @@ public class Test {
 
 			// Coupons
 			Date date = new Date();
-			System.out.println("after date");
 			Coupon coupons2 = new Coupon(1, Category.Paintballý, "bestCouponx", "for all", date, new Date(), 0, 2.3,
 					"ismg.txt");
 			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", date, new Date(), 0, 2.3,
@@ -101,6 +100,7 @@ public class Test {
 			customersVsCoupons.insert(1, 1);
 			customersVsCoupons.insert(2, 2);
 			customersVsCoupons.insert(2, 3);
+//			customersVsCoupons.checkIfCustomerBought(2, 2);
 //			System.out.println(customersVsCoupons.getCustomerCouponByCustomerID(2));
 //			customersVsCoupons.insert(1, 5);
 //			customersVsCoupons.update(9, 10, 1, 3);

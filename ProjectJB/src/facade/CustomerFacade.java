@@ -1,11 +1,6 @@
 package facade;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import dbdao.ConnectionPool;
 import dbdao.CouponsDBDAO;
 import dbdao.CustomerDBDAO;
 import dbdao.CustomersVsCouponsDBDAO;
@@ -17,7 +12,6 @@ import javaBeans.Customer;
 public class CustomerFacade extends ClientFacade {
 
 	private int customerID;
-	private ConnectionPool connection = ConnectionPool.getInstance();
 
 	public CustomerFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
@@ -56,13 +50,13 @@ public class CustomerFacade extends ClientFacade {
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons(Category category) throws Exception {
-
-		return null;
+		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		return customersVsCoupons.getCustomerCouponByCategory(customerID, category);
 	}
 
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception {
-
-		return null;
+		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		return customersVsCoupons.getCustomerCouponByMaxPrice(customerID, maxPrice);
 	}
 
 	public Customer getCustomerDetails() {

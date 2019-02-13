@@ -61,7 +61,7 @@ public class CompanyFacade extends ClientFacade {
 
 	public ArrayList<Coupon> getCompanyCoupons(double maxPrice) throws Exception {
 		CouponsDBDAO coupon = new CouponsDBDAO();
-		return coupon.getCompanyCouponsByIdAndMaxPrice(maxPrice, companyID);
+		return coupon.getCompanyCouponsByMaxPrice(maxPrice, companyID);
 	}
 
 	public Company getCompanyDetails() {

@@ -243,26 +243,26 @@ public class CouponsDBDAO implements ICouponsDAO {
 		return list;
 	}
 
-	public ArrayList<Coupon> getCompanyCouponsByIdAndMaxPrice(double maxPrice, int companyID) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, int companyID) throws Exception {
 		Connection con = null;
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+			Category category = null;
 
 			while (re.next()) {
-				Category category = null;
-				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
-						category = ca;
-						break;
-					}
-				if (re.getDouble("PRICE") < maxPrice)
+				if (re.getDouble("PRICE") < maxPrice) {
+					for (Category ca : Category.values())
+						if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+							category = ca;
+							break;
+						}
 					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
 							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
 							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				}
 			}
-
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {

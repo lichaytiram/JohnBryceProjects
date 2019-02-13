@@ -125,7 +125,8 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery(
-					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="+customerID);
+					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
+							+ customerID);
 			Category category = null;
 			while (re.next()) {
 				for (Category ca : Category.values())
@@ -137,6 +138,65 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
 						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
 						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
+		return list;
+	}
+
+	public ArrayList<Coupon> getCustomerCouponByCategory(int customerID, Category category) throws Exception {
+		ArrayList<Coupon> list = new ArrayList<Coupon>();
+
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery(
+					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
+							+ customerID);
+			while (re.next()) {
+				if (category.ordinal() == re.getInt("CATEGORY_ID"))
+					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+
+		return list;
+	}
+
+	public ArrayList<Coupon> getCustomerCouponByMaxPrice(int customerID, double maxPrice) throws Exception {
+		ArrayList<Coupon> list = new ArrayList<Coupon>();
+
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery(
+					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
+							+ customerID);
+			Category category = null;
+			while (re.next()) {
+
+				if (re.getDouble("PRICE") < maxPrice) {
+					for (Category ca : Category.values())
+						if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+							category = ca;
+							break;
+						}
+
+					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
+							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				}
 			}
 
 		} catch (SQLException ex) {

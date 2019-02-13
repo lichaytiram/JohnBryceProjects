@@ -23,7 +23,7 @@ public interface ICouponsDAO extends IMainDAO {
 
 	public ArrayList<Coupon> getCompanyCouponsByID(int companyID) throws Exception;
 
-	public ArrayList<Coupon> getCompanyCouponsByIdAndMaxPrice(double maxPrice, int companyID) throws Exception;
+	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, int companyID) throws Exception;
 
 	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception;
 }
