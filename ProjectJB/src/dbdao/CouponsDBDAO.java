@@ -85,6 +85,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponID);
 			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
 			System.out.println("delete from coupons has done");
 		} catch (SQLException ex) {

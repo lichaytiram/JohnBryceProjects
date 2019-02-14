@@ -65,6 +65,7 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID=" + customerID);
 			con.createStatement().executeUpdate("DELETE FROM customers WHERE ID=" + customerID);
 			System.out.println("delete from customers has done");
 		} catch (SQLException ex) {

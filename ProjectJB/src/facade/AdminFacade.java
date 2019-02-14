@@ -24,7 +24,6 @@ public class AdminFacade extends ClientFacade {
 
 	public void addCompany(Company c) throws Exception {
 		CompaniesDBDAO companies = new CompaniesDBDAO();
-		companies.create();
 		companies.insert(c);
 	}
 

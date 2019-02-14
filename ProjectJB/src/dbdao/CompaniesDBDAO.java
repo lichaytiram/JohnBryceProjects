@@ -5,11 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import dao.ICompaniesDAO;
 import exception.ExceptionName;
-import javaBeans.Category;
 import javaBeans.Company;
-import javaBeans.Coupon;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
 
@@ -65,6 +64,15 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			ArrayList<Integer> couponsID = new ArrayList<Integer>();
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+			while (re.next())
+				couponsID.add(re.getInt("ID"));
+			while (!couponsID.isEmpty()) {
+				con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE ID=" + couponsID.get(0));
+				couponsID.remove(0);
+			}
+			con.createStatement().executeUpdate("DELETE FROM coupons WHERE COMPANY_ID=" + companyID);
 			con.createStatement().executeUpdate("DELETE FROM companies WHERE ID=" + companyID);
 			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
@@ -167,7 +175,5 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 		return company;
 	}
-
-	
 
 }
