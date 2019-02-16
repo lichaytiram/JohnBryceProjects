@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.stream.Collectors;
+
 @WebServlet("/basket")
 public class basket extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,11 +41,8 @@ public class basket extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("in post!");
-		System.out.println(request.getParameter("SOUP"));
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("key"));
-		System.out.println(request.getAttribute("name"));
-		System.out.println(request.getQueryString());
-	}
 
+		System.out.println(request.getReader().lines().collect(Collectors.joining()));
+
+	}
 }
