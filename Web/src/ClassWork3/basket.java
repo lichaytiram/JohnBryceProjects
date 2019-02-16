@@ -12,12 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.stream.Collectors;
-
 @WebServlet("/basket")
 public class basket extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static ArrayList<String> myBasket = null;
+	public static ArrayList<String> myBasket = new ArrayList<String>();
 
 	public basket() {
 		super();
@@ -40,9 +38,12 @@ public class basket extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("in post!");
+		String name = request.getParameter("name");
+		myBasket.add(name);
+		System.out.println(myBasket);
+//		System.out.println(request.getParameter("name"));
 
-		System.out.println(request.getReader().lines().collect(Collectors.joining()));
+//		System.out.println(request.getReader().lines().collect(Collectors.joining())); another way with JSON
 
 	}
 }
