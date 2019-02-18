@@ -13,6 +13,11 @@ public class AdminFacade extends ClientFacade {
 	public AdminFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
 			throw new ExceptionName("Don't have a match with your current email and password!");
+//		new AdminFacade();
+	}
+
+	public AdminFacade() {
+
 	}
 
 	@Override
