@@ -19,7 +19,14 @@ public class Test {
 	public static void testAll() {
 		try {
 			Class.forName(Driver);
-
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		
+		
+		
+		try {
 			CompaniesDBDAO companies = new CompaniesDBDAO();
 			CustomerDBDAO customers = new CustomerDBDAO();
 			CategoriesDBDAO categories = new CategoriesDBDAO();

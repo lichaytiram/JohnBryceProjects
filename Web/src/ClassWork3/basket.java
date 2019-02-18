@@ -25,14 +25,25 @@ public class basket extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		JSONArray array = new JSONArray();
+		String basket = request.getParameter("get_basket");
+		if (basket == null) {
+			JSONArray array = new JSONArray();
 
-		for (list object : list.values()) {
-			JSONObject o = new JSONObject();
-			o.put("key", object.toString());
-			array.add(o);
+			for (list object : list.values()) {
+				JSONObject o = new JSONObject();
+				o.put("key", object.toString());
+				array.add(o);
+			}
+			response.getWriter().append(array.toString());
+		} else {
+			JSONArray array = new JSONArray();
+			for (String basketList : myBasket) {
+				JSONObject o = new JSONObject();
+				o.put("key", basketList.toString());
+				array.add(o);
+			}
+			response.getWriter().append(array.toString());
 		}
-		response.getWriter().append(array.toString());
 
 	}
 
@@ -40,10 +51,22 @@ public class basket extends HttpServlet {
 			throws ServletException, IOException {
 		String name = request.getParameter("name");
 		myBasket.add(name);
-		System.out.println(myBasket);
 //		System.out.println(request.getParameter("name"));
 
 //		System.out.println(request.getReader().lines().collect(Collectors.joining())); another way with JSON
 
 	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String nameToDelete = request.getParameter("delete");
+		for (int i = 0; i < myBasket.size(); i++) {
+			if (myBasket.get(i).equals(nameToDelete)) {
+				myBasket.remove(i);
+				break;
+			}
+			response.getWriter().append("work");
+		}
+	}
+
 }
