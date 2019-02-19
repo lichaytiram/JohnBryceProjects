@@ -21,6 +21,7 @@ public class Company extends SecondBaseAttribute {
 		setName(name);
 
 	}
+	
 
 	// getter & setter
 

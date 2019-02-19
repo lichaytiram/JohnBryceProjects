@@ -36,7 +36,6 @@ public class CustomerFacade extends ClientFacade {
 	}
 
 	public void purchaseCoupon(Coupon coupon) throws Exception {
-
 		int couponID = coupon.getId();
 		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
 		customersVsCoupons.checkIfCustomerBought(customerID, couponID);

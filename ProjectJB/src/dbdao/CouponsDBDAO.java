@@ -158,7 +158,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons where id=" + couponID);
 			Category category = null;
-			if (re.next()) {
+			while (re.next()) {
 				for (Category ca : Category.values())
 					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
 						category = ca;
@@ -184,6 +184,7 @@ public class CouponsDBDAO implements ICouponsDAO {
 		try {
 			con = connection.getConnection();
 			Coupon newCoupon = getOneCoupon(couponId);
+			System.out.println(newCoupon);
 			if (newCoupon.getAmount() < 1)
 				throw new ExceptionName("Don't have anymore from this coupon!");
 			if (!(newCoupon.getStartDate().before(new Date()) && newCoupon.getEndDate().after(new Date())))

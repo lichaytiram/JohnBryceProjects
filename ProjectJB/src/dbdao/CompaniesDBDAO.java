@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 import dao.ICompaniesDAO;
 import exception.ExceptionName;
 import javaBeans.Company;
@@ -109,9 +108,13 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
-			while (re.next())
-				list.add(new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("NAME")));
+			while (re.next()) {
+				Company c = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("NAME"));
+				list.add(c);
+//				c.setCouponList(coupon);
+			}
+
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
