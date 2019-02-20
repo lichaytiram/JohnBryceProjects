@@ -21,7 +21,13 @@ import javaBeans.Customer;
 
 public class Test {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
+	public static CompaniesDBDAO companies = new CompaniesDBDAO();
+	public static CustomerDBDAO customers = new CustomerDBDAO();
+	public static CategoriesDBDAO categories = new CategoriesDBDAO();
+	public static CouponsDBDAO coupons = new CouponsDBDAO();
+	public static CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
 
+	@SuppressWarnings("deprecation")
 	public static void testAll() {
 		try {
 			Class.forName(Driver);
@@ -30,6 +36,8 @@ public class Test {
 		}
 		refreshDB();
 		Date startDate = new Date();
+		Date endDate = new Date();
+		endDate.setYear(startDate.getYear() + 1);
 
 		LoginManager manager = LoginManager.getInstance();
 		Company company1 = null;
@@ -43,6 +51,7 @@ public class Test {
 		Coupon coupons2 = null;
 		Coupon coupons3 = null;
 		Coupon coupons4 = null;
+		Coupon coupons5 = null;
 		try {
 //			new Company(password, email, name);
 			company1 = new Company("12aA34", "ss@gmail.com", "USAcom");
@@ -56,13 +65,16 @@ public class Test {
 			customer4 = new Customer("FH44d", "shira@walla.com", "shira", "azur");
 
 //			new Coupon(companyId, category, title, description, startDate, endDate, amount, price, image);
-			coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", startDate, new Date(), 0, 50, "ismg.txt");
-			coupons2 = new Coupon(1, Category.Paintballý, "PB", "anyone can buy this", startDate, new Date(), 0, 30.5,
+			coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", startDate, endDate, 0, 50, "ismg.txt");
+			coupons2 = new Coupon(1, Category.Paintballý, "PB", "anyone can buy this", startDate, endDate, 0, 30.5,
 					"http.txt");
-			coupons3 = new Coupon(3, Category.Weaponsý, "kids", "weapon kids!", startDate, new Date(), 0, 100.35,
+			coupons3 = new Coupon(3, Category.Weaponsý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
 					"ismg.txt");
-			coupons4 = new Coupon(2, 3, Category.Paintballý, "PB", "anyone can buy this", startDate, new Date(), 0,
-					20.5, "http.txt"); // with id
+			coupons4 = new Coupon(2, 3, Category.Paintballý, "PB", "anyone can buy this", startDate, endDate, 8, 20.5,
+					"http.txt"); // with id
+
+			coupons5 = new Coupon(2, 3, Category.Electricity, "ee", "close to free", startDate, endDate, 12, 60,
+					"http.txt"); // with id
 
 		} catch (ExceptionName e) {
 			System.out.println(e);
@@ -153,7 +165,12 @@ public class Test {
 		try {
 			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
 			System.out.println(customer.getCustomerCoupons());
-			customer.purchaseCoupon(coupons1);
+			customer.purchaseCoupon(coupons.getOneCoupon(3)); // how to get one coupon , i need (id) - for it
+			System.out.println("|----------------|");
+			System.out.println(customer.getCustomerCoupons());
+			System.out.println(customer.getCustomerDetails());
+//			customer.purchaseCoupon(coupons.getOneCoupon(4)); // open it and check coupon 5 
+//			customer.purchaseCoupon(coupons.getOneCoupon(1)); // check add one more coupon
 
 		} catch (ExceptionName e) {
 			System.out.println(e);
@@ -242,11 +259,7 @@ public class Test {
 	public static void refreshDB() {
 
 		try {
-			CompaniesDBDAO companies = new CompaniesDBDAO();
-			CustomerDBDAO customers = new CustomerDBDAO();
-			CategoriesDBDAO categories = new CategoriesDBDAO();
-			CouponsDBDAO coupons = new CouponsDBDAO();
-			CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+
 			customersVsCoupons.drop();
 			coupons.drop();
 			companies.drop();
