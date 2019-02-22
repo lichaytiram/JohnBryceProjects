@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import dao.ICustomersDAO;
 import exception.ExceptionName;
+import javaBeans.Category;
+import javaBeans.Coupon;
 import javaBeans.Customer;
 
 public class CustomerDBDAO implements ICustomersDAO {
@@ -104,9 +106,27 @@ public class CustomerDBDAO implements ICustomersDAO {
 		try {
 			con = connection.getConnection();
 			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
-			while (re.next())
-				list.add(new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("FIRST_NAME"), re.getString("lAST_NAME")));
+			while (re.next()) {
+				Customer c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
+						re.getString("FIRST_NAME"), re.getString("lAST_NAME"));
+
+				ResultSet addCoupons = con.createStatement().executeQuery(
+						"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
+								+ c.getId());
+				while (addCoupons.next()) {
+					Category category = null;
+					for (Category ca : Category.values())
+						if (ca.ordinal() == addCoupons.getInt("CATEGORY_ID")) {
+							category = ca;
+							break;
+						}
+					c.setCouponList(new Coupon(addCoupons.getInt("ID"), addCoupons.getInt("COMPANY_ID"), category,
+							addCoupons.getString("TITLE"), addCoupons.getString("DESCRIPTION"),
+							addCoupons.getDouble("PRICE"), addCoupons.getString("IMAGE")));
+				}
+
+				list.add(c);
+			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -140,11 +160,23 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Customer c = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers where id=" + customerID);
+			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers WHERE ID=" + customerID);
 			if (re.next())
 				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
 						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
-
+			re = con.createStatement().executeQuery(
+					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
+							+ customerID);
+			while (re.next()) {
+				Category category = null;
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				c.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -163,6 +195,21 @@ public class CustomerDBDAO implements ICustomersDAO {
 			if (re.next())
 				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
 						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
+
+			re = con.createStatement().executeQuery(
+					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
+							+ c.getId());
+
+			while (re.next()) {
+				Category category = null;
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				c.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
+						re.getString("DESCRIPTION"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

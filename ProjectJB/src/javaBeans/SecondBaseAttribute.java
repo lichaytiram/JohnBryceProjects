@@ -32,7 +32,6 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// getter & setter
 
-	// fix show list
 	public ArrayList<Coupon> getCouponList() {
 		return couponList;
 	}

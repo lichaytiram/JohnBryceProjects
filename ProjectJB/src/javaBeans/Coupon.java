@@ -48,6 +48,17 @@ public class Coupon extends BaseAttribute {
 		setImage(image);
 	}
 
+	public Coupon(int id, int companyId, Category category, String title, String description, double price,
+			String image) throws ExceptionName {
+		super(id);
+		setCompanyId(companyId);
+		setCategory(category);
+		setTitle(title);
+		setDescription(description);
+		setPrice(price);
+		setImage(image);
+	}
+
 	// getter & setter
 
 	public int getCompanyId() {

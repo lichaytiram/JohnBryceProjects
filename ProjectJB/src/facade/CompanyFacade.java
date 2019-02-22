@@ -18,6 +18,7 @@ public class CompanyFacade extends ClientFacade {
 		CompaniesDBDAO customer = new CompaniesDBDAO();
 		try {
 			this.companyID = customer.getOneCompanyByEmailAndPassword(email, password).getId();
+			System.out.println("you are login: " + companyID);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -46,7 +47,7 @@ public class CompanyFacade extends ClientFacade {
 
 	public void deleteCoupon(int couponid) throws Exception {
 		CouponsDBDAO coupon = new CouponsDBDAO();
-		coupon.delete(couponid);
+		coupon.delete(couponid,companyID);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupons() throws Exception {

@@ -13,6 +13,8 @@ public interface ICouponsDAO extends IMainDAO {
 
 	void update(Coupon c) throws Exception;
 
+	public void delete(int couponID, int companyID) throws Exception;
+
 	ArrayList<Coupon> getAllCoupon() throws Exception;
 
 	Coupon getOneCoupon(int couponID) throws Exception;
@@ -26,4 +28,5 @@ public interface ICouponsDAO extends IMainDAO {
 	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, int companyID) throws Exception;
 
 	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception;
+
 }

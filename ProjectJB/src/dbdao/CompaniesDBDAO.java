@@ -7,7 +7,9 @@ import java.util.ArrayList;
 
 import dao.ICompaniesDAO;
 import exception.ExceptionName;
+import javaBeans.Category;
 import javaBeans.Company;
+import javaBeans.Coupon;
 
 public class CompaniesDBDAO implements ICompaniesDAO {
 
@@ -68,7 +70,8 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 			while (re.next())
 				couponsID.add(re.getInt("ID"));
 			while (!couponsID.isEmpty()) {
-				con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE ID=" + couponsID.get(0));
+				con.createStatement()
+						.executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponsID.get(0));
 				couponsID.remove(0);
 			}
 			con.createStatement().executeUpdate("DELETE FROM coupons WHERE COMPANY_ID=" + companyID);
@@ -111,8 +114,23 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 			while (re.next()) {
 				Company c = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
 						re.getString("NAME"));
+				ResultSet reCouponList = con.createStatement()
+						.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + c.getId());
+				while (reCouponList.next()) {
+					Category category = null;
+					for (Category ca : Category.values())
+						if (ca.ordinal() == reCouponList.getInt("CATEGORY_ID")) {
+							category = ca;
+							break;
+						}
+					Coupon coupon = new Coupon(reCouponList.getInt("ID"), reCouponList.getInt("COMPANY_ID"), category,
+							reCouponList.getString("TITLE"), reCouponList.getString("DESCRIPTION"),
+							reCouponList.getDate("START_DATE"), reCouponList.getDate("END_DATE"),
+							reCouponList.getInt("AMOUNT"), reCouponList.getDouble("PRICE"),
+							reCouponList.getString("IMAGE"));
+					c.setCouponList(coupon);
+				}
 				list.add(c);
-//				c.setCouponList(coupon);
 			}
 
 		} catch (SQLException ex) {
@@ -152,6 +170,18 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 				company = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
 						re.getString("NAME"));
 
+			re = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
+			while (re.next()) {
+				Category category = null;
+				for (Category ca : Category.values())
+					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						category = ca;
+						break;
+					}
+				company.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category,
+						re.getString("TITLE"), re.getString("DESCRIPTION"), re.getDate("START_DATE"),
+						re.getDate("END_DATE"), re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {

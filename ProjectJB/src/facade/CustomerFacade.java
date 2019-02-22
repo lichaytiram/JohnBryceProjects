@@ -19,6 +19,7 @@ public class CustomerFacade extends ClientFacade {
 		CustomerDBDAO customer = new CustomerDBDAO();
 		try {
 			this.customerID = customer.getOneCustomerByEmailAndPassword(email, password).getId();
+			System.out.println("you are login: " + customerID);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

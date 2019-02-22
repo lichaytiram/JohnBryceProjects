@@ -27,7 +27,6 @@ public class CouponsDBDAO implements ICouponsDAO {
 							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
 							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
 							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
-//							+ " FOREIGN KEY(CATEGORY_ID) REFERENCES categories(ID))");
 			System.out.println("The table coupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -85,6 +84,24 @@ public class CouponsDBDAO implements ICouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
+			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponID);
+			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
+			System.out.println("delete from coupons has done");
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+	}
+
+	public void delete(int couponID, int companyID) throws Exception {
+		Connection con = null;
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement()
+					.executeQuery("SELECT * FROM coupons WHERE ID=" + couponID + " AND COMPANY_ID=" + companyID);
+			while (!re.next())
+				throw new ExceptionName("Don't have this coupon for this company");
 			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponID);
 			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
 			System.out.println("delete from coupons has done");

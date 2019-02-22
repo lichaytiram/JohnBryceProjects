@@ -1,6 +1,5 @@
 package program;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import dbdao.CategoriesDBDAO;
@@ -52,6 +51,7 @@ public class Test {
 		Coupon coupons3 = null;
 		Coupon coupons4 = null;
 		Coupon coupons5 = null;
+		Coupon coupons6 = null;
 		try {
 //			new Company(password, email, name);
 			company1 = new Company("12aA34", "ss@gmail.com", "USAcom");
@@ -73,8 +73,10 @@ public class Test {
 			coupons4 = new Coupon(2, 3, Category.Paintballý, "PB", "anyone can buy this", startDate, endDate, 8, 20.5,
 					"http.txt"); // with id
 
-			coupons5 = new Coupon(2, 3, Category.Electricity, "ee", "close to free", startDate, endDate, 12, 60,
+			coupons5 = new Coupon(3, Category.Electricity, "ee", "close to free", startDate, endDate, 12, 60,
 					"http.txt"); // with id
+			coupons6 = new Coupon(2, Category.Weaponsý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
+					"ismg.txt");
 
 		} catch (ExceptionName e) {
 			System.out.println(e);
@@ -128,6 +130,7 @@ public class Test {
 			company.addCoupon(coupons1);
 			company.addCoupon(coupons2);
 			company.addCoupon(coupons3);
+
 			System.out.println(company.getCompanyDetails());
 			System.out.println(company.getCompanyCoupons());
 			company.updateCoupon(coupons4);
@@ -151,7 +154,6 @@ public class Test {
 			System.out.println(e);
 		}
 
-//		manager.login("emails", "passwordnope", ClientType.Company);
 		CustomerFacade customer = null;
 		try {
 			customer = (CustomerFacade) manager.login("emails", "passwordnope", ClientType.Customer);
@@ -165,12 +167,10 @@ public class Test {
 		try {
 			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
 			System.out.println(customer.getCustomerCoupons());
-			customer.purchaseCoupon(coupons.getOneCoupon(3)); // how to get one coupon , i need (id) - for it
-			System.out.println("|----------------|");
+			customer.purchaseCoupon(coupons.getOneCoupon(3));
 			System.out.println(customer.getCustomerCoupons());
 			System.out.println(customer.getCustomerDetails());
-//			customer.purchaseCoupon(coupons.getOneCoupon(4)); // open it and check coupon 5 
-//			customer.purchaseCoupon(coupons.getOneCoupon(1)); // check add one more coupon
+			company.deleteCoupon(1);
 
 		} catch (ExceptionName e) {
 			System.out.println(e);
@@ -179,81 +179,55 @@ public class Test {
 		}
 
 		try {
-
-//			// Companies
-//			Company company1 = new Company("31Sd", "sd@g.m", "compyomer0");
-//			Company company2 = new Company("31Sd", "s1d@g.m", "ggf1");
-//			Company company3 = new Company("31Sd", "s2d@g.m", "ggt2");
-//			companies.insert(company1);
-//			companies.insert(company2);
-//			companies.insert(company3);
-////			companies.insert(company3);
-////			companies.update(company3);
-//			companies.delete(2);
-////			System.out.println(companies.getOneCompany(1));
-////			System.out.println(companies.isCompanyExists("s2d@g.m", "31Sd"));
-//			ArrayList<Company> companyList = companies.getAllCompany();
-//			System.out.println(companyList);
-//
-//			// Customers
-//			Customer customer1 = new Customer(5, "sdS23x0", "dsd@gmail.com", "dod", "pp");
-//			Customer customer2 = new Customer(2, "sdS23x1", "dsxd@gmail.com", "dod", "p1p");
-//			Customer customer3 = new Customer(4, "sdS23x2", "dsxcccd@gmail.com", "dod", "p2p");
-//			customers.insert(customer1);
-//			customers.insert(customer2);
-//			customers.insert(customer3);
-////			customers.insert(customer3);
-////			customers.update(customer1);
-////			customers.delete(1);
-////			System.out.println(customers.getOneCustomer(2));
-////			System.out.println(customers.isCustomerExists("dsxcccd@gmail.com", "sdS23x2"));
-////			System.out.println(customers.getOneCustomerByEmailAndPassword("dsd@gmail.com", "sdS23x2"));
-//			ArrayList<Customer> customersList = customers.getAllCustomer();
-//			System.out.println(customersList);
-//
-//			// Categories
-////			categories.insert("od");
-////			categories.insert("od");
-////			categories.insert("od");
-////			categories.insert("od");
-////			categories.update("pds", 2);
-////			categories.delete(3);
-////			categories.showAll();
-//
-//			// Coupons
-//			Date date = new Date();
-//			Coupon coupons2 = new Coupon(1, Category.Paintballý, "bestCouponx", "for all", date, new Date(), 0, 2.3,
-//					"ismg.txt");
-//			Coupon coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", date, new Date(), 0, 2.3,
-//					"ismg.txt");
-//			Coupon coupons3 = new Coupon(3, Category.Weaponsý, "bestCoupon", "for all", date, new Date(), 0, 2.3,
-//					"ismg.txt");
-//			coupons.insert(coupons1);
-//			coupons.insert(coupons2);
-//			coupons.insert(coupons3);
-////			coupons.insert(coupons3);
-////			coupons.update(coupons3);
-////			coupons.delete(2);
-////			System.out.println(coupons.getOneCoupon(1));
-////			coupons.addCouponPurchase(8, 45);
-////			ArrayList<Coupon> couponList = coupons.getAllCoupon();
-////			System.out.println(couponList);
-//
-//			// CustomersVsCoupons
-//
-//			customersVsCoupons.insert(1, 1);
-//			customersVsCoupons.insert(2, 2);
-//			customersVsCoupons.insert(2, 3);
-////			customersVsCoupons.checkIfCustomerBought(2, 2);
-////			System.out.println(customersVsCoupons.getCustomerCouponByCustomerID(2));
-////			customersVsCoupons.insert(1, 5);
-////			customersVsCoupons.update(9, 10, 1, 3);
-////			customersVsCoupons.delete(9, 3);
-//			customersVsCoupons.showAll();
-//
+			customer.purchaseCoupon(coupons.getOneCoupon(3));
+		} catch (ExceptionName e) {
+			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
+		try {
+			System.out.println(customer.getCustomerCoupons());
+			company.addCoupon(coupons5);
+			customer.purchaseCoupon(coupons.getOneCoupon(4));
+			System.out.println(customer.getCustomerCoupons());
+			System.out.println(customer.getCustomerCoupons(Category.Electricity));
+			System.out.println(customer.getCustomerCoupons(70));
+			System.out.println("?");
+			customer.purchaseCoupon(coupons.getOneCoupon(4));
+		} catch (ExceptionName e) {
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			company = (CompanyFacade) manager.login("sss@gmail.com", "12aA3x23x4xx", ClientType.Company);
+			company.addCoupon(coupons6);
+			customer.purchaseCoupon(coupons.getOneCoupon(5));
+			admin = (AdminFacade) manager.login("admin@admin.com", "adminn", ClientType.Administrator);
+
+		} catch (ExceptionName e) {
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		try {
+			admin = (AdminFacade) manager.login("admin@admin.com", "admin", ClientType.Administrator);
+			System.out.println(admin.getAllCompanies());
+			admin.deleteCompany(3);
+			System.out.println(admin.getAllCompanies());
+			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
+			System.out.println(customer.getCustomerDetails());
+			customer = (CustomerFacade) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
+			System.out.println(customer.getCustomerDetails());
+		} catch (ExceptionName e) {
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
 	}
 
 	public static void refreshDB() {
