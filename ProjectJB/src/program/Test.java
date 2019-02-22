@@ -222,6 +222,7 @@ public class Test {
 			System.out.println(customer.getCustomerDetails());
 			customer = (CustomerFacade) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
 			System.out.println(customer.getCustomerDetails());
+			
 		} catch (ExceptionName e) {
 			System.out.println(e);
 		} catch (Exception e) {
