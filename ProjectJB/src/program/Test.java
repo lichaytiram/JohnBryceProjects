@@ -18,6 +18,12 @@ import javaBeans.Company;
 import javaBeans.Coupon;
 import javaBeans.Customer;
 
+/**
+ * This class implements all function in this program
+ * 
+ * @author Lichay
+ *
+ */
 public class Test {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
 	public static CompaniesDBDAO companies = new CompaniesDBDAO();
@@ -26,6 +32,9 @@ public class Test {
 	public static CouponsDBDAO coupons = new CouponsDBDAO();
 	public static CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
 
+	/**
+	 * This function implement all method for this class
+	 */
 	@SuppressWarnings("deprecation")
 	public static void testAll() {
 		try {
@@ -193,7 +202,6 @@ public class Test {
 			System.out.println(customer.getCustomerCoupons());
 			System.out.println(customer.getCustomerCoupons(Category.Electricity));
 			System.out.println(customer.getCustomerCoupons(70));
-			System.out.println("?");
 			customer.purchaseCoupon(coupons.getOneCoupon(4));
 		} catch (ExceptionName e) {
 			System.out.println(e);
@@ -222,7 +230,7 @@ public class Test {
 			System.out.println(customer.getCustomerDetails());
 			customer = (CustomerFacade) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
 			System.out.println(customer.getCustomerDetails());
-			
+
 		} catch (ExceptionName e) {
 			System.out.println(e);
 		} catch (Exception e) {
@@ -231,6 +239,9 @@ public class Test {
 
 	}
 
+	/**
+	 * This function refresh all DataBase info
+	 */
 	public static void refreshDB() {
 
 		try {

@@ -11,10 +11,21 @@ import javaBeans.Category;
 import javaBeans.Company;
 import javaBeans.Coupon;
 
+/**
+ * This class create a connection with data base ( with name companies )
+ * 
+ * @author Lichay
+ *
+ */
 public class CompaniesDBDAO implements ICompaniesDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#create()
+	 */
 	public void create() throws Exception {
 		Connection con = null;
 		try {
@@ -30,6 +41,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#drop()
+	 */
 	public void drop() throws Exception {
 		Connection con = null;
 		try {
@@ -43,6 +59,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#insert(javaBeans.Company)
+	 */
 	public void insert(Company c) throws Exception {
 		Connection con = null;
 		try {
@@ -61,6 +82,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#delete(int)
+	 */
 	public void delete(int companyID) throws Exception {
 		Connection con = null;
 		try {
@@ -84,6 +110,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#update(javaBeans.Company)
+	 */
 	public void update(Company c) throws Exception {
 		Connection con = null;
 
@@ -104,6 +135,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#getAllCompany()
+	 */
 	@Override
 	public ArrayList<Company> getAllCompany() throws Exception {
 		Connection con = null;
@@ -141,6 +177,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#isCompanyExists(java.lang.String, java.lang.String)
+	 */
 	public boolean isCompanyExists(String email, String password) throws Exception {
 		Connection con = null;
 		try {
@@ -160,6 +201,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#getOneCompany(int)
+	 */
 	public Company getOneCompany(int companyID) throws Exception {
 		Connection con = null;
 		Company company = null;
@@ -190,6 +236,12 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		return company;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICompaniesDAO#getOneCompanyByEmailAndPassword(java.lang.String,
+	 * java.lang.String)
+	 */
 	public Company getOneCompanyByEmailAndPassword(String email, String password) throws Exception {
 		Connection con = null;
 		Company company = null;

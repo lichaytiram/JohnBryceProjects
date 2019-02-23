@@ -11,10 +11,21 @@ import javaBeans.Category;
 import javaBeans.Coupon;
 import javaBeans.Customer;
 
+/**
+ * This class create a connection with data base ( with name customers )
+ * 
+ * @author Lichay
+ *
+ */
 public class CustomerDBDAO implements ICustomersDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#create()
+	 */
 	public void create() throws Exception {
 		Connection con = null;
 		try {
@@ -29,6 +40,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#drop()
+	 */
 	public void drop() throws Exception {
 		Connection con = null;
 		try {
@@ -42,6 +58,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#insert(javaBeans.Customer)
+	 */
 	public void insert(Customer c) throws Exception {
 		Connection con = null;
 		try {
@@ -63,6 +84,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#delete(int)
+	 */
 	public void delete(int customerID) throws Exception {
 		Connection con = null;
 		try {
@@ -77,6 +103,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#update(javaBeans.Customer)
+	 */
 	public void update(Customer c) throws Exception {
 		Connection con = null;
 		try {
@@ -99,6 +130,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#getAllCustomer()
+	 */
 	@Override
 	public ArrayList<Customer> getAllCustomer() throws Exception {
 		ArrayList<Customer> list = new ArrayList<>();
@@ -136,6 +172,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#isCustomerExists(java.lang.String, java.lang.String)
+	 */
 	public boolean isCustomerExists(String email, String password) throws Exception {
 		Connection con = null;
 		try {
@@ -155,6 +196,11 @@ public class CustomerDBDAO implements ICustomersDAO {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#getOneCustomer(int)
+	 */
 	public Customer getOneCustomer(int customerID) throws Exception {
 		Connection con = null;
 		Customer c = null;
@@ -185,6 +231,12 @@ public class CustomerDBDAO implements ICustomersDAO {
 		return c;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersDAO#getOneCustomerByEmailAndPassword(java.lang.String,
+	 * java.lang.String)
+	 */
 	public Customer getOneCustomerByEmailAndPassword(String email, String password) throws Exception {
 		Connection con = null;
 		Customer c = null;

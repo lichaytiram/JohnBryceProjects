@@ -6,10 +6,21 @@ import java.sql.SQLException;
 
 import dao.ICategoriesDAO;
 
+/**
+ * This class create a connection with data base ( with name categories )
+ * 
+ * @author Lichay
+ *
+ */
 public class CategoriesDBDAO implements ICategoriesDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#create()
+	 */
 	public void create() throws Exception {
 		Connection con = null;
 		try {
@@ -24,6 +35,11 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#drop()
+	 */
 	public void drop() throws Exception {
 		Connection con = null;
 		try {
@@ -37,6 +53,11 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICategoriesDAO#insert(java.lang.String)
+	 */
 	public void insert(String Name) throws Exception {
 		Connection con = null;
 		try {
@@ -50,6 +71,11 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICategoriesDAO#delete(int)
+	 */
 	public void delete(int indexToDelete) throws Exception {
 		Connection con = null;
 		try {
@@ -63,6 +89,11 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICategoriesDAO#update(java.lang.String, int)
+	 */
 	public void update(String Name, int index) throws Exception {
 		Connection con = null;
 		try {
@@ -76,6 +107,9 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		}
 	}
 
+	/**
+	 * @throws Exception This function can throw an exception
+	 */
 	public void showAll() throws Exception {
 		Connection con = null;
 		try {

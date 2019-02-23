@@ -1,11 +1,15 @@
 package javaBeans;
 
 import java.util.ArrayList;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
 
 import exception.ExceptionName;
 
+/**
+ * This class extends from BaseAttribute and contain more basic attributes
+ * 
+ * @author Lichay
+ *
+ */
 public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// properties
@@ -16,6 +20,14 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// constructor
 
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @param id       Receive an id
+	 * @param password Receive a password
+	 * @param email    Receive an email
+	 * @throws ExceptionName Throw an exception by name
+	 */
 	public SecondBaseAttribute(int id, String password, String email) throws ExceptionName {
 		super(id);
 		setPassword(password);
@@ -23,6 +35,13 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 		couponList = new ArrayList<>();
 	}
 
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @param password Receive a password
+	 * @param email    Receive an email
+	 * @throws ExceptionName Throw an exception by name
+	 */
 	public SecondBaseAttribute(String password, String email) throws ExceptionName {
 		super();
 		setPassword(password);
@@ -32,10 +51,17 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// getter & setter
 
+	/**
+	 * @return This function return a coupon list
+	 */
 	public ArrayList<Coupon> getCouponList() {
 		return couponList;
 	}
 
+	/**
+	 * @param coupon This function add coupon for coupon list
+	 * @throws ExceptionName Throw an exception by name
+	 */
 	public void setCouponList(Coupon coupon) throws ExceptionName {
 		for (int i = 0; i < couponList.size(); i++)
 			if (couponList.get(i).getId() == coupon.getId() && couponList.get(i).getCompanyId() == coupon.getCompanyId()
@@ -44,10 +70,17 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 		couponList.add(coupon);
 	}
 
+	/**
+	 * @return This function return a password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * @param password This function receive a new password and change the last one
+	 * @throws ExceptionName Throw an exception by name
+	 */
 	public void setPassword(String password) throws ExceptionName {
 		if (checkPassword(password))
 			this.password = password;
@@ -55,10 +88,18 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 			throw new ExceptionName("The password must contain one digit , one big letter and one small letter");
 	}
 
+	/**
+	 * @return This function return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @param email This function receive a new email and change the last one (by
+	 *              some definitions)
+	 * @throws ExceptionName Throw an exception by name
+	 */
 	public void setEmail(String email) throws ExceptionName {
 
 		if (!email.contains("@"))
@@ -71,15 +112,11 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	// functions
 
-//	// regex password need to fix
-//	private boolean checkPassword(String password) {
-//		String pattern = "[a-z|A-Z|0-9] {3,}";
-//		Pattern checkPattern = Pattern.compile(pattern);
-//		Matcher checkMatch = checkPattern.matcher(password);
-//		return checkMatch.matches();
-//	}
-
-	// function password
+	/**
+	 * @param password Check if password contain big&small letter and one digit at
+	 *                 least
+	 * @return Check if the password valid and return true or false
+	 */
 	private boolean checkPassword(String password) {
 		if (password == null)
 			return false;
@@ -113,6 +150,9 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 		return true;
 	}
 
+	/**
+	 * @return This function return as string all attributes
+	 */
 	@Override
 	public String toString() {
 		return super.toString() + ", password=" + getPassword() + ", email=" + getEmail() + ", couponList="

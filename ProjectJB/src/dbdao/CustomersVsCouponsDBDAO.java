@@ -10,10 +10,21 @@ import exception.ExceptionName;
 import javaBeans.Category;
 import javaBeans.Coupon;
 
+/**
+ * This class create a connection with data base ( with name customersVsCoupons)
+ * 
+ * @author Lichay
+ *
+ */
 public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#create()
+	 */
 	public void create() throws Exception {
 		Connection con = null;
 		try {
@@ -31,6 +42,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.IMainDAO#drop()
+	 */
 	public void drop() throws Exception {
 		Connection con = null;
 		try {
@@ -44,6 +60,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#insert(int, int)
+	 */
 	public void insert(int customerId, int couponId) throws Exception {
 		Connection con = null;
 		try {
@@ -58,6 +79,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#delete(int, int)
+	 */
 	public void delete(int customerId, int couponId) throws Exception {
 		Connection con = null;
 		try {
@@ -72,6 +98,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#update(int, int, int, int)
+	 */
 	public void update(int oldCustomerId, int newCustomerId, int oldCouponId, int newCouponId) throws Exception {
 		Connection con = null;
 		try {
@@ -87,6 +118,9 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/**
+	 * @throws Exception This function can throw an exception
+	 */
 	public void showAll() throws Exception {
 		Connection con = null;
 		try {
@@ -102,6 +136,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#checkIfCustomerBought(int, int)
+	 */
 	public void checkIfCustomerBought(int customerId, int couponId) throws Exception {
 
 		Connection con = null;
@@ -118,6 +157,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByCustomerID(int)
+	 */
 	public ArrayList<Coupon> getCustomerCouponByCustomerID(int customerID) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
@@ -149,6 +193,12 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByCategory(int,
+	 * javaBeans.Category)
+	 */
 	public ArrayList<Coupon> getCustomerCouponByCategory(int customerID, Category category) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
@@ -174,6 +224,11 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByMaxPrice(int, double)
+	 */
 	public ArrayList<Coupon> getCustomerCouponByMaxPrice(int customerID, double maxPrice) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 

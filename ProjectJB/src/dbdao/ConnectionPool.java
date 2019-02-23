@@ -6,6 +6,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * This class create a basic connections for all classes DBDAO
+ * 
+ * @author Lichay
+ *
+ */
 public class ConnectionPool {
 
 	private final static String USERNAME = "root";
@@ -14,6 +20,9 @@ public class ConnectionPool {
 	private final int size;
 	private Queue<Connection> connectionList = new LinkedList<>();
 
+	/**
+	 * constructor create a connection list ( with 10 connections )
+	 */
 	private ConnectionPool() {
 		try {
 			for (int i = 0; i < 10; i++) {
@@ -30,10 +39,17 @@ public class ConnectionPool {
 
 	private static ConnectionPool instance = new ConnectionPool();
 
+	/**
+	 * @return This function return the instance for this connection pool class
+	 */
 	public static ConnectionPool getInstance() {
 		return instance;
 	}
 
+	/**
+	 * @return This function return the first connection on list
+	 * @throws InterruptedException Can throw an InterruptedException
+	 */
 	public Connection getConnection() throws InterruptedException {
 
 		synchronized (connectionList) {
@@ -43,6 +59,9 @@ public class ConnectionPool {
 		}
 	}
 
+	/**
+	 * @param connection Receive a connection and add to connectionList connection
+	 */
 	public void restoreConnection(Connection connection) {
 		synchronized (connectionList) {
 			connectionList.add(connection);
@@ -50,16 +69,16 @@ public class ConnectionPool {
 		}
 	}
 
+	/**
+	 * @throws SQLException         Can throw a SQLException
+	 * @throws InterruptedException Can throw an InterruptedException
+	 */
 	public void closeAllConnection() throws SQLException, InterruptedException {
 		synchronized (connectionList) {
 			while (connectionList.size() < size)
 				connectionList.wait();
 			for (Connection connection : connectionList)
 				connection.close();
-//			for (int i = 0; i < connectionList.size(); i++) {
-//				connectionList.peek().close();
-//			}
-
 		}
 	}
 }
