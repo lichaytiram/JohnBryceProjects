@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"facade"}]
+packageSearchIndex = [{"l":"dao"},{"l":"dbdao"},{"l":"exception"},{"l":"facade"},{"l":"javaBeans"},{"l":"program"},{"l":"utils"}]

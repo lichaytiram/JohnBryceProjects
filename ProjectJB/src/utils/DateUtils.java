@@ -7,7 +7,7 @@ package utils;
 public class DateUtils {
 
 	/**
-	 * @param javaDate give a util date and return sql date
+	 * @param javaDate Give an util date and return sql date
 	 * @return return sql date
 	 */
 	public static java.sql.Date javaDateToSqlDate(java.util.Date javaDate) {
