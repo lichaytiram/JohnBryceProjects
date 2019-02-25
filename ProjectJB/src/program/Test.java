@@ -66,6 +66,7 @@ public class Test {
 		Coupon coupons4 = null;
 		Coupon coupons5 = null;
 		Coupon coupons6 = null;
+
 		try {
 //			new Company(password, email, name);
 			company1 = new Company("12aA34", "ss@gmail.com", "USAcom");
