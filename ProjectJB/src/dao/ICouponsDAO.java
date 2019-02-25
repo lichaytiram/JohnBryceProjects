@@ -91,4 +91,10 @@ public interface ICouponsDAO extends IMainDAO {
 	 */
 	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception;
 
+	/**
+	 * @return This function return all id for expired coupons
+	 * @throws Exception Can throw an exception
+	 */
+	public ArrayList<Integer> getAllexpiredCouponsById() throws Exception;
+
 }

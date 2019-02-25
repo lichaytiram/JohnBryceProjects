@@ -2,6 +2,7 @@ package program;
 
 import java.util.Date;
 
+import dailyJob.Job;
 import dbdao.CategoriesDBDAO;
 import dbdao.CompaniesDBDAO;
 import dbdao.CouponsDBDAO;
@@ -43,6 +44,10 @@ public class Test {
 			System.out.println(e);
 		}
 		refreshDB();
+		dailyJob.Job j = new Job();
+		Thread dailyJob = new Thread(j, "daily Job");
+		dailyJob.start();
+
 		Date startDate = new Date();
 		Date endDate = new Date();
 		endDate.setYear(startDate.getYear() + 1);

@@ -19,6 +19,10 @@ import utils.DateUtils;
  * @author Lichay
  *
  */
+/**
+ * @author Lichay
+ *
+ */
 public class CouponsDBDAO implements ICouponsDAO {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
@@ -372,6 +376,31 @@ public class CouponsDBDAO implements ICouponsDAO {
 					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
 							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
 							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			}
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		} finally {
+			connection.restoreConnection(con);
+		}
+		return list;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see dao.ICouponsDAO#getAllexpiredCouponsById()
+	 */
+	public ArrayList<Integer> getAllexpiredCouponsById() throws Exception {
+
+		Connection con = null;
+		ArrayList<Integer> list = new ArrayList<>();
+		Date date = new Date();
+		try {
+			con = connection.getConnection();
+			ResultSet re = con.createStatement().executeQuery("SELECT ID , END_DATE FROM coupons");
+			while (re.next()) {
+				if (date.after(re.getDate("END_DATE")))
+					list.add(re.getInt("ID"));
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
