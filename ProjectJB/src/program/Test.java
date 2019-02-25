@@ -43,7 +43,7 @@ public class Test {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		refreshDB();
 		dailyJob.Job j = new Job();
 		Thread dailyJob = new Thread(j, "daily Job");
