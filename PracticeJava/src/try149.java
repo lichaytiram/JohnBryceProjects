@@ -2,7 +2,7 @@
 public class try149 {
 	public static void main(String[] args) {
 
-		System.out.println(encryptThis("8A wise old"));
+		System.out.println(encryptThis("A wise old"));
 
 	}
 
