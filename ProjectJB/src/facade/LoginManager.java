@@ -30,7 +30,7 @@ public class LoginManager {
 	 * @param password   Receive a password
 	 * @param clientType Receive a clientType
 	 * @return This function return a ClientFacade type
-	 * @throws ExceptionName
+	 * @throws ExceptionName Can thorw an exception by name
 	 */
 	public ClientFacade login(String email, String password, ClientType clientType) throws ExceptionName {
 

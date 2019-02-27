@@ -4,7 +4,7 @@ package exception;
  * This class create a new Exception that change by name.
  * 
  * @author Lichay
- * @throws throw name of exception
+ *
  */
 @SuppressWarnings("serial")
 public class ExceptionName extends Exception {

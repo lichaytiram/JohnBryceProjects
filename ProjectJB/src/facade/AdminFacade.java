@@ -2,6 +2,7 @@ package facade;
 
 import java.util.ArrayList;
 
+import dailyJob.Job;
 import dbdao.CompaniesDBDAO;
 import dbdao.CustomerDBDAO;
 import exception.ExceptionName;
@@ -135,6 +136,14 @@ public class AdminFacade extends ClientFacade {
 	public Customer getOneCustomer(int customerID) throws Exception {
 		CustomerDBDAO Customer = new CustomerDBDAO();
 		return Customer.getOneCustomer(customerID);
+	}
+
+	/**
+	 * This function stop daily job
+	 */
+	public void stopDailyJob() {
+		dailyJob.Job job = new Job();
+		job.stop();
 	}
 
 }
