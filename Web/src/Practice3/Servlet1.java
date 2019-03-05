@@ -21,6 +21,7 @@ public class Servlet1 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("inside servlet 3");
 		int x = Integer.parseInt(request.getParameter("n1"));
 		int y = Integer.parseInt(request.getParameter("n2"));
 		int z = x + y;
