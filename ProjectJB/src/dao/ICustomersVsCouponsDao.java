@@ -2,8 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
-import javaBeans.Category;
-import javaBeans.Coupon;
+import beans.Category;
+import beans.Coupon;
 
 /**
  * This interface will implement by class customerVsCouponsDBDAO
@@ -11,7 +11,7 @@ import javaBeans.Coupon;
  * @author Lichay
  *
  */
-public interface ICustomersVsCouponsDAO extends IMainDAO {
+public interface ICustomersVsCouponsDao extends IMainDao {
 
 	/**
 	 * @param customerId Receive a customer id

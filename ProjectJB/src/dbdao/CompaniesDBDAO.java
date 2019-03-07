@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.ICompaniesDAO;
+import beans.Category;
+import beans.Company;
+import beans.Coupon;
+import dao.ICompaniesDao;
 import exception.ExceptionName;
-import javaBeans.Category;
-import javaBeans.Company;
-import javaBeans.Coupon;
 
 /**
  * This class create a connection with data base ( with name companies )
@@ -17,7 +17,7 @@ import javaBeans.Coupon;
  * @author Lichay
  *
  */
-public class CompaniesDBDAO implements ICompaniesDAO {
+public class CompaniesDBDAO implements ICompaniesDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -68,9 +68,9 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
-			while (re.next())
-				if (re.getString("EMAIL").equals(c.getEmail()) || re.getString("NAME").equals(c.getName()))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (result.next())
+				if (result.getString("EMAIL").equals(c.getEmail()) || result.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The companies already exist on data base");
 			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + c.getName()
 					+ "','" + c.getEmail() + "','" + c.getPassword() + "')");
@@ -92,9 +92,10 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		try {
 			con = connection.getConnection();
 			ArrayList<Integer> couponsID = new ArrayList<Integer>();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
-			while (re.next())
-				couponsID.add(re.getInt("ID"));
+			ResultSet result = con.createStatement()
+					.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
+			while (result.next())
+				couponsID.add(result.getInt("ID"));
 			while (!couponsID.isEmpty()) {
 				con.createStatement()
 						.executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponsID.get(0));
@@ -120,10 +121,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
-			while (re.next())
-				if (re.getString("PASSWORD").equals(c.getPassword()) && re.getString("EMAIL").equals(c.getEmail())
-						&& re.getString("NAME").equals(c.getName()))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (result.next())
+				if (result.getString("PASSWORD").equals(c.getPassword())
+						&& result.getString("EMAIL").equals(c.getEmail())
+						&& result.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The company already exist on data base");
 			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + c.getName() + "', EMAIL='"
 					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + c.getId());
@@ -146,10 +148,10 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		ArrayList<Company> list = new ArrayList<>();
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
-			while (re.next()) {
-				Company c = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("NAME"));
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (result.next()) {
+				Company c = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("NAME"));
 				ResultSet reCouponList = con.createStatement()
 						.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + c.getId());
 				while (reCouponList.next()) {
@@ -186,9 +188,9 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies");
-			while (re.next()) {
-				if (re.getString("EMAIL").equals(email) && re.getString("PASSWORD").equals(password))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
+			while (result.next()) {
+				if (result.getString("EMAIL").equals(email) && result.getString("PASSWORD").equals(password))
 					return true;
 			}
 
@@ -211,22 +213,23 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Company company = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
-			if (re.next())
-				company = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("NAME"));
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
+			if (result.next())
+				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("NAME"));
 
-			re = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
-			while (re.next()) {
+			result = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
+			while (result.next()) {
 				Category category = null;
 				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
 						category = ca;
 						break;
 					}
-				company.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category,
-						re.getString("TITLE"), re.getString("DESCRIPTION"), re.getDate("START_DATE"),
-						re.getDate("END_DATE"), re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				company.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
+						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
+						result.getString("IMAGE")));
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -247,11 +250,11 @@ public class CompaniesDBDAO implements ICompaniesDAO {
 		Company company = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * FROM companies where EMAIL='" + email + "' AND PASSWORD='" + password + "'");
-			if (re.next())
-				company = new Company(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("NAME"));
+			if (result.next())
+				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("NAME"));
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

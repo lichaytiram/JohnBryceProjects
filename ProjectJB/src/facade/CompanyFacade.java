@@ -1,12 +1,13 @@
 package facade;
 
 import java.util.ArrayList;
+
+import beans.Category;
+import beans.Company;
+import beans.Coupon;
 import dbdao.CompaniesDBDAO;
 import dbdao.CouponsDBDAO;
 import exception.ExceptionName;
-import javaBeans.Category;
-import javaBeans.Company;
-import javaBeans.Coupon;
 
 /**
  * This class manage the all function for company facade

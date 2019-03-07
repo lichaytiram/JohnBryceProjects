@@ -2,8 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
-import javaBeans.Category;
-import javaBeans.Coupon;
+import beans.Category;
+import beans.Coupon;
 
 /**
  * This interface will implement by class couponsDBDAO
@@ -11,7 +11,7 @@ import javaBeans.Coupon;
  * @author Lichay
  *
  */
-public interface ICouponsDAO extends IMainDAO {
+public interface ICouponsDao extends IMainDao {
 
 	/**
 	 * @param c Receive a coupon and insert to data base

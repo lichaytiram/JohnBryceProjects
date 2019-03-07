@@ -2,12 +2,12 @@ package facade;
 
 import java.util.ArrayList;
 
-import dailyJob.Job;
+import beans.Company;
+import beans.Customer;
+import daily.job.Job;
 import dbdao.CompaniesDBDAO;
 import dbdao.CustomerDBDAO;
 import exception.ExceptionName;
-import javaBeans.Company;
-import javaBeans.Customer;
 
 /**
  * This class manage the all function for admin facade
@@ -142,7 +142,7 @@ public class AdminFacade extends ClientFacade {
 	 * This function stop daily job
 	 */
 	public void stopDailyJob() {
-		dailyJob.Job job = new Job();
+		daily.job.Job job = new Job();
 		job.stop();
 	}
 

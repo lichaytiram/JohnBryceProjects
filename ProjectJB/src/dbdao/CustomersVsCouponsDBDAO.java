@@ -5,10 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.ICustomersVsCouponsDAO;
+import beans.Category;
+import beans.Coupon;
+import dao.ICustomersVsCouponsDao;
 import exception.ExceptionName;
-import javaBeans.Category;
-import javaBeans.Coupon;
 
 /**
  * This class create a connection with data base ( with name customersVsCoupons)
@@ -16,7 +16,7 @@ import javaBeans.Coupon;
  * @author Lichay
  *
  */
-public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
+public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -125,10 +125,10 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
-			while (re.next())
-				System.out
-						.println("CUSTOMER_ID: " + re.getInt("CUSTOMER_ID") + " ,COUPON_ID: " + re.getInt("COUPON_ID"));
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
+			while (result.next())
+				System.out.println(
+						"CUSTOMER_ID: " + result.getInt("CUSTOMER_ID") + " ,COUPON_ID: " + result.getInt("COUPON_ID"));
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -146,9 +146,9 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
-			while (re.next())
-				if (customerId == re.getInt("CUSTOMER_ID") && couponId == re.getInt("COUPON_ID"))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
+			while (result.next())
+				if (customerId == result.getInt("CUSTOMER_ID") && couponId == result.getInt("COUPON_ID"))
 					throw new ExceptionName("The customer already bought this coupon");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -168,20 +168,21 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);
 			Category category = null;
-			while (re.next()) {
+			while (result.next()) {
 				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
 						category = ca;
 						break;
 					}
 
-				list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-						re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
+						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
+						result.getString("IMAGE")));
 			}
 
 		} catch (SQLException ex) {
@@ -205,14 +206,15 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);
-			while (re.next()) {
-				if (category.ordinal() == re.getInt("CATEGORY_ID"))
-					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+			while (result.next()) {
+				if (category.ordinal() == result.getInt("CATEGORY_ID"))
+					list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+							result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
+							result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
+							result.getString("IMAGE")));
 			}
 
 		} catch (SQLException ex) {
@@ -235,22 +237,23 @@ public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);
 			Category category = null;
-			while (re.next()) {
+			while (result.next()) {
 
-				if (re.getDouble("PRICE") < maxPrice) {
+				if (result.getDouble("PRICE") < maxPrice) {
 					for (Category ca : Category.values())
-						if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+						if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
 							category = ca;
 							break;
 						}
 
-					list.add(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-							re.getString("DESCRIPTION"), re.getDate("START_DATE"), re.getDate("END_DATE"),
-							re.getInt("AMOUNT"), re.getDouble("PRICE"), re.getString("IMAGE")));
+					list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+							result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
+							result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
+							result.getString("IMAGE")));
 				}
 			}
 

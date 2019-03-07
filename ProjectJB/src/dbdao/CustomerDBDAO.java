@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import dao.ICustomersDAO;
+import beans.Category;
+import beans.Coupon;
+import beans.Customer;
+import dao.ICustomersDao;
 import exception.ExceptionName;
-import javaBeans.Category;
-import javaBeans.Coupon;
-import javaBeans.Customer;
 
 /**
  * This class create a connection with data base ( with name customers )
@@ -17,7 +17,7 @@ import javaBeans.Customer;
  * @author Lichay
  *
  */
-public class CustomerDBDAO implements ICustomersDAO {
+public class CustomerDBDAO implements ICustomersDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -68,9 +68,9 @@ public class CustomerDBDAO implements ICustomersDAO {
 		try {
 			con = connection.getConnection();
 
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
-			while (re.next())
-				if (re.getString("EMAIL").equals(c.getEmail()))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (result.next())
+				if (result.getString("EMAIL").equals(c.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			con.createStatement().executeUpdate(
@@ -113,9 +113,9 @@ public class CustomerDBDAO implements ICustomersDAO {
 		try {
 			con = connection.getConnection();
 
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
-			while (re.next())
-				if (re.getString("EMAIL").equals(c.getEmail()))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (result.next())
+				if (result.getString("EMAIL").equals(c.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			con.createStatement()
@@ -141,10 +141,10 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
-			while (re.next()) {
-				Customer c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("FIRST_NAME"), re.getString("lAST_NAME"));
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (result.next()) {
+				Customer c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("FIRST_NAME"), result.getString("lAST_NAME"));
 
 				ResultSet addCoupons = con.createStatement().executeQuery(
 						"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
@@ -181,9 +181,9 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers");
-			while (re.next()) {
-				if (re.getString("EMAIL").equals(email) && re.getString("PASSWORD").equals(password))
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
+			while (result.next()) {
+				if (result.getString("EMAIL").equals(email) && result.getString("PASSWORD").equals(password))
 					return true;
 			}
 
@@ -206,22 +206,23 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Customer c = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM customers WHERE ID=" + customerID);
-			if (re.next())
-				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
-			re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers WHERE ID=" + customerID);
+			if (result.next())
+				c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("FIRST_NAME"), result.getString("LAST_NAME"));
+			result = con.createStatement().executeQuery(
 					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
 							+ customerID);
-			while (re.next()) {
+			while (result.next()) {
 				Category category = null;
 				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
 						category = ca;
 						break;
 					}
-				c.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				c.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDouble("PRICE"),
+						result.getString("IMAGE")));
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -242,25 +243,26 @@ public class CustomerDBDAO implements ICustomersDAO {
 		Customer c = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery(
+			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * FROM customers where email='" + email + "' AND PASSWORD='" + password + "'");
-			if (re.next())
-				c = new Customer(re.getInt("ID"), re.getString("PASSWORD"), re.getString("EMAIL"),
-						re.getString("FIRST_NAME"), re.getString("LAST_NAME"));
+			if (result.next())
+				c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+						result.getString("FIRST_NAME"), result.getString("LAST_NAME"));
 
-			re = con.createStatement().executeQuery(
+			result = con.createStatement().executeQuery(
 					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
 							+ c.getId());
 
-			while (re.next()) {
+			while (result.next()) {
 				Category category = null;
 				for (Category ca : Category.values())
-					if (ca.ordinal() == re.getInt("CATEGORY_ID")) {
+					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
 						category = ca;
 						break;
 					}
-				c.setCouponList(new Coupon(re.getInt("ID"), re.getInt("COMPANY_ID"), category, re.getString("TITLE"),
-						re.getString("DESCRIPTION"), re.getDouble("PRICE"), re.getString("IMAGE")));
+				c.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDouble("PRICE"),
+						result.getString("IMAGE")));
 			}
 
 		} catch (SQLException ex) {

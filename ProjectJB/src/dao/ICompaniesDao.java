@@ -1,7 +1,8 @@
 package dao;
 
 import java.util.ArrayList;
-import javaBeans.Company;
+
+import beans.Company;
 
 /**
  * This interface will implement by class companiesDBDAO
@@ -9,7 +10,7 @@ import javaBeans.Company;
  * @author Lichay
  *
  */
-public interface ICompaniesDAO extends IMainDAO {
+public interface ICompaniesDao extends IMainDao {
 
 	/**
 	 * @param c Receive a company and insert to data base

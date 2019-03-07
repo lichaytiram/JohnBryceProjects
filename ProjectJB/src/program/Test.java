@@ -2,7 +2,11 @@ package program;
 
 import java.util.Date;
 
-import dailyJob.Job;
+import beans.Category;
+import beans.Company;
+import beans.Coupon;
+import beans.Customer;
+import daily.job.Job;
 import dbdao.CategoriesDBDAO;
 import dbdao.CompaniesDBDAO;
 import dbdao.CouponsDBDAO;
@@ -14,10 +18,6 @@ import facade.ClientType;
 import facade.CompanyFacade;
 import facade.CustomerFacade;
 import facade.LoginManager;
-import javaBeans.Category;
-import javaBeans.Company;
-import javaBeans.Coupon;
-import javaBeans.Customer;
 
 /**
  * This class implements all function in this program
@@ -45,7 +45,7 @@ public class Test {
 		}
 
 		refreshDB();
-		dailyJob.Job j = new Job();
+		daily.job.Job j = new Job();
 		Thread dailyJob = new Thread(j, "daily Job");
 		dailyJob.start();
 

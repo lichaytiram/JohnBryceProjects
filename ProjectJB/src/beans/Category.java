@@ -1,4 +1,4 @@
-package javaBeans;
+package beans;
 
 /**
  * This enum contain all category that company can choose for his coupons

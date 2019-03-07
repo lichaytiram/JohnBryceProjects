@@ -6,7 +6,7 @@ package dao;
  * @author Lichay
  *
  */
-public interface ICategoriesDAO extends IMainDAO {
+public interface ICategoriesDao extends IMainDao {
 
 	/**
 	 * @param Name Receive a name to add

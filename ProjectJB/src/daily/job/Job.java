@@ -1,4 +1,4 @@
-package dailyJob;
+package daily.job;
 
 import java.util.ArrayList;
 

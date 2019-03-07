@@ -2,7 +2,7 @@ package dao;
 
 import java.util.ArrayList;
 
-import javaBeans.Customer;
+import beans.Customer;
 
 /**
  * This interface will implement by class customersDBDAO
@@ -10,7 +10,7 @@ import javaBeans.Customer;
  * @author Lichay
  *
  */
-public interface ICustomersDAO extends IMainDAO {
+public interface ICustomersDao extends IMainDao {
 
 	/**
 	 * @param c Receive a customer and add to data base

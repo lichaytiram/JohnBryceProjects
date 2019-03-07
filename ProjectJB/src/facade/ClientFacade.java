@@ -1,8 +1,8 @@
 package facade;
 
-import dao.ICompaniesDAO;
-import dao.ICustomersDAO;
-import dao.ICouponsDAO;
+import dao.ICompaniesDao;
+import dao.ICustomersDao;
+import dao.ICouponsDao;
 
 /**
  * This abstract class that will be implement by loginManager
@@ -11,9 +11,9 @@ import dao.ICouponsDAO;
  *
  */
 public abstract class ClientFacade {
-	ICompaniesDAO CompaniesDAO;
-	ICustomersDAO CustomersDAO;
-	ICouponsDAO CouponsDAO;
+	ICompaniesDao CompaniesDAO;
+	ICustomersDao CustomersDAO;
+	ICouponsDao CouponsDAO;
 
 	/**
 	 * @param email    Receive an email

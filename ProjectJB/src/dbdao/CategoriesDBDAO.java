@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.ICategoriesDAO;
+import dao.ICategoriesDao;
 
 /**
  * This class create a connection with data base ( with name categories )
@@ -12,7 +12,7 @@ import dao.ICategoriesDAO;
  * @author Lichay
  *
  */
-public class CategoriesDBDAO implements ICategoriesDAO {
+public class CategoriesDBDAO implements ICategoriesDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
 
@@ -114,9 +114,9 @@ public class CategoriesDBDAO implements ICategoriesDAO {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			ResultSet re = con.createStatement().executeQuery("SELECT * FROM categories");
-			while (re.next())
-				System.out.println("ID: " + re.getInt("ID") + " ,NAME: " + re.getString("NAME"));
+			ResultSet result = con.createStatement().executeQuery("SELECT * FROM categories");
+			while (result.next())
+				System.out.println("ID: " + result.getInt("ID") + " ,NAME: " + result.getString("NAME"));
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

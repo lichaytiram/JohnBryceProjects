@@ -1,13 +1,14 @@
 package facade;
 
 import java.util.ArrayList;
+
+import beans.Category;
+import beans.Coupon;
+import beans.Customer;
 import dbdao.CouponsDBDAO;
 import dbdao.CustomerDBDAO;
 import dbdao.CustomersVsCouponsDBDAO;
 import exception.ExceptionName;
-import javaBeans.Category;
-import javaBeans.Coupon;
-import javaBeans.Customer;
 
 /**
  * This class manage the all function for client facade
