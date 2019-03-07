@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"dailyJob"},{"l":"dao"},{"l":"dbdao"},{"l":"exception"},{"l":"facade"},{"l":"javaBeans"},{"l":"program"},{"l":"utils"}]
