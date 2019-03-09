@@ -85,18 +85,18 @@ public class CouponsDBDAO implements ICouponsDao {
 				if (result.getInt("COMPANY_ID") == c.getCompanyId() && result.getString("TITLE").equals(c.getTitle()))
 					throw new ExceptionName("The coupon already exist on data base");
 
-			PreparedStatement p = con.prepareStatement(
-					"insert into coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) values ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
-			p.setInt(1, c.getCompanyId());
-			p.setInt(2, c.getCategoryId());
-			p.setString(3, c.getTitle());
-			p.setString(4, c.getDescription());
-			p.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
-			p.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
-			p.setInt(7, c.getAmount());
-			p.setDouble(8, c.getPrice());
-			p.setString(9, c.getImage());
-			p.executeUpdate();
+			PreparedStatement preparedStatement = con.prepareStatement(
+					"INSERT INTO coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
+			preparedStatement.setInt(1, c.getCompanyId());
+			preparedStatement.setInt(2, c.getCategoryId());
+			preparedStatement.setString(3, c.getTitle());
+			preparedStatement.setString(4, c.getDescription());
+			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
+			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
+			preparedStatement.setInt(7, c.getAmount());
+			preparedStatement.setDouble(8, c.getPrice());
+			preparedStatement.setString(9, c.getImage());
+			preparedStatement.executeUpdate();
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -114,8 +114,16 @@ public class CouponsDBDAO implements ICouponsDao {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponID);
-			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
+
+			PreparedStatement preparedStatement1 = con
+					.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
+			preparedStatement1.setInt(1, couponID);
+			preparedStatement1.executeUpdate();
+
+			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE ID = ?");
+			preparedStatement2.setInt(1, couponID);
+			preparedStatement2.executeUpdate();
+
 			System.out.println("delete from coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -137,8 +145,16 @@ public class CouponsDBDAO implements ICouponsDao {
 					.executeQuery("SELECT * FROM coupons WHERE ID=" + couponID + " AND COMPANY_ID=" + companyID);
 			while (!result.next())
 				throw new ExceptionName("Don't have this coupon for this company");
-			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponID);
-			con.createStatement().executeUpdate("DELETE FROM coupons WHERE ID=" + couponID);
+
+			PreparedStatement preparedStatement1 = con
+					.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
+			preparedStatement1.setInt(1, couponID);
+			preparedStatement1.executeUpdate();
+
+			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE ID = ?");
+			preparedStatement2.setInt(1, couponID);
+			preparedStatement2.executeUpdate();
+
 			System.out.println("delete from coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -168,12 +184,21 @@ public class CouponsDBDAO implements ICouponsDao {
 						&& result.getString("IMAGE").equals(c.getImage()) && result.getInt("AMOUNT") == c.getAmount())
 					throw new ExceptionName("The coupon already exist on data base");
 
-			con.createStatement()
-					.executeUpdate("UPDATE coupons SET COMPANY_ID=" + c.getCompanyId() + ", CATEGORY_ID="
-							+ c.getCategoryId() + ", TITLE='" + c.getTitle() + "', DESCRIPTION='" + c.getDescription()
-							+ "', START_DATE='" + DateUtils.javaDateToSqlDate(c.getStartDate()) + "', END_DATE='"
-							+ DateUtils.javaDateToSqlDate(c.getEndDate()) + "', AMOUNT=" + c.getAmount() + ", PRICE="
-							+ c.getPrice() + ", IMAGE='" + c.getImage() + "' WHERE ID=" + c.getId());
+			PreparedStatement preparedStatement = con
+					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY_ID=? , TITLE=? , DESCRIPTION=? ,"
+							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
+			preparedStatement.setInt(1, c.getCompanyId());
+			preparedStatement.setInt(2, c.getCategoryId());
+			preparedStatement.setString(3, c.getTitle());
+			preparedStatement.setString(4, c.getDescription());
+			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
+			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
+			preparedStatement.setInt(7, c.getAmount());
+			preparedStatement.setDouble(8, c.getPrice());
+			preparedStatement.setString(9, c.getImage());
+			preparedStatement.setInt(10, c.getId());
+			preparedStatement.executeUpdate();
+
 			System.out.println("update coupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -254,19 +279,23 @@ public class CouponsDBDAO implements ICouponsDao {
 	@Override
 	public void addCouponPurchase(int customerId, int couponId) throws Exception {
 		Connection con = null;
+		Coupon newCoupon = getOneCoupon(couponId);
+		if (newCoupon == null || newCoupon.getAmount() < 1)
+			throw new ExceptionName("Don't have anymore from this coupon!");
+		if (!(newCoupon.getStartDate().before(new Date()) && newCoupon.getEndDate().after(new Date())))
+			throw new ExceptionName(
+					"The date can be only in (" + newCoupon.getStartDate() + " - " + newCoupon.getEndDate() + ")");
+		newCoupon.setAmount(newCoupon.getAmount() - 1);
+		update(newCoupon);
 		try {
 			con = connection.getConnection();
-			Coupon newCoupon = getOneCoupon(couponId);
-			if (newCoupon == null || newCoupon.getAmount() < 1)
-				throw new ExceptionName("Don't have anymore from this coupon!");
-			if (!(newCoupon.getStartDate().before(new Date()) && newCoupon.getEndDate().after(new Date())))
-				throw new ExceptionName(
-						"The date can be only in (" + newCoupon.getStartDate() + " - " + newCoupon.getEndDate() + ")");
-			newCoupon.setAmount(newCoupon.getAmount() - 1);
-			update(newCoupon);
 
-			con.createStatement().executeUpdate("insert into customersVsCoupons (CUSTOMER_ID,COUPON_ID) values ("
-					+ customerId + "," + couponId + ")");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("INSERT INTO customersVsCoupons (CUSTOMER_ID,COUPON_ID) VALUES ( ? , ?)");
+			preparedStatement.setInt(1, customerId);
+			preparedStatement.setInt(2, couponId);
+			preparedStatement.executeUpdate();
+
 			System.out.println("insert customersVsCoupons has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -285,8 +314,13 @@ public class CouponsDBDAO implements ICouponsDao {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"DELETE FROM customersVsCoupons WHERE CUSTOMER_ID =" + customerId + " AND COUPON_ID =" + couponId);
+
+			PreparedStatement preparedStatement = con
+					.prepareStatement("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
+			preparedStatement.setInt(1, customerId);
+			preparedStatement.setInt(2, couponId);
+			preparedStatement.executeUpdate();
+
 			System.out.println("delete from customersVsCoupons has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

@@ -1,6 +1,7 @@
 package dbdao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -72,8 +73,14 @@ public class CompaniesDBDAO implements ICompaniesDao {
 			while (result.next())
 				if (result.getString("EMAIL").equals(c.getEmail()) || result.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The companies already exist on data base");
-			con.createStatement().executeUpdate("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES('" + c.getName()
-					+ "','" + c.getEmail() + "','" + c.getPassword() + "')");
+
+			PreparedStatement preparedStatement = con
+					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
+			preparedStatement.setString(1, c.getName());
+			preparedStatement.setString(2, c.getEmail());
+			preparedStatement.setString(3, c.getPassword());
+			preparedStatement.executeUpdate();
+
 			System.out.println("insert companies has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -97,12 +104,19 @@ public class CompaniesDBDAO implements ICompaniesDao {
 			while (result.next())
 				couponsID.add(result.getInt("ID"));
 			while (!couponsID.isEmpty()) {
-				con.createStatement()
-						.executeUpdate("DELETE FROM customersVsCoupons WHERE COUPON_ID=" + couponsID.get(0));
+
+				PreparedStatement preparedStatement1 = con
+						.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
+				preparedStatement1.setInt(1, couponsID.get(0));
+				preparedStatement1.executeUpdate();
 				couponsID.remove(0);
 			}
-			con.createStatement().executeUpdate("DELETE FROM coupons WHERE COMPANY_ID=" + companyID);
-			con.createStatement().executeUpdate("DELETE FROM companies WHERE ID=" + companyID);
+			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE COMPANY_ID = ?");
+			preparedStatement2.setInt(1, companyID);
+			preparedStatement2.executeUpdate();
+			PreparedStatement preparedStatement3 = con.prepareStatement("DELETE FROM companies WHERE ID= ?");
+			preparedStatement3.setInt(1, companyID);
+			preparedStatement3.executeUpdate();
 			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -127,8 +141,15 @@ public class CompaniesDBDAO implements ICompaniesDao {
 						&& result.getString("EMAIL").equals(c.getEmail())
 						&& result.getString("NAME").equals(c.getName()))
 					throw new ExceptionName("The company already exist on data base");
-			con.createStatement().executeUpdate("UPDATE companies SET NAME='" + c.getName() + "', EMAIL='"
-					+ c.getEmail() + "', PASSWORD='" + c.getPassword() + "' WHERE ID=" + c.getId());
+
+			PreparedStatement preparedStatement = con
+					.prepareStatement("UPDATE companies SET NAME=? , EMAIL=? , PASSWORD=? WHERE ID=? ");
+			preparedStatement.setString(1, c.getName());
+			preparedStatement.setString(2, c.getEmail());
+			preparedStatement.setString(3, c.getPassword());
+			preparedStatement.setInt(4, c.getId());
+			preparedStatement.executeUpdate();
+
 			System.out.println("update companies has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

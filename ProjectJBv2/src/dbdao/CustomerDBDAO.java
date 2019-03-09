@@ -1,6 +1,7 @@
 package dbdao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -72,10 +73,14 @@ public class CustomerDBDAO implements ICustomersDao {
 			while (result.next())
 				if (result.getString("EMAIL").equals(c.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
+			PreparedStatement preparedStatement = con.prepareStatement(
+					"INSERT INTO customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? , ? )");
+			preparedStatement.setString(1, c.getFirstName());
+			preparedStatement.setString(2, c.getLastName());
+			preparedStatement.setString(3, c.getEmail());
+			preparedStatement.setString(4, c.getPassword());
+			preparedStatement.executeUpdate();
 
-			con.createStatement().executeUpdate(
-					"insert into customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) values ('" + c.getFirstName() + "','"
-							+ c.getLastName() + "','" + c.getEmail() + "','" + c.getPassword() + "')");
 			System.out.println("insert customers has succeed");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -93,9 +98,16 @@ public class CustomerDBDAO implements ICustomersDao {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
-			con.createStatement().executeUpdate("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID=" + customerID);
-			con.createStatement().executeUpdate("DELETE FROM customers WHERE ID=" + customerID);
+			PreparedStatement preparedStatement1 = con
+					.prepareStatement("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID = ?");
+			preparedStatement1.setInt(1, customerID);
+			preparedStatement1.executeUpdate();
+			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM customers WHERE ID = ?");
+			preparedStatement2.setInt(1, customerID);
+			preparedStatement2.executeUpdate();
+
 			System.out.println("delete from customers has done");
+
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
@@ -118,10 +130,15 @@ public class CustomerDBDAO implements ICustomersDao {
 				if (result.getString("EMAIL").equals(c.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
-			con.createStatement()
-					.executeUpdate("UPDATE customers SET FIRST_NAME='" + c.getFirstName() + "',lAST_NAME='"
-							+ c.getLastName() + "', EMAIL='" + c.getEmail() + "', PASSWORD='" + c.getPassword()
-							+ "' WHERE ID=" + c.getId());
+			PreparedStatement preparedStatement = con.prepareStatement(
+					"UPDATE customers SET FIRST_NAME=? , lAST_NAME=? , EMAIL=? , PASSWORD=? WHERE ID=? ");
+			preparedStatement.setString(1, c.getFirstName());
+			preparedStatement.setString(2, c.getLastName());
+			preparedStatement.setString(3, c.getEmail());
+			preparedStatement.setString(4, c.getPassword());
+			preparedStatement.setInt(5, c.getId());
+			preparedStatement.executeUpdate();
+
 			System.out.println("update customers has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
