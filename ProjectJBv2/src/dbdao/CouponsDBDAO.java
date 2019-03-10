@@ -73,29 +73,30 @@ public class CouponsDBDAO implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#insert(javaBeans.Coupon)
 	 */
-	public void insert(Coupon c) throws Exception {
+	public void insert(Coupon coupon) throws Exception {
 
-		if (!(c.getStartDate().before(c.getEndDate())))
+		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 			throw new ExceptionName("This date isn't well! (must be start date before end date)");
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons");
 			while (result.next())
-				if (result.getInt("COMPANY_ID") == c.getCompanyId() && result.getString("TITLE").equals(c.getTitle()))
+				if (result.getInt("COMPANY_ID") == coupon.getCompanyId()
+						&& result.getString("TITLE").equals(coupon.getTitle()))
 					throw new ExceptionName("The coupon already exist on data base");
 
 			PreparedStatement preparedStatement = con.prepareStatement(
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
-			preparedStatement.setInt(1, c.getCompanyId());
-			preparedStatement.setInt(2, c.getCategoryId());
-			preparedStatement.setString(3, c.getTitle());
-			preparedStatement.setString(4, c.getDescription());
-			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
-			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
-			preparedStatement.setInt(7, c.getAmount());
-			preparedStatement.setDouble(8, c.getPrice());
-			preparedStatement.setString(9, c.getImage());
+			preparedStatement.setInt(1, coupon.getCompanyId());
+			preparedStatement.setInt(2, coupon.getCategoryId());
+			preparedStatement.setString(3, coupon.getTitle());
+			preparedStatement.setString(4, coupon.getDescription());
+			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(coupon.getStartDate()));
+			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(coupon.getEndDate()));
+			preparedStatement.setInt(7, coupon.getAmount());
+			preparedStatement.setDouble(8, coupon.getPrice());
+			preparedStatement.setString(9, coupon.getImage());
 			preparedStatement.executeUpdate();
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
@@ -168,9 +169,9 @@ public class CouponsDBDAO implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#update(javaBeans.Coupon)
 	 */
-	public void update(Coupon c) throws Exception {
+	public void update(Coupon coupon) throws Exception {
 
-		if (!(c.getStartDate().before(c.getEndDate())))
+		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 			throw new ExceptionName("This date isn't well! (must be start date before end date)");
 
 		Connection con = null;
@@ -178,25 +179,27 @@ public class CouponsDBDAO implements ICouponsDao {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons");
 			while (result.next())
-				if (result.getInt("COMPANY_ID") == c.getCompanyId() && result.getInt("CATEGORY_ID") == c.getCategoryId()
-						&& result.getString("TITLE").equals(c.getTitle())
-						&& result.getString("DESCRIPTION").equals(c.getDescription())
-						&& result.getString("IMAGE").equals(c.getImage()) && result.getInt("AMOUNT") == c.getAmount())
+				if (result.getInt("COMPANY_ID") == coupon.getCompanyId()
+						&& result.getInt("CATEGORY_ID") == coupon.getCategoryId()
+						&& result.getString("TITLE").equals(coupon.getTitle())
+						&& result.getString("DESCRIPTION").equals(coupon.getDescription())
+						&& result.getString("IMAGE").equals(coupon.getImage())
+						&& result.getInt("AMOUNT") == coupon.getAmount())
 					throw new ExceptionName("The coupon already exist on data base");
 
 			PreparedStatement preparedStatement = con
 					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY_ID=? , TITLE=? , DESCRIPTION=? ,"
 							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
-			preparedStatement.setInt(1, c.getCompanyId());
-			preparedStatement.setInt(2, c.getCategoryId());
-			preparedStatement.setString(3, c.getTitle());
-			preparedStatement.setString(4, c.getDescription());
-			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(c.getStartDate()));
-			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(c.getEndDate()));
-			preparedStatement.setInt(7, c.getAmount());
-			preparedStatement.setDouble(8, c.getPrice());
-			preparedStatement.setString(9, c.getImage());
-			preparedStatement.setInt(10, c.getId());
+			preparedStatement.setInt(1, coupon.getCompanyId());
+			preparedStatement.setInt(2, coupon.getCategoryId());
+			preparedStatement.setString(3, coupon.getTitle());
+			preparedStatement.setString(4, coupon.getDescription());
+			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(coupon.getStartDate()));
+			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(coupon.getEndDate()));
+			preparedStatement.setInt(7, coupon.getAmount());
+			preparedStatement.setDouble(8, coupon.getPrice());
+			preparedStatement.setString(9, coupon.getImage());
+			preparedStatement.setInt(10, coupon.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update coupons has done");
@@ -246,7 +249,7 @@ public class CouponsDBDAO implements ICouponsDao {
 	 */
 	public Coupon getOneCoupon(int couponID) throws Exception {
 		Connection con = null;
-		Coupon c = null;
+		Coupon coupon = null;
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons where id=" + couponID);
@@ -257,9 +260,10 @@ public class CouponsDBDAO implements ICouponsDao {
 						category = ca;
 						break;
 					}
-				c = new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category, result.getString("TITLE"),
-						result.getString("DESCRIPTION"), result.getDate("START_DATE"), result.getDate("END_DATE"),
-						result.getInt("AMOUNT"), result.getDouble("PRICE"), result.getString("IMAGE"));
+				coupon = new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
+						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
+						result.getString("IMAGE"));
 
 			}
 
@@ -268,7 +272,7 @@ public class CouponsDBDAO implements ICouponsDao {
 		} finally {
 			connection.restoreConnection(con);
 		}
-		return c;
+		return coupon;
 	}
 
 	/*

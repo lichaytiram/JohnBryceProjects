@@ -64,21 +64,21 @@ public class CustomerDBDAO implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#insert(javaBeans.Customer)
 	 */
-	public void insert(Customer c) throws Exception {
+	public void insert(Customer customer) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (result.next())
-				if (result.getString("EMAIL").equals(c.getEmail()))
+				if (result.getString("EMAIL").equals(customer.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 			PreparedStatement preparedStatement = con.prepareStatement(
 					"INSERT INTO customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? , ? )");
-			preparedStatement.setString(1, c.getFirstName());
-			preparedStatement.setString(2, c.getLastName());
-			preparedStatement.setString(3, c.getEmail());
-			preparedStatement.setString(4, c.getPassword());
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getEmail());
+			preparedStatement.setString(4, customer.getPassword());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert customers has succeed");
@@ -120,23 +120,23 @@ public class CustomerDBDAO implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#update(javaBeans.Customer)
 	 */
-	public void update(Customer c) throws Exception {
+	public void update(Customer customer) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (result.next())
-				if (result.getString("EMAIL").equals(c.getEmail()))
+				if (result.getString("EMAIL").equals(customer.getEmail()))
 					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			PreparedStatement preparedStatement = con.prepareStatement(
 					"UPDATE customers SET FIRST_NAME=? , lAST_NAME=? , EMAIL=? , PASSWORD=? WHERE ID=? ");
-			preparedStatement.setString(1, c.getFirstName());
-			preparedStatement.setString(2, c.getLastName());
-			preparedStatement.setString(3, c.getEmail());
-			preparedStatement.setString(4, c.getPassword());
-			preparedStatement.setInt(5, c.getId());
+			preparedStatement.setString(1, customer.getFirstName());
+			preparedStatement.setString(2, customer.getLastName());
+			preparedStatement.setString(3, customer.getEmail());
+			preparedStatement.setString(4, customer.getPassword());
+			preparedStatement.setInt(5, customer.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update customers has done");
@@ -160,12 +160,12 @@ public class CustomerDBDAO implements ICustomersDao {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
 			while (result.next()) {
-				Customer c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-						result.getString("FIRST_NAME"), result.getString("lAST_NAME"));
+				Customer customer = new Customer(result.getInt("ID"), result.getString("PASSWORD"),
+						result.getString("EMAIL"), result.getString("FIRST_NAME"), result.getString("lAST_NAME"));
 
 				ResultSet addCoupons = con.createStatement().executeQuery(
 						"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
-								+ c.getId());
+								+ customer.getId());
 				while (addCoupons.next()) {
 					Category category = null;
 					for (Category ca : Category.values())
@@ -173,12 +173,12 @@ public class CustomerDBDAO implements ICustomersDao {
 							category = ca;
 							break;
 						}
-					c.setCouponList(new Coupon(addCoupons.getInt("ID"), addCoupons.getInt("COMPANY_ID"), category,
-							addCoupons.getString("TITLE"), addCoupons.getString("DESCRIPTION"),
+					customer.setCouponList(new Coupon(addCoupons.getInt("ID"), addCoupons.getInt("COMPANY_ID"),
+							category, addCoupons.getString("TITLE"), addCoupons.getString("DESCRIPTION"),
 							addCoupons.getDouble("PRICE"), addCoupons.getString("IMAGE")));
 				}
 
-				list.add(c);
+				list.add(customer);
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -220,12 +220,12 @@ public class CustomerDBDAO implements ICustomersDao {
 	 */
 	public Customer getOneCustomer(int customerID) throws Exception {
 		Connection con = null;
-		Customer c = null;
+		Customer customer = null;
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers WHERE ID=" + customerID);
 			if (result.next())
-				c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+				customer = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
 						result.getString("FIRST_NAME"), result.getString("LAST_NAME"));
 			result = con.createStatement().executeQuery(
 					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
@@ -237,7 +237,7 @@ public class CustomerDBDAO implements ICustomersDao {
 						category = ca;
 						break;
 					}
-				c.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+				customer.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
 						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDouble("PRICE"),
 						result.getString("IMAGE")));
 			}
@@ -246,7 +246,7 @@ public class CustomerDBDAO implements ICustomersDao {
 		} finally {
 			connection.restoreConnection(con);
 		}
-		return c;
+		return customer;
 	}
 
 	/*
@@ -257,18 +257,18 @@ public class CustomerDBDAO implements ICustomersDao {
 	 */
 	public Customer getOneCustomerByEmailAndPassword(String email, String password) throws Exception {
 		Connection con = null;
-		Customer c = null;
+		Customer customer = null;
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * FROM customers where email='" + email + "' AND PASSWORD='" + password + "'");
 			if (result.next())
-				c = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
+				customer = new Customer(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
 						result.getString("FIRST_NAME"), result.getString("LAST_NAME"));
 
 			result = con.createStatement().executeQuery(
 					"SELECT * FROM customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE customersvscoupons.CUSTOMER_ID="
-							+ c.getId());
+							+ customer.getId());
 
 			while (result.next()) {
 				Category category = null;
@@ -277,7 +277,7 @@ public class CustomerDBDAO implements ICustomersDao {
 						category = ca;
 						break;
 					}
-				c.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
+				customer.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
 						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDouble("PRICE"),
 						result.getString("IMAGE")));
 			}
@@ -287,7 +287,7 @@ public class CustomerDBDAO implements ICustomersDao {
 		} finally {
 			connection.restoreConnection(con);
 		}
-		return c;
+		return customer;
 	}
 
 }

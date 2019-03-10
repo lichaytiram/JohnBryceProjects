@@ -65,20 +65,21 @@ public class CompaniesDBDAO implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#insert(javaBeans.Company)
 	 */
-	public void insert(Company c) throws Exception {
+	public void insert(Company company) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 			while (result.next())
-				if (result.getString("EMAIL").equals(c.getEmail()) || result.getString("NAME").equals(c.getName()))
+				if (result.getString("EMAIL").equals(company.getEmail())
+						|| result.getString("NAME").equals(company.getName()))
 					throw new ExceptionName("The companies already exist on data base");
 
 			PreparedStatement preparedStatement = con
 					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
-			preparedStatement.setString(1, c.getName());
-			preparedStatement.setString(2, c.getEmail());
-			preparedStatement.setString(3, c.getPassword());
+			preparedStatement.setString(1, company.getName());
+			preparedStatement.setString(2, company.getEmail());
+			preparedStatement.setString(3, company.getPassword());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert companies has done");
@@ -130,24 +131,24 @@ public class CompaniesDBDAO implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#update(javaBeans.Company)
 	 */
-	public void update(Company c) throws Exception {
+	public void update(Company company) throws Exception {
 		Connection con = null;
 
 		try {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 			while (result.next())
-				if (result.getString("PASSWORD").equals(c.getPassword())
-						&& result.getString("EMAIL").equals(c.getEmail())
-						&& result.getString("NAME").equals(c.getName()))
+				if (result.getString("PASSWORD").equals(company.getPassword())
+						&& result.getString("EMAIL").equals(company.getEmail())
+						&& result.getString("NAME").equals(company.getName()))
 					throw new ExceptionName("The company already exist on data base");
 
 			PreparedStatement preparedStatement = con
 					.prepareStatement("UPDATE companies SET NAME=? , EMAIL=? , PASSWORD=? WHERE ID=? ");
-			preparedStatement.setString(1, c.getName());
-			preparedStatement.setString(2, c.getEmail());
-			preparedStatement.setString(3, c.getPassword());
-			preparedStatement.setInt(4, c.getId());
+			preparedStatement.setString(1, company.getName());
+			preparedStatement.setString(2, company.getEmail());
+			preparedStatement.setString(3, company.getPassword());
+			preparedStatement.setInt(4, company.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update companies has done");
@@ -171,10 +172,10 @@ public class CompaniesDBDAO implements ICompaniesDao {
 			con = connection.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 			while (result.next()) {
-				Company c = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-						result.getString("NAME"));
+				Company company = new Company(result.getInt("ID"), result.getString("PASSWORD"),
+						result.getString("EMAIL"), result.getString("NAME"));
 				ResultSet reCouponList = con.createStatement()
-						.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + c.getId());
+						.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + company.getId());
 				while (reCouponList.next()) {
 					Category category = null;
 					for (Category ca : Category.values())
@@ -187,9 +188,9 @@ public class CompaniesDBDAO implements ICompaniesDao {
 							reCouponList.getDate("START_DATE"), reCouponList.getDate("END_DATE"),
 							reCouponList.getInt("AMOUNT"), reCouponList.getDouble("PRICE"),
 							reCouponList.getString("IMAGE"));
-					c.setCouponList(coupon);
+					company.setCouponList(coupon);
 				}
-				list.add(c);
+				list.add(company);
 			}
 
 		} catch (SQLException ex) {
