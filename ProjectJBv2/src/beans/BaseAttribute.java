@@ -12,7 +12,7 @@ public abstract class BaseAttribute {
 
 	// properties
 
-	private int id;
+	private long id;
 
 	// constructor
 	/**
@@ -21,7 +21,7 @@ public abstract class BaseAttribute {
 	 * @param id receive id for all function that exthends from this abstract class
 	 * @throws ExceptionName throw exception by name
 	 */
-	public BaseAttribute(int id) throws ExceptionName {
+	public BaseAttribute(long id) throws ExceptionName {
 		super();
 		setId(id);
 	}
@@ -40,7 +40,7 @@ public abstract class BaseAttribute {
 	/**
 	 * @return This function return id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -48,7 +48,7 @@ public abstract class BaseAttribute {
 	 * @param id Receive an id and change it for the new one (if it valid)
 	 * @throws ExceptionName throw exception by name
 	 */
-	public void setId(int id) throws ExceptionName {
+	public void setId(long id) throws ExceptionName {
 
 		if (id > 0)
 			this.id = id;

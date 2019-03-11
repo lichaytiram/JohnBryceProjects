@@ -44,29 +44,29 @@ public class RefreshDataBase implements ICreate {
 		try {
 			con = connection.getConnection();
 			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS companies (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
+					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
 							+ "EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
 			System.out.println("The table companies has created");
 
+			con.createStatement().executeUpdate(
+					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+			System.out.println("The table customers has created");
+
 			con.createStatement()
-					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,"
-							+ " COMPANY_ID int(10) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
-							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
+					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,"
+							+ " COMPANY_ID BIGINT(255) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
+							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE DATE ,"
+							+ " END_DATE DATE , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
 							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
 			System.out.println("The table coupons has created");
 
 			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customers (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
-			System.out.println("The table customers has created");
-
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID INT(200) UNSIGNED NOT NULL ,"
-							+ "COUPON_ID INT(200) UNSIGNED NOT NULL ," + "PRIMARY KEY(CUSTOMER_ID,COUPON_ID),"
+					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL ,"
+							+ "COUPON_ID BIGINT(255) UNSIGNED NOT NULL ," + "PRIMARY KEY(CUSTOMER_ID,COUPON_ID),"
 							+ "FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID),"
 							+ "FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
-			System.out.println("The table customersVsCoupons has created");
 
+			System.out.println("The table customersVsCoupons has created");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {

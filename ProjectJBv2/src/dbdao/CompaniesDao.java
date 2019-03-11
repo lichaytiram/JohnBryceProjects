@@ -57,7 +57,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#delete(int)
 	 */
-	public void delete(int companyID) throws Exception {
+	public void delete(long companyID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -75,10 +75,10 @@ public class CompaniesDao implements ICompaniesDao {
 				couponsID.remove(0);
 			}
 			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE COMPANY_ID = ?");
-			preparedStatement2.setInt(1, companyID);
+			preparedStatement2.setLong(1, companyID);
 			preparedStatement2.executeUpdate();
 			PreparedStatement preparedStatement3 = con.prepareStatement("DELETE FROM companies WHERE ID= ?");
-			preparedStatement3.setInt(1, companyID);
+			preparedStatement3.setLong(1, companyID);
 			preparedStatement3.executeUpdate();
 			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.setString(1, company.getName());
 			preparedStatement.setString(2, company.getEmail());
 			preparedStatement.setString(3, company.getPassword());
-			preparedStatement.setInt(4, company.getId());
+			preparedStatement.setLong(4, company.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update companies has done");
@@ -192,7 +192,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#getOneCompany(int)
 	 */
-	public Company getOneCompany(int companyID) throws Exception {
+	public Company getOneCompany(long companyID) throws Exception {
 		Connection con = null;
 		Company company = null;
 		try {

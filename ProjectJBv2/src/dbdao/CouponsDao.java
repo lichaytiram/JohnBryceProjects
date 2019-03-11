@@ -47,7 +47,7 @@ public class CouponsDao implements ICouponsDao {
 
 			PreparedStatement preparedStatement = con.prepareStatement(
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
-			preparedStatement.setInt(1, coupon.getCompanyId());
+			preparedStatement.setLong(1, coupon.getCompanyId());
 			preparedStatement.setInt(2, coupon.getCategoryId());
 			preparedStatement.setString(3, coupon.getTitle());
 			preparedStatement.setString(4, coupon.getDescription());
@@ -70,18 +70,18 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#delete(int)
 	 */
-	public void delete(int couponID) throws Exception {
+	public void delete(long couponID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			PreparedStatement preparedStatement1 = con
 					.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
-			preparedStatement1.setInt(1, couponID);
+			preparedStatement1.setLong(1, couponID);
 			preparedStatement1.executeUpdate();
 
 			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE ID = ?");
-			preparedStatement2.setInt(1, couponID);
+			preparedStatement2.setLong(1, couponID);
 			preparedStatement2.executeUpdate();
 
 			System.out.println("delete from coupons has done");
@@ -97,7 +97,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#delete(int, int)
 	 */
-	public void delete(int couponID, int companyID) throws Exception {
+	public void delete(long couponID, long companyID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -108,11 +108,11 @@ public class CouponsDao implements ICouponsDao {
 
 			PreparedStatement preparedStatement1 = con
 					.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
-			preparedStatement1.setInt(1, couponID);
+			preparedStatement1.setLong(1, couponID);
 			preparedStatement1.executeUpdate();
 
 			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE ID = ?");
-			preparedStatement2.setInt(1, couponID);
+			preparedStatement2.setLong(1, couponID);
 			preparedStatement2.executeUpdate();
 
 			System.out.println("delete from coupons has done");
@@ -149,7 +149,7 @@ public class CouponsDao implements ICouponsDao {
 			PreparedStatement preparedStatement = con
 					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY_ID=? , TITLE=? , DESCRIPTION=? ,"
 							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
-			preparedStatement.setInt(1, coupon.getCompanyId());
+			preparedStatement.setLong(1, coupon.getCompanyId());
 			preparedStatement.setInt(2, coupon.getCategoryId());
 			preparedStatement.setString(3, coupon.getTitle());
 			preparedStatement.setString(4, coupon.getDescription());
@@ -158,7 +158,7 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.setInt(7, coupon.getAmount());
 			preparedStatement.setDouble(8, coupon.getPrice());
 			preparedStatement.setString(9, coupon.getImage());
-			preparedStatement.setInt(10, coupon.getId());
+			preparedStatement.setLong(10, coupon.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update coupons has done");
@@ -206,7 +206,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getOneCoupon(int)
 	 */
-	public Coupon getOneCoupon(int couponID) throws Exception {
+	public Coupon getOneCoupon(long couponID) throws Exception {
 		Connection con = null;
 		Coupon coupon = null;
 		try {
@@ -240,7 +240,7 @@ public class CouponsDao implements ICouponsDao {
 	 * @see dao.ICouponsDAO#addCouponPurchase(int, int)
 	 */
 	@Override
-	public void addCouponPurchase(int customerId, int couponId) throws Exception {
+	public void addCouponPurchase(long customerId, long couponId) throws Exception {
 		Connection con = null;
 		Coupon newCoupon = getOneCoupon(couponId);
 		if (newCoupon == null || newCoupon.getAmount() < 1)
@@ -255,8 +255,8 @@ public class CouponsDao implements ICouponsDao {
 
 			PreparedStatement preparedStatement = con
 					.prepareStatement("INSERT INTO customersVsCoupons (CUSTOMER_ID,COUPON_ID) VALUES ( ? , ?)");
-			preparedStatement.setInt(1, customerId);
-			preparedStatement.setInt(2, couponId);
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setLong(2, couponId);
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert customersVsCoupons has succeed");
@@ -273,15 +273,15 @@ public class CouponsDao implements ICouponsDao {
 	 * @see dao.ICouponsDAO#deleteCouponPurchase(int, int)
 	 */
 	@Override
-	public void deleteCouponPurchase(int customerId, int couponId) throws Exception {
+	public void deleteCouponPurchase(long customerId, long couponId) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 
 			PreparedStatement preparedStatement = con
 					.prepareStatement("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
-			preparedStatement.setInt(1, customerId);
-			preparedStatement.setInt(2, couponId);
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setLong(2, couponId);
 			preparedStatement.executeUpdate();
 
 			System.out.println("delete from customersVsCoupons has done");
@@ -298,7 +298,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByID(int)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByID(int companyID) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByID(long companyID) throws Exception {
 
 		Connection con = null;
 		ArrayList<Coupon> list = new ArrayList<>();
@@ -331,7 +331,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByMaxPrice(double, int)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, int companyID) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyID) throws Exception {
 		Connection con = null;
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {
@@ -367,7 +367,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByCategory(javaBeans.Category, int)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, int companyID) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyID) throws Exception {
 		Connection con = null;
 		ArrayList<Coupon> list = new ArrayList<>();
 		try {

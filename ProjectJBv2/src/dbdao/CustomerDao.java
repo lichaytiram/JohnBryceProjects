@@ -57,16 +57,16 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#delete(int)
 	 */
-	public void delete(int customerID) throws Exception {
+	public void delete(long customerID) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
 			PreparedStatement preparedStatement1 = con
 					.prepareStatement("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID = ?");
-			preparedStatement1.setInt(1, customerID);
+			preparedStatement1.setLong(1, customerID);
 			preparedStatement1.executeUpdate();
 			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM customers WHERE ID = ?");
-			preparedStatement2.setInt(1, customerID);
+			preparedStatement2.setLong(1, customerID);
 			preparedStatement2.executeUpdate();
 
 			System.out.println("delete from customers has done");
@@ -99,7 +99,7 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.setString(2, customer.getLastName());
 			preparedStatement.setString(3, customer.getEmail());
 			preparedStatement.setString(4, customer.getPassword());
-			preparedStatement.setInt(5, customer.getId());
+			preparedStatement.setLong(5, customer.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update customers has done");
@@ -181,7 +181,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#getOneCustomer(int)
 	 */
-	public Customer getOneCustomer(int customerID) throws Exception {
+	public Customer getOneCustomer(long customerID) throws Exception {
 		Connection con = null;
 		Customer customer = null;
 		try {

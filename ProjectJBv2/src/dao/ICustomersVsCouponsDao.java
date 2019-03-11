@@ -18,14 +18,14 @@ public interface ICustomersVsCouponsDao {
 	 * @param couponId   Receive a coupon id and insert to data base
 	 * @throws Exception Can throw an exception
 	 */
-	void insert(int customerId, int couponId) throws Exception;
+	void insert(long customerId, long couponId) throws Exception;
 
 	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id and delete id from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(int customerId, int couponId) throws Exception;
+	void delete(long customerId, long couponId) throws Exception;
 
 	/**
 	 * @param oldCustomerId Receive an old customer id
@@ -34,21 +34,21 @@ public interface ICustomersVsCouponsDao {
 	 * @param newCouponId   Receive a new coupon id and replace them
 	 * @throws Exception Can throw an exception
 	 */
-	void update(int oldCustomerId, int newCustomerId, int oldCouponId, int newCouponId) throws Exception;
+	void update(long oldCustomerId, long newCustomerId, long oldCouponId, long newCouponId) throws Exception;
 
 	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id and check if customer bought that item
 	 * @throws Exception Can throw an exception
 	 */
-	public void checkIfCustomerBought(int customerId, int couponId) throws Exception;
+	public void checkIfCustomerBought(long customerId, long couponId) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id
 	 * @return This function return all coupons that customer bought by his id
 	 * @throws Exception Can throw an exception
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCustomerID(int customerID) throws Exception;
+	public ArrayList<Coupon> getCustomerCouponByCustomerID(long customerID) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -56,7 +56,7 @@ public interface ICustomersVsCouponsDao {
 	 * @return This function return all coupons that customer bought by his category
 	 * @throws Exception Can throw an exception
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCategory(int customerID, Category category) throws Exception;
+	public ArrayList<Coupon> getCustomerCouponByCategory(long customerID, Category category) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -65,6 +65,6 @@ public interface ICustomersVsCouponsDao {
 	 *         and his id
 	 * @throws Exception Can throw an exception
 	 */
-	public ArrayList<Coupon> getCustomerCouponByMaxPrice(int customerID, double maxPrice) throws Exception;
+	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerID, double maxPrice) throws Exception;
 
 }

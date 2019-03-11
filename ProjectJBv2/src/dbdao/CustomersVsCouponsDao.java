@@ -25,7 +25,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#insert(int, int)
 	 */
-	public void insert(int customerId, int couponId) throws Exception {
+	public void insert(long customerId, long couponId) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -44,7 +44,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#delete(int, int)
 	 */
-	public void delete(int customerId, int couponId) throws Exception {
+	public void delete(long customerId, long couponId) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -63,7 +63,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#update(int, int, int, int)
 	 */
-	public void update(int oldCustomerId, int newCustomerId, int oldCouponId, int newCouponId) throws Exception {
+	public void update(long oldCustomerId, long newCustomerId, long oldCouponId, long newCouponId) throws Exception {
 		Connection con = null;
 		try {
 			con = connection.getConnection();
@@ -101,7 +101,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#checkIfCustomerBought(int, int)
 	 */
-	public void checkIfCustomerBought(int customerId, int couponId) throws Exception {
+	public void checkIfCustomerBought(long customerId, long couponId) throws Exception {
 
 		Connection con = null;
 		try {
@@ -122,7 +122,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByCustomerID(int)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCustomerID(int customerID) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCustomerID(long customerID) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection con = null;
@@ -160,7 +160,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByCategory(int,
 	 * javaBeans.Category)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCategory(int customerID, Category category) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCategory(long customerID, Category category) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection con = null;
@@ -191,7 +191,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * 
 	 * @see dao.ICustomersVsCouponsDAO#getCustomerCouponByMaxPrice(int, double)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByMaxPrice(int customerID, double maxPrice) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerID, double maxPrice) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection con = null;

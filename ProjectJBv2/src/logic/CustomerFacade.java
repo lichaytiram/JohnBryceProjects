@@ -17,7 +17,7 @@ import exception.ExceptionName;
  */
 public class CustomerFacade extends ClientFacade {
 
-	private int customerID;
+	private long customerID;
 
 	/**
 	 * @param email    Receive an email
@@ -65,7 +65,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void purchaseCoupon(Coupon coupon) throws Exception {
-		int couponID = coupon.getId();
+		long couponID = coupon.getId();
 		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
 		CouponsDao newcoupon = new CouponsDao();

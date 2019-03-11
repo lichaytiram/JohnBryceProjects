@@ -14,7 +14,7 @@ public class Coupon extends BaseAttribute {
 
 	// properties
 
-	private int companyId;
+	private long companyId;
 	private Category category;
 	private String title;
 	private String description;
@@ -41,7 +41,7 @@ public class Coupon extends BaseAttribute {
 	 * @param image       Receive an image
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public Coupon(int id, int companyId, Category category, String title, String description, Date startDate,
+	public Coupon(long id, long companyId, Category category, String title, String description, Date startDate,
 			Date endDate, int amount, double price, String image) throws ExceptionName {
 		super(id);
 		setCompanyId(companyId);
@@ -69,7 +69,7 @@ public class Coupon extends BaseAttribute {
 	 * @param image       Receive an image
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public Coupon(int companyId, Category category, String title, String description, Date startDate, Date endDate,
+	public Coupon(long companyId, Category category, String title, String description, Date startDate, Date endDate,
 			int amount, double price, String image) throws ExceptionName {
 		super();
 		setCompanyId(companyId);
@@ -95,7 +95,7 @@ public class Coupon extends BaseAttribute {
 	 * @param image       Receive an image
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public Coupon(int id, int companyId, Category category, String title, String description, double price,
+	public Coupon(long id, long companyId, Category category, String title, String description, double price,
 			String image) throws ExceptionName {
 		super(id);
 		setCompanyId(companyId);
@@ -111,7 +111,7 @@ public class Coupon extends BaseAttribute {
 	/**
 	 * @return This function return a id
 	 */
-	public int getCompanyId() {
+	public long getCompanyId() {
 		return companyId;
 	}
 
@@ -119,7 +119,7 @@ public class Coupon extends BaseAttribute {
 	 * @param companyId This function receive a company id and set new one if valid
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public void setCompanyId(int companyId) throws ExceptionName {
+	public void setCompanyId(long companyId) throws ExceptionName {
 		if (companyId > 0)
 			this.companyId = companyId;
 		else

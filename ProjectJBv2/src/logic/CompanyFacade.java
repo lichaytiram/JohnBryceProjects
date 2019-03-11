@@ -16,7 +16,7 @@ import exception.ExceptionName;
  */
 public class CompanyFacade extends ClientFacade {
 
-	private int companyID;
+	private long companyID;
 
 	/**
 	 * @param email    Receive an email
@@ -81,7 +81,7 @@ public class CompanyFacade extends ClientFacade {
 	 * @param couponid Receive a coupon id and delete it from data base
 	 * @throws Exception Can throw an exception
 	 */
-	public void deleteCoupon(int couponid) throws Exception {
+	public void deleteCoupon(long couponid) throws Exception {
 		CouponsDao coupon = new CouponsDao();
 		coupon.delete(couponid, companyID);
 	}

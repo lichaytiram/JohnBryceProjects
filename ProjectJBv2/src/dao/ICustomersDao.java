@@ -22,7 +22,7 @@ public interface ICustomersDao {
 	 * @param customerID Receive a customer id and delete from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(int customerID) throws Exception;
+	void delete(long customerID) throws Exception;
 
 	/**
 	 * @param c Receive a customer and update his details
@@ -49,7 +49,7 @@ public interface ICustomersDao {
 	 * @return This function return customer by his id
 	 * @throws Exception Can throw an exception
 	 */
-	Customer getOneCustomer(int customerID) throws Exception;
+	Customer getOneCustomer(long customerID) throws Exception;
 
 	/**
 	 * @param email    Receive an email
