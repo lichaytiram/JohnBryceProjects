@@ -7,17 +7,17 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import daily.job.Job;
-import dbdao.CategoriesDBDAO;
-import dbdao.CompaniesDBDAO;
-import dbdao.CouponsDBDAO;
-import dbdao.CustomerDBDAO;
-import dbdao.CustomersVsCouponsDBDAO;
+import dbdao.CompaniesDao;
+import dbdao.CouponsDao;
+import dbdao.CustomerDao;
+import dbdao.CustomersVsCouponsDao;
 import exception.ExceptionName;
-import facade.AdminFacade;
-import facade.ClientType;
-import facade.CompanyFacade;
-import facade.CustomerFacade;
-import facade.LoginManager;
+import logic.AdminFacade;
+import logic.ClientType;
+import logic.CompanyFacade;
+import logic.CustomerFacade;
+import logic.LoginManager;
+import test.RefreshDataBase;
 
 /**
  * This class implements all function in this program
@@ -27,11 +27,10 @@ import facade.LoginManager;
  */
 public class Test {
 	private final static String Driver = "com.mysql.cj.jdbc.Driver";
-	public static CompaniesDBDAO companies = new CompaniesDBDAO();
-	public static CustomerDBDAO customers = new CustomerDBDAO();
-	public static CategoriesDBDAO categories = new CategoriesDBDAO();
-	public static CouponsDBDAO coupons = new CouponsDBDAO();
-	public static CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+	public static CompaniesDao companies = new CompaniesDao();
+	public static CustomerDao customers = new CustomerDao();
+	public static CouponsDao coupons = new CouponsDao();
+	public static CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 
 	/**
 	 * This function implement all method for this class
@@ -44,7 +43,9 @@ public class Test {
 			System.out.println(e);
 		}
 
-		refreshDB();
+		RefreshDataBase refreshDataBase = new RefreshDataBase();
+		refreshDataBase.refreshDB();
+		
 		daily.job.Job j = new Job();
 		Thread dailyJob = new Thread(j, "daily Job");
 		dailyJob.start();
@@ -246,27 +247,4 @@ public class Test {
 
 	}
 
-	/**
-	 * This function refresh all DataBase info
-	 */
-	public static void refreshDB() {
-
-		try {
-
-			customersVsCoupons.drop();
-			coupons.drop();
-			companies.drop();
-			customers.drop();
-			categories.drop();
-			companies.create();
-			customers.create();
-			categories.create();
-			coupons.create();
-			customersVsCoupons.create();
-			System.out.println("refresh DataBase end! (delete all DB)");
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-
-	}
 }

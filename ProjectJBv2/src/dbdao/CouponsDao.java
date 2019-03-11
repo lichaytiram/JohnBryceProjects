@@ -23,50 +23,9 @@ import utils.DateUtils;
  * @author Lichay
  *
  */
-public class CouponsDBDAO implements ICouponsDao {
+public class CouponsDao implements ICouponsDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#create()
-	 */
-	public void create() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement()
-					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,"
-							+ " COMPANY_ID int(10) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
-							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE TIMESTAMP ,"
-							+ " END_DATE TIMESTAMP , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
-							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
-			System.out.println("The table coupons has created");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#drop()
-	 */
-	public void drop() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("DROP TABLE coupons");
-			System.out.println("The table coupons is a drop");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
 
 	/*
 	 * (non-Javadoc)

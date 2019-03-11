@@ -2,7 +2,7 @@ package daily.job;
 
 import java.util.ArrayList;
 
-import dbdao.CouponsDBDAO;
+import dbdao.CouponsDao;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class Job implements Runnable {
 	public void run() {
 
 		while (true) {
-			CouponsDBDAO d = new CouponsDBDAO();
+			CouponsDao d = new CouponsDao();
 
 			try {
 				synchronized (d.getAllexpiredCouponsById()) {

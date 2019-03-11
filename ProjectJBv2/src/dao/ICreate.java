@@ -6,7 +6,7 @@ package dao;
  * @author Lichay
  *
  */
-public interface IMainDao {
+public interface ICreate {
 
 	/**
 	 * Create a table in data base

@@ -11,7 +11,7 @@ import beans.Coupon;
  * @author Lichay
  *
  */
-public interface ICouponsDao extends IMainDao {
+public interface ICouponsDao {
 
 	/**
 	 * @param c Receive a coupon and insert to data base

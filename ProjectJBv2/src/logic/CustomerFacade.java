@@ -1,13 +1,13 @@
-package facade;
+package logic;
 
 import java.util.ArrayList;
 
 import beans.Category;
 import beans.Coupon;
 import beans.Customer;
-import dbdao.CouponsDBDAO;
-import dbdao.CustomerDBDAO;
-import dbdao.CustomersVsCouponsDBDAO;
+import dbdao.CouponsDao;
+import dbdao.CustomerDao;
+import dbdao.CustomersVsCouponsDao;
 import exception.ExceptionName;
 
 /**
@@ -27,7 +27,7 @@ public class CustomerFacade extends ClientFacade {
 	public CustomerFacade(String email, String password) throws ExceptionName {
 		if (!login(email, password))
 			throw new ExceptionName("Don't have a match with your current email and password!");
-		CustomerDBDAO customer = new CustomerDBDAO();
+		CustomerDao customer = new CustomerDao();
 		try {
 			this.customerID = customer.getOneCustomerByEmailAndPassword(email, password).getId();
 			System.out.println("you are login: " + customerID);
@@ -50,7 +50,7 @@ public class CustomerFacade extends ClientFacade {
 	 */
 	@Override
 	boolean login(String email, String password) {
-		CustomerDBDAO customer = new CustomerDBDAO();
+		CustomerDao customer = new CustomerDao();
 		try {
 			if (customer.isCustomerExists(email, password))
 				return true;
@@ -66,9 +66,9 @@ public class CustomerFacade extends ClientFacade {
 	 */
 	public void purchaseCoupon(Coupon coupon) throws Exception {
 		int couponID = coupon.getId();
-		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
-		CouponsDBDAO newcoupon = new CouponsDBDAO();
+		CouponsDao newcoupon = new CouponsDao();
 		newcoupon.addCouponPurchase(customerID, couponID);
 	}
 
@@ -77,7 +77,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons() throws Exception {
-		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 		return customersVsCoupons.getCustomerCouponByCustomerID(customerID);
 	}
 
@@ -88,7 +88,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons(Category category) throws Exception {
-		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 		return customersVsCoupons.getCustomerCouponByCategory(customerID, category);
 	}
 
@@ -99,7 +99,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception {
-		CustomersVsCouponsDBDAO customersVsCoupons = new CustomersVsCouponsDBDAO();
+		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
 		return customersVsCoupons.getCustomerCouponByMaxPrice(customerID, maxPrice);
 	}
 
@@ -107,7 +107,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @return This function return the customer that login
 	 */
 	public Customer getCustomerDetails() {
-		CustomerDBDAO customer = new CustomerDBDAO();
+		CustomerDao customer = new CustomerDao();
 		try {
 			return customer.getOneCustomer(customerID);
 		} catch (Exception e) {

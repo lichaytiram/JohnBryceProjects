@@ -1,4 +1,4 @@
-package facade;
+package logic;
 
 /**
  * This enum contain all client type that can login to data base

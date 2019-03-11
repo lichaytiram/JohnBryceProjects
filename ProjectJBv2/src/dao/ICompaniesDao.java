@@ -10,7 +10,7 @@ import beans.Company;
  * @author Lichay
  *
  */
-public interface ICompaniesDao extends IMainDao {
+public interface ICompaniesDao {
 
 	/**
 	 * @param c Receive a company and insert to data base

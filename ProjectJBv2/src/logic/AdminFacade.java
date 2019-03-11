@@ -1,12 +1,12 @@
-package facade;
+package logic;
 
 import java.util.ArrayList;
 
 import beans.Company;
 import beans.Customer;
 import daily.job.Job;
-import dbdao.CompaniesDBDAO;
-import dbdao.CustomerDBDAO;
+import dbdao.CompaniesDao;
+import dbdao.CustomerDao;
 import exception.ExceptionName;
 
 /**
@@ -51,7 +51,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void addCompany(Company c) throws Exception {
-		CompaniesDBDAO companies = new CompaniesDBDAO();
+		CompaniesDao companies = new CompaniesDao();
 		companies.insert(c);
 	}
 
@@ -60,7 +60,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void updateCompany(Company c) throws Exception {
-		CompaniesDBDAO companies = new CompaniesDBDAO();
+		CompaniesDao companies = new CompaniesDao();
 		companies.update(c);
 	}
 
@@ -69,7 +69,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void deleteCompany(int companyID) throws Exception {
-		CompaniesDBDAO companies = new CompaniesDBDAO();
+		CompaniesDao companies = new CompaniesDao();
 		companies.delete(companyID);
 	}
 
@@ -78,7 +78,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Company> getAllCompanies() throws Exception {
-		CompaniesDBDAO companies = new CompaniesDBDAO();
+		CompaniesDao companies = new CompaniesDao();
 		return companies.getAllCompany();
 	}
 
@@ -88,7 +88,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public Company getOneCompany(int companyID) throws Exception {
-		CompaniesDBDAO companies = new CompaniesDBDAO();
+		CompaniesDao companies = new CompaniesDao();
 		return companies.getOneCompany(companyID);
 	}
 
@@ -97,7 +97,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void addCustomer(Customer c) throws Exception {
-		CustomerDBDAO Customer = new CustomerDBDAO();
+		CustomerDao Customer = new CustomerDao();
 		Customer.insert(c);
 	}
 
@@ -106,7 +106,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void updateCustomer(Customer c) throws Exception {
-		CustomerDBDAO Customer = new CustomerDBDAO();
+		CustomerDao Customer = new CustomerDao();
 		Customer.update(c);
 	}
 
@@ -115,7 +115,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void deleteCustomer(int customerID) throws Exception {
-		CustomerDBDAO Customer = new CustomerDBDAO();
+		CustomerDao Customer = new CustomerDao();
 		Customer.delete(customerID);
 	}
 
@@ -124,7 +124,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Customer> getAllCustomer() throws Exception {
-		CustomerDBDAO Customer = new CustomerDBDAO();
+		CustomerDao Customer = new CustomerDao();
 		return Customer.getAllCustomer();
 	}
 
@@ -134,7 +134,7 @@ public class AdminFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public Customer getOneCustomer(int customerID) throws Exception {
-		CustomerDBDAO Customer = new CustomerDBDAO();
+		CustomerDao Customer = new CustomerDao();
 		return Customer.getOneCustomer(customerID);
 	}
 

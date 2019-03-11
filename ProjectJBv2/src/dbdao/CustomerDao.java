@@ -18,46 +18,9 @@ import exception.ExceptionName;
  * @author Lichay
  *
  */
-public class CustomerDBDAO implements ICustomersDao {
+public class CustomerDao implements ICustomersDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#create()
-	 */
-	public void create() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customers (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
-			System.out.println("The table customers has created");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#drop()
-	 */
-	public void drop() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("DROP TABLE customers");
-			System.out.println("The table customers is a drop");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
 
 	/*
 	 * (non-Javadoc)

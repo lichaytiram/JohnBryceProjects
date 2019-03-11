@@ -18,47 +18,9 @@ import exception.ExceptionName;
  * @author Lichay
  *
  */
-public class CompaniesDBDAO implements ICompaniesDao {
+public class CompaniesDao implements ICompaniesDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#create()
-	 */
-	public void create() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS companies (ID INT(200) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
-							+ "EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
-			System.out.println("The table companies has created");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#drop()
-	 */
-	public void drop() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("DROP TABLE companies");
-			System.out.println("The table companies is a drop");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
 
 	/*
 	 * (non-Javadoc)

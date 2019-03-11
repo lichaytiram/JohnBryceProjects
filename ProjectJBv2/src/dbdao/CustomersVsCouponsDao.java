@@ -16,49 +16,9 @@ import exception.ExceptionName;
  * @author Lichay
  *
  */
-public class CustomersVsCouponsDBDAO implements ICustomersVsCouponsDao {
+public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
 	private ConnectionPool connection = ConnectionPool.getInstance();
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#create()
-	 */
-	public void create() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID INT(200) UNSIGNED NOT NULL ,"
-							+ "COUPON_ID INT(200) UNSIGNED NOT NULL ," + "PRIMARY KEY(CUSTOMER_ID,COUPON_ID),"
-							+ "FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID),"
-							+ "FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
-			System.out.println("The table customersVsCoupons has created");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IMainDAO#drop()
-	 */
-	public void drop() throws Exception {
-		Connection con = null;
-		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("DROP TABLE customersVsCoupons");
-			System.out.println("The table customersVsCoupons is a drop");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.restoreConnection(con);
-		}
-	}
 
 	/*
 	 * (non-Javadoc)

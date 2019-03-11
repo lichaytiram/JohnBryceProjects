@@ -1,4 +1,4 @@
-package facade;
+package logic;
 
 import dao.ICompaniesDao;
 import dao.ICustomersDao;

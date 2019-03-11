@@ -10,7 +10,7 @@ import beans.Customer;
  * @author Lichay
  *
  */
-public interface ICustomersDao extends IMainDao {
+public interface ICustomersDao {
 
 	/**
 	 * @param c Receive a customer and add to data base

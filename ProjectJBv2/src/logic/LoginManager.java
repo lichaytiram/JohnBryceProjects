@@ -1,4 +1,4 @@
-package facade;
+package logic;
 
 import exception.ExceptionName;
 

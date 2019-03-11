@@ -11,7 +11,7 @@ import beans.Coupon;
  * @author Lichay
  *
  */
-public interface ICustomersVsCouponsDao extends IMainDao {
+public interface ICustomersVsCouponsDao {
 
 	/**
 	 * @param customerId Receive a customer id
