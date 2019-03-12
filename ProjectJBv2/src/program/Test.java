@@ -45,7 +45,7 @@ public class Test {
 
 		RefreshDataBase refreshDataBase = new RefreshDataBase();
 		refreshDataBase.refreshDB();
-		
+
 		daily.job.Job j = new Job();
 		Thread dailyJob = new Thread(j, "daily Job");
 		dailyJob.start();
@@ -184,7 +184,7 @@ public class Test {
 		try {
 			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
 			System.out.println(customer.getCustomerCoupons());
-			customer.purchaseCoupon(coupons.getOneCoupon(3));
+			customer.purchaseCoupon(coupons.getCoupon(3));
 			System.out.println(customer.getCustomerCoupons());
 			System.out.println(customer.getCustomerDetails());
 			company.deleteCoupon(1);
@@ -196,7 +196,7 @@ public class Test {
 		}
 
 		try {
-			customer.purchaseCoupon(coupons.getOneCoupon(3));
+			customer.purchaseCoupon(coupons.getCoupon(3));
 		} catch (ExceptionName e) {
 			System.out.println(e);
 		} catch (Exception e) {
@@ -206,11 +206,11 @@ public class Test {
 		try {
 			System.out.println(customer.getCustomerCoupons());
 			company.addCoupon(coupons5);
-			customer.purchaseCoupon(coupons.getOneCoupon(4));
+			customer.purchaseCoupon(coupons.getCoupon(4));
 			System.out.println(customer.getCustomerCoupons());
 			System.out.println(customer.getCustomerCoupons(Category.Electricity));
 			System.out.println(customer.getCustomerCoupons(70));
-			customer.purchaseCoupon(coupons.getOneCoupon(4));
+			customer.purchaseCoupon(coupons.getCoupon(4));
 		} catch (ExceptionName e) {
 			System.out.println(e);
 		} catch (Exception e) {
@@ -220,7 +220,7 @@ public class Test {
 		try {
 			company = (CompanyFacade) manager.login("sss@gmail.com", "12aA3x23x4xx", ClientType.Company);
 			company.addCoupon(coupons6);
-			customer.purchaseCoupon(coupons.getOneCoupon(5));
+			customer.purchaseCoupon(coupons.getCoupon(5));
 			admin = (AdminFacade) manager.login("admin@admin.com", "adminn", ClientType.Administrator);
 
 		} catch (ExceptionName e) {

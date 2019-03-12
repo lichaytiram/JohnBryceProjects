@@ -89,7 +89,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public Company getOneCompany(int companyID) throws Exception {
 		CompaniesDao companies = new CompaniesDao();
-		return companies.getOneCompany(companyID);
+		return companies.getCompany(companyID);
 	}
 
 	/**
@@ -135,7 +135,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public Customer getOneCustomer(int customerID) throws Exception {
 		CustomerDao Customer = new CustomerDao();
-		return Customer.getOneCustomer(customerID);
+		return Customer.getCustomer(customerID);
 	}
 
 	/**

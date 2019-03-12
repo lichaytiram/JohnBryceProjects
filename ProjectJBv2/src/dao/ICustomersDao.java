@@ -39,6 +39,13 @@ public interface ICustomersDao {
 	public boolean isCustomerExists(String email, String password) throws Exception;
 
 	/**
+	 * @param customerId Receive an id
+	 * @return Check if customer exists and return true or false
+	 * @throws Exception Can throw an exception
+	 */
+	public boolean isCustomerExists(long customerId) throws Exception;
+
+	/**
 	 * @return This function return all customer from data base
 	 * @throws Exception Can throw an exception
 	 */
@@ -49,7 +56,7 @@ public interface ICustomersDao {
 	 * @return This function return customer by his id
 	 * @throws Exception Can throw an exception
 	 */
-	Customer getOneCustomer(long customerID) throws Exception;
+	Customer getCustomer(long customerID) throws Exception;
 
 	/**
 	 * @param email    Receive an email
@@ -57,6 +64,6 @@ public interface ICustomersDao {
 	 * @return This function return a customer by his email and password
 	 * @throws Exception Can throw an exception
 	 */
-	Customer getOneCustomerByEmailAndPassword(String email, String password) throws Exception;
+	Customer getCustomerByEmailAndPassword(String email, String password) throws Exception;
 
 }

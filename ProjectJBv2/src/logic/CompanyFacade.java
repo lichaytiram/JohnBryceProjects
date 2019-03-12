@@ -28,7 +28,7 @@ public class CompanyFacade extends ClientFacade {
 			throw new ExceptionName("Don't have a match with your current email and password!");
 		CompaniesDao customer = new CompaniesDao();
 		try {
-			this.companyID = customer.getOneCompanyByEmailAndPassword(email, password).getId();
+			this.companyID = customer.getCompanyByEmailAndPassword(email, password).getId();
 			System.out.println("you are login: " + companyID);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -82,8 +82,8 @@ public class CompanyFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void deleteCoupon(long couponid) throws Exception {
-		CouponsDao coupon = new CouponsDao();
-		coupon.delete(couponid, companyID);
+//		CouponsDao coupon = new CouponsDao();
+//		coupon.delete(couponid, companyID);
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class CompanyFacade extends ClientFacade {
 	 */
 	public ArrayList<Coupon> getCompanyCoupons() throws Exception {
 		CouponsDao coupon = new CouponsDao();
-		return coupon.getCompanyCouponsByID(companyID);
+		return coupon.getCompanyCouponsById(companyID);
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class CompanyFacade extends ClientFacade {
 	public Company getCompanyDetails() {
 		CompaniesDao companies = new CompaniesDao();
 		try {
-			return companies.getOneCompany(companyID);
+			return companies.getCompany(companyID);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

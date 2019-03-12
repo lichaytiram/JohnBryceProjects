@@ -32,8 +32,8 @@ public class Job implements Runnable {
 			CouponsDao d = new CouponsDao();
 
 			try {
-				synchronized (d.getAllexpiredCouponsById()) {
-					ArrayList<Integer> list = d.getAllexpiredCouponsById();
+				synchronized (d.getAllexpiredCouponsId()) {
+					ArrayList<Integer> list = d.getAllexpiredCouponsId();
 					while (list.size() > 0) {
 						d.delete(list.get(0));
 						System.out.println("coupon id= [" + list.get(0) + "] has been deleted");

@@ -25,7 +25,7 @@ public class Company extends SecondBaseAttribute {
 	 * @param name     Receive a name for company
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public Company(int id, String password, String email, String name) throws ExceptionName {
+	public Company(long id, String password, String email, String name) throws ExceptionName {
 		super(id, password, email);
 		setName(name);
 

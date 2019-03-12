@@ -28,7 +28,7 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 	 * @param email    Receive an email
 	 * @throws ExceptionName Throw an exception by name
 	 */
-	public SecondBaseAttribute(int id, String password, String email) throws ExceptionName {
+	public SecondBaseAttribute(long id, String password, String email) throws ExceptionName {
 		super(id);
 		setPassword(password);
 		setEmail(email);

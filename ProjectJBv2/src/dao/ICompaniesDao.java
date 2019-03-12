@@ -39,6 +39,13 @@ public interface ICompaniesDao {
 	boolean isCompanyExists(String email, String password) throws Exception;
 
 	/**
+	 * @param companyId Receive an id
+	 * @return Check if company exists and return true or false
+	 * @throws Exception Can throw an exception
+	 */
+	boolean isCompanyExists(long companyId) throws Exception;
+
+	/**
 	 * @return This function return all company on data base
 	 * @throws Exception Can throw an exception
 	 */
@@ -49,7 +56,7 @@ public interface ICompaniesDao {
 	 * @return This function return one company by his id
 	 * @throws Exception Can throw an exception
 	 */
-	Company getOneCompany(long companyID) throws Exception;
+	Company getCompany(long companyID) throws Exception;
 
 	/**
 	 * @param email    Receive an email
@@ -57,6 +64,6 @@ public interface ICompaniesDao {
 	 * @return This function return company by email and password
 	 * @throws Exception Can throw an exception
 	 */
-	Company getOneCompanyByEmailAndPassword(String email, String password) throws Exception;
+	Company getCompanyByEmailAndPassword(String email, String password) throws Exception;
 
 }

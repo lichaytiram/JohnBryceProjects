@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import beans.Category;
 import beans.Coupon;
 import beans.Customer;
-import dbdao.CouponsDao;
+//import dbdao.CouponsDao;
 import dbdao.CustomerDao;
 import dbdao.CustomersVsCouponsDao;
 import exception.ExceptionName;
@@ -29,7 +29,7 @@ public class CustomerFacade extends ClientFacade {
 			throw new ExceptionName("Don't have a match with your current email and password!");
 		CustomerDao customer = new CustomerDao();
 		try {
-			this.customerID = customer.getOneCustomerByEmailAndPassword(email, password).getId();
+			this.customerID = customer.getCustomerByEmailAndPassword(email, password).getId();
 			System.out.println("you are login: " + customerID);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -65,11 +65,11 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public void purchaseCoupon(Coupon coupon) throws Exception {
-		long couponID = coupon.getId();
-		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
-		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
-		CouponsDao newcoupon = new CouponsDao();
-		newcoupon.addCouponPurchase(customerID, couponID);
+//		long couponID = coupon.getId();
+//		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
+//		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
+//		CouponsDao newcoupon = new CouponsDao();
+//		newcoupon.addCouponPurchase(customerID, couponID);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class CustomerFacade extends ClientFacade {
 	public Customer getCustomerDetails() {
 		CustomerDao customer = new CustomerDao();
 		try {
-			return customer.getOneCustomer(customerID);
+			return customer.getCustomer(customerID);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
