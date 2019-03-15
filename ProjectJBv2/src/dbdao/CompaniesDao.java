@@ -309,21 +309,6 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 		return company;
 	}
-
-	public PreparedStatement getQuery(String query) throws Exception {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement(query);
-
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		} finally {
-			connection.close();
-		}
-
-		return preparedStatement;
-	}
+// extract
 
 }
