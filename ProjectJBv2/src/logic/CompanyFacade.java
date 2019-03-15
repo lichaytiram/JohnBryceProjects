@@ -65,7 +65,7 @@ public class CompanyFacade extends ClientFacade {
 	 */
 	public void addCoupon(Coupon c) throws Exception {
 		CouponsDao coupon = new CouponsDao();
-		coupon.insert(c);
+		coupon.createCoupon(c);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class CompanyFacade extends ClientFacade {
 	 */
 	public void updateCoupon(Coupon c) throws Exception {
 		CouponsDao coupon = new CouponsDao();
-		coupon.update(c);
+		coupon.updateCoupon(c);
 	}
 
 	/**

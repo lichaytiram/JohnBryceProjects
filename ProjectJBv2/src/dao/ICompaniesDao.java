@@ -16,19 +16,19 @@ public interface ICompaniesDao {
 	 * @param c Receive a company and insert to data base
 	 * @throws Exception Can throw an exception
 	 */
-	void insert(Company c) throws Exception;
+	void createCompany(Company c) throws Exception;
 
 	/**
 	 * @param companyID Receive a company id and delete it from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(long companyID) throws Exception;
+	void deleteCompany(long companyID) throws Exception;
 
 	/**
 	 * @param c Receive a new company and update old company
 	 * @throws Exception Can throw an exception
 	 */
-	void update(Company c) throws Exception;
+	void updateCompany(Company c) throws Exception;
 
 	/**
 	 * @param email    Receive an email

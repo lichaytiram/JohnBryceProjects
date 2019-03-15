@@ -12,6 +12,7 @@ import beans.Coupon;
 import dao.ICouponsDao;
 //import exception.ExceptionName;
 import utils.DateUtils;
+import utils.JdbcUtils;
 
 /**
  * This class create a connection with data base ( with name coupons )
@@ -25,28 +26,26 @@ import utils.DateUtils;
  */
 public class CouponsDao implements ICouponsDao {
 
-	private ConnectionPool connection = ConnectionPool.getInstance();
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see dao.ICouponsDAO#insert(javaBeans.Coupon)
 	 */
-	public void insert(Coupon coupon) throws Exception {
+	public void createCoupon(Coupon coupon) throws Exception {
 
 //		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 //			throw new ExceptionName("This date isn't well! (must be start date before end date)");
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons");
 //			while (result.next())
 //				if (result.getInt("COMPANY_ID") == coupon.getCompanyId()
 //						&& result.getString("TITLE").equals(coupon.getTitle()))
 //					throw new ExceptionName("The coupon already exist on data base");
 
-			preparedStatement = con.prepareStatement(
+			preparedStatement = connection.prepareStatement(
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY_ID,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
 			preparedStatement.setLong(1, coupon.getCompanyId());
 			preparedStatement.setInt(2, coupon.getCategoryId());
@@ -62,8 +61,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -72,18 +70,18 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#delete(int)
 	 */
-	public void delete(long couponId) throws Exception {
-		Connection con = null;
+	public void deleteCoupon(long couponId) throws Exception {
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
 //			PreparedStatement preparedStatement1 = con
 //					.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
 //			preparedStatement1.setLong(1, couponID);
 //			preparedStatement1.executeUpdate();
 
-			preparedStatement = con.prepareStatement("DELETE FROM coupons WHERE ID = ?");
+			preparedStatement = connection.prepareStatement("DELETE FROM coupons WHERE ID = ?");
 			preparedStatement.setLong(1, couponId);
 			preparedStatement.executeUpdate();
 
@@ -91,8 +89,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -134,15 +131,15 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#update(javaBeans.Coupon)
 	 */
-	public void update(Coupon coupon) throws Exception {
+	public void updateCoupon(Coupon coupon) throws Exception {
 
 //		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 //			throw new ExceptionName("This date isn't well! (must be start date before end date)");
 
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons");
 //			while (result.next())
 //				if (result.getInt("COMPANY_ID") == coupon.getCompanyId()
@@ -153,7 +150,7 @@ public class CouponsDao implements ICouponsDao {
 //						&& result.getInt("AMOUNT") == coupon.getAmount())
 //					throw new ExceptionName("The coupon already exist on data base");
 
-			preparedStatement = con
+			preparedStatement = connection
 					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY_ID=? , TITLE=? , DESCRIPTION=? ,"
 							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
 			preparedStatement.setLong(1, coupon.getCompanyId());
@@ -172,8 +169,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -186,20 +182,20 @@ public class CouponsDao implements ICouponsDao {
 	public ArrayList<Coupon> getAllCoupon() throws Exception {
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT * FROM coupons");
-			result = preparedStatement.executeQuery();
+			preparedStatement = connection.prepareStatement("SELECT * FROM coupons");
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE")));
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons");
@@ -218,9 +214,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 	}
@@ -233,21 +227,21 @@ public class CouponsDao implements ICouponsDao {
 	public Coupon getCoupon(long couponId) throws Exception {
 		Coupon coupon = null;
 		Category category = null;
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT * FROM coupons WHERE id = ?");
+			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE id = ?");
 			preparedStatement.setLong(1, couponId);
-			result = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				coupon = new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE"));
+			while (resultSet.next()) {
+				coupon = new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
 			}
 
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons WHERE id =" + couponId);
@@ -267,9 +261,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return coupon;
 	}
@@ -346,21 +338,21 @@ public class CouponsDao implements ICouponsDao {
 
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ?");
+			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ?");
 			preparedStatement.setLong(1, companyId);
-			result = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE")));
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyId);
@@ -380,9 +372,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 	}
@@ -395,22 +385,23 @@ public class CouponsDao implements ICouponsDao {
 	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND PRICE <= ?");
+			preparedStatement = connection
+					.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND PRICE <= ?");
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.setDouble(2, maxPrice);
-			result = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE")));
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyId);
@@ -432,9 +423,7 @@ public class CouponsDao implements ICouponsDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 
@@ -447,22 +436,23 @@ public class CouponsDao implements ICouponsDao {
 	 */
 	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<>();
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND CATEGORY_ID = ?");
+			preparedStatement = connection
+					.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND CATEGORY_ID = ?");
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.setInt(2, category.ordinal());
-			result = preparedStatement.executeQuery();
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE")));
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyId);
@@ -478,9 +468,7 @@ public class CouponsDao implements ICouponsDao {
 		SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 	}
@@ -493,27 +481,25 @@ public class CouponsDao implements ICouponsDao {
 	public ArrayList<Integer> getAllexpiredCouponsId() throws Exception {
 
 		ArrayList<Integer> list = new ArrayList<>();
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		Date date = new Date();
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 
-			preparedStatement = con.prepareStatement("SELECT ID , END_DATE FROM coupons");
-			result = preparedStatement.executeQuery();
+			preparedStatement = connection.prepareStatement("SELECT ID , END_DATE FROM coupons");
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				if (date.after(result.getDate("END_DATE"))) {
-					list.add(result.getInt("ID"));
+			while (resultSet.next()) {
+				if (date.after(resultSet.getDate("END_DATE"))) {
+					list.add(resultSet.getInt("ID"));
 				}
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 	}

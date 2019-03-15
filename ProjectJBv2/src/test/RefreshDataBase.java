@@ -1,10 +1,11 @@
 package test;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dao.ICreate;
-import dbdao.ConnectionPool;
+import utils.JdbcUtils;
 
 /**
  * This class is refresh all the data base (only for testing)
@@ -13,7 +14,6 @@ import dbdao.ConnectionPool;
  *
  */
 public class RefreshDataBase implements ICreate {
-	private ConnectionPool connection = ConnectionPool.getInstance();
 
 	public RefreshDataBase() {
 
@@ -40,37 +40,41 @@ public class RefreshDataBase implements ICreate {
 	 * @see dao.ICreate#create()
 	 */
 	public void create() throws Exception {
-		Connection con = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
+		PreparedStatement preparedStatement4 = null;
+		PreparedStatement preparedStatement5 = null;
 		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL,"
-							+ "EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement1 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL , EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+			preparedStatement1.executeUpdate();
 			System.out.println("The table companies has created");
-
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+			preparedStatement2 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL ,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+			preparedStatement2.executeUpdate();
 			System.out.println("The table customers has created");
-
-			con.createStatement()
-					.executeUpdate("CREATE TABLE IF NOT EXISTS coupons (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,"
-							+ " COMPANY_ID BIGINT(255) UNSIGNED NOT NULL ," + " CATEGORY_ID int(10) UNSIGNED NOT NULL ,"
-							+ " TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE DATE ,"
-							+ " END_DATE DATE , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) ,"
-							+ " FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
+			preparedStatement3 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS coupons (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , COMPANY_ID BIGINT(255) UNSIGNED NOT NULL , CATEGORY_ID int(10) UNSIGNED NOT NULL , TITLE  VARCHAR(25) NOT NULL, DESCRIPTION TEXT DEFAULT NULL, START_DATE DATE , END_DATE DATE , AMOUNT int(200) UNSIGNED, PRICE DOUBLE PRECISION UNSIGNED, IMAGE VARCHAR(20) , PRIMARY KEY(ID) , FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID) )");
+			preparedStatement3.executeUpdate();
 			System.out.println("The table coupons has created");
-
-			con.createStatement().executeUpdate(
-					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL ,"
-							+ "COUPON_ID BIGINT(255) UNSIGNED NOT NULL ," + "PRIMARY KEY(CUSTOMER_ID,COUPON_ID),"
-							+ "FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID),"
-							+ "FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
-
+			preparedStatement4 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS customersVsCoupons (CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL , COUPON_ID BIGINT(255) UNSIGNED NOT NULL , PRIMARY KEY(CUSTOMER_ID,COUPON_ID), FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID), FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
+			preparedStatement4.executeUpdate();
 			System.out.println("The table customersVsCoupons has created");
+			preparedStatement5 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS users (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , USER_NAME VARCHAR(25) NOT NULL , PASSWORD VARCHAR(50) NOT NULL , TYPE VARCHAR(50) , COMPANY_ID BIGINT(255) UNSIGNED, PRIMARY KEY(ID), FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID))");
+			preparedStatement5.executeUpdate();
+			System.out.println("The table users has created");
+
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
+					preparedStatement4, preparedStatement5);
 		}
 	}
 
@@ -80,25 +84,36 @@ public class RefreshDataBase implements ICreate {
 	 * @see dao.ICreate#drop()
 	 */
 	public void drop() throws Exception {
-		Connection con = null;
+		Connection connection = null;
+		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
+		PreparedStatement preparedStatement4 = null;
+		PreparedStatement preparedStatement5 = null;
 		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("DROP TABLE customersVsCoupons");
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement5 = connection.prepareStatement("DROP TABLE users");
+			preparedStatement5.executeUpdate();
+			System.out.println("The table users is a drop");
+			preparedStatement1 = connection.prepareStatement("DROP TABLE customersVsCoupons");
+			preparedStatement1.executeUpdate();
 			System.out.println("The table customersVsCoupons is a drop");
-
-			con.createStatement().executeUpdate("DROP TABLE customers");
-			System.out.println("The table customers is a drop");
-
-			con.createStatement().executeUpdate("DROP TABLE coupons");
+			preparedStatement3 = connection.prepareStatement("DROP TABLE coupons");
+			preparedStatement3.executeUpdate();
 			System.out.println("The table coupons is a drop");
-
-			con.createStatement().executeUpdate("DROP TABLE companies");
+			preparedStatement2 = connection.prepareStatement("DROP TABLE customers");
+			preparedStatement2.executeUpdate();
+			System.out.println("The table customers is a drop");
+			preparedStatement4 = connection.prepareStatement("DROP TABLE companies");
+			preparedStatement4.executeUpdate();
 			System.out.println("The table companies is a drop");
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
+					preparedStatement4, preparedStatement5);
 		}
 	}
 }

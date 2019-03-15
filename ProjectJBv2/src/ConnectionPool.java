@@ -1,4 +1,4 @@
-package dbdao;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,8 +26,10 @@ public class ConnectionPool {
 	private ConnectionPool() {
 		try {
 			for (int i = 0; i < 10; i++) {
+//				if (2 == 3) {
 				Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 				connectionList.add(con);
+//				}
 			}
 		} catch (SQLException e) {
 			System.out.println(e);

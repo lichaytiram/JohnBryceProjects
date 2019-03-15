@@ -52,7 +52,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void addCompany(Company c) throws Exception {
 		CompaniesDao companies = new CompaniesDao();
-		companies.insert(c);
+		companies.createCompany(c);
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void updateCompany(Company c) throws Exception {
 		CompaniesDao companies = new CompaniesDao();
-		companies.update(c);
+		companies.updateCompany(c);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void deleteCompany(int companyID) throws Exception {
 		CompaniesDao companies = new CompaniesDao();
-		companies.delete(companyID);
+		companies.deleteCompany(companyID);
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void addCustomer(Customer c) throws Exception {
 		CustomerDao Customer = new CustomerDao();
-		Customer.insert(c);
+		Customer.createCustomer(c);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void updateCustomer(Customer c) throws Exception {
 		CustomerDao Customer = new CustomerDao();
-		Customer.update(c);
+		Customer.updateCustomer(c);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void deleteCustomer(int customerID) throws Exception {
 		CustomerDao Customer = new CustomerDao();
-		Customer.delete(customerID);
+		Customer.deleteCustomer(customerID);
 	}
 
 	/**

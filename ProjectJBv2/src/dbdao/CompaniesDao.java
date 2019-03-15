@@ -11,6 +11,7 @@ import beans.Company;
 //import beans.Coupon;
 import dao.ICompaniesDao;
 //import exception.ExceptionName;
+import utils.JdbcUtils;
 
 /**
  * This class create a connection with data base ( with name companies )
@@ -20,25 +21,23 @@ import dao.ICompaniesDao;
  */
 public class CompaniesDao implements ICompaniesDao {
 
-	private ConnectionPool connection = ConnectionPool.getInstance();
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see dao.ICompaniesDAO#insert(javaBeans.Company)
 	 */
-	public void insert(Company company) throws Exception {
-		Connection con = null;
+	public void createCompany(Company company) throws Exception {
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 //			while (result.next())
 //				if (result.getString("EMAIL").equals(company.getEmail())
 //						|| result.getString("NAME").equals(company.getName()))
 //					throw new ExceptionName("The companies already exist on data base");
 
-			preparedStatement = con
+			preparedStatement = connection
 					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
 			preparedStatement.setString(1, company.getName());
 			preparedStatement.setString(2, company.getEmail());
@@ -49,8 +48,7 @@ public class CompaniesDao implements ICompaniesDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -59,11 +57,11 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#delete(int)
 	 */
-	public void delete(long companyID) throws Exception {
-		Connection con = null;
+	public void deleteCompany(long companyID) throws Exception {
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ArrayList<Integer> couponsID = new ArrayList<Integer>();
 //			ResultSet result = con.createStatement()
 //					.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
@@ -80,15 +78,14 @@ public class CompaniesDao implements ICompaniesDao {
 //			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE COMPANY_ID = ?");
 //			preparedStatement2.setLong(1, companyID);
 //			preparedStatement2.executeUpdate();
-			preparedStatement = con.prepareStatement("DELETE FROM companies WHERE ID = ?");
+			preparedStatement = connection.prepareStatement("DELETE FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyID);
 			preparedStatement.executeUpdate();
 			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -97,12 +94,12 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#update(javaBeans.Company)
 	 */
-	public void update(Company company) throws Exception {
-		Connection con = null;
+	public void updateCompany(Company company) throws Exception {
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 //			while (result.next())
 //				if (result.getString("PASSWORD").equals(company.getPassword())
@@ -110,7 +107,7 @@ public class CompaniesDao implements ICompaniesDao {
 //						&& result.getString("NAME").equals(company.getName()))
 //					throw new ExceptionName("The company already exist on data base");
 
-			preparedStatement = con
+			preparedStatement = connection
 					.prepareStatement("UPDATE companies SET NAME= ? , EMAIL= ? , PASSWORD= ? WHERE ID= ? ");
 			preparedStatement.setString(1, company.getName());
 			preparedStatement.setString(2, company.getEmail());
@@ -122,8 +119,7 @@ public class CompaniesDao implements ICompaniesDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
@@ -134,19 +130,19 @@ public class CompaniesDao implements ICompaniesDao {
 	 */
 	@Override
 	public ArrayList<Company> getAllCompany() throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ArrayList<Company> list = new ArrayList<>();
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
-			preparedStatement = con.prepareStatement("SELECT * FROM companies");
-			result = preparedStatement.executeQuery();
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies");
+			resultSet = preparedStatement.executeQuery();
 
-			while (result.next()) {
-				list.add(new Company(result.getLong("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-						result.getString("NAME")));
+			while (resultSet.next()) {
+				list.add(new Company(resultSet.getLong("ID"), resultSet.getString("PASSWORD"),
+						resultSet.getString("EMAIL"), resultSet.getString("NAME")));
 
 //				Company company = new Company(result.getInt("ID"), result.getString("PASSWORD"),
 //						result.getString("EMAIL"), result.getString("NAME"));
@@ -172,9 +168,7 @@ public class CompaniesDao implements ICompaniesDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
 	}
@@ -185,26 +179,24 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#isCompanyExists(java.lang.String, java.lang.String)
 	 */
 	public boolean isCompanyExists(String email, String password) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
-			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
-			result = preparedStatement.executeQuery();
-			while (result.next()) {
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
 				return true;
 			}
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 
 		return false;
@@ -217,25 +209,23 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#isCompanyExists(long)
 	 */
 	public boolean isCompanyExists(long companyId) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
-			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE ID = ? ");
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ? ");
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 			preparedStatement.setLong(1, companyId);
-			result = preparedStatement.executeQuery();
-			while (result.next()) {
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
 				return true;
 			}
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 
 		return false;
@@ -248,12 +238,12 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#getOneCompany(int)
 	 */
 	public Company getCompany(long companyID) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
 //			if (result.next())
 //				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
@@ -261,12 +251,12 @@ public class CompaniesDao implements ICompaniesDao {
 //
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
 
-			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE ID= ? ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID= ? ");
 			preparedStatement.setLong(1, companyID);
-			result = preparedStatement.executeQuery();
-			while (result.next()) {
-				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-						result.getString("NAME"));
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
+						resultSet.getString("EMAIL"), resultSet.getString("NAME"));
 //				Category category = null;
 //				for (Category ca : Category.values())
 //					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
@@ -283,9 +273,7 @@ public class CompaniesDao implements ICompaniesDao {
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return company;
 	}
@@ -297,44 +285,42 @@ public class CompaniesDao implements ICompaniesDao {
 	 * java.lang.String)
 	 */
 	public Company getCompanyByEmailAndPassword(String email, String password) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 //			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 			preparedStatement = getQuery("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 
 			preparedStatement.setString(1, email);
+			System.out.println("is close?????????????????????????????????????/");
 			preparedStatement.setString(2, password);
-			result = preparedStatement.executeQuery();
-			while (result.next()) {
-				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-						result.getString("NAME"));
-
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
+						resultSet.getString("EMAIL"), resultSet.getString("NAME"));
 			}
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			preparedStatement.close();
-			result.close();
-			connection.restoreConnection(con);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return company;
 	}
 
 	public PreparedStatement getQuery(String query) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
-			con = connection.getConnection();
-			preparedStatement = con.prepareStatement(query);
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement(query);
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
-			connection.restoreConnection(con);
+			connection.close();
 		}
 
 		return preparedStatement;

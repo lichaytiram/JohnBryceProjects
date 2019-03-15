@@ -16,19 +16,19 @@ public interface ICustomersDao {
 	 * @param c Receive a customer and add to data base
 	 * @throws Exception Can throw an exception
 	 */
-	void insert(Customer c) throws Exception;
+	void createCustomer(Customer c) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id and delete from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(long customerID) throws Exception;
+	void deleteCustomer(long customerID) throws Exception;
 
 	/**
 	 * @param c Receive a customer and update his details
 	 * @throws Exception Can throw an exception
 	 */
-	void update(Customer c) throws Exception;
+	void updateCustomer(Customer c) throws Exception;
 
 	/**
 	 * @param email    Receive an email

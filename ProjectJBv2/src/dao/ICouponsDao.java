@@ -17,19 +17,19 @@ public interface ICouponsDao {
 	 * @param c Receive a coupon and insert to data base
 	 * @throws Exception Can throw an exception
 	 */
-	void insert(Coupon c) throws Exception;
+	void createCoupon(Coupon c) throws Exception;
 
 	/**
 	 * @param couponID Receive a coupon id and delete from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(long couponId) throws Exception;
+	void deleteCoupon(long couponId) throws Exception;
 
 	/**
 	 * @param c Receive a coupon and update
 	 * @throws Exception Can throw an exception
 	 */
-	void update(Coupon c) throws Exception;
+	void updateCoupon(Coupon c) throws Exception;
 
 //	/**
 //	 * @param couponID  Receive a coupon id

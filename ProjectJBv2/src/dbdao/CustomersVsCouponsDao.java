@@ -9,6 +9,7 @@ import beans.Category;
 import beans.Coupon;
 import dao.ICustomersVsCouponsDao;
 import exception.ExceptionName;
+import utils.JdbcUtils;
 
 /**
  * This class create a connection with data base ( with name customersVsCoupons)
@@ -18,7 +19,6 @@ import exception.ExceptionName;
  */
 public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
-	private ConnectionPool connection = ConnectionPool.getInstance();
 
 	/*
 	 * (non-Javadoc)
@@ -26,10 +26,10 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	 * @see dao.ICustomersVsCouponsDAO#insert(int, int)
 	 */
 	public void insert(long customerId, long couponId) throws Exception {
-		Connection con = null;
+		Connection connection = null;
 		try {
-			con = connection.getConnection();
-			con.createStatement().executeUpdate("insert into customersVsCoupons (CUSTOMER_ID,COUPON_ID) values ("
+			connection = JdbcUtils.getConnection();
+			connection.createStatement().executeUpdate("insert into customersVsCoupons (CUSTOMER_ID,COUPON_ID) values ("
 					+ customerId + "," + couponId + ")");
 			System.out.println("insert customersVsCoupons has succeed");
 		} catch (SQLException ex) {
@@ -47,7 +47,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	public void delete(long customerId, long couponId) throws Exception {
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			con.createStatement().executeUpdate(
 					"DELETE FROM customersVsCoupons WHERE CUSTOMER_ID =" + customerId + " AND COUPON_ID =" + couponId);
 			System.out.println("delete from customersVsCoupons has done");
@@ -66,7 +66,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	public void update(long oldCustomerId, long newCustomerId, long oldCouponId, long newCouponId) throws Exception {
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			con.createStatement()
 					.executeUpdate("UPDATE customersVsCoupons SET CUSTOMER_ID=" + newCustomerId + ", COUPON_ID="
 							+ newCouponId + " WHERE CUSTOMER_ID =" + oldCustomerId + " AND COUPON_ID =" + oldCouponId);
@@ -84,7 +84,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 	public void showAll() throws Exception {
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
 			while (result.next())
 				System.out.println(
@@ -105,7 +105,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customersVsCoupons");
 			while (result.next())
 				if (customerId == result.getInt("CUSTOMER_ID") && couponId == result.getInt("COUPON_ID"))
@@ -127,7 +127,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);
@@ -165,7 +165,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);
@@ -196,7 +196,7 @@ public class CustomersVsCouponsDao implements ICustomersVsCouponsDao {
 
 		Connection con = null;
 		try {
-			con = connection.getConnection();
+			connection = JdbcUtils.getConnection();
 			ResultSet result = con.createStatement().executeQuery(
 					"SELECT * from customersvscoupons JOIN coupons ON coupons.id = customersvscoupons.COUPON_ID WHERE CUSTOMER_ID="
 							+ customerID);

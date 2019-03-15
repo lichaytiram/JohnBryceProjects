@@ -29,13 +29,13 @@ public class Job implements Runnable {
 	public void run() {
 
 		while (true) {
-			CouponsDao d = new CouponsDao();
+			CouponsDao coupon = new CouponsDao();
 
 			try {
-				synchronized (d.getAllexpiredCouponsId()) {
-					ArrayList<Integer> list = d.getAllexpiredCouponsId();
+				synchronized (coupon.getAllexpiredCouponsId()) {
+					ArrayList<Integer> list = coupon.getAllexpiredCouponsId();
 					while (list.size() > 0) {
-						d.delete(list.get(0));
+						coupon.deleteCoupon(list.get(0));
 						System.out.println("coupon id= [" + list.get(0) + "] has been deleted");
 						list.remove(0);
 					}
