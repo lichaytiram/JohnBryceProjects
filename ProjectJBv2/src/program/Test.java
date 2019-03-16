@@ -2,7 +2,6 @@ package program;
 
 import java.util.Date;
 
-import beans.Category;
 import beans.Company;
 import beans.Coupon;
 import beans.Customer;
@@ -11,9 +10,10 @@ import dbdao.CompaniesDao;
 import dbdao.CouponsDao;
 import dbdao.CustomerDao;
 import dbdao.PurchasesDao;
+import enums.Category;
+import enums.ClientType;
 import exception.ExceptionName;
 import logic.AdminFacade;
-import logic.ClientType;
 import logic.CompanyFacade;
 import logic.CustomerFacade;
 import logic.LoginManager;
@@ -85,14 +85,14 @@ public class Test {
 			coupons1 = new Coupon(1, Category.Food, "bestCoupon", "for all", startDate, endDate, 0, 50, "ismg.txt");
 			coupons2 = new Coupon(1, Category.Paintballý, "PB", "anyone can buy this", startDate, endDate, 0, 30.5,
 					"http.txt");
-			coupons3 = new Coupon(3, Category.Weaponsý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
+			coupons3 = new Coupon(3, Category.Weaponý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
 					"ismg.txt");
 			coupons4 = new Coupon(2, 3, Category.Paintballý, "PB", "anyone can buy this", startDate, endDate, 8, 20.5,
 					"http.txt"); // with id
 
 			coupons5 = new Coupon(3, Category.Electricity, "ee", "close to free", startDate, endDate, 12, 60,
 					"http.txt"); // with id
-			coupons6 = new Coupon(2, Category.Weaponsý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
+			coupons6 = new Coupon(2, Category.Weaponý, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
 					"ismg.txt");
 
 		} catch (ExceptionName e) {
@@ -153,7 +153,7 @@ public class Test {
 			company.updateCoupon(coupons4);
 			System.out.println(company.getCompanyCoupons());
 			System.out.println(company.getCompanyCoupons(30));
-			System.out.println(company.getCompanyCoupons(Category.Weaponsý));
+			System.out.println(company.getCompanyCoupons(Category.Weaponý));
 			company.addCoupon(coupons3);
 		} catch (ExceptionName e) {
 			System.out.println(e);

@@ -22,7 +22,7 @@ public interface ICompaniesDao {
 	 * @param companyID Receive a company id and delete it from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void deleteCompany(long companyID) throws Exception;
+	void deleteCompany(long companyId) throws Exception;
 
 	/**
 	 * @param c Receive a new company and update old company
@@ -56,7 +56,7 @@ public interface ICompaniesDao {
 	 * @return This function return one company by his id
 	 * @throws Exception Can throw an exception
 	 */
-	Company getCompany(long companyID) throws Exception;
+	Company getCompany(long companyId) throws Exception;
 
 	/**
 	 * @param email    Receive an email

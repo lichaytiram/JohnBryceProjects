@@ -2,11 +2,11 @@ package logic;
 
 import java.util.ArrayList;
 
-import beans.Category;
 import beans.Company;
 import beans.Coupon;
 import dbdao.CompaniesDao;
 import dbdao.CouponsDao;
+import enums.Category;
 import exception.ExceptionName;
 
 /**

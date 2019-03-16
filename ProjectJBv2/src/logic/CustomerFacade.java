@@ -2,12 +2,12 @@ package logic;
 
 import java.util.ArrayList;
 
-import beans.Category;
 import beans.Coupon;
 import beans.Customer;
 //import dbdao.CouponsDao;
 import dbdao.CustomerDao;
 import dbdao.PurchasesDao;
+import enums.Category;
 import exception.ExceptionName;
 
 /**
@@ -78,7 +78,7 @@ public class CustomerFacade extends ClientFacade {
 	 */
 	public ArrayList<Coupon> getCustomerCoupons() throws Exception {
 		PurchasesDao customersVsCoupons = new PurchasesDao();
-		return customersVsCoupons.getCustomerCouponByCustomerID(customerID);
+		return customersVsCoupons.getCustomerCouponByCustomerId(customerID);
 	}
 
 	/**

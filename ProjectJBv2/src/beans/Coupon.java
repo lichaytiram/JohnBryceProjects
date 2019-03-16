@@ -2,6 +2,7 @@ package beans;
 
 import java.util.Date;
 
+import enums.Category;
 import exception.ExceptionName;
 
 /**
@@ -131,13 +132,6 @@ public class Coupon extends BaseAttribute {
 	 */
 	public Category getCategory() {
 		return category;
-	}
-
-	/**
-	 * @return This function return a category id
-	 */
-	public int getCategoryId() {
-		return getCategory().ordinal();
 	}
 
 	/**

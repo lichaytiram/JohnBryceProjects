@@ -2,8 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
-import beans.Category;
 import beans.Coupon;
+import enums.Category;
 
 /**
  * This interface will implement by class customerVsCouponsDBDAO
@@ -19,20 +19,20 @@ public interface IPurchasesDao {
 	 * @param amount     Receive an amount
 	 * @throws Exception Can throw an exception
 	 */
-	void insert(long customerId, long couponId, int amount) throws Exception;
+	void purchaseCoupon(long customerId, long couponId, int amount) throws Exception;
 
 	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id and delete id from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(long customerId, long couponId) throws Exception;
+	void refundCoupon(long customerId, long couponId) throws Exception;
 
 	/**
 	 * @param id Receive an id
 	 * @throws Exception Can throw an exception
 	 */
-	void delete(long id) throws Exception;
+	void refundCoupon(long id) throws Exception;
 
 	/**
 	 * @param id     Receive an id
@@ -66,7 +66,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his id
 	 * @throws Exception Can throw an exception
 	 */
-	ArrayList<Coupon> getCustomerCouponByCustomerID(long customerID) throws Exception;
+	ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -74,7 +74,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his category
 	 * @throws Exception Can throw an exception
 	 */
-	ArrayList<Coupon> getCustomerCouponByCategory(long customerID, Category category) throws Exception;
+	ArrayList<Coupon> getCustomerCouponByCategory(long customerId, Category category) throws Exception;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -83,6 +83,6 @@ public interface IPurchasesDao {
 	 *         and his id
 	 * @throws Exception Can throw an exception
 	 */
-	ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerID, double maxPrice) throws Exception;
+	ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws Exception;
 
 }

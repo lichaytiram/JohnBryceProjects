@@ -1,6 +1,6 @@
 package beans;
 
-import logic.ClientType;
+import enums.ClientType;
 
 public class User {
 

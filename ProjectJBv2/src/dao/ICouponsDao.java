@@ -2,8 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
-import beans.Category;
 import beans.Coupon;
+import enums.Category;
 
 /**
  * This interface will implement by class couponsDBDAO

@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import beans.Category;
 import beans.Coupon;
 import dao.IPurchasesDao;
-import exception.ExceptionName;
+import enums.Category;
 import utils.JdbcUtils;
 
 /**
@@ -25,7 +24,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#insert(long, long ,int )
 	 */
-	public void insert(long customerId, long couponId, int amount) throws Exception {
+	public void purchaseCoupon(long customerId, long couponId, int amount) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -49,7 +48,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long, long)
 	 */
-	public void delete(long customerId, long couponId) throws Exception {
+	public void refundCoupon(long customerId, long couponId) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -74,7 +73,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long)
 	 */
-	public void delete(long id) throws Exception {
+	public void refundCoupon(long id) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -231,8 +230,9 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCustomerID(long)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCustomerID(long customerID) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
+		Category category = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -240,22 +240,17 @@ public class PurchasesDao implements IPurchasesDao {
 
 		try {
 			connection = JdbcUtils.getConnection();
-			
-			ResultSet result = connection.createStatement().executeQuery(
-					"SELECT * from purchases JOIN coupons ON coupons.id = purchases.COUPON_ID WHERE CUSTOMER_ID="
-							+ customerID);
-			Category category = null;
-			while (result.next()) {
-				for (Category ca : Category.values())
-					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
-						category = ca;
-						break;
-					}
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ?");
+			preparedStatement.setLong(1, customerId);
+			resultSet = preparedStatement.executeQuery();
 
-				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-						result.getString("IMAGE")));
+			while (resultSet.next()) {
+				category = Category.valueOf(resultSet.getString("CATEGORY"));
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
 		} catch (SQLException ex) {
@@ -272,7 +267,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCategory(long, javaBeans.Category)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCategory(long customerID, Category category) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCategory(long customerId, Category category) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
@@ -283,7 +278,7 @@ public class PurchasesDao implements IPurchasesDao {
 			connection = JdbcUtils.getConnection();
 			ResultSet result = connection.createStatement().executeQuery(
 					"SELECT * from purchases JOIN coupons ON coupons.id = purchases.COUPON_ID WHERE CUSTOMER_ID="
-							+ customerID);
+							+ customerId);
 			while (result.next()) {
 				if (category.ordinal() == result.getInt("CATEGORY_ID"))
 					list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
@@ -306,7 +301,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByMaxPrice(long, double)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerID, double maxPrice) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
@@ -317,7 +312,7 @@ public class PurchasesDao implements IPurchasesDao {
 			connection = JdbcUtils.getConnection();
 			ResultSet result = connection.createStatement().executeQuery(
 					"SELECT * from purchases JOIN coupons ON coupons.id = purchases.COUPON_ID WHERE CUSTOMER_ID="
-							+ customerID);
+							+ customerId);
 			Category category = null;
 			while (result.next()) {
 

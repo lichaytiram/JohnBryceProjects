@@ -57,7 +57,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#delete(int)
 	 */
-	public void deleteCompany(long companyID) throws Exception {
+	public void deleteCompany(long companyId) throws Exception {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -79,7 +79,7 @@ public class CompaniesDao implements ICompaniesDao {
 //			preparedStatement2.setLong(1, companyID);
 //			preparedStatement2.executeUpdate();
 			preparedStatement = connection.prepareStatement("DELETE FROM companies WHERE ID = ?");
-			preparedStatement.setLong(1, companyID);
+			preparedStatement.setLong(1, companyId);
 			preparedStatement.executeUpdate();
 			System.out.println("delete from company has done");
 		} catch (SQLException ex) {
@@ -185,7 +185,6 @@ public class CompaniesDao implements ICompaniesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
@@ -215,7 +214,6 @@ public class CompaniesDao implements ICompaniesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ? ");
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -237,7 +235,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#getOneCompany(int)
 	 */
-	public Company getCompany(long companyID) throws Exception {
+	public Company getCompany(long companyId) throws Exception {
 		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;
@@ -252,7 +250,7 @@ public class CompaniesDao implements ICompaniesDao {
 //			result = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID= ? ");
-			preparedStatement.setLong(1, companyID);
+			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),

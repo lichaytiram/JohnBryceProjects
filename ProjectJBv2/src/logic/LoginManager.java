@@ -1,5 +1,6 @@
 package logic;
 
+import enums.ClientType;
 import exception.ExceptionName;
 
 /**

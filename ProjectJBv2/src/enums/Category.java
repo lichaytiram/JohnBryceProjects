@@ -1,4 +1,4 @@
-package beans;
+package enums;
 
 /**
  * This enum contain all category that company can choose for his coupons
@@ -7,5 +7,5 @@ package beans;
  *
  */
 public enum Category {
-	Food, Electricity, Weaponsý, Restaurant, Vacation, Science, Comicsý, Icelandý, Paintballý, Museumsýý
+	Food, Electricity, Weaponý, Restaurant, Vacation, Science, Comicsý, Icelandý, Paintballý, Museumýý
 }
