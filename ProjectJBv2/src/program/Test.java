@@ -10,7 +10,7 @@ import daily.job.Job;
 import dbdao.CompaniesDao;
 import dbdao.CouponsDao;
 import dbdao.CustomerDao;
-import dbdao.CustomersVsCouponsDao;
+import dbdao.PurchasesDao;
 import exception.ExceptionName;
 import logic.AdminFacade;
 import logic.ClientType;
@@ -30,7 +30,7 @@ public class Test {
 	public static CompaniesDao companies = new CompaniesDao();
 	public static CustomerDao customers = new CustomerDao();
 	public static CouponsDao coupons = new CouponsDao();
-	public static CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
+	public static PurchasesDao customersVsCoupons = new PurchasesDao();
 
 	/**
 	 * This function implement all method for this class

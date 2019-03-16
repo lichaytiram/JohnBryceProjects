@@ -7,7 +7,7 @@ import beans.Coupon;
 import beans.Customer;
 //import dbdao.CouponsDao;
 import dbdao.CustomerDao;
-import dbdao.CustomersVsCouponsDao;
+import dbdao.PurchasesDao;
 import exception.ExceptionName;
 
 /**
@@ -77,7 +77,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons() throws Exception {
-		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
+		PurchasesDao customersVsCoupons = new PurchasesDao();
 		return customersVsCoupons.getCustomerCouponByCustomerID(customerID);
 	}
 
@@ -88,7 +88,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons(Category category) throws Exception {
-		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
+		PurchasesDao customersVsCoupons = new PurchasesDao();
 		return customersVsCoupons.getCustomerCouponByCategory(customerID, category);
 	}
 
@@ -99,7 +99,7 @@ public class CustomerFacade extends ClientFacade {
 	 * @throws Exception Can throw an exception
 	 */
 	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception {
-		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
+		PurchasesDao customersVsCoupons = new PurchasesDao();
 		return customersVsCoupons.getCustomerCouponByMaxPrice(customerID, maxPrice);
 	}
 

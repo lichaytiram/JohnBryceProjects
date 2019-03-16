@@ -189,7 +189,7 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				return true;
 			}
 
@@ -218,7 +218,7 @@ public class CompaniesDao implements ICompaniesDao {
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
 			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				return true;
 			}
 
@@ -292,10 +292,9 @@ public class CompaniesDao implements ICompaniesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 //			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
-			preparedStatement = getQuery("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 
 			preparedStatement.setString(1, email);
-			System.out.println("is close?????????????????????????????????????/");
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {

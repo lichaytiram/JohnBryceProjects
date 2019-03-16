@@ -44,7 +44,6 @@ public class DemoMain {
 			System.out.println(company.isCompanyExists("www.g@gmail.com", "sS2"));
 			System.out.println(company.isCompanyExists(2));
 			System.out.println(company.getCompany(2));
-			System.out.println("hiiiiiiiiiiiiiiiiiiiiiii");
 			System.out.println(company.getCompanyByEmailAndPassword("www.g@gmail.com", "sS2PASS"));
 			customer.createCustomer(new Customer("password1S", "email@gmail.com", "firstName", "lastName"));
 			customer.createCustomer(new Customer("password1Ss", "email@gmail.coms", "firstNames", "lastNames"));
@@ -62,9 +61,9 @@ public class DemoMain {
 			System.out.println(coupon.getCompanyCouponsByMaxPrice(900, 1));
 			System.out.println("----------");
 			System.out.println(coupon.getCompanyCouponsByCategory(Category.Electricity, 2));
-			user.createUser(new User("li", "s1", 2L, ClientType.Customer));
-			user.createUser(new User("li", "s2", 3L, ClientType.Company));
-			user.createUser(new User("li", "s3", 3L, ClientType.Company));
+			user.createUser(new User("li", "s1", 1L, ClientType.Customer));
+			user.createUser(new User("li", "s2", 1L, ClientType.Company));
+			user.createUser(new User("li", "s3", 2L, ClientType.Company));
 			user.createUser(new User("li", "s4", null, ClientType.Administrator));
 
 		} catch (ExceptionName e) {

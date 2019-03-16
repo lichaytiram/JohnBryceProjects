@@ -187,7 +187,7 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				return true;
 			}
 
@@ -210,7 +210,7 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE ID = ?");
 			preparedStatement.setLong(1, customerId);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				return true;
 			}
 
