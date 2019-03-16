@@ -230,6 +230,9 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCustomerID(long)
 	 */
+	
+	
+	 //     This is fine? 
 	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
