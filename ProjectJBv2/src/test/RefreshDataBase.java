@@ -54,7 +54,7 @@ public class RefreshDataBase implements ICreate {
 			preparedStatement1.executeUpdate();
 			System.out.println("The table companies has created");
 			preparedStatement2 = connection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL ,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
+					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL ,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))"); // change without auto increment
 			preparedStatement2.executeUpdate();
 			System.out.println("The table customers has created");
 			preparedStatement3 = connection.prepareStatement(

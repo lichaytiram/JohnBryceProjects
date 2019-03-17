@@ -230,9 +230,8 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCustomerID(long)
 	 */
-	
-	
-	 //     This is fine? 
+
+	// This is fine?
 	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws Exception {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
@@ -257,7 +256,8 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+//			throw new ApplicationException(e, )
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}

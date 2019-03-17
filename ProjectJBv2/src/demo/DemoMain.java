@@ -54,7 +54,7 @@ public class DemoMain {
 			System.out.println(customer.isCustomerExists("email@gmail.coms", "passwosrd1Ss"));
 			customer.deleteCustomer(1);
 			coupon.createCoupon(new Coupon(1, Category.Food, "f1", "d1", startDate, endDate, 2, 21, "hi.gmail"));
-			coupon.createCoupon(new Coupon(1, Category.Restaurant, "f2", "d2", startDate, endDate, 2, 100, "hi.gmail"));
+			coupon.createCoupon(new Coupon(1, Category.Weapon, "f2", "d2", startDate, endDate, 2, 100, "hi.gmail"));
 			coupon.createCoupon(new Coupon(2, Category.Electricity, "f3", "d3", startDate, endDate, 2, 23, "hi.gmail"));
 			System.out.println("----------");
 			System.out.println(coupon.getAllCoupon());
@@ -62,7 +62,7 @@ public class DemoMain {
 			System.out.println(coupon.getCompanyCouponsByMaxPrice(900, 1));
 			System.out.println("----------");
 			System.out.println(coupon.getCompanyCouponsByCategory(Category.Electricity, 2));
-			user.createUser(new User("li", "s1", 1L, ClientType.Customer));
+			user.createUser(new User("li", "s1", null, ClientType.Customer));
 			user.createUser(new User("li", "s2", 1L, ClientType.Company));
 			user.createUser(new User("li", "s3", 2L, ClientType.Company));
 			user.createUser(new User("li", "s4", null, ClientType.Administrator));

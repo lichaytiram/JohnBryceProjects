@@ -27,6 +27,7 @@ public class UsersDao {
 			preparedStatement.setBigDecimal(4,
 					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
 			preparedStatement.executeUpdate();
+			
 			System.out.println("insert users has succeed");
 
 		} catch (SQLException ex) {
