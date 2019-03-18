@@ -44,7 +44,7 @@ public class CustomerDao implements ICustomersDao {
 			System.out.println("insert customers has succeed");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException("Problem!" + e);
+//			throw new ApplicationException("Problem!" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
