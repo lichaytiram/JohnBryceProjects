@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 
 import beans.Company;
+import exception.ApplicationException;
 
 /**
  * This interface will implement by class companiesDBDAO
@@ -16,19 +17,19 @@ public interface ICompaniesDao {
 	 * @param c Receive a company and insert to data base
 	 * @throws Exception Can throw an exception
 	 */
-	void createCompany(Company c) throws Exception;
+	void createCompany(Company c) throws ApplicationException;
 
 	/**
 	 * @param companyID Receive a company id and delete it from data base
 	 * @throws Exception Can throw an exception
 	 */
-	void deleteCompany(long companyId) throws Exception;
+	void deleteCompany(long companyId) throws ApplicationException;
 
 	/**
 	 * @param c Receive a new company and update old company
 	 * @throws Exception Can throw an exception
 	 */
-	void updateCompany(Company c) throws Exception;
+	void updateCompany(Company c) throws ApplicationException;
 
 	/**
 	 * @param email    Receive an email
@@ -36,27 +37,27 @@ public interface ICompaniesDao {
 	 * @return Check if company exists and return true or false
 	 * @throws Exception Can throw an exception
 	 */
-	boolean isCompanyExists(String email, String password) throws Exception;
+	boolean isCompanyExists(String email, String password) throws ApplicationException;
 
 	/**
 	 * @param companyId Receive an id
 	 * @return Check if company exists and return true or false
 	 * @throws Exception Can throw an exception
 	 */
-	boolean isCompanyExists(long companyId) throws Exception;
+	boolean isCompanyExists(long companyId) throws ApplicationException;
 
 	/**
 	 * @return This function return all company on data base
 	 * @throws Exception Can throw an exception
 	 */
-	ArrayList<Company> getAllCompany() throws Exception;
+	ArrayList<Company> getAllCompany() throws ApplicationException;
 
 	/**
 	 * @param companyID Receive a company id
 	 * @return This function return one company by his id
 	 * @throws Exception Can throw an exception
 	 */
-	Company getCompany(long companyId) throws Exception;
+	Company getCompany(long companyId) throws ApplicationException;
 
 	/**
 	 * @param email    Receive an email
@@ -64,6 +65,6 @@ public interface ICompaniesDao {
 	 * @return This function return company by email and password
 	 * @throws Exception Can throw an exception
 	 */
-	Company getCompanyByEmailAndPassword(String email, String password) throws Exception;
+	Company getCompanyByEmailAndPassword(String email, String password) throws ApplicationException;
 
 }

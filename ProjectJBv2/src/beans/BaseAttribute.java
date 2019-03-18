@@ -1,6 +1,6 @@
 package beans;
 
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class implement a basic attribute for all java beans classes
@@ -19,9 +19,9 @@ public abstract class BaseAttribute {
 	 * constructor for create a show for this class
 	 * 
 	 * @param id receive id for all function that exthends from this abstract class
-	 * @throws ExceptionName throw exception by name
+	 * @throws ApplicationException throw exception by name
 	 */
-	public BaseAttribute(long id) throws ExceptionName {
+	public BaseAttribute(long id) throws ApplicationException {
 		super();
 		setId(id);
 	}
@@ -29,9 +29,9 @@ public abstract class BaseAttribute {
 	/**
 	 * constructor without parameters
 	 * 
-	 * @throws ExceptionName throw exception by name
+	 * @throws ApplicationException throw exception by name
 	 */
-	public BaseAttribute() throws ExceptionName {
+	public BaseAttribute() throws ApplicationException {
 		super();
 	}
 
@@ -46,14 +46,14 @@ public abstract class BaseAttribute {
 
 	/**
 	 * @param id Receive an id and change it for the new one (if it valid)
-	 * @throws ExceptionName throw exception by name
+	 * @throws ApplicationException throw exception by name
 	 */
-	public void setId(long id) throws ExceptionName {
+	public void setId(long id) throws ApplicationException {
 
 		if (id > 0)
 			this.id = id;
 		else
-			throw new ExceptionName("Your Id must contain at least 1 digit!");
+			throw new ApplicationException("Your Id must contain at least 1 digit!");
 	}
 
 	/**

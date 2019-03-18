@@ -6,13 +6,13 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import beans.User;
-import dbdao.CompaniesDao;
-import dbdao.CouponsDao;
-import dbdao.CustomerDao;
-import dbdao.UsersDao;
+import dao.CompaniesDao;
+import dao.CouponsDao;
+import dao.CustomerDao;
+import dao.UsersDao;
 import enums.Category;
 import enums.ClientType;
-import exception.ExceptionName;
+import exception.ApplicationException;
 import test.RefreshDataBase;
 
 public class DemoMain {
@@ -46,13 +46,14 @@ public class DemoMain {
 			System.out.println(company.getCompany(2));
 			System.out.println(company.getCompanyByEmailAndPassword("www.g@gmail.com", "sS2PASS"));
 			customer.createCustomer(new Customer("password1S", "email@gmail.com", "firstName", "lastName"));
+			System.out.println("------------------------------------------------------");
 			customer.createCustomer(new Customer("password1Ss", "email@gmail.coms", "firstNames", "lastNames"));
 			System.out.println(customer.getAllCustomer());
 			System.out.println(customer.getCustomer(1));
 			System.out.println(customer.getCustomerByEmailAndPassword("email@gmail.coms", "password1Ss"));
 			System.out.println(customer.isCustomerExists(1));
 			System.out.println(customer.isCustomerExists("email@gmail.coms", "passwosrd1Ss"));
-			customer.deleteCustomer(1);
+//			customer.deleteCustomer(1);
 			coupon.createCoupon(new Coupon(1, Category.Food, "f1", "d1", startDate, endDate, 2, 21, "hi.gmail"));
 			coupon.createCoupon(new Coupon(1, Category.Weapon, "f2", "d2", startDate, endDate, 2, 100, "hi.gmail"));
 			coupon.createCoupon(new Coupon(2, Category.Electricity, "f3", "d3", startDate, endDate, 2, 23, "hi.gmail"));
@@ -67,7 +68,7 @@ public class DemoMain {
 			user.createUser(new User("li", "s3", 2L, ClientType.Company));
 			user.createUser(new User("li", "s4", null, ClientType.Administrator));
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {

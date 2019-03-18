@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import dao.ICreate;
+import exception.ApplicationException;
 import utils.JdbcUtils;
 
 /**
@@ -39,7 +40,7 @@ public class RefreshDataBase implements ICreate {
 	 * 
 	 * @see dao.ICreate#create()
 	 */
-	public void create() throws Exception {
+	public void create() throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement1 = null;
 		PreparedStatement preparedStatement2 = null;
@@ -53,8 +54,14 @@ public class RefreshDataBase implements ICreate {
 					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL , EMAIL VARCHAR(25) NOT NULL,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))");
 			preparedStatement1.executeUpdate();
 			System.out.println("The table companies has created");
+
+			preparedStatement5 = connection.prepareStatement(
+					"CREATE TABLE IF NOT EXISTS users (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , USER_NAME VARCHAR(25) NOT NULL , PASSWORD VARCHAR(50) NOT NULL , TYPE VARCHAR(50) , COMPANY_ID BIGINT(255) UNSIGNED, PRIMARY KEY(ID) , FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID))");
+			preparedStatement5.executeUpdate();
+			System.out.println("The table users has created");
+
 			preparedStatement2 = connection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL ,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID))"); // change without auto increment
+					"CREATE TABLE IF NOT EXISTS customers (ID BIGINT(255) UNSIGNED NOT NULL ,FIRST_NAME VARCHAR(10) NOT NULL,lAST_NAME VARCHAR(10) DEFAULT NULL,EMAIL VARCHAR(25) DEFAULT NULL ,PASSWORD VARCHAR(50) NOT NULL,PRIMARY KEY(ID) , FOREIGN KEY(ID) REFERENCES users(ID))");
 			preparedStatement2.executeUpdate();
 			System.out.println("The table customers has created");
 			preparedStatement3 = connection.prepareStatement(
@@ -65,10 +72,6 @@ public class RefreshDataBase implements ICreate {
 					"CREATE TABLE IF NOT EXISTS purchases (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL , COUPON_ID BIGINT(255) UNSIGNED NOT NULL , AMOUNT INT(20) UNSIGNED , PRIMARY KEY(ID), FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID), FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
 			preparedStatement4.executeUpdate();
 			System.out.println("The table purchases has created");
-			preparedStatement5 = connection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS users (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , USER_NAME VARCHAR(25) NOT NULL , PASSWORD VARCHAR(50) NOT NULL , TYPE VARCHAR(50) , COMPANY_ID BIGINT(255) UNSIGNED, PRIMARY KEY(ID) , FOREIGN KEY(COMPANY_ID) REFERENCES companies(ID))");
-			preparedStatement5.executeUpdate();
-			System.out.println("The table users has created");
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
@@ -83,7 +86,7 @@ public class RefreshDataBase implements ICreate {
 	 * 
 	 * @see dao.ICreate#drop()
 	 */
-	public void drop() throws Exception {
+	public void drop() throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement1 = null;
 		PreparedStatement preparedStatement2 = null;
@@ -93,9 +96,7 @@ public class RefreshDataBase implements ICreate {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement5 = connection.prepareStatement("DROP TABLE users");
-			preparedStatement5.executeUpdate();
-			System.out.println("The table users is a drop");
+
 			preparedStatement1 = connection.prepareStatement("DROP TABLE purchases");
 			preparedStatement1.executeUpdate();
 			System.out.println("The table purchases is a drop");
@@ -105,6 +106,9 @@ public class RefreshDataBase implements ICreate {
 			preparedStatement2 = connection.prepareStatement("DROP TABLE customers");
 			preparedStatement2.executeUpdate();
 			System.out.println("The table customers is a drop");
+			preparedStatement5 = connection.prepareStatement("DROP TABLE users");
+			preparedStatement5.executeUpdate();
+			System.out.println("The table users is a drop");
 			preparedStatement4 = connection.prepareStatement("DROP TABLE companies");
 			preparedStatement4.executeUpdate();
 			System.out.println("The table companies is a drop");

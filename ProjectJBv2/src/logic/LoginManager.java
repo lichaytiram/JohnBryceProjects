@@ -1,7 +1,7 @@
 package logic;
 
 import enums.ClientType;
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class create option to login as admin , company or customer
@@ -31,9 +31,9 @@ public class LoginManager {
 	 * @param password   Receive a password
 	 * @param clientType Receive a clientType
 	 * @return This function return a ClientFacade type
-	 * @throws ExceptionName Can thorw an exception by name
+	 * @throws ApplicationException Can thorw an exception by name
 	 */
-	public ClientFacade login(String email, String password, ClientType clientType) throws ExceptionName {
+	public ClientFacade login(String email, String password, ClientType clientType) throws ApplicationException {
 
 		if (clientType.equals(ClientType.Administrator))
 			return new AdminFacade(email, password);

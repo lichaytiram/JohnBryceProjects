@@ -1,4 +1,4 @@
-package dbdao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 //import beans.Company;
 //import beans.Coupon;
 import beans.Customer;
-import dao.ICustomersDao;
+import exception.ApplicationException;
 //import exception.ExceptionName;
 import utils.JdbcUtils;
 
@@ -27,16 +27,11 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#insert(javaBeans.Customer)
 	 */
-	public void createCustomer(Customer customer) throws Exception {
+	public void createCustomer(Customer customer) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
-
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
-//			while (result.next())
-//				if (result.getString("EMAIL").equals(customer.getEmail()))
-//					throw new ExceptionName("The customer's EMAIL is already exist on data base");
 
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? , ? )");
@@ -47,8 +42,9 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert customers has succeed");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Problem!" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -59,7 +55,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#delete(long)
 	 */
-	public void deleteCustomer(long customerID) throws Exception {
+	public void deleteCustomer(long customerID) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -87,7 +83,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#update(javaBeans.Customer)
 	 */
-	public void updateCustomer(Customer customer) throws Exception {
+	public void updateCustomer(Customer customer) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -121,7 +117,7 @@ public class CustomerDao implements ICustomersDao {
 	 * @see dao.ICustomersDAO#getAllCustomer()
 	 */
 	@Override
-	public ArrayList<Customer> getAllCustomer() throws Exception {
+	public ArrayList<Customer> getAllCustomer() throws ApplicationException {
 		ArrayList<Customer> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -175,7 +171,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#isCustomerExists(java.lang.String, java.lang.String)
 	 */
-	public boolean isCustomerExists(String email, String password) throws Exception {
+	public boolean isCustomerExists(String email, String password) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -200,7 +196,7 @@ public class CustomerDao implements ICustomersDao {
 		return false;
 	}
 
-	public boolean isCustomerExists(long customerId) throws Exception {
+	public boolean isCustomerExists(long customerId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -228,7 +224,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#getOneCustomer(int)
 	 */
-	public Customer getCustomer(long customerID) throws Exception {
+	public Customer getCustomer(long customerID) throws ApplicationException {
 		Customer customer = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -278,7 +274,7 @@ public class CustomerDao implements ICustomersDao {
 	 * @see dao.ICustomersDAO#getOneCustomerByEmailAndPassword(java.lang.String,
 	 * java.lang.String)
 	 */
-	public Customer getCustomerByEmailAndPassword(String email, String password) throws Exception {
+	public Customer getCustomerByEmailAndPassword(String email, String password) throws ApplicationException {
 		Customer customer = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import beans.Coupon;
 import beans.Customer;
-//import dbdao.CouponsDao;
-import dbdao.CustomerDao;
-import dbdao.PurchasesDao;
+import dao.CustomerDao;
+import dao.PurchasesDao;
 import enums.Category;
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class manage the all function for client facade
@@ -22,11 +21,11 @@ public class CustomerFacade extends ClientFacade {
 	/**
 	 * @param email    Receive an email
 	 * @param password Receive a password and check if login succeed
-	 * @throws ExceptionName Can throw an exception by name
+	 * @throws ApplicationException Can throw an exception by name
 	 */
-	public CustomerFacade(String email, String password) throws ExceptionName {
+	public CustomerFacade(String email, String password) throws ApplicationException {
 		if (!login(email, password))
-			throw new ExceptionName("Don't have a match with your current email and password!");
+			throw new ApplicationException("Don't have a match with your current email and password!");
 		CustomerDao customer = new CustomerDao();
 		try {
 			this.customerID = customer.getCustomerByEmailAndPassword(email, password).getId();

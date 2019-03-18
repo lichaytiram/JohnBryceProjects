@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import beans.Company;
 import beans.Customer;
 import daily.job.Job;
-import dbdao.CompaniesDao;
-import dbdao.CustomerDao;
-import exception.ExceptionName;
+import dao.CompaniesDao;
+import dao.CustomerDao;
+import exception.ApplicationException;
 
 /**
  * This class manage the all function for admin facade
@@ -19,11 +19,11 @@ public class AdminFacade extends ClientFacade {
 	/**
 	 * @param email    Receive an email
 	 * @param password Receive a password and check if login succeed
-	 * @throws ExceptionName Can throw an exception by name
+	 * @throws ApplicationException Can throw an exception by name
 	 */
-	public AdminFacade(String email, String password) throws ExceptionName {
+	public AdminFacade(String email, String password) throws ApplicationException {
 		if (!login(email, password))
-			throw new ExceptionName("Don't have a match with your current email and password!");
+			throw new ApplicationException("Don't have a match with your current email and password!");
 		System.out.println("You are login: as admin");
 	}
 

@@ -2,7 +2,7 @@ package beans;
 
 import java.util.ArrayList;
 
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class extends from BaseAttribute and contain more basic attributes
@@ -26,9 +26,9 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 	 * @param id       Receive an id
 	 * @param password Receive a password
 	 * @param email    Receive an email
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public SecondBaseAttribute(long id, String password, String email) throws ExceptionName {
+	public SecondBaseAttribute(long id, String password, String email) throws ApplicationException {
 		super(id);
 		setPassword(password);
 		setEmail(email);
@@ -40,9 +40,9 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 	 * 
 	 * @param password Receive a password
 	 * @param email    Receive an email
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public SecondBaseAttribute(String password, String email) throws ExceptionName {
+	public SecondBaseAttribute(String password, String email) throws ApplicationException {
 		super();
 		setPassword(password);
 		setEmail(email);
@@ -60,13 +60,13 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	/**
 	 * @param coupon This function add coupon for coupon list
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setCouponList(Coupon coupon) throws ExceptionName {
+	public void setCouponList(Coupon coupon) throws ApplicationException {
 		for (int i = 0; i < couponList.size(); i++)
 			if (couponList.get(i).getId() == coupon.getId() && couponList.get(i).getCompanyId() == coupon.getCompanyId()
 					&& couponList.get(i).getCategory().equals(coupon.getCategory()))
-				throw new ExceptionName("The coupon already exists");
+				throw new ApplicationException("The coupon already exists");
 		couponList.add(coupon);
 	}
 
@@ -79,13 +79,13 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 
 	/**
 	 * @param password This function receive a new password and change the last one
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setPassword(String password) throws ExceptionName {
+	public void setPassword(String password) throws ApplicationException {
 		if (checkPassword(password))
 			this.password = password;
 		else
-			throw new ExceptionName("The password must contain one digit , one big letter and one small letter");
+			throw new ApplicationException("The password must contain one digit , one big letter and one small letter");
 	}
 
 	/**
@@ -98,14 +98,14 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 	/**
 	 * @param email This function receive a new email and change the last one (by
 	 *              some definitions)
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setEmail(String email) throws ExceptionName {
+	public void setEmail(String email) throws ApplicationException {
 
 		if (!email.contains("@"))
-			throw new ExceptionName("Your email invalid (isn't contain <@>)");
+			throw new ApplicationException("Your email invalid (isn't contain <@>)");
 		else if (!(email.indexOf('@') + 1 < email.lastIndexOf('.')))
-			throw new ExceptionName("Your email invalid (isn't contain <.> after <@> one letter at least)");
+			throw new ApplicationException("Your email invalid (isn't contain <.> after <@> one letter at least)");
 		else
 			this.email = email;
 	}

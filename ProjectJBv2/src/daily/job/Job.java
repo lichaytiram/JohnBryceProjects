@@ -2,7 +2,7 @@ package daily.job;
 
 import java.util.ArrayList;
 
-import dbdao.CouponsDao;
+import dao.CouponsDao;
 
 /**
  * 

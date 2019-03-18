@@ -1,6 +1,6 @@
 package beans;
 
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class create a customer
@@ -25,9 +25,10 @@ public class Customer extends SecondBaseAttribute {
 	 * @param email     Receive an email
 	 * @param firstName Receive a first name
 	 * @param lastName  Receive a last name
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Customer(int id, String password, String email, String firstName, String lastName) throws ExceptionName {
+	public Customer(int id, String password, String email, String firstName, String lastName)
+			throws ApplicationException {
 		super(id, password, email);
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -40,9 +41,9 @@ public class Customer extends SecondBaseAttribute {
 	 * @param email     Receive an email
 	 * @param firstName Receive a first name
 	 * @param lastName  Receive a last name
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Customer(String password, String email, String firstName, String lastName) throws ExceptionName {
+	public Customer(String password, String email, String firstName, String lastName) throws ApplicationException {
 		super(password, email);
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -61,11 +62,11 @@ public class Customer extends SecondBaseAttribute {
 	 * Name will be first big latter and after small latter
 	 * 
 	 * @param firstName This function receive a first name and change the last one
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setFirstName(String firstName) throws ExceptionName {
+	public void setFirstName(String firstName) throws ApplicationException {
 		if (firstName.length() < 2)
-			throw new ExceptionName("Your first name must contain at least two letters");
+			throw new ApplicationException("Your first name must contain at least two letters");
 		this.firstName = firstName.charAt(0) <= 'Z'
 				? firstName.charAt(0) + firstName.substring(1, firstName.length()).toLowerCase()
 				: (char) (firstName.charAt(0) - 32) + firstName.substring(1, firstName.length()).toLowerCase();
@@ -83,11 +84,11 @@ public class Customer extends SecondBaseAttribute {
 	 * name will be first big latter and after small latter
 	 * 
 	 * @param lastName This function receive a last name and change the last one
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setLastName(String lastName) throws ExceptionName {
+	public void setLastName(String lastName) throws ApplicationException {
 		if (lastName.length() < 2)
-			throw new ExceptionName("Your last name must contain at least two letters");
+			throw new ApplicationException("Your last name must contain at least two letters");
 		this.lastName = lastName.charAt(0) <= 'Z'
 				? lastName.charAt(0) + lastName.substring(1, lastName.length()).toLowerCase()
 				: (char) (lastName.charAt(0) - 32) + lastName.substring(1, lastName.length()).toLowerCase();

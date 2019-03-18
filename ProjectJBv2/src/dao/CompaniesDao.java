@@ -1,4 +1,4 @@
-package dbdao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 //import beans.Category;
 import beans.Company;
-//import beans.Coupon;
-import dao.ICompaniesDao;
+import exception.ApplicationException;
 //import exception.ExceptionName;
 import utils.JdbcUtils;
 
@@ -26,7 +25,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#insert(javaBeans.Company)
 	 */
-	public void createCompany(Company company) throws Exception {
+	public void createCompany(Company company) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -57,7 +56,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#delete(int)
 	 */
-	public void deleteCompany(long companyId) throws Exception {
+	public void deleteCompany(long companyId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -94,7 +93,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#update(javaBeans.Company)
 	 */
-	public void updateCompany(Company company) throws Exception {
+	public void updateCompany(Company company) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -129,7 +128,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#getAllCompany()
 	 */
 	@Override
-	public ArrayList<Company> getAllCompany() throws Exception {
+	public ArrayList<Company> getAllCompany() throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ArrayList<Company> list = new ArrayList<>();
@@ -178,7 +177,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#isCompanyExists(java.lang.String, java.lang.String)
 	 */
-	public boolean isCompanyExists(String email, String password) throws Exception {
+	public boolean isCompanyExists(String email, String password) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -207,7 +206,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#isCompanyExists(long)
 	 */
-	public boolean isCompanyExists(long companyId) throws Exception {
+	public boolean isCompanyExists(long companyId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -235,7 +234,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * 
 	 * @see dao.ICompaniesDAO#getOneCompany(int)
 	 */
-	public Company getCompany(long companyId) throws Exception {
+	public Company getCompany(long companyId) throws ApplicationException {
 		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;
@@ -282,7 +281,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#getOneCompanyByEmailAndPassword(java.lang.String,
 	 * java.lang.String)
 	 */
-	public Company getCompanyByEmailAndPassword(String email, String password) throws Exception {
+	public Company getCompanyByEmailAndPassword(String email, String password) throws ApplicationException {
 		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;

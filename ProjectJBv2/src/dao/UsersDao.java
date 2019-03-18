@@ -1,4 +1,4 @@
-package dbdao;
+package dao;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -7,11 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import beans.User;
+import exception.ApplicationException;
 import utils.JdbcUtils;
 
 public class UsersDao {
 
-	public void createUser(User user) throws Exception {
+	public void createUser(User user) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -27,7 +28,7 @@ public class UsersDao {
 			preparedStatement.setBigDecimal(4,
 					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
 			preparedStatement.executeUpdate();
-			
+
 			System.out.println("insert users has succeed");
 
 		} catch (SQLException ex) {
@@ -38,7 +39,7 @@ public class UsersDao {
 
 	}
 
-	public boolean login(String user, String password) throws Exception {
+	public boolean login(String user, String password) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

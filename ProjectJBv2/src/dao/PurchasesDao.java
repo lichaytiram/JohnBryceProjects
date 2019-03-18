@@ -1,4 +1,4 @@
-package dbdao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.Coupon;
-import dao.IPurchasesDao;
 import enums.Category;
+import exception.ApplicationException;
 import utils.JdbcUtils;
 
 /**
@@ -24,7 +24,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#insert(long, long ,int )
 	 */
-	public void purchaseCoupon(long customerId, long couponId, int amount) throws Exception {
+	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -48,7 +48,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long, long)
 	 */
-	public void refundCoupon(long customerId, long couponId) throws Exception {
+	public void refundCoupon(long customerId, long couponId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -73,7 +73,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long)
 	 */
-	public void refundCoupon(long id) throws Exception {
+	public void refundCoupon(long id) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -96,7 +96,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#updateAmount(long, amount)
 	 */
-	public void updateAmount(long id, int amount) throws Exception {
+	public void updateAmount(long id, int amount) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -140,7 +140,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#isCustomerBought(long, long)
 	 */
-	public boolean isCustomerBought(long customerId, long couponId) throws Exception {
+	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -171,7 +171,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#isCustomerBought(long)
 	 */
-	public boolean isCustomerBought(long id) throws Exception {
+	public boolean isCustomerBought(long id) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -200,7 +200,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getAmount(long)
 	 */
-	public int getAmount(long id) throws Exception {
+	public int getAmount(long id) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -232,7 +232,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 */
 
 	// This is fine?
-	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
@@ -270,7 +270,8 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCategory(long, javaBeans.Category)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByCategory(long customerId, Category category) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByCategory(long customerId, Category category)
+			throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
@@ -304,7 +305,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByMaxPrice(long, double)
 	 */
-	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws Exception {
+	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;

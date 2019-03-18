@@ -1,6 +1,6 @@
 package beans;
 
-import exception.ExceptionName;
+import exception.ApplicationException;
 
 /**
  * This class create a company
@@ -23,9 +23,9 @@ public class Company extends SecondBaseAttribute {
 	 * @param password Receive a password
 	 * @param email    Receive an email
 	 * @param name     Receive a name for company
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Company(long id, String password, String email, String name) throws ExceptionName {
+	public Company(long id, String password, String email, String name) throws ApplicationException {
 		super(id, password, email);
 		setName(name);
 
@@ -37,9 +37,9 @@ public class Company extends SecondBaseAttribute {
 	 * @param password Receive a password
 	 * @param email    Receive an email
 	 * @param name     Receive a name for company
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Company(String password, String email, String name) throws ExceptionName {
+	public Company(String password, String email, String name) throws ApplicationException {
 		super(password, email);
 		setName(name);
 
@@ -56,11 +56,11 @@ public class Company extends SecondBaseAttribute {
 
 	/**
 	 * @param name This function set a new name if valid
-	 * @throws ExceptionName Throw an exception by name
+	 * @throws ApplicationException Throw an exception by name
 	 */
-	public void setName(String name) throws ExceptionName {
+	public void setName(String name) throws ApplicationException {
 		if (name.length() < 2)
-			throw new ExceptionName("Your company name is invalid (must contain at least 2 letters)");
+			throw new ApplicationException("Your company name is invalid (must contain at least 2 letters)");
 		this.name = name;
 	}
 

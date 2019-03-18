@@ -1,4 +1,4 @@
-package dbdao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import beans.Coupon;
-import dao.ICouponsDao;
 import enums.Category;
+import exception.ApplicationException;
 //import exception.ExceptionName;
 import utils.DateUtils;
 import utils.JdbcUtils;
@@ -31,7 +31,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#insert(javaBeans.Coupon)
 	 */
-	public void createCoupon(Coupon coupon) throws Exception {
+	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 //		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 //			throw new ExceptionName("This date isn't well! (must be start date before end date)");
@@ -70,7 +70,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#delete(int)
 	 */
-	public void deleteCoupon(long couponId) throws Exception {
+	public void deleteCoupon(long couponId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -131,7 +131,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#update(javaBeans.Coupon)
 	 */
-	public void updateCoupon(Coupon coupon) throws Exception {
+	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 //		if (!(coupon.getStartDate().before(coupon.getEndDate())))
 //			throw new ExceptionName("This date isn't well! (must be start date before end date)");
@@ -179,7 +179,7 @@ public class CouponsDao implements ICouponsDao {
 	 * @see dao.ICouponsDAO#getAllCoupon()
 	 */
 	@Override
-	public ArrayList<Coupon> getAllCoupon() throws Exception {
+	public ArrayList<Coupon> getAllCoupon() throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
 		Connection connection = null;
@@ -225,7 +225,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getOneCoupon(int)
 	 */
-	public Coupon getCoupon(long couponId) throws Exception {
+	public Coupon getCoupon(long couponId) throws ApplicationException {
 		Category category = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -321,7 +321,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByID(long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsById(long companyId) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException {
 
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
@@ -370,7 +370,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByMaxPrice(double, long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<>();
 		Category category = null;
 		Connection connection = null;
@@ -423,7 +423,8 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByCategory(javaBeans.Category, long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws Exception {
+	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyId)
+			throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -467,7 +468,7 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getAllexpiredCouponsById()
 	 */
-	public ArrayList<Integer> getAllexpiredCouponsId() throws Exception {
+	public ArrayList<Integer> getAllexpiredCouponsId() throws ApplicationException {
 
 		ArrayList<Integer> list = new ArrayList<>();
 		Connection connection = null;

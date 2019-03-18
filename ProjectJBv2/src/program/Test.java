@@ -6,13 +6,13 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import daily.job.Job;
-import dbdao.CompaniesDao;
-import dbdao.CouponsDao;
-import dbdao.CustomerDao;
-import dbdao.PurchasesDao;
+import dao.CompaniesDao;
+import dao.CouponsDao;
+import dao.CustomerDao;
+import dao.PurchasesDao;
 import enums.Category;
 import enums.ClientType;
-import exception.ExceptionName;
+import exception.ApplicationException;
 import logic.AdminFacade;
 import logic.CompanyFacade;
 import logic.CustomerFacade;
@@ -95,7 +95,7 @@ public class Test {
 			coupons6 = new Coupon(2, Category.Weapon, "kids", "weapon kids!", startDate, endDate, 2, 100.35,
 					"ismg.txt");
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		}
 		AdminFacade admin = null;
@@ -112,7 +112,7 @@ public class Test {
 			admin.addCustomer(customer2);
 			admin.addCustomer(customer2);
 			System.out.println(admin.getAllCustomer());
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -123,7 +123,7 @@ public class Test {
 			admin.addCustomer(customer4);
 			System.out.println(admin.getAllCustomer());
 			admin.updateCustomer(customer3);
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -136,7 +136,7 @@ public class Test {
 			System.out.println(admin.getOneCompany(2));
 			System.out.println(admin.getOneCustomer(3));
 			company = (CompanyFacade) manager.login("emails", "passwordnope", ClientType.Company);
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -155,7 +155,7 @@ public class Test {
 			System.out.println(company.getCompanyCoupons(30));
 			System.out.println(company.getCompanyCoupons(Category.Weapon));
 			company.addCoupon(coupons3);
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -165,7 +165,7 @@ public class Test {
 			System.out.println(company.getCompanyCoupons());
 			admin.updateCompany(company3);
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -175,7 +175,7 @@ public class Test {
 		try {
 			customer = (CustomerFacade) manager.login("emails", "passwordnope", ClientType.Customer);
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -189,7 +189,7 @@ public class Test {
 			System.out.println(customer.getCustomerDetails());
 			company.deleteCoupon(1);
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -197,7 +197,7 @@ public class Test {
 
 		try {
 			customer.purchaseCoupon(coupons.getCoupon(3));
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -211,7 +211,7 @@ public class Test {
 			System.out.println(customer.getCustomerCoupons(Category.Electricity));
 			System.out.println(customer.getCustomerCoupons(70));
 			customer.purchaseCoupon(coupons.getCoupon(4));
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -223,7 +223,7 @@ public class Test {
 			customer.purchaseCoupon(coupons.getCoupon(5));
 			admin = (AdminFacade) manager.login("admin@admin.com", "adminn", ClientType.Administrator);
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -239,7 +239,7 @@ public class Test {
 			customer = (CustomerFacade) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
 			System.out.println(customer.getCustomerDetails());
 
-		} catch (ExceptionName e) {
+		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
 			System.out.println(e);

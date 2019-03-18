@@ -7,12 +7,12 @@ package exception;
  *
  */
 @SuppressWarnings("serial")
-public class ExceptionName extends Exception {
+public class ApplicationException extends Exception {
 
 	/**
 	 * @param s name of exception that print into the screen
 	 */
-	public ExceptionName(String s) {
+	public ApplicationException(String s) {
 		super(s);
 	}
 }
