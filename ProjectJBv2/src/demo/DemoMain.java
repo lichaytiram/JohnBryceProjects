@@ -17,15 +17,9 @@ import test.RefreshDataBase;
 
 public class DemoMain {
 
-	private final static String Driver = "com.mysql.cj.jdbc.Driver";
-
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
-		try {
-			Class.forName(Driver);
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+
 		RefreshDataBase refreshDataBase = new RefreshDataBase();
 		refreshDataBase.refreshDB();
 
@@ -45,9 +39,6 @@ public class DemoMain {
 			System.out.println(company.isCompanyExists(2));
 			System.out.println(company.getCompany(2));
 			System.out.println(company.getCompanyByEmailAndPassword("www.g@gmail.com", "sS2PASS"));
-			customer.createCustomer(new Customer("password1S", "email@gmail.com", "firstName", "lastName"));
-			System.out.println("------------------------------------------------------");
-			customer.createCustomer(new Customer("password1Ss", "email@gmail.coms", "firstNames", "lastNames"));
 			System.out.println(customer.getAllCustomer());
 			System.out.println(customer.getCustomer(1));
 			System.out.println(customer.getCustomerByEmailAndPassword("email@gmail.coms", "password1Ss"));
@@ -67,6 +58,7 @@ public class DemoMain {
 			user.createUser(new User("li", "s2", 1L, ClientType.Company));
 			user.createUser(new User("li", "s3", 2L, ClientType.Company));
 			user.createUser(new User("li", "s4", null, ClientType.Administrator));
+			customer.createCustomer(new Customer(1, "S1s", "s@gmail.com", "li", "tiram"));
 
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block

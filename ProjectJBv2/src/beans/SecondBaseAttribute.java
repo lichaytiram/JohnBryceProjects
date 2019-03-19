@@ -43,9 +43,13 @@ public abstract class SecondBaseAttribute extends BaseAttribute {
 	 * @throws ApplicationException Throw an exception by name
 	 */
 	public SecondBaseAttribute(String password, String email) throws ApplicationException {
-		super();
+		this();
 		setPassword(password);
 		setEmail(email);
+	}
+
+	public SecondBaseAttribute() throws ApplicationException {
+		super();
 		couponList = new ArrayList<>();
 	}
 

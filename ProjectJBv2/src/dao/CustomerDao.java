@@ -11,7 +11,6 @@ import java.util.ArrayList;
 //import beans.Coupon;
 import beans.Customer;
 import exception.ApplicationException;
-//import exception.ExceptionName;
 import utils.JdbcUtils;
 
 /**
@@ -34,11 +33,12 @@ public class CustomerDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO customers (FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? , ? )");
-			preparedStatement.setString(1, customer.getFirstName());
-			preparedStatement.setString(2, customer.getLastName());
-			preparedStatement.setString(3, customer.getEmail());
-			preparedStatement.setString(4, customer.getPassword());
+					"INSERT INTO customers (ID,FIRST_NAME,lAST_NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? , ? , ? )");
+			preparedStatement.setLong(1, customer.getId());
+			preparedStatement.setString(2, customer.getFirstName());
+			preparedStatement.setString(3, customer.getLastName());
+			preparedStatement.setString(4, customer.getEmail());
+			preparedStatement.setString(5, customer.getPassword());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert customers has succeed");
@@ -180,8 +180,7 @@ public class CustomerDao implements ICustomersDao {
 
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM customers WHERE EMAIL = ? AND PASSWORD = ? ");
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
+			preparedStatement(preparedStatement, email, password);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return true;
@@ -283,8 +282,7 @@ public class CustomerDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE EMAIL = ? AND PASSWORD = ?");
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
+			preparedStatement(preparedStatement, email, password);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customer(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
@@ -319,6 +317,21 @@ public class CustomerDao implements ICustomersDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return customer;
+	}
+
+	// extract
+
+	private PreparedStatement preparedStatement(PreparedStatement preparedStatement, String email, String password)
+			throws ApplicationException {
+
+		try {
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
 	}
 
 }

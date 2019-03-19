@@ -27,7 +27,7 @@ public class Customer extends SecondBaseAttribute {
 	 * @param lastName  Receive a last name
 	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Customer(int id, String password, String email, String firstName, String lastName)
+	public Customer(long id, String password, String email, String firstName, String lastName)
 			throws ApplicationException {
 		super(id, password, email);
 		setFirstName(firstName);
@@ -47,6 +47,15 @@ public class Customer extends SecondBaseAttribute {
 		super(password, email);
 		setFirstName(firstName);
 		setLastName(lastName);
+	}
+
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @throws ApplicationException Throw an exception by name
+	 */
+	public Customer() throws ApplicationException {
+		super();
 	}
 
 	// getter & setter

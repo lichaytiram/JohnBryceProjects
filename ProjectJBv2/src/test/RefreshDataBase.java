@@ -96,7 +96,6 @@ public class RefreshDataBase implements ICreate {
 		try {
 			connection = JdbcUtils.getConnection();
 
-
 			preparedStatement1 = connection.prepareStatement("DROP TABLE purchases");
 			preparedStatement1.executeUpdate();
 			System.out.println("The table purchases is a drop");

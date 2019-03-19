@@ -31,8 +31,7 @@ public class PurchasesDao implements IPurchasesDao {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection
 					.prepareStatement("INSERT INTO purchases (CUSTOMER_ID,COUPON_ID,AMOUNT) VALUES ( ? , ? , ? )");
-			preparedStatement.setLong(1, customerId);
-			preparedStatement.setLong(2, couponId);
+			preparedStatement(preparedStatement, customerId, couponId);
 			preparedStatement.setInt(3, amount);
 			preparedStatement.executeUpdate();
 			System.out.println("insert purchases has succeed");
@@ -56,8 +55,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection
 					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ? ");
-			preparedStatement.setLong(1, customerId);
-			preparedStatement.setLong(2, couponId);
+			preparedStatement(preparedStatement, customerId, couponId);
 			preparedStatement.executeUpdate();
 
 			System.out.println("delete from purchases has done");
@@ -151,8 +149,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ? ");
-			preparedStatement.setLong(1, customerId);
-			preparedStatement.setLong(2, couponId);
+			preparedStatement(preparedStatement, customerId, couponId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				return true;
@@ -231,7 +228,6 @@ public class PurchasesDao implements IPurchasesDao {
 	 * @see dao.IPurchasesDao#getCustomerCouponByCustomerID(long)
 	 */
 
-	// This is fine?
 	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
@@ -255,9 +251,9 @@ public class PurchasesDao implements IPurchasesDao {
 						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-//			throw new ApplicationException(e, )
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("have a problem:\n" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -280,19 +276,23 @@ public class PurchasesDao implements IPurchasesDao {
 
 		try {
 			connection = JdbcUtils.getConnection();
-			ResultSet result = connection.createStatement().executeQuery(
-					"SELECT * from purchases JOIN coupons ON coupons.id = purchases.COUPON_ID WHERE CUSTOMER_ID="
-							+ customerId);
-			while (result.next()) {
-				if (category.ordinal() == result.getInt("CATEGORY_ID"))
-					list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-							result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-							result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-							result.getString("IMAGE")));
+
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND CATEGORY = ?");
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setString(1, category.name());
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("have a problem:\n" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -307,6 +307,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 */
 	public ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 		ArrayList<Coupon> list = new ArrayList<Coupon>();
+		Category category = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -314,33 +315,44 @@ public class PurchasesDao implements IPurchasesDao {
 
 		try {
 			connection = JdbcUtils.getConnection();
-			ResultSet result = connection.createStatement().executeQuery(
-					"SELECT * from purchases JOIN coupons ON coupons.id = purchases.COUPON_ID WHERE CUSTOMER_ID="
-							+ customerId);
-			Category category = null;
-			while (result.next()) {
 
-				if (result.getDouble("PRICE") < maxPrice) {
-					for (Category ca : Category.values())
-						if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
-							category = ca;
-							break;
-						}
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND PRICE <= ?");
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setDouble(2, maxPrice);
+			resultSet = preparedStatement.executeQuery();
 
-					list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-							result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-							result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-							result.getString("IMAGE")));
-				}
+			while (resultSet.next()) {
+				category = Category.valueOf(resultSet.getString("CATEGORY"));
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("have a problem:\n" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 
 		return list;
+	}
+
+	// extract
+
+	private PreparedStatement preparedStatement(PreparedStatement preparedStatement, long customerId, long couponId)
+			throws ApplicationException {
+
+		try {
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setLong(2, couponId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
 	}
 
 }

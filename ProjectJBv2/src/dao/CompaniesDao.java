@@ -6,10 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-//import beans.Category;
 import beans.Company;
 import exception.ApplicationException;
-//import exception.ExceptionName;
 import utils.JdbcUtils;
 
 /**
@@ -38,9 +36,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection
 					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
-			preparedStatement.setString(1, company.getName());
-			preparedStatement.setString(2, company.getEmail());
-			preparedStatement.setString(3, company.getPassword());
+			extractPreparedStatement(preparedStatement, company.getName(), company.getEmail(), company.getPassword());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert companies has done");
@@ -108,9 +104,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection
 					.prepareStatement("UPDATE companies SET NAME= ? , EMAIL= ? , PASSWORD= ? WHERE ID= ? ");
-			preparedStatement.setString(1, company.getName());
-			preparedStatement.setString(2, company.getEmail());
-			preparedStatement.setString(3, company.getPassword());
+			extractPreparedStatement(preparedStatement, company.getName(), company.getEmail(), company.getPassword());
 			preparedStatement.setLong(4, company.getId());
 			preparedStatement.executeUpdate();
 
@@ -184,8 +178,7 @@ public class CompaniesDao implements ICompaniesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
+			extractPreparedStatement(preparedStatement, email, password);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return true;
@@ -291,8 +284,7 @@ public class CompaniesDao implements ICompaniesDao {
 //			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
+			extractPreparedStatement(preparedStatement, email, password);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
@@ -305,6 +297,32 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 		return company;
 	}
-// extract
+
+// extracts
+
+	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String email,
+			String password) throws ApplicationException {
+		try {
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
+	}
+
+	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String name, String email,
+			String password) throws ApplicationException {
+		try {
+			preparedStatement.setString(1, name);
+			preparedStatement.setString(2, email);
+			preparedStatement.setString(3, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
+	}
 
 }

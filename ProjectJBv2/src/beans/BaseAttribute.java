@@ -22,7 +22,7 @@ public abstract class BaseAttribute {
 	 * @throws ApplicationException throw exception by name
 	 */
 	public BaseAttribute(long id) throws ApplicationException {
-		super();
+		this();
 		setId(id);
 	}
 
@@ -53,7 +53,7 @@ public abstract class BaseAttribute {
 		if (id > 0)
 			this.id = id;
 		else
-			throw new ApplicationException("Your Id must contain at least 1 digit!");
+			throw new ApplicationException("Your Id must contain at least 1 digit and be bigger then 0");
 	}
 
 	/**

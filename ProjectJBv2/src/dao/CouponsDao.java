@@ -10,7 +10,6 @@ import java.util.Date;
 import beans.Coupon;
 import enums.Category;
 import exception.ApplicationException;
-//import exception.ExceptionName;
 import utils.DateUtils;
 import utils.JdbcUtils;
 
@@ -47,15 +46,7 @@ public class CouponsDao implements ICouponsDao {
 
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
-			preparedStatement.setLong(1, coupon.getCompanyId());
-			preparedStatement.setString(2, coupon.getCategory().name());
-			preparedStatement.setString(3, coupon.getTitle());
-			preparedStatement.setString(4, coupon.getDescription());
-			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(coupon.getStartDate()));
-			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(coupon.getEndDate()));
-			preparedStatement.setInt(7, coupon.getAmount());
-			preparedStatement.setDouble(8, coupon.getPrice());
-			preparedStatement.setString(9, coupon.getImage());
+			preparedStatement(preparedStatement, coupon);
 			preparedStatement.executeUpdate();
 			System.out.println("insert coupons has succeed");
 		} catch (SQLException ex) {
@@ -153,15 +144,7 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement = connection
 					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY=? , TITLE=? , DESCRIPTION=? ,"
 							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
-			preparedStatement.setLong(1, coupon.getCompanyId());
-			preparedStatement.setString(2, coupon.getCategory().name());
-			preparedStatement.setString(3, coupon.getTitle());
-			preparedStatement.setString(4, coupon.getDescription());
-			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(coupon.getStartDate()));
-			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(coupon.getEndDate()));
-			preparedStatement.setInt(7, coupon.getAmount());
-			preparedStatement.setDouble(8, coupon.getPrice());
-			preparedStatement.setString(9, coupon.getImage());
+			preparedStatement(preparedStatement, coupon);
 			preparedStatement.setLong(10, coupon.getId());
 			preparedStatement.executeUpdate();
 
@@ -492,6 +475,28 @@ public class CouponsDao implements ICouponsDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
+	}
+
+	// extract
+
+	private PreparedStatement preparedStatement(PreparedStatement preparedStatement, Coupon coupon)
+			throws ApplicationException {
+
+		try {
+			preparedStatement.setLong(1, coupon.getCompanyId());
+			preparedStatement.setString(2, coupon.getCategory().name());
+			preparedStatement.setString(3, coupon.getTitle());
+			preparedStatement.setString(4, coupon.getDescription());
+			preparedStatement.setDate(5, DateUtils.javaDateToSqlDate(coupon.getStartDate()));
+			preparedStatement.setDate(6, DateUtils.javaDateToSqlDate(coupon.getEndDate()));
+			preparedStatement.setInt(7, coupon.getAmount());
+			preparedStatement.setDouble(8, coupon.getPrice());
+			preparedStatement.setString(9, coupon.getImage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
 	}
 
 }

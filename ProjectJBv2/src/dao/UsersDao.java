@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import beans.User;
 import exception.ApplicationException;
@@ -22,17 +23,16 @@ public class UsersDao {
 
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )");
-			preparedStatement.setString(1, user.getUserName());
-			preparedStatement.setString(2, user.getPassword());
+			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
 			preparedStatement.setBigDecimal(4,
 					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
 			preparedStatement.executeUpdate();
-
 			System.out.println("insert users has succeed");
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("have a problem:\n" + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -50,8 +50,7 @@ public class UsersDao {
 
 			preparedStatement = connection
 					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? AND PASSWORD = ? ");
-			preparedStatement.setString(1, user);
-			preparedStatement.setString(2, password);
+			preparedStatement(preparedStatement, user, password);
 			result = preparedStatement.executeQuery();
 
 			if (result.next()) {
@@ -65,6 +64,21 @@ public class UsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement, result);
 		}
 		return false;
+	}
+
+	// extract
+
+	private PreparedStatement preparedStatement(PreparedStatement preparedStatement, String user, String password)
+			throws ApplicationException {
+
+		try {
+			preparedStatement.setString(1, user);
+			preparedStatement.setString(2, password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException("Have a problem:\n" + e);
+		}
+		return preparedStatement;
 	}
 
 }
