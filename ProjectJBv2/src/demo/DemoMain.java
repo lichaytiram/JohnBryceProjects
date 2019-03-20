@@ -78,6 +78,7 @@ public class DemoMain {
 			System.out.println(purchases.getCustomerCouponByCategory(1, Category.Weapon));
 			System.out.println(purchases.getCustomerCouponByMaxPrice(1, 21));
 			purchases.refundCoupon(1, 2);
+			
 
 		} catch (ApplicationException e) {
 			// TODO Auto-generated catch block
