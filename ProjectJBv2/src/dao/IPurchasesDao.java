@@ -60,7 +60,7 @@ public interface IPurchasesDao {
 	 * @return This function return the amount of coupon that bought by customer
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	int getAmount(long id) throws ApplicationException;
+	int getAmount(long coustomerId) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id

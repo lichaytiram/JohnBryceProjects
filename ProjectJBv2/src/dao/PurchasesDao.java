@@ -151,7 +151,7 @@ public class PurchasesDao implements IPurchasesDao {
 					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ? ");
 			preparedStatement(preparedStatement, customerId, couponId);
 			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				return true;
 			}
 
@@ -197,7 +197,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getAmount(long)
 	 */
-	public int getAmount(long id) throws ApplicationException {
+	public int getAmount(long coustomerId) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -207,11 +207,11 @@ public class PurchasesDao implements IPurchasesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("SELECT SUM(AMOUNT) FROM purchases WHERE ID = ? ");
-			preparedStatement.setLong(1, id);
+			preparedStatement = connection.prepareStatement("SELECT AMOUNT FROM purchases WHERE CUSTOMER_ID = ? ");
+			preparedStatement.setLong(1, coustomerId);
 			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				amount = resultSet.getInt("AMOUNT");
+			while (resultSet.next()) {
+				amount += resultSet.getInt("AMOUNT");
 			}
 
 		} catch (SQLException ex) {
@@ -280,7 +280,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection.prepareStatement(
 					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND CATEGORY = ?");
 			preparedStatement.setLong(1, customerId);
-			preparedStatement.setString(1, category.name());
+			preparedStatement.setString(2, category.name());
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {

@@ -185,7 +185,7 @@ public class CustomerDao implements ICustomersDao {
 			if (resultSet.next()) {
 				return true;
 			}
-
+ 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		} finally {
