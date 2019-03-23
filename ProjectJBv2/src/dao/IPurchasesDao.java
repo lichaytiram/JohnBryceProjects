@@ -35,12 +35,12 @@ public interface IPurchasesDao {
 	 */
 	void refundCoupon(long id) throws ApplicationException;
 
-	/**
-	 * @param id     Receive an id
-	 * @param amount Receive an amount
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	void updateAmount(long id, int amount) throws ApplicationException;
+//	/**
+//	 * @param id     Receive an id
+//	 * @param amount Receive an amount
+//	 * @throws ApplicationException Can throw an ApplicationException
+//	 */
+//	void updateAmount(long id, int amount) throws ApplicationException;
 
 	/**
 	 * @param customerId Receive a customer id
@@ -67,7 +67,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException;
+	ArrayList<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -75,7 +75,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his category
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponByCategory(long customerId, Category category) throws ApplicationException;
+	ArrayList<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -84,6 +84,6 @@ public interface IPurchasesDao {
 	 *         and his id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
+	ArrayList<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
 
 }

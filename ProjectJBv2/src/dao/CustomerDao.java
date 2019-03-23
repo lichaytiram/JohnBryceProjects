@@ -4,12 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 //import beans.Category;
 //import beans.Company;
 //import beans.Coupon;
 import beans.Customer;
+import enums.ProblemsException;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
@@ -26,8 +28,9 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#insert(javaBeans.Customer)
 	 */
-	public void createCustomer(Customer customer) throws ApplicationException {
+	public long createCustomer(Customer customer) throws ApplicationException {
 		Connection connection = null;
+		long id = -1;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
@@ -40,14 +43,16 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.setString(4, customer.getEmail());
 			preparedStatement.setString(5, customer.getPassword());
 			preparedStatement.executeUpdate();
+			id = Statement.RETURN_GENERATED_KEYS;
 
 			System.out.println("insert customers has succeed");
 		} catch (SQLException e) {
 			e.printStackTrace();
-//			throw new ApplicationException("Problem!" + e);
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+		return id;
 	}
 
 	/*
@@ -55,7 +60,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#delete(long)
 	 */
-	public void deleteCustomer(long customerID) throws ApplicationException {
+	public void deleteCustomer(long customerId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -66,13 +71,14 @@ public class CustomerDao implements ICustomersDao {
 //			preparedStatement1.setLong(1, customerID);
 //			preparedStatement1.executeUpdate();
 			preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE ID = ?");
-			preparedStatement.setLong(1, customerID);
+			preparedStatement.setLong(1, customerId);
 			preparedStatement.executeUpdate();
 
 			System.out.println("delete from customers has done");
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -89,11 +95,6 @@ public class CustomerDao implements ICustomersDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");
-//			while (result.next())
-//				if (result.getString("EMAIL").equals(customer.getEmail()))
-//					throw new ExceptionName("The customer's EMAIL is already exist on data base");
-
 			preparedStatement = connection.prepareStatement(
 					"UPDATE customers SET FIRST_NAME=? , lAST_NAME=? , EMAIL=? , PASSWORD=? WHERE ID=? ");
 			preparedStatement.setString(1, customer.getFirstName());
@@ -104,8 +105,9 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 			System.out.println("update customers has done");
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -157,8 +159,9 @@ public class CustomerDao implements ICustomersDao {
 //
 //				list.add(customer);
 //			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -185,9 +188,10 @@ public class CustomerDao implements ICustomersDao {
 			if (resultSet.next()) {
 				return true;
 			}
- 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -209,8 +213,9 @@ public class CustomerDao implements ICustomersDao {
 				return true;
 			}
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -223,7 +228,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#getOneCustomer(int)
 	 */
-	public Customer getCustomer(long customerID) throws ApplicationException {
+	public Customer getCustomer(long customerId) throws ApplicationException {
 		Customer customer = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -232,7 +237,7 @@ public class CustomerDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE ID = ? ");
-			preparedStatement.setLong(1, customerID);
+			preparedStatement.setLong(1, customerId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = new Customer(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
@@ -259,8 +264,9 @@ public class CustomerDao implements ICustomersDao {
 //			}
 
 			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -311,8 +317,9 @@ public class CustomerDao implements ICustomersDao {
 //						result.getString("IMAGE")));
 //			}
 			}
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -329,7 +336,7 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.setString(2, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException("Have a problem:\n" + e);
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		}
 		return preparedStatement;
 	}

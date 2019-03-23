@@ -14,11 +14,4 @@ public abstract class ClientFacade {
 	ICompaniesDao CompaniesDAO;
 	ICustomersDao CustomersDAO;
 	ICouponsDao CouponsDAO;
-
-	/**
-	 * @param email    Receive an email
-	 * @param password Receive a password
-	 * @return This function return true if login succeed
-	 */
-	abstract boolean login(String email, String password);
 }

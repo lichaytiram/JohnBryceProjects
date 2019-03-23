@@ -14,8 +14,8 @@ import enums.Category;
 import enums.ClientType;
 import exception.ApplicationException;
 import logic.AdminFacade;
-import logic.CompanyFacade;
-import logic.CustomerFacade;
+import logic.CompanyController;
+import logic.CustomerController;
 import logic.LoginManager;
 import test.RefreshDataBase;
 
@@ -129,13 +129,13 @@ public class Test {
 			System.out.println(e);
 		}
 
-		CompanyFacade company = null;
+		CompanyController company = null;
 
 		try {
 			admin.deleteCustomer(5);
 			System.out.println(admin.getOneCompany(2));
 			System.out.println(admin.getOneCustomer(3));
-			company = (CompanyFacade) manager.login("emails", "passwordnope", ClientType.Company);
+			company = (CompanyController) manager.login("emails", "passwordnope", ClientType.Company);
 		} catch (ApplicationException e) {
 			System.out.println(e);
 		} catch (Exception e) {
@@ -143,7 +143,7 @@ public class Test {
 		}
 
 		try {
-			company = (CompanyFacade) manager.login("gg@gmail.com", "ppx1X", ClientType.Company);
+			company = (CompanyController) manager.login("gg@gmail.com", "ppx1X", ClientType.Company);
 			company.addCoupon(coupons1);
 			company.addCoupon(coupons2);
 			company.addCoupon(coupons3);
@@ -171,9 +171,9 @@ public class Test {
 			System.out.println(e);
 		}
 
-		CustomerFacade customer = null;
+		CustomerController customer = null;
 		try {
-			customer = (CustomerFacade) manager.login("emails", "passwordnope", ClientType.Customer);
+			customer = (CustomerController) manager.login("emails", "passwordnope", ClientType.Customer);
 
 		} catch (ApplicationException e) {
 			System.out.println(e);
@@ -182,7 +182,7 @@ public class Test {
 		}
 
 		try {
-			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
+			customer = (CustomerController) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
 			System.out.println(customer.getCustomerCoupons());
 			customer.purchaseCoupon(coupons.getCoupon(3));
 			System.out.println(customer.getCustomerCoupons());
@@ -218,7 +218,7 @@ public class Test {
 		}
 
 		try {
-			company = (CompanyFacade) manager.login("sss@gmail.com", "12aA3x23x4xx", ClientType.Company);
+			company = (CompanyController) manager.login("sss@gmail.com", "12aA3x23x4xx", ClientType.Company);
 			company.addCoupon(coupons6);
 			customer.purchaseCoupon(coupons.getCoupon(5));
 			admin = (AdminFacade) manager.login("admin@admin.com", "adminn", ClientType.Administrator);
@@ -234,9 +234,9 @@ public class Test {
 			System.out.println(admin.getAllCompanies());
 			admin.deleteCompany(3);
 			System.out.println(admin.getAllCompanies());
-			customer = (CustomerFacade) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
+			customer = (CustomerController) manager.login("omer@gmail.com", "ddooR2", ClientType.Customer);
 			System.out.println(customer.getCustomerDetails());
-			customer = (CustomerFacade) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
+			customer = (CustomerController) manager.login("amir@gmail.com", "dopX3", ClientType.Customer);
 			System.out.println(customer.getCustomerDetails());
 
 		} catch (ApplicationException e) {

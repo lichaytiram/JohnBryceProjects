@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import beans.User;
+import enums.ProblemsException;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
@@ -31,36 +32,91 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException("have a problem:\n" + e);
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 
 	}
 
-	public boolean login(String user, String password) throws ApplicationException {
+	public boolean login(String userName, String password) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet result = null;
+		ResultSet resultSet = null;
 
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
 					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? AND PASSWORD = ? ");
-			preparedStatement(preparedStatement, user, password);
-			result = preparedStatement.executeQuery();
+			preparedStatement(preparedStatement, userName, password);
+			resultSet = preparedStatement.executeQuery();
 
-			if (result.next()) {
+			if (resultSet.next()) {
 				System.out.println("logic has successed");
 				return true;
 			}
 
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, result);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+		return false;
+	}
+
+	public boolean isUserExist(String userName, String password) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection
+					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? AND PASSWORD = ? ");
+			preparedStatement(preparedStatement, userName, password);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+		return false;
+	}
+
+	public boolean isUserExist(String userName) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection
+					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? ");
+			preparedStatement.setString(1, userName);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
 	}
@@ -75,7 +131,7 @@ public class UsersDao {
 			preparedStatement.setString(2, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException("Have a problem:\n" + e);
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		}
 		return preparedStatement;
 	}
