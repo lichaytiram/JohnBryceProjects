@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 //import beans.Category;
@@ -28,9 +27,8 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#insert(javaBeans.Customer)
 	 */
-	public long createCustomer(Customer customer) throws ApplicationException {
+	public void createCustomer(Customer customer) throws ApplicationException {
 		Connection connection = null;
-		long id = -1;
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
@@ -43,7 +41,6 @@ public class CustomerDao implements ICustomersDao {
 			preparedStatement.setString(4, customer.getEmail());
 			preparedStatement.setString(5, customer.getPassword());
 			preparedStatement.executeUpdate();
-			id = Statement.RETURN_GENERATED_KEYS;
 
 			System.out.println("insert customers has succeed");
 		} catch (SQLException e) {
@@ -52,7 +49,6 @@ public class CustomerDao implements ICustomersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
-		return id;
 	}
 
 	/*

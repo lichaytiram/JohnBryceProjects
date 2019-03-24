@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import beans.User;
+import enums.ClientType;
 import enums.ProblemsException;
 import exception.ApplicationException;
 import utils.JdbcUtils;
@@ -25,8 +26,10 @@ public class UsersDao {
 					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )");
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
-			preparedStatement.setBigDecimal(4,
-					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
+			if (user.getCompanyId() != null) {
+				preparedStatement.setLong(4,user.getCompanyId());
+				}
+			
 			preparedStatement.executeUpdate();
 			System.out.println("insert users has succeed");
 
@@ -39,7 +42,7 @@ public class UsersDao {
 
 	}
 
-	public boolean login(String userName, String password) throws ApplicationException {
+	public ClientType login(String userName, String password) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -55,7 +58,7 @@ public class UsersDao {
 
 			if (resultSet.next()) {
 				System.out.println("logic has successed");
-				return true;
+				return ClientType.valueOf(resultSet.getString("TYPE"));
 			}
 
 		} catch (SQLException e) {
@@ -64,7 +67,7 @@ public class UsersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
-		return false;
+		return null;
 	}
 
 	public boolean isUserExist(String userName, String password) throws ApplicationException {

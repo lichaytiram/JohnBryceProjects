@@ -17,7 +17,7 @@ public interface ICustomersDao {
 	 * @param c Receive a customer and add to data base
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	long createCustomer(Customer c) throws ApplicationException;
+	void createCustomer(Customer c) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id and delete from data base

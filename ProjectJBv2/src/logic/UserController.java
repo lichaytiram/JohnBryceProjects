@@ -2,6 +2,7 @@ package logic;
 
 import beans.User;
 import dao.UsersDao;
+import enums.ClientType;
 import exception.ApplicationException;
 
 public class UserController {
@@ -21,7 +22,7 @@ public class UserController {
 
 	}
 
-	public boolean login(String userName, String password) throws ApplicationException {
+	public ClientType login(String userName, String password) throws ApplicationException {
 
 		if (usersDao.isUserExist(userName, password))
 			return usersDao.login(userName, password);
