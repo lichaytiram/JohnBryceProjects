@@ -26,10 +26,8 @@ public class UsersDao {
 					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )");
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
-			if (user.getCompanyId() != null) {
-				preparedStatement.setLong(4,user.getCompanyId());
-				}
-			
+			preparedStatement.setBigDecimal(4,
+					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
 			preparedStatement.executeUpdate();
 			System.out.println("insert users has succeed");
 
