@@ -8,7 +8,7 @@ public class Exercise4 {
 
 	public static int howMuch(int[] arr, int number) {
 		int count = 0;
-		int start = 0, mid = arr.length / 2, end = arr[arr.length - 1];
+//		int start = 0, mid = arr.length / 2, end = arr[arr.length - 1];
 
 		return count;
 
