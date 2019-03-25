@@ -11,10 +11,11 @@ import exception.ApplicationException;
  * @author Lichay
  *
  */
-public class Coupon extends BaseAttribute {
+public class Coupon {
 
 	// properties
 
+	private long id;
 	private long companyId;
 	private Category category;
 	private String title;
@@ -34,7 +35,7 @@ public class Coupon extends BaseAttribute {
 	 * @param companyId   Receive a company id
 	 * @param category    Receive a category from enum list
 	 * @param title       Receive a title
-	 * @param description Receive a descripotion
+	 * @param description Receive a description
 	 * @param startDate   Receive a start date
 	 * @param endDate     Receive an end date
 	 * @param amount      Receive an amount for this coupon
@@ -44,16 +45,8 @@ public class Coupon extends BaseAttribute {
 	 */
 	public Coupon(long id, long companyId, Category category, String title, String description, Date startDate,
 			Date endDate, int amount, double price, String image) throws ApplicationException {
-		super(id);
-		setCompanyId(companyId);
-		setCategory(category);
-		setTitle(title);
-		setDescription(description);
-		setStartDate(startDate);
-		setEndDate(endDate);
-		setAmount(amount);
-		setPrice(price);
-		setImage(image);
+		this(companyId, category, title, description, startDate, endDate, amount, price, image);
+		setId(id);
 	}
 
 	/**
@@ -62,7 +55,7 @@ public class Coupon extends BaseAttribute {
 	 * @param companyId   Receive a company id
 	 * @param category    Receive a category from enum list
 	 * @param title       Receive a title
-	 * @param description Receive a descripotion
+	 * @param description Receive a description
 	 * @param startDate   Receive a start date
 	 * @param endDate     Receive an end date
 	 * @param amount      Receive an amount for this coupon
@@ -87,27 +80,31 @@ public class Coupon extends BaseAttribute {
 	/**
 	 * constructor for create a show for this class
 	 * 
-	 * @param id          Receive an id
-	 * @param companyId   Receive a company id
-	 * @param category    Receive a category from enum list
-	 * @param title       Receive a title
-	 * @param description Receive a descripotion
-	 * @param price       Receive a price
-	 * @param image       Receive an image
-	 * @throws ApplicationException Throw an exception by name
 	 */
-	public Coupon(long id, long companyId, Category category, String title, String description, double price,
-			String image) throws ApplicationException {
-		super(id);
-		setCompanyId(companyId);
-		setCategory(category);
-		setTitle(title);
-		setDescription(description);
-		setPrice(price);
-		setImage(image);
+	public Coupon() {
+
 	}
 
 	// getter & setter
+
+	/**
+	 * @return This function return id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id Receive an id and change it for the new one (if it valid)
+	 * @throws ApplicationException throw exception by name
+	 */
+	public void setId(long id) throws ApplicationException {
+
+		if (id > 0)
+			this.id = id;
+		else
+			throw new ApplicationException("Your Id must contain at least 1 digit and be bigger then 0");
+	}
 
 	/**
 	 * @return This function return a id
@@ -256,17 +253,6 @@ public class Coupon extends BaseAttribute {
 		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
 			throw new ApplicationException("The image file invalid.");
 		this.image = image;
-	}
-
-	/**
-	 * @return This function return as string all attributes
-	 */
-	@Override
-	public String toString() {
-		return "Coupon->[" + super.toString() + ", companyId=" + getCompanyId() + ", category=" + getCategory()
-				+ ", title=" + getTitle() + ", description=" + getDescription() + ", startDate=" + getStartDate()
-				+ ", endDate=" + getEndDate() + ", amount=" + getAmount() + ", price=" + getPrice() + ", image="
-				+ getImage() + "]";
 	}
 
 }

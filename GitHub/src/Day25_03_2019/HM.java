@@ -6,7 +6,8 @@ public class HM {
 		System.out.println(dual(5, 4));
 		System.out.println(divide(20, 4));
 		System.out.println(rest(22, 4));
-		System.out.println(sumArr(new int[] { 1, 1, 4, 2, 3 }));
+//		System.out.println(sumArr(new int[] { 1, 1, 4, 2, 3 }));
+		System.out.println(howMuchChar("cacfgdcasdasdasdcacccbc", 'c'));
 	}
 
 	public static int dual(int n1, int n2) {
@@ -30,10 +31,17 @@ public class HM {
 
 	}
 
-	public static int sumArr(int[] arr) {
-		if (0)
-			return arr[0];
-		return arr[] arr[arr.length - 1];
+//	public static int sumArr(int[] arr) {
+//		
+//		return sumArr(arr[arr.length-1]);
+//	}
+
+	public static int howMuchChar(String str, char c) {
+		if (str.length() == 0)
+			return 0;
+		if (str.charAt(str.length() - 1) == c)
+			return 1 + howMuchChar(str.substring(0, str.length() - 1), c);
+		return howMuchChar(str.substring(0, str.length() - 1), c);
 	}
 
 }

@@ -1,6 +1,7 @@
 package beans;
 
 import enums.ClientType;
+import exception.ApplicationException;
 
 public class User {
 
@@ -10,9 +11,10 @@ public class User {
 	private Long companyId;
 	private ClientType type;
 
-	public User(long id, String userName, String password, Long companyId, ClientType type) {
+	public User(long id, String userName, String password, Long companyId, ClientType type)
+			throws ApplicationException {
 		this(userName, password, companyId, type);
-		this.id = id;
+		setId(id);
 	}
 
 	public User(String userName, String password, Long companyId, ClientType type) {
@@ -30,8 +32,12 @@ public class User {
 		return id;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId(long id) throws ApplicationException {
+
+		if (id > 0)
+			this.id = id;
+		else
+			throw new ApplicationException("Your Id must contain at least 1 digit and be bigger then 0");
 	}
 
 	public String getUserName() {
