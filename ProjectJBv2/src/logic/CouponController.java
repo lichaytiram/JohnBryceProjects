@@ -1,10 +1,9 @@
 package logic;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import beans.Coupon;
-//import dao.CompaniesDao;
 import dao.CouponsDao;
 import dao.PurchasesDao;
 import exception.ApplicationException;
@@ -13,12 +12,10 @@ public class CouponController {
 
 	private CouponsDao couponsDao;
 	private PurchasesDao purchasesDao;
-//	private CompaniesDao companiesDao;
 
 	public CouponController() {
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
-//		companiesDao = new CompaniesDao();
 
 	}
 
@@ -64,7 +61,7 @@ public class CouponController {
 		couponsDao.updateCoupon(coupon);
 	}
 
-	public ArrayList<Coupon> getAllCoupon() throws ApplicationException {
+	public List<Coupon> getAllCoupon() throws ApplicationException {
 		return couponsDao.getAllCoupon();
 
 	}

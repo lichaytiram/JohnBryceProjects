@@ -1,6 +1,6 @@
 package logic;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Coupon;
 import dao.CouponsDao;
@@ -69,7 +69,7 @@ public class PurchaseController {
 
 	}
 
-	public ArrayList<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
+	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
 			return purchasesDao.getCustomerCouponsByCustomerId(customerId);
 
@@ -77,8 +77,7 @@ public class PurchaseController {
 
 	}
 
-	public ArrayList<Coupon> getCustomerCouponsByCategory(long customerId, Category category)
-			throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
 			return purchasesDao.getCustomerCouponsByCategory(customerId, category);
 
@@ -86,8 +85,7 @@ public class PurchaseController {
 
 	}
 
-	public ArrayList<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice)
-			throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 
 		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
 			return purchasesDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);

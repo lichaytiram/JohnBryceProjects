@@ -1,6 +1,6 @@
 package logic;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Customer;
 import dao.CustomerDao;
@@ -53,7 +53,7 @@ public class CustomerController {
 		}
 	}
 
-	public ArrayList<Customer> getAllCustomer() throws ApplicationException {
+	public List<Customer> getAllCustomer() throws ApplicationException {
 		return customerDao.getAllCustomer();
 	}
 
@@ -72,63 +72,5 @@ public class CustomerController {
 
 		throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
 	}
-
-//	/**
-//	 * @param coupon Receive a coupon and add to data base as purchase if valid by
-//	 *               some parameters
-//	 * @throws Exception Can throw an exception
-//	 */
-//	public void purchaseCoupon(Coupon coupon) throws Exception {
-//		long couponID = coupon.getId();
-//		CustomersVsCouponsDao customersVsCoupons = new CustomersVsCouponsDao();
-//		customersVsCoupons.checkIfCustomerBought(customerID, couponID);
-//		CouponsDao newcoupon = new CouponsDao();
-//		newcoupon.addCouponPurchase(customerID, couponID);
-//	}
-//
-//	/**
-//	 * @return This function return all coupons from that login customer
-//	 * @throws Exception Can throw an exception
-//	 */
-//	public ArrayList<Coupon> getCustomerCoupons() throws Exception {
-//		PurchasesDao customersVsCoupons = new PurchasesDao();
-//		return customersVsCoupons.getCustomerCouponByCustomerId(customerID);
-//	}
-//
-//	/**
-//	 * @param category Receive a category
-//	 * @return This function return all coupons by the same category that bought
-//	 *         from this customer that login
-//	 * @throws Exception Can throw an exception
-//	 */
-//	public ArrayList<Coupon> getCustomerCoupons(Category category) throws Exception {
-//		PurchasesDao customersVsCoupons = new PurchasesDao();
-//		return customersVsCoupons.getCustomerCouponByCategory(customerID, category);
-//	}
-//
-//	/**
-//	 * @param maxPrice Receive a max price
-//	 * @return This function return all coupons that price lower then max price from
-//	 *         coustomer login
-//	 * @throws Exception Can throw an exception
-//	 */
-//	public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws Exception {
-//		PurchasesDao customersVsCoupons = new PurchasesDao();
-//		return customersVsCoupons.getCustomerCouponByMaxPrice(customerID, maxPrice);
-//	}
-//
-//	/**
-//	 * @return This function return the customer that login
-//	 */
-//	public Customer getCustomerDetails() {
-//		CustomerDao customer = new CustomerDao();
-//		try {
-//			return customer.getCustomer(customerID);
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
-//		return null;
-//
-//	}
 
 }
