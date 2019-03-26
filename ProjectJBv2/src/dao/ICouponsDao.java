@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Coupon;
 import enums.Category;
@@ -44,7 +44,7 @@ public interface ICouponsDao {
 	 * @return This function retrn all coupons
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getAllCoupon() throws ApplicationException;
+	List<Coupon> getAllCoupon() throws ApplicationException;
 
 	/**
 	 * @param couponID Receive a coupon id
@@ -74,7 +74,7 @@ public interface ICouponsDao {
 	 * @return This function return all coupons by his company id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	public ArrayList<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException;
+	public List<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException;
 
 	/**
 	 * @param maxPrice  Receive a max price
@@ -82,7 +82,7 @@ public interface ICouponsDao {
 	 * @return This function return all coupons by his company id and max price
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException;
+	public List<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException;
 
 	/**
 	 * @param category  Receive a category
@@ -90,12 +90,12 @@ public interface ICouponsDao {
 	 * @return This function return all coupons by his company id and his category
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws ApplicationException;
+	public List<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws ApplicationException;
 
 	/**
 	 * @return This function return all id for expired coupons
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	public ArrayList<Integer> getAllexpiredCouponsId() throws ApplicationException;
+	public List<Integer> getAllexpiredCouponsId() throws ApplicationException;
 
 }

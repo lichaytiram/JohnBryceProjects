@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Company;
 import exception.ApplicationException;
@@ -50,7 +50,7 @@ public interface ICompaniesDao {
 	 * @return This function return all company on data base
 	 * @throws Exception Can throw an exception
 	 */
-	ArrayList<Company> getAllCompany() throws ApplicationException;
+	List<Company> getAllCompany() throws ApplicationException;
 
 	/**
 	 * @param companyID Receive a company id

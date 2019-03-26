@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Customer;
 import exception.ApplicationException;
@@ -50,7 +50,7 @@ public interface ICustomersDao {
 	 * @return This function return all customer from data base
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Customer> getAllCustomer() throws ApplicationException;
+	List<Customer> getAllCustomer() throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id

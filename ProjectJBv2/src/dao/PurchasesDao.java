@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.Coupon;
 import enums.Category;
@@ -259,8 +260,8 @@ public class PurchasesDao implements IPurchasesDao {
 	 * @see dao.IPurchasesDao#getCustomerCouponByCustomerID(long)
 	 */
 
-	public ArrayList<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<Coupon>();
+	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
 		Connection connection = null;
@@ -297,9 +298,8 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByCategory(long, javaBeans.Category)
 	 */
-	public ArrayList<Coupon> getCustomerCouponsByCategory(long customerId, Category category)
-			throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<Coupon>();
+	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -336,9 +336,8 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#getCustomerCouponByMaxPrice(long, double)
 	 */
-	public ArrayList<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice)
-			throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<Coupon>();
+	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
 		Connection connection = null;

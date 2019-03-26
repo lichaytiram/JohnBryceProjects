@@ -1,8 +1,10 @@
 package daily.job;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.CouponsDao;
+import enums.ProblemsException;
+import exception.ApplicationException;
 
 /**
  * 
@@ -13,10 +15,13 @@ import dao.CouponsDao;
  */
 public class Job implements Runnable {
 
+	private CouponsDao coupon;
+
 	/**
 	 * Constructor for create a show
 	 */
 	public Job() {
+		coupon = new CouponsDao();
 		System.out.println("Daily job is running!");
 	}
 
@@ -29,39 +34,38 @@ public class Job implements Runnable {
 	public void run() {
 
 		while (true) {
-			CouponsDao coupon = new CouponsDao();
 
 			try {
 				synchronized (coupon.getAllexpiredCouponsId()) {
-					ArrayList<Integer> list = coupon.getAllexpiredCouponsId();
+					List<Integer> list = coupon.getAllexpiredCouponsId();
 					while (list.size() > 0) {
+						// need add all check..
 						coupon.deleteCoupon(list.get(0));
 						System.out.println("coupon id= [" + list.get(0) + "] has been deleted");
 						list.remove(0);
 					}
 				}
+				Thread.sleep(1000 * 60 * 60 * 24);
 			} catch (Exception e) {
-				System.out.println(e);
+				e.printStackTrace();
 			}
 
-			try {
-				Thread.sleep(1000 * 60 * 60 * 24);
-			} catch (InterruptedException e) {
-				System.out.println(e);
-			}
 		}
 
 	}
 
 	/**
 	 * This function to stop this daily job
+	 * 
+	 * @throws ApplicationException
 	 */
-	public void stop() {
+	public void stop() throws ApplicationException {
 		try {
 			System.out.println("Daily job has stopped");
 			wait();
 		} catch (InterruptedException e) {
-			System.out.println(e);
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		}
 	}
 

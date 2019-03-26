@@ -3,15 +3,16 @@ package dao;
 import exception.ApplicationException;
 
 /**
- * This interface shared for all packege dao like a main interface
+ * This interface shared for all package dao like a main interface
  * 
  * @author Lichay
  *
  */
+
 public interface ICreate {
 
 	/**
-	 * Create a table in data base
+	 * Create tables in the data base
 	 * 
 	 * @throws Exception Can throw an exception
 	 */
@@ -19,7 +20,7 @@ public interface ICreate {
 	void create() throws ApplicationException;
 
 	/**
-	 * Drop a data base
+	 * Drop the data base
 	 * 
 	 * @throws Exception Can throw an exception
 	 */

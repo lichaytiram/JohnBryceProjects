@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 //import beans.Category;
 //import beans.Company;
@@ -115,8 +116,8 @@ public class CustomerDao implements ICustomersDao {
 	 * @see dao.ICustomersDAO#getAllCustomer()
 	 */
 	@Override
-	public ArrayList<Customer> getAllCustomer() throws ApplicationException {
-		ArrayList<Customer> list = new ArrayList<>();
+	public List<Customer> getAllCustomer() throws ApplicationException {
+		List<Customer> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;

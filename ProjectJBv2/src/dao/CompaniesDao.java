@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import beans.Company;
 import enums.ProblemsException;
@@ -126,10 +127,10 @@ public class CompaniesDao implements ICompaniesDao {
 	 * @see dao.ICompaniesDAO#getAllCompany()
 	 */
 	@Override
-	public ArrayList<Company> getAllCompany() throws ApplicationException {
+	public List<Company> getAllCompany() throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ArrayList<Company> list = new ArrayList<>();
+		List<Company> list = new ArrayList<>();
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();

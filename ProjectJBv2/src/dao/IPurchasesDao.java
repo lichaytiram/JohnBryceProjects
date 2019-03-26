@@ -1,6 +1,6 @@
 package dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import beans.Coupon;
 import enums.Category;
@@ -67,7 +67,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException;
+	List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -75,7 +75,7 @@ public interface IPurchasesDao {
 	 * @return This function return all coupons that customer bought by his category
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException;
+	List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException;
 
 	/**
 	 * @param customerID Receive a customer id
@@ -84,6 +84,6 @@ public interface IPurchasesDao {
 	 *         and his id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	ArrayList<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
+	List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
 
 }

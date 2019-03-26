@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import beans.Coupon;
 import enums.Category;
@@ -137,8 +138,8 @@ public class CouponsDao implements ICouponsDao {
 	 * @see dao.ICouponsDAO#getAllCoupon()
 	 */
 	@Override
-	public ArrayList<Coupon> getAllCoupon() throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<>();
+	public List<Coupon> getAllCoupon() throws ApplicationException {
+		List<Coupon> list = new ArrayList<>();
 		Category category = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -206,9 +207,9 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByID(long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException {
+	public List<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException {
 
-		ArrayList<Coupon> list = new ArrayList<>();
+		List<Coupon> list = new ArrayList<>();
 		Category category = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -256,8 +257,8 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByMaxPrice(double, long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<>();
+	public List<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException {
+		List<Coupon> list = new ArrayList<>();
 		Category category = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -310,9 +311,8 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getCompanyCouponsByCategory(javaBeans.Category, long)
 	 */
-	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category, long companyId)
-			throws ApplicationException {
-		ArrayList<Coupon> list = new ArrayList<>();
+	public List<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws ApplicationException {
+		List<Coupon> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -354,9 +354,9 @@ public class CouponsDao implements ICouponsDao {
 	 * 
 	 * @see dao.ICouponsDAO#getAllexpiredCouponsById()
 	 */
-	public ArrayList<Integer> getAllexpiredCouponsId() throws ApplicationException {
+	public List<Integer> getAllexpiredCouponsId() throws ApplicationException {
 
-		ArrayList<Integer> list = new ArrayList<>();
+		List<Integer> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -381,9 +381,9 @@ public class CouponsDao implements ICouponsDao {
 		return list;
 	}
 
-	public ArrayList<Long> getAllCouponsIdByCompanyId(long companyId) throws ApplicationException {
+	public List<Long> getAllCouponsIdByCompanyId(long companyId) throws ApplicationException {
 
-		ArrayList<Long> list = new ArrayList<>();
+		List<Long> list = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
