@@ -127,11 +127,10 @@ public class CustomerDao implements ICustomersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers");
 			resultSet = preparedStatement.executeQuery();
-
 			while (resultSet.next()) {
-				list.add(new Customer(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"), resultSet.getString("FIRST_NAME"),
-						resultSet.getString("lAST_NAME")));
+				list.add(new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
+						resultSet.getString("lAST_NAME"), resultSet.getString("EMAIL"),
+						resultSet.getString("PASSWORD")));
 			}
 
 //			ResultSet result = con.createStatement().executeQuery("SELECT * FROM customers");

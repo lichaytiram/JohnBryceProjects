@@ -193,6 +193,14 @@ public class Customer {
 				: (char) (lastName.charAt(0) - 32) + lastName.substring(1, lastName.length()).toLowerCase();
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	// functions
 
 	/**
@@ -231,6 +239,12 @@ public class Customer {
 			checkDigit++;
 		}
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [ id=" + getId() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", email="
+				+ getEmail() + ", password=" + getPassword() + ", couponList=" + getCouponList() + " ]";
 	}
 
 }

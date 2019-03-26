@@ -13,12 +13,13 @@ public class UserController {
 		usersDao = new UsersDao();
 	}
 
-	public void createUser(User user) throws ApplicationException {
+	public long createUser(User user) throws ApplicationException {
 
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException("Have a problem\n" + "This user name already exist!");
 
-		usersDao.createUser(user);
+		// return id from this user
+		return usersDao.createUser(user);
 
 	}
 

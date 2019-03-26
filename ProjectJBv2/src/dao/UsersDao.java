@@ -14,28 +14,34 @@ import utils.JdbcUtils;
 
 public class UsersDao {
 
-	public void createUser(User user) throws ApplicationException {
+	public long createUser(User user) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )");
+					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
 			preparedStatement.setBigDecimal(4,
 					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
 			preparedStatement.executeUpdate();
-			System.out.println("insert users has succeed");
-
+			resultSet = preparedStatement.getGeneratedKeys();
+			if (resultSet.next()) {
+				System.out.println("insert users has succeed");
+				return resultSet.getLong(1);
+			}
+			throw new ApplicationException(ProblemsException.problem.getName() + "Failed to create user id");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ProblemsException.problem.getName() + e);
 		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 
 	}
@@ -55,7 +61,7 @@ public class UsersDao {
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				System.out.println("logic has successed");
+				System.out.println("login has successed");
 				return ClientType.valueOf(resultSet.getString("TYPE"));
 			}
 
@@ -65,7 +71,7 @@ public class UsersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
-		return null;
+		throw new ApplicationException(ProblemsException.problem.getName() + "Login isn't success");
 	}
 
 	public boolean isUserExist(String userName, String password) throws ApplicationException {

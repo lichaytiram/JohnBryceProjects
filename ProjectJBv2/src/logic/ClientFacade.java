@@ -11,7 +11,7 @@ import dao.ICouponsDao;
  *
  */
 public abstract class ClientFacade {
-	ICompaniesDao CompaniesDAO;
-	ICustomersDao CustomersDAO;
-	ICouponsDao CouponsDAO;
+	ICompaniesDao CompaniesDao;
+	ICustomersDao CustomersDao;
+	ICouponsDao CouponsDao;
 }
