@@ -43,6 +43,5 @@ public class HM {
 			return 1 + howMuchChar(str.substring(0, str.length() - 1), c);
 		return howMuchChar(str.substring(0, str.length() - 1), c);
 	}
-	
 
 }
