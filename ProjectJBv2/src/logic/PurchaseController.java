@@ -4,6 +4,7 @@ import java.util.List;
 
 import beans.Coupon;
 import dao.CouponsDao;
+import dao.CustomerDao;
 import dao.PurchasesDao;
 import enums.Category;
 import exception.ApplicationException;
@@ -17,17 +18,21 @@ public class PurchaseController {
 
 	private PurchasesDao purchasesDao;
 	private CouponsDao couponsDao;
+	private CustomerDao customerDao;
 
 	public PurchaseController() throws ApplicationException {
 		purchasesDao = new PurchasesDao();
 		couponsDao = new CouponsDao();
+		customerDao = new CustomerDao();
 	}
 
 	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
-		if (!couponsDao.isCouponExists(couponId)) {
+		if (!customerDao.isCustomerExists(customerId))
+			throw new ApplicationException("Have a problem:\n" + "This customer id isn't exist!");
+
+		if (!couponsDao.isCouponExists(couponId))
 			throw new ApplicationException("Have a problem:\n" + "This coupon id isn't exist!");
-		}
 
 		if (!couponsDao.isCouponValid(couponId))
 			throw new ApplicationException("Have a problem:\n" + "This coupon id isn't valid anymore!");
@@ -42,21 +47,21 @@ public class PurchaseController {
 
 	}
 
-	public void refundCoupon(long customerId, long couponId) throws ApplicationException {
+	public void deleteCoupon(long customerId, long couponId) throws ApplicationException {
 		if (!purchasesDao.isCustomerBought(customerId, couponId)) {
 			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
 		}
 
-		purchasesDao.refundCoupon(customerId, couponId);
+		purchasesDao.deleteCoupon(customerId, couponId);
 
 	}
 
-	public void refundCoupon(long id) throws ApplicationException {
+	public void deleteCoupon(long id) throws ApplicationException {
 		if (!purchasesDao.isCustomerBought(id)) {
 			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
 		}
 
-		purchasesDao.refundCoupon(id);
+		purchasesDao.deleteCoupon(id);
 
 	}
 

@@ -44,9 +44,9 @@ public class CustomerController {
 			return;
 		}
 
-		purchasesDao.refundCouponByCustomerId(customerId);
+		purchasesDao.deleteCouponByCustomerId(customerId);
 		customerDao.deleteCustomer(customerId);
-		userController.d
+		userController.deleteUser(customerId);
 
 	}
 

@@ -63,10 +63,6 @@ public class CustomerDao implements ICustomersDao {
 
 		try {
 			connection = JdbcUtils.getConnection();
-//			PreparedStatement preparedStatement1 = con
-//					.prepareStatement("DELETE FROM customersVsCoupons WHERE CUSTOMER_ID = ?");
-//			preparedStatement1.setLong(1, customerID);
-//			preparedStatement1.executeUpdate();
 			preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE ID = ?");
 			preparedStatement.setLong(1, customerId);
 			preparedStatement.executeUpdate();

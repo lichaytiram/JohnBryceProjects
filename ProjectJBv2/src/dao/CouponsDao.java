@@ -440,7 +440,7 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM coupons WHERE TITLE = ? AND COMPANY_ID = ? ");
 			preparedStatement.setString(1, coupon.getTitle());
-			preparedStatement.setLong(1, coupon.getCompanyId());
+			preparedStatement.setLong(2, coupon.getCompanyId());
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return true;

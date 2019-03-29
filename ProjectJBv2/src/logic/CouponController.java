@@ -40,7 +40,7 @@ public class CouponController {
 			throw new ApplicationException("This coupon id isn't exist");
 		}
 
-		purchasesDao.refundCouponByCouponId(couponId);
+		purchasesDao.deleteCouponByCouponId(couponId);
 
 		couponsDao.deleteCoupon(couponId);
 	}

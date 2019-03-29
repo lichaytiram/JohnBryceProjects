@@ -3,7 +3,6 @@ package beans;
 import java.util.Date;
 
 import enums.Category;
-import exception.ApplicationException;
 
 /**
  * This class create a coupon
@@ -33,7 +32,7 @@ public class Coupon {
 	 * 
 	 * @param id          Receive an id
 	 * @param companyId   Receive a company id
-	 * @param category    Receive a category from enum list
+	 * @param category    Receive a category
 	 * @param title       Receive a title
 	 * @param description Receive a description
 	 * @param startDate   Receive a start date
@@ -41,19 +40,18 @@ public class Coupon {
 	 * @param amount      Receive an amount for this coupon
 	 * @param price       Receive a price
 	 * @param image       Receive an image
-	 * @throws ApplicationException Throw an exception by name
 	 */
 	public Coupon(long id, long companyId, Category category, String title, String description, Date startDate,
-			Date endDate, int amount, double price, String image) throws ApplicationException {
+			Date endDate, int amount, double price, String image) {
 		this(companyId, category, title, description, startDate, endDate, amount, price, image);
-		setId(id);
+		this.companyId = id;
 	}
 
 	/**
 	 * constructor for create a show for this class
 	 * 
 	 * @param companyId   Receive a company id
-	 * @param category    Receive a category from enum list
+	 * @param category    Receive a category
 	 * @param title       Receive a title
 	 * @param description Receive a description
 	 * @param startDate   Receive a start date
@@ -61,20 +59,19 @@ public class Coupon {
 	 * @param amount      Receive an amount for this coupon
 	 * @param price       Receive a price
 	 * @param image       Receive an image
-	 * @throws ApplicationException Throw an exception by name
 	 */
 	public Coupon(long companyId, Category category, String title, String description, Date startDate, Date endDate,
-			int amount, double price, String image) throws ApplicationException {
+			int amount, double price, String image) {
 		super();
-		setCompanyId(companyId);
-		setCategory(category);
-		setTitle(title);
-		setDescription(description);
-		setStartDate(startDate);
-		setEndDate(endDate);
-		setAmount(amount);
-		setPrice(price);
-		setImage(image);
+		this.companyId = companyId;
+		this.category = category;
+		this.title = title;
+		this.description = description;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.amount = amount;
+		this.price = price;
+		this.image = image;
 	}
 
 	/**
@@ -87,172 +84,91 @@ public class Coupon {
 
 	// getter & setter
 
-	/**
-	 * @return This function return id
-	 */
 	public long getId() {
 		return id;
 	}
 
-	/**
-	 * @param id Receive an id and change it for the new one (if it valid)
-	 * @throws ApplicationException throw exception by name
-	 */
-	public void setId(long id) throws ApplicationException {
-
-		if (id > 0)
-			this.id = id;
-		else
-			throw new ApplicationException("Your Id must contain at least 1 digit and be bigger then 0");
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	/**
-	 * @return This function return a id
-	 */
 	public long getCompanyId() {
 		return companyId;
 	}
 
-	/**
-	 * @param companyId This function receive a company id and set new one if valid
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setCompanyId(long companyId) throws ApplicationException {
-		if (companyId > 0)
-			this.companyId = companyId;
-		else
-			throw new ApplicationException("Your Id must contain at least 1 digit!");
+	public void setCompanyId(long companyId) {
+		this.companyId = companyId;
 	}
 
-	/**
-	 * @return This function return a category
-	 */
 	public Category getCategory() {
 		return category;
 	}
 
-	/**
-	 * @param category This function set a new category
-	 */
 	public void setCategory(Category category) {
 		this.category = category;
 	}
 
-	/**
-	 * @return This function return a title
-	 */
 	public String getTitle() {
 		return title;
 	}
 
-	/**
-	 * @param title This function set a new title if valid
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setTitle(String title) throws ApplicationException {
-		if (title.length() < 2)
-			throw new ApplicationException("The title too short");
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	/**
-	 * @return This function return a description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description This function set a new description
-	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	/**
-	 * @return This function return a start date
-	 */
 	public Date getStartDate() {
 		return startDate;
 	}
 
-	/**
-	 * @param startDate This function receive a start date and set a new one
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setStartDate(Date startDate) throws ApplicationException {
-		if (endDate != null && startDate.after(this.endDate))
-			throw new ApplicationException("The start date isn't vaild (must be before end date)");
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	/**
-	 * @return This function return an end date
-	 */
 	public Date getEndDate() {
 		return endDate;
 	}
 
-	/**
-	 * @param endDate This function receive end date and set a new one
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setEndDate(Date endDate) throws ApplicationException {
-		if (startDate != null && endDate.before(this.startDate))
-			throw new ApplicationException("The end date isn't vaild (must be after start date)");
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
-	/**
-	 * @return This function return an amount
-	 */
 	public int getAmount() {
 		return amount;
 	}
 
-	/**
-	 * @param amount This function receive an amount and set new one if valid
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setAmount(int amount) throws ApplicationException {
-		if (amount < 0)
-			throw new ApplicationException("The amount must be more then 0 or equal");
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-	/**
-	 * @return This function return a price
-	 */
 	public double getPrice() {
 		return price;
 	}
 
-	/**
-	 * @param price This function receive a price and set a new one if valid
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setPrice(double price) throws ApplicationException {
-		if (price > 0)
-			this.price = price;
-		else
-			throw new ApplicationException("The price must be more then 0$");
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	/**
-	 * @return This function return an image
-	 */
 	public String getImage() {
 		return image;
 	}
 
-	/**
-	 * @param image This function receive an image and set new one if valid
-	 * @throws ApplicationException Throw an exception by name
-	 */
-	public void setImage(String image) throws ApplicationException {
-		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
-			throw new ApplicationException("The image file invalid.");
+	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "Coupon [id=" + getId() + ", companyId=" + getCompanyId() + ", category=" + getCategory() + ", title="
+				+ getTitle() + ", description=" + getDescription() + ", startDate=" + getStartDate() + ", endDate="
+				+ getEndDate() + ", amount=" + getAmount() + ", price=" + getPrice() + ", image=" + getImage() + "]";
 	}
 
 }

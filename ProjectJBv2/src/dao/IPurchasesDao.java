@@ -27,13 +27,13 @@ public interface IPurchasesDao {
 	 * @param couponId   Receive a coupon id and delete id from data base
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	void refundCoupon(long customerId, long couponId) throws ApplicationException;
+	void deleteCoupon(long customerId, long couponId) throws ApplicationException;
 
 	/**
 	 * @param id Receive an id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	void refundCoupon(long id) throws ApplicationException;
+	void deleteCoupon(long id) throws ApplicationException;
 
 //	/**
 //	 * @param id     Receive an id

@@ -50,7 +50,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long, long)
 	 */
-	public void refundCoupon(long customerId, long couponId) throws ApplicationException {
+	public void deleteCoupon(long customerId, long couponId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -75,7 +75,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long)
 	 */
-	public void refundCoupon(long id) throws ApplicationException {
+	public void deleteCoupon(long id) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -99,7 +99,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * 
 	 * @see dao.IPurchasesDao#delete(long)
 	 */
-	public void refundCouponByCouponId(long couponId) throws ApplicationException {
+	public void deleteCouponByCouponId(long couponId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -118,7 +118,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
-	public void refundCouponByCustomerId(long customerId) throws ApplicationException {
+	public void deleteCouponByCustomerId(long customerId) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {

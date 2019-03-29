@@ -19,6 +19,7 @@ public class CompanyController {
 	private CompaniesDao companiesDao;
 	private CouponsDao couponsDao;
 	private PurchasesDao purchasesDao;
+	private UserController userController;
 
 	public CompanyController() throws ApplicationException {
 		companiesDao = new CompaniesDao();
@@ -45,12 +46,13 @@ public class CompanyController {
 		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
 		while (list.size() > 0) {
 
-			purchasesDao.refundCouponByCouponId(list.get(0));
+			purchasesDao.deleteCouponByCouponId(list.get(0));
 			list.remove(0);
 
 		}
 		couponsDao.deleteCouponbyCompanyId(companyId);
 		companiesDao.deleteCompany(companyId);
+		userController.deleteUserByCompanyId(companyId);
 
 	}
 
