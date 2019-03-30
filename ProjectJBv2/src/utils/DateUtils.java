@@ -28,13 +28,12 @@ public class DateUtils {
 	 */
 	public static boolean isDateValid(Date startDate, Date endDate) throws ApplicationException {
 
-		
 		if (startDate == null || endDate == null)
 			throw new ApplicationException("This date is empty");
 
 		Date currentDate = new Date();
 		if (startDate.before(endDate) && endDate.after(currentDate))
 			return true;
-		throw new ApplicationException("This date isn't valid");
+		return false;
 	}
 }

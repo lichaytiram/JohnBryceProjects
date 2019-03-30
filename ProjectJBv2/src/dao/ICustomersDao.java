@@ -32,14 +32,6 @@ public interface ICustomersDao {
 	void updateCustomer(Customer c) throws ApplicationException;
 
 	/**
-	 * @param email    Receive an email
-	 * @param password Receive a password
-	 * @return Check if customer exists and return true or false
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	public boolean isCustomerExists(String email, String password) throws ApplicationException;
-
-	/**
 	 * @param customerId Receive an id
 	 * @return Check if customer exists and return true or false
 	 * @throws ApplicationException Can throw an ApplicationException
@@ -58,13 +50,5 @@ public interface ICustomersDao {
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
 	Customer getCustomer(long customerId) throws ApplicationException;
-
-	/**
-	 * @param email    Receive an email
-	 * @param password Receive a password
-	 * @return This function return a customer by his email and password
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	Customer getCustomerByEmailAndPassword(String email, String password) throws ApplicationException;
 
 }

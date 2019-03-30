@@ -106,21 +106,33 @@ public class CouponsDao implements ICouponsDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM coupons");
-//			while (result.next())
-//				if (result.getInt("COMPANY_ID") == coupon.getCompanyId()
-//						&& result.getInt("CATEGORY") == coupon.getCategoryId()
-//						&& result.getString("TITLE").equals(coupon.getTitle())
-//						&& result.getString("DESCRIPTION").equals(coupon.getDescription())
-//						&& result.getString("IMAGE").equals(coupon.getImage())
-//						&& result.getInt("AMOUNT") == coupon.getAmount())
-//					throw new ExceptionName("The coupon already exist on data base");
 
 			preparedStatement = connection
 					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY=? , TITLE=? , DESCRIPTION=? ,"
 							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
 			preparedStatement(preparedStatement, coupon);
 			preparedStatement.setLong(10, coupon.getId());
+			preparedStatement.executeUpdate();
+
+			System.out.println("update coupons has done");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+	}
+
+	public void updateCoupon(long couponId, int amount) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement("UPDATE coupons SET AMOUNT=? WHERE ID = ?");
+			preparedStatement.setInt(1, amount);
+			preparedStatement.setLong(2, couponId);
 			preparedStatement.executeUpdate();
 
 			System.out.println("update coupons has done");
@@ -413,7 +425,7 @@ public class CouponsDao implements ICouponsDao {
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE ID = ? ");
+			preparedStatement = connection.prepareStatement("SELECT ID FROM coupons WHERE ID = ?");
 			preparedStatement.setLong(1, couponId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -464,7 +476,7 @@ public class CouponsDao implements ICouponsDao {
 		Date date = new Date();
 		try {
 			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE ID = ? ");
+			preparedStatement = connection.prepareStatement("SELECT END_DATE FROM coupons WHERE ID = ? ");
 			preparedStatement.setLong(1, couponId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -482,19 +494,19 @@ public class CouponsDao implements ICouponsDao {
 		return false;
 	}
 
-	public long howMuchCouponRemain(long couponId) throws ApplicationException {
+	public int howMuchCouponRemain(long couponId) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		long amount = 0;
+		int amount = 0;
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE ID = ? ");
 			preparedStatement.setLong(1, couponId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				amount = resultSet.getLong("AMOUNT");
+				amount = resultSet.getInt("AMOUNT");
 			}
 
 		} catch (SQLException e) {

@@ -6,6 +6,7 @@ import beans.Customer;
 import beans.User;
 import dao.CustomerDao;
 import dao.PurchasesDao;
+import dao.UsersDao;
 import exception.ApplicationException;
 
 /**
@@ -18,22 +19,27 @@ public class CustomerController {
 	private CustomerDao customerDao;
 	private PurchasesDao purchasesDao;
 	private UserController userController;
+	private UsersDao usersDao;
 
 	public CustomerController() throws ApplicationException {
 		customerDao = new CustomerDao();
 		purchasesDao = new PurchasesDao();
 		userController = new UserController();
+		usersDao = new UsersDao();
 	}
 
 	public void createCustomer(Customer customer) throws ApplicationException {
-		if (customerDao.isCustomerExists(customer.getEmail(), customer.getPassword())) {
-			throw new ApplicationException("Have a problem:\n" + "This customer exist!");
-		}
-		User u = customer.getUser();
 
-		long id = userController.createUser(u);
+		if (usersDao.isUserExist(customer.getUser().getUserName()))
+			throw new ApplicationException("Have a problem:\n" + "This customer exist!");
+
+		User user = customer.getUser();
+
+		long id = userController.createUser(user);
 
 		customer.setId(id);
+		customer.getUser().setId(id);
+
 		customerDao.createCustomer(customer);
 
 	}
@@ -52,14 +58,15 @@ public class CustomerController {
 
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
-		if (customerDao.isCustomerExists(customer.getId())) {
-			if (customerDao.isCustomerExists(customer.getEmail(), customer.getPassword())) {
-				throw new ApplicationException("Have a problem:\n" + "This customer does exist");
-			}
-			customerDao.updateCustomer(customer);
-		} else {
+		if (customer.getId() != customer.getUser().getId())
+			throw new ApplicationException("Have a problem:\n" + "This user id invalid!");
+
+		if (!customerDao.isCustomerExists(customer.getId()))
 			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
-		}
+
+		customerDao.updateCustomer(customer);
+		// maybe need check about user
+
 	}
 
 	public List<Customer> getAllCustomer() throws ApplicationException {
@@ -67,19 +74,11 @@ public class CustomerController {
 	}
 
 	public Customer getCustomer(long customerId) throws ApplicationException {
-		if (customerDao.isCustomerExists(customerId)) {
-			return customerDao.getCustomer(customerId);
-		}
 
-		throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
-	}
+		if (!customerDao.isCustomerExists(customerId))
+			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
 
-	public Customer getCustomerByEmailAndPassword(String email, String password) throws ApplicationException {
-		if (customerDao.isCustomerExists(email, password)) {
-			return customerDao.getCustomerByEmailAndPassword(email, password);
-		}
-
-		throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
+		return customerDao.getCustomer(customerId);
 	}
 
 }

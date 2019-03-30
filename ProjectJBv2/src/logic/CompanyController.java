@@ -28,10 +28,12 @@ public class CompanyController {
 	}
 
 	public void createCompany(Company company) throws ApplicationException {
-		CompaniesDao companiesDao = new CompaniesDao();
 
-		if (companiesDao.isCompanyExistsByName(company.getName())) {
+		if (companiesDao.isCompanyExists(company.getId()))
 			throw new ApplicationException("Have a problem:\n" + "This company exist!");
+
+		if (companiesDao.isCompanyExists(company.getName())) {
+			throw new ApplicationException("Have a problem:\n" + "This company name is exist!");
 		}
 		companiesDao.createCompany(company);
 	}
@@ -57,8 +59,8 @@ public class CompanyController {
 	}
 
 	public void updateCompany(Company company) throws ApplicationException {
-		if (companiesDao.isCompanyExistsByName(company.getName())) {
-			throw new ApplicationException("Have a problem:\n" + "This company exist");
+		if (!companiesDao.isCompanyExists(company.getId())) {
+			throw new ApplicationException("Have a problem:\n" + "This company isn't exist");
 		}
 		companiesDao.updateCompany(company);
 	}
@@ -73,13 +75,6 @@ public class CompanyController {
 		}
 		throw new ApplicationException("Have a problem:\n" + "This company exist");
 
-	}
-
-	public Company getCompanyByEmailAndPassword(String email, String password) throws ApplicationException {
-		if (companiesDao.isCompanyExists(email, password)) {
-			return companiesDao.getCompanyByEmailAndPassword(email, password);
-		}
-		throw new ApplicationException("Have a problem:\n" + "This company exist");
 	}
 
 }

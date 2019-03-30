@@ -30,11 +30,6 @@ public class CompaniesDao implements ICompaniesDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
-//			while (result.next())
-//				if (result.getString("EMAIL").equals(company.getEmail())
-//						|| result.getString("NAME").equals(company.getName()))
-//					throw new ExceptionName("The companies already exist on data base");
 
 			preparedStatement = connection
 					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
@@ -60,22 +55,7 @@ public class CompaniesDao implements ICompaniesDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			ArrayList<Integer> couponsID = new ArrayList<Integer>();
-//			ResultSet result = con.createStatement()
-//					.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyID);
-//			while (result.next())
-//				couponsID.add(result.getInt("ID"));
-//			while (!couponsID.isEmpty()) {
-//
-//				PreparedStatement preparedStatement1 = con
-//						.prepareStatement("DELETE FROM customersVsCoupons WHERE COUPON_ID = ?");
-//				preparedStatement1.setInt(1, couponsID.get(0));
-//				preparedStatement1.executeUpdate();
-//				couponsID.remove(0);
-//			}
-//			PreparedStatement preparedStatement2 = con.prepareStatement("DELETE FROM coupons WHERE COMPANY_ID = ?");
-//			preparedStatement2.setLong(1, companyID);
-//			preparedStatement2.executeUpdate();
+
 			preparedStatement = connection.prepareStatement("DELETE FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.executeUpdate();
@@ -99,12 +79,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		try {
 			connection = JdbcUtils.getConnection();
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
-//			while (result.next())
-//				if (result.getString("PASSWORD").equals(company.getPassword())
-//						&& result.getString("EMAIL").equals(company.getEmail())
-//						&& result.getString("NAME").equals(company.getName()))
-//					throw new ExceptionName("The company already exist on data base");
 
 			preparedStatement = connection
 					.prepareStatement("UPDATE companies SET NAME= ? , EMAIL= ? , PASSWORD= ? WHERE ID= ? ");
@@ -134,7 +108,6 @@ public class CompaniesDao implements ICompaniesDao {
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies");
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies");
 			resultSet = preparedStatement.executeQuery();
 
@@ -142,25 +115,6 @@ public class CompaniesDao implements ICompaniesDao {
 				list.add(new Company(resultSet.getLong("ID"), resultSet.getString("PASSWORD"),
 						resultSet.getString("EMAIL"), resultSet.getString("NAME")));
 
-//				Company company = new Company(result.getInt("ID"), result.getString("PASSWORD"),
-//						result.getString("EMAIL"), result.getString("NAME"));
-//				ResultSet reCouponList = con.createStatement()
-//						.executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + company.getId());
-//				while (reCouponList.next()) {
-//					Category category = null;
-//					for (Category tempCategory: Category.values())
-//						if (tempCategory.ordinal() == reCouponList.getInt("CATEGORY_ID")) {
-//							category = tempCategory;
-//							break;
-//						}
-//					Coupon coupon = new Coupon(reCouponList.getInt("ID"), reCouponList.getInt("COMPANY_ID"), category,
-//							reCouponList.getString("TITLE"), reCouponList.getString("DESCRIPTION"),
-//							reCouponList.getDate("START_DATE"), reCouponList.getDate("END_DATE"),
-//							reCouponList.getInt("AMOUNT"), reCouponList.getDouble("PRICE"),
-//							reCouponList.getString("IMAGE"));
-//					company.setCouponList(coupon);
-//				}
-//				list.add(company);
 			}
 
 		} catch (SQLException e) {
@@ -172,36 +126,7 @@ public class CompaniesDao implements ICompaniesDao {
 		return list;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#isCompanyExists(java.lang.String, java.lang.String)
-	 */
-	public boolean isCompanyExists(String email, String password) throws ApplicationException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL = ? AND PASSWORD = ?");
-			extractPreparedStatement(preparedStatement, email, password);
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		return false;
-
-	}
-
-	public boolean isCompanyExistsByName(String name) throws ApplicationException {
+	public boolean isCompanyExists(String name) throws ApplicationException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -267,30 +192,13 @@ public class CompaniesDao implements ICompaniesDao {
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			ResultSet result = con.createStatement().executeQuery("SELECT * FROM companies where id=" + companyID);
-//			if (result.next())
-//				company = new Company(result.getInt("ID"), result.getString("PASSWORD"), result.getString("EMAIL"),
-//						result.getString("NAME"));
-//
-//			result = con.createStatement().executeQuery("SELECT * FROM coupons where COMPANY_ID=" + companyID);
 
-			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID= ? ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
 						resultSet.getString("EMAIL"), resultSet.getString("NAME"));
-//				Category category = null;
-//				for (Category ca : Category.values())
-//					if (ca.ordinal() == result.getInt("CATEGORY_ID")) {
-//						category = ca;
-//						break;
-//					}
-//				company.setCouponList(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-//						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-//						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-//						result.getString("IMAGE")));
-//				
 			}
 
 		} catch (SQLException e) {
@@ -315,7 +223,6 @@ public class CompaniesDao implements ICompaniesDao {
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();
-//			preparedStatement = con.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
 
 			extractPreparedStatement(preparedStatement, email, password);

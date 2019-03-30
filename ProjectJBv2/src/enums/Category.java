@@ -7,5 +7,5 @@ package enums;
  *
  */
 public enum Category {
-	Food, Electricity, Weapon, Restaurant, Vacation, Science, Comics, Iceland, Paintballý, Museumý
+	Food, Electricity, Weapon, Restaurant, Vacation, Science, Comics, Iceland, Paintball, Museum
 }

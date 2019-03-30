@@ -11,11 +11,14 @@ public class UserController {
 
 	private UsersDao usersDao;
 
-	UserController() {
+	public UserController() {
 		usersDao = new UsersDao();
 	}
 
 	public long createUser(User user) throws ApplicationException {
+
+		if (user == null)
+			throw new ApplicationException("Have a problem\n" + "This user is empty!");
 
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException("Have a problem\n" + "This user name already exist!");

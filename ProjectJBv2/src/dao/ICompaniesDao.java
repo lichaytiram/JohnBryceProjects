@@ -32,14 +32,6 @@ public interface ICompaniesDao {
 	void updateCompany(Company c) throws ApplicationException;
 
 	/**
-	 * @param email    Receive an email
-	 * @param password Receive a password
-	 * @return Check if company exists and return true or false
-	 * @throws Exception Can throw an exception
-	 */
-	boolean isCompanyExists(String email, String password) throws ApplicationException;
-
-	/**
 	 * @param companyId Receive an id
 	 * @return Check if company exists and return true or false
 	 * @throws Exception Can throw an exception

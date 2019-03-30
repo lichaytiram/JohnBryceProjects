@@ -44,7 +44,7 @@ public class Coupon {
 	public Coupon(long id, long companyId, Category category, String title, String description, Date startDate,
 			Date endDate, int amount, double price, String image) {
 		this(companyId, category, title, description, startDate, endDate, amount, price, image);
-		this.companyId = id;
+		this.id = id;
 	}
 
 	/**

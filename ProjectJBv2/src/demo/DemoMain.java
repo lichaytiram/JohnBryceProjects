@@ -13,48 +13,95 @@ import logic.CompanyController;
 import logic.CouponController;
 import logic.CustomerController;
 import logic.PurchaseController;
+import logic.UserController;
 import test.RefreshDataBase;
 
 public class DemoMain {
 
-	private static CustomerController customer = null;
+	private static CustomerController customerController = null;
 	private static PurchaseController purchaseController = null;
-	private static CompanyController CompanyController = null;
+	private static CompanyController companyController = null;
 	private static CouponController couponController = null;
+	private static UserController userController = null;
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 
 		RefreshDataBase refreshDataBase = new RefreshDataBase();
 		refreshDataBase.refreshDB();
 		Date endDate = new Date();
-		endDate.setYear(2020);
+		endDate.setYear(120);
 
 		try {
-			customer = new CustomerController();
+			customerController = new CustomerController();
 			purchaseController = new PurchaseController();
-			CompanyController = new CompanyController();
+			companyController = new CompanyController();
 			couponController = new CouponController();
-			Customer c1 = new Customer("omer", "marh", "ww@gmai.com", "1sSd");
-			c1.setUser(new User("x", "x", ClientType.Customer, null));
-			customer.createCustomer(c1);
-			Customer c2 = new Customer("omerr", "marhs", "wsw@gmai.com", "1sSd");
-			c2.setUser(new User("x1", "x1", ClientType.Customer, null));
-			customer.createCustomer(c2);
+			userController = new UserController();
 
-			customer.deleteCustomer(1);
-			System.out.println(customer.getAllCustomer());
-			purchaseController.purchaseCoupon(2, 1, 2);
+			Customer customer1 = new Customer("moshe", "david", "gw@gmail.com");
+			User user1 = new User("username1", "123Xx", ClientType.Customer, null);
+			customer1.setUser(user1);
+			Customer customer2 = new Customer("tom", "tor", "tor.tor@gmail.com");
+			User user2 = new User("username2", "123Xx", ClientType.Customer, null);
+			customer2.setUser(user2);
+			Company company1 = new Company("s.o.s", "company@company.com", "companypassword123");
+			Company company2 = new Company("companyX", "XX@company.com", "comX.com1");
+			Coupon coupon1 = new Coupon(2, Category.Food, "title1", "description1", new Date(), endDate, 10, 50.7,
+					"image.com");
+			Coupon coupon2 = new Coupon(2, Category.Museum, "title2", "description2", new Date(), endDate, 10, 100.3,
+					"image.com");
+			Coupon coupon3 = new Coupon(1, Category.Iceland, "title3", "description3", new Date(), endDate, 10, 20.7,
+					"image.com");
+			User user3 = new User("user3", "password", ClientType.Company, 1L);
+			User user4 = new User("user4", "password", ClientType.Company, 2L);
+			User user5 = new User("user5", "password", ClientType.Company, 2L);
+			User user6 = new User("user6", "password", ClientType.Administrator, null);
 
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			CompanyController.createCompany(new Company("usacompany", "s.com", "123"));
-			Coupon coupon1 = new Coupon(1, Category.Electricity, "title", "description", new Date(), endDate, 10, 50.8,
-					"ss");
-			System.out.println("-----------------------------------------");
+			// create
+			companyController.createCompany(company1);
+			companyController.createCompany(company2);
+			userController.createUser(user3);
+			userController.createUser(user4);
+			userController.createUser(user5);
+			userController.createUser(user6);
+			customerController.createCustomer(customer1);
+			customerController.createCustomer(customer2);
 			couponController.createCoupon(coupon1);
+			couponController.createCoupon(coupon2);
+			couponController.createCoupon(coupon3);
+			purchaseController.purchaseCoupon(5, 1, 4);
+			purchaseController.purchaseCoupon(5, 1, 4);
+			purchaseController.purchaseCoupon(5, 1, 1);
+
+			// update
+			companyController.updateCompany(new Company(1, "newName", "gg@company.com", "popS1"));
+			userController.updateUser("user33", "password", 5);
+			customer1.setFirstName("newFirst"); // update customer1
+			System.out.println(customer1.getUser());
+			customerController.updateCustomer(customer1);
+			couponController.updateCoupon( // update coupon 2
+					new Coupon(2, 2, Category.Iceland, "title", "description", new Date(), endDate, 15, 30, "ss.co"));
+
+			// read all
+			System.out.println(companyController.getAllCompany());
+			System.out.println(userController.getAllUsers());
+			System.out.println(customerController.getAllCustomer());
+			System.out.println(couponController.getAllCoupon());
+//			System.out.println(purchaseController.get); // ask Avi if need bean for purchases
+
+			// read one
+
+			System.out.println(companyController.getCompany(1));
+			System.out.println(customerController.getCustomer(5));
+			System.out.println(couponController.getCoupon(1));
+			System.out.println("The amount is: " + purchaseController.getAmount(5));
+
+			// read specific
+			
+			
+			
+			
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}

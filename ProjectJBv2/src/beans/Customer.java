@@ -17,7 +17,6 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
 	private List<Coupon> couponList;
 	private User user;
 
@@ -32,8 +31,8 @@ public class Customer {
 	 * @param email     Receive an email
 	 * @param password  Receive a password
 	 */
-	public Customer(long id, String firstName, String lastName, String email, String password) {
-		this(firstName, lastName, email, password);
+	public Customer(long id, String firstName, String lastName, String email) {
+		this(firstName, lastName, email);
 		this.id = id;
 	}
 
@@ -45,12 +44,11 @@ public class Customer {
 	 * @param email     Receive an email
 	 * @param password  Receive a password
 	 */
-	public Customer(String firstName, String lastName, String email, String password) {
+	public Customer(String firstName, String lastName, String email) {
 		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.password = password;
 	}
 
 	/**
@@ -60,7 +58,6 @@ public class Customer {
 	public Customer() {
 		super();
 		couponList = new ArrayList<>();
-		user = new User();
 	}
 
 	// getter & setter
@@ -97,14 +94,6 @@ public class Customer {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public List<Coupon> getCouponList() {
 		return couponList;
 	}
@@ -124,7 +113,7 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [ id=" + getId() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", email="
-				+ getEmail() + ", password=" + getPassword() + ", couponList=" + getCouponList() + " ]";
+				+ getEmail() + " ]";
 	}
 
 }

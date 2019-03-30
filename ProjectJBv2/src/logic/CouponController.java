@@ -23,7 +23,7 @@ public class CouponController {
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		if (!DateUtils.isDateValid(coupon.getStartDate(), coupon.getEndDate()))
-			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
+			throw new ApplicationException("have a problem:\n" + "This coupon date isn't valid");
 
 		if (couponsDao.isCouponExists(coupon)) {
 			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
