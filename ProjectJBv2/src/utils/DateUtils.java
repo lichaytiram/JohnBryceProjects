@@ -28,6 +28,7 @@ public class DateUtils {
 	 */
 	public static boolean isDateValid(Date startDate, Date endDate) throws ApplicationException {
 
+		
 		if (startDate == null || endDate == null)
 			throw new ApplicationException("This date is empty");
 
