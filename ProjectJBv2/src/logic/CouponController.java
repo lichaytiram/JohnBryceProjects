@@ -7,6 +7,7 @@ import beans.Coupon;
 import dao.CouponsDao;
 import dao.PurchasesDao;
 import exception.ApplicationException;
+import utils.DateUtils;
 
 public class CouponController {
 
@@ -21,12 +22,9 @@ public class CouponController {
 
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
-		if (!(coupon.getStartDate().before(coupon.getEndDate()))) {
-			throw new ApplicationException("This date isn't well! (must be start date before end date)");
-		}
-		if (coupon.getEndDate().before(new Date())) {
-			throw new ApplicationException("This date isn't well! (end date must be after current date)");
-		}
+		if (!DateUtils.isDateValid(coupon.getStartDate(), coupon.getEndDate()))
+			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
+
 		if (couponsDao.isCouponExists(coupon)) {
 			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
 		}
