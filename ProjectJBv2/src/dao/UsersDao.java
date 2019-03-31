@@ -30,8 +30,12 @@ public class UsersDao {
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
+//			if (user.getCompanyId() != null)
+//				preparedStatement.setLong(4, user.getCompanyId());
+
 			preparedStatement.setBigDecimal(4,
 					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
+
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();
 			if (resultSet.next()) {

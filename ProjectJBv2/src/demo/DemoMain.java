@@ -114,7 +114,8 @@ public class DemoMain {
 			purchaseController.purchaseCoupon(5, 3, 1);
 
 			companyController.deleteCompany(2);
-
+			
+			
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
