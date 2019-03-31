@@ -38,9 +38,9 @@ public class UserController {
 	}
 
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
+
 		if (!usersDao.isUserExistByCompanyId(companyId))
 			throw new ApplicationException("Have a problem\n" + "This company id isn't exist!");
-
 		usersDao.deleteUserByCompanyId(companyId);
 
 	}

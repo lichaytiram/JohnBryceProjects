@@ -25,6 +25,7 @@ public class CompanyController {
 		companiesDao = new CompaniesDao();
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
+		userController = new UserController();
 	}
 
 	public void createCompany(Company company) throws ApplicationException {
@@ -41,20 +42,18 @@ public class CompanyController {
 	public void deleteCompany(long companyId) throws ApplicationException {
 		List<Long> list = new ArrayList<>();
 
-		if (!companiesDao.isCompanyExists(companyId)) {
-			return;
-		}
-
+		if (!companiesDao.isCompanyExists(companyId))
+			throw new ApplicationException("Have a problem:\n" + "This company exist");
 		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
 		while (list.size() > 0) {
 
 			purchasesDao.deleteCouponByCouponId(list.get(0));
 			list.remove(0);
-
 		}
+
 		couponsDao.deleteCouponbyCompanyId(companyId);
-		companiesDao.deleteCompany(companyId);
 		userController.deleteUserByCompanyId(companyId);
+		companiesDao.deleteCompany(companyId);
 
 	}
 

@@ -46,9 +46,8 @@ public class CustomerController {
 
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
-		if (!customerDao.isCustomerExists(customerId)) {
-			return;
-		}
+		if (!customerDao.isCustomerExists(customerId))
+			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
 
 		purchasesDao.deleteCouponByCustomerId(customerId);
 		customerDao.deleteCustomer(customerId);

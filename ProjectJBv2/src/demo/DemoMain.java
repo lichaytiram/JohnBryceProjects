@@ -73,6 +73,9 @@ public class DemoMain {
 			purchaseController.purchaseCoupon(5, 1, 4);
 			purchaseController.purchaseCoupon(5, 1, 4);
 			purchaseController.purchaseCoupon(5, 1, 1);
+			purchaseController.purchaseCoupon(5, 3, 2);
+			purchaseController.purchaseCoupon(6, 2, 2);
+			purchaseController.purchaseCoupon(6, 3, 1);
 
 			// update
 			companyController.updateCompany(new Company(1, "newName", "gg@company.com", "popS1"));
@@ -91,17 +94,27 @@ public class DemoMain {
 //			System.out.println(purchaseController.get); // ask Avi if need bean for purchases
 
 			// read one
-
 			System.out.println(companyController.getCompany(1));
 			System.out.println(customerController.getCustomer(5));
 			System.out.println(couponController.getCoupon(1));
 			System.out.println("The amount is: " + purchaseController.getAmount(5));
 
 			// read specific
-			
-			
-			
-			
+			System.out.println(purchaseController.getCustomerCouponByCustomerId(5));
+			System.out.println(purchaseController.getCustomerCouponsByCategory(5, Category.Comics));
+			System.out.println(purchaseController.getCustomerCouponsByCategory(5, Category.Food));
+			System.out.println(purchaseController.getCustomerCouponsByMaxPrice(5, 50.6));
+
+			// delete
+			purchaseController.deleteCoupon(5, 3);
+			purchaseController.deleteCoupon(2);
+			userController.deleteUser(1);
+			customerController.deleteCustomer(6);
+
+			purchaseController.purchaseCoupon(5, 3, 1);
+
+			companyController.deleteCompany(2);
+
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}
