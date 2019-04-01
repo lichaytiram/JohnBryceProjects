@@ -204,31 +204,6 @@ public class PurchasesDao implements IPurchasesDao {
 		return false;
 	}
 
-	public boolean isCustomerBoughtByCoustomerId(long customerId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? ");
-			preparedStatement.setLong(1, customerId);
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-		return false;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 

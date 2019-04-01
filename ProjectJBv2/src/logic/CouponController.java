@@ -97,10 +97,7 @@ public class CouponController {
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return couponsDao.getCustomerCouponsByCustomerId(customerId);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
+		return couponsDao.getCustomerCouponsByCustomerId(customerId);
 
 	}
 
@@ -109,10 +106,7 @@ public class CouponController {
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return couponsDao.getCustomerCouponsByCategory(customerId, category);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
+		return couponsDao.getCustomerCouponsByCategory(customerId, category);
 
 	}
 
@@ -121,10 +115,7 @@ public class CouponController {
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
+		return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
 
 	}
 

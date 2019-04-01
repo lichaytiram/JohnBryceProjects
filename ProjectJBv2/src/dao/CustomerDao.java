@@ -34,12 +34,13 @@ public class CustomerDao implements ICustomersDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection
-					.prepareStatement("INSERT INTO customers (ID,FIRST_NAME,lAST_NAME,EMAIL) VALUES ( ? , ? , ? , ? )");
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO customers (ID,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? , ? , ? )");
 			preparedStatement.setLong(1, customer.getId());
 			preparedStatement.setString(2, customer.getFirstName());
 			preparedStatement.setString(3, customer.getLastName());
-			preparedStatement.setString(4, customer.getEmail());
+			preparedStatement.setString(4, customer.getPhoneNumber());
+			preparedStatement.setString(5, customer.getEmail());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert customers has succeed");
@@ -86,12 +87,13 @@ public class CustomerDao implements ICustomersDao {
 		PreparedStatement preparedStatement = null;
 		try {
 			connection = JdbcUtils.getConnection();
-			preparedStatement = connection
-					.prepareStatement("UPDATE customers SET FIRST_NAME= ? , lAST_NAME= ? , EMAIL= ? WHERE ID= ?");
+			preparedStatement = connection.prepareStatement(
+					"UPDATE customers SET FIRST_NAME= ? , LAST_NAME= ? , PHONE_NUMBER= ? , EMAIL= ? WHERE ID= ?");
 			preparedStatement.setString(1, customer.getFirstName());
 			preparedStatement.setString(2, customer.getLastName());
-			preparedStatement.setString(3, customer.getEmail());
-			preparedStatement.setLong(4, customer.getId());
+			preparedStatement.setString(3, customer.getPhoneNumber());
+			preparedStatement.setString(4, customer.getEmail());
+			preparedStatement.setLong(5, customer.getId());
 			preparedStatement.executeUpdate();
 
 			System.out.println("update customers has done");
@@ -122,7 +124,8 @@ public class CustomerDao implements ICustomersDao {
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				list.add(new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
-						resultSet.getString("lAST_NAME"), resultSet.getString("EMAIL")));
+						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
+						resultSet.getString("EMAIL")));
 			}
 
 		} catch (SQLException e) {
@@ -141,7 +144,6 @@ public class CustomerDao implements ICustomersDao {
 		ResultSet resultSet = null;
 		try {
 			connection = JdbcUtils.getConnection();
-
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE ID = ?");
 			preparedStatement.setLong(1, customerId);
 			resultSet = preparedStatement.executeQuery();
@@ -177,7 +179,8 @@ public class CustomerDao implements ICustomersDao {
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				customer = (new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
-						resultSet.getString("lAST_NAME"), resultSet.getString("EMAIL")));
+						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
+						resultSet.getString("EMAIL")));
 
 			}
 		} catch (SQLException e) {

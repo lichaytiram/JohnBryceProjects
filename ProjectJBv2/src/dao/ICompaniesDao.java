@@ -51,12 +51,4 @@ public interface ICompaniesDao {
 	 */
 	Company getCompany(long companyId) throws ApplicationException;
 
-	/**
-	 * @param email    Receive an email
-	 * @param password Receive a password
-	 * @return This function return company by email and password
-	 * @throws Exception Can throw an exception
-	 */
-	Company getCompanyByEmailAndPassword(String email, String password) throws ApplicationException;
-
 }

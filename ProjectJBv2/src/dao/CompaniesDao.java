@@ -32,8 +32,9 @@ public class CompaniesDao implements ICompaniesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("INSERT INTO companies (NAME,EMAIL,PASSWORD) VALUES ( ? , ? , ? )");
-			extractPreparedStatement(preparedStatement, company.getName(), company.getEmail(), company.getPassword());
+					.prepareStatement("INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )");
+			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
+					company.getEmail());
 			preparedStatement.executeUpdate();
 
 			System.out.println("insert companies has done");
@@ -81,8 +82,9 @@ public class CompaniesDao implements ICompaniesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("UPDATE companies SET NAME= ? , EMAIL= ? , PASSWORD= ? WHERE ID= ? ");
-			extractPreparedStatement(preparedStatement, company.getName(), company.getEmail(), company.getPassword());
+					.prepareStatement("UPDATE companies SET NAME= ? , PHONE_NUMBER= ? , EMAIL= ?  WHERE ID= ? ");
+			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
+					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
 			preparedStatement.executeUpdate();
 
@@ -112,9 +114,8 @@ public class CompaniesDao implements ICompaniesDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				list.add(new Company(resultSet.getLong("ID"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"), resultSet.getString("NAME")));
-
+				list.add(new Company(resultSet.getLong("ID"), resultSet.getString("NAME"),
+						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL")));
 			}
 
 		} catch (SQLException e) {
@@ -197,40 +198,10 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"), resultSet.getString("NAME"));
+				company = new Company(resultSet.getInt("ID"), resultSet.getString("NAME"),
+						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL"));
 			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-		return company;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#getOneCompanyByEmailAndPassword(java.lang.String,
-	 * java.lang.String)
-	 */
-	public Company getCompanyByEmailAndPassword(String email, String password) throws ApplicationException {
-		Connection connection = null;
-		Company company = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE EMAIL= ? AND PASSWORD = ?");
-
-			extractPreparedStatement(preparedStatement, email, password);
-			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				company = new Company(resultSet.getInt("ID"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"), resultSet.getString("NAME"));
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ProblemsException.problem.getName() + e);
@@ -242,24 +213,12 @@ public class CompaniesDao implements ICompaniesDao {
 
 // extracts
 
-	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String email,
-			String password) throws ApplicationException {
-		try {
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
-		}
-		return preparedStatement;
-	}
-
-	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String name, String email,
-			String password) throws ApplicationException {
+	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String name,
+			String phoneNumber, String email) throws ApplicationException {
 		try {
 			preparedStatement.setString(1, name);
-			preparedStatement.setString(2, email);
-			preparedStatement.setString(3, password);
+			preparedStatement.setString(2, phoneNumber);
+			preparedStatement.setString(3, email);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ProblemsException.problem.getName() + e);

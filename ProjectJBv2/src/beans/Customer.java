@@ -16,6 +16,7 @@ public class Customer {
 	private long id;
 	private String firstName;
 	private String lastName;
+	private String phoneNumber;
 	private String email;
 	private List<Coupon> couponList;
 	private User user;
@@ -25,29 +26,31 @@ public class Customer {
 	/**
 	 * constructor for create a show for this class
 	 * 
-	 * @param id        Receive an id
-	 * @param firstName Receive a first name
-	 * @param lastName  Receive a last name
-	 * @param email     Receive an email
-	 * @param password  Receive a password
+	 * @param id          Receive an id
+	 * @param firstName   Receive a first name
+	 * @param lastName    Receive a last name
+	 * @param phoneNumber Receive a phone number
+	 * @param email       Receive an email
 	 */
-	public Customer(long id, String firstName, String lastName, String email) {
-		this(firstName, lastName, email);
+
+	public Customer(long id, String firstName, String lastName, String phoneNumber, String email) {
+		this(firstName, lastName, phoneNumber, email);
 		this.id = id;
 	}
 
 	/**
 	 * constructor for create a show for this class
 	 * 
-	 * @param firstName Receive a first name
-	 * @param lastName  Receive a last name
-	 * @param email     Receive an email
-	 * @param password  Receive a password
+	 * @param firstName   Receive a first name
+	 * @param lastName    Receive a last name
+	 * @param phoneNumber Receive a phone number
+	 * @param email       Receive an email
 	 */
-	public Customer(String firstName, String lastName, String email) {
+	public Customer(String firstName, String lastName, String phoneNumber, String email) {
 		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
 		this.email = email;
 	}
 
@@ -86,6 +89,14 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -112,8 +123,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [ id=" + getId() + ", firstName=" + getFirstName() + ", lastName=" + getLastName() + ", email="
-				+ getEmail() + " ]";
+		return "Customer [id=" + getId() + ", firstName=" + getFirstName() + ", lastName=" + getLastName()
+				+ ", phoneNumber=" + getPhoneNumber() + ", email=" + getEmail() + "]";
 	}
 
 }

@@ -39,14 +39,14 @@ public class DemoMain {
 			couponController = new CouponController();
 			userController = new UserController();
 
-			Customer customer1 = new Customer("moshe", "david", "gw@gmail.com");
+			Customer customer1 = new Customer("moshe", "david", "0504755324", "gw@gmail.com");
 			User user1 = new User("username1", "123Xx", ClientType.Customer, null);
 			customer1.setUser(user1);
-			Customer customer2 = new Customer("tom", "tor", "tor.tor@gmail.com");
+			Customer customer2 = new Customer("tom", "tor", "0527466077", "tor.tor@gmail.com");
 			User user2 = new User("username2", "123Xx", ClientType.Customer, null);
 			customer2.setUser(user2);
-			Company company1 = new Company("s.o.s", "company@company.com", "companypassword123");
-			Company company2 = new Company("companyX", "XX@company.com", "comX.com1");
+			Company company1 = new Company("s.o.s", "0544444565", "company@company.com");
+			Company company2 = new Company("companyX", "0504233689", "XX@company.com");
 			Coupon coupon1 = new Coupon(2, Category.Food, "title1", "description1", new Date(), endDate, 10, 50.7,
 					"image.com");
 			Coupon coupon2 = new Coupon(2, Category.Museum, "title2", "description2", new Date(), endDate, 10, 100.3,
@@ -78,7 +78,7 @@ public class DemoMain {
 			purchaseController.purchaseCoupon(6, 3, 1);
 
 			// update
-			companyController.updateCompany(new Company(1, "newName", "gg@company.com", "popS1"));
+			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
 			userController.updateUser("user33", "password", 5);
 			customer1.setFirstName("newFirst"); // update customer1
 			System.out.println(customer1.getUser());
@@ -91,15 +91,16 @@ public class DemoMain {
 			System.out.println(userController.getAllUsers());
 			System.out.println(customerController.getAllCustomer());
 			System.out.println(couponController.getAllCoupon());
-			System.out.println("----------------------------------------");
 			System.out.println(purchaseController.getAllPurchase());
-			System.out.println("----------------------------------------");
 
 			// read one
 			System.out.println(companyController.getCompany(1));
 			System.out.println(customerController.getCustomer(5));
 			System.out.println(couponController.getCoupon(1));
 			System.out.println("The amount is: " + purchaseController.getPurchaseAmount(5));
+			System.out.println("----------------------------------------");
+			System.out.println("The amount is: " + purchaseController.getCustomerPurchase(6));
+			System.out.println("----------------------------------------");
 
 			// read specific
 			System.out.println(couponController.getCustomerCouponByCustomerId(5));

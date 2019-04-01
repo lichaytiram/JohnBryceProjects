@@ -72,11 +72,7 @@ public class PurchaseController {
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return purchasesDao.getPurchaseAmount(customerId);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
-
+		return purchasesDao.getPurchaseAmount(customerId);
 	}
 
 	public List<Purchase> getAllPurchase() throws ApplicationException {
@@ -85,11 +81,8 @@ public class PurchaseController {
 
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
-		if (customerDao.isCustomerExists(customerId))
+		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
-
-		if (!purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer didn't buy cupons");
 
 		return purchasesDao.getCustomerPurchase(customerId);
 

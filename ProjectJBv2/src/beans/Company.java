@@ -15,7 +15,7 @@ public class Company {
 
 	private long id;
 	private String name;
-	private String password;
+	private String phoneNumber;
 	private String email;
 	private List<Coupon> couponList;
 
@@ -26,11 +26,11 @@ public class Company {
 	 * 
 	 * @param id       Receive an id
 	 * @param name     Receive a name for company
+	 * @param password Receive a phone number
 	 * @param email    Receive an email
-	 * @param password Receive a password
 	 */
-	public Company(long id, String name, String email, String password) {
-		this(name, email, password);
+	public Company(long id, String name, String phoneNumber, String email) {
+		this(name, phoneNumber, email);
 		this.id = id;
 	}
 
@@ -38,14 +38,14 @@ public class Company {
 	 * constructor for create a show for this class
 	 * 
 	 * @param name     Receive a name for company
+	 * @param password Receive a phone number
 	 * @param email    Receive an email
-	 * @param password Receive a password
 	 */
-	public Company(String name, String email, String password) {
+	public Company(String name, String phoneNumber, String email) {
 		this();
 		this.name = name;
+		this.phoneNumber = phoneNumber;
 		this.email = email;
-		this.password = password;
 
 	}
 
@@ -54,6 +54,7 @@ public class Company {
 	 * 
 	 */
 	public Company() {
+		super();
 		couponList = new ArrayList<>();
 	}
 
@@ -75,12 +76,12 @@ public class Company {
 		this.name = name;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getEmail() {
@@ -101,7 +102,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company [id=" + getId() + ", name=" + getName() + ", password=" + getPassword() + ", email="
+		return "Company [id=" + getId() + ", name=" + getName() + ", phoneNumber=" + getPhoneNumber() + ", email="
 				+ getEmail() + "]";
 	}
 
