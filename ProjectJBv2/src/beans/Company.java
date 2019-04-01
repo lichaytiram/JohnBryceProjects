@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Company {
 
-	// properties
+	// property
 
 	private long id;
 	private String name;

@@ -5,7 +5,7 @@ import exception.ApplicationException;
 
 public class User {
 
-	// properties
+	// property
 
 	private long id;
 	private String userName;

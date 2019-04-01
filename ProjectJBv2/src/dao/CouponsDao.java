@@ -241,20 +241,6 @@ public class CouponsDao implements ICouponsDao {
 						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
 			}
 
-//			result = con.createStatement().executeQuery("SELECT * FROM coupons WHERE COMPANY_ID=" + companyId);
-//			while (result.next()) {
-//				Category category = null;
-//				for (Category ca : Category.values())
-//					if (ca.ordinal() == result.getInt("CATEGORY")) {
-//						category = ca;
-//						break;
-//					}
-//				list.add(new Coupon(result.getInt("ID"), result.getInt("COMPANY_ID"), category,
-//						result.getString("TITLE"), result.getString("DESCRIPTION"), result.getDate("START_DATE"),
-//						result.getDate("END_DATE"), result.getInt("AMOUNT"), result.getDouble("PRICE"),
-//						result.getString("IMAGE")));
-//			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ProblemsException.problem.getName() + e);
@@ -517,6 +503,107 @@ public class CouponsDao implements ICouponsDao {
 		}
 
 		return amount;
+	}
+
+	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
+		Category category = null;
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ?");
+			preparedStatement.setLong(1, customerId);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				category = Category.valueOf(resultSet.getString("CATEGORY"));
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return list;
+	}
+
+	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND CATEGORY = ?");
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setString(2, category.name());
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return list;
+	}
+
+	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
+		List<Coupon> list = new ArrayList<Coupon>();
+		Category category = null;
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement(
+					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND PRICE <= ?");
+			preparedStatement.setLong(1, customerId);
+			preparedStatement.setDouble(2, maxPrice);
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				category = Category.valueOf(resultSet.getString("CATEGORY"));
+				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ProblemsException.problem.getName() + e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return list;
 	}
 
 	// extract

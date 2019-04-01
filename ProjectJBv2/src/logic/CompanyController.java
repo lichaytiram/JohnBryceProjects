@@ -47,7 +47,7 @@ public class CompanyController {
 		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
 		while (list.size() > 0) {
 
-			purchasesDao.deleteCouponByCouponId(list.get(0));
+			purchasesDao.deletePurchaseByCouponId(list.get(0));
 			list.remove(0);
 		}
 

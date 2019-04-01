@@ -69,7 +69,7 @@ public class RefreshDataBase implements ICreate {
 			preparedStatement3.executeUpdate();
 			System.out.println("The table coupons has created");
 			preparedStatement4 = connection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS purchases (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL , COUPON_ID BIGINT(255) UNSIGNED NOT NULL , AMOUNT INT(20) UNSIGNED , PRIMARY KEY(ID), FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID), FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
+					"CREATE TABLE IF NOT EXISTS purchases (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT , CUSTOMER_ID BIGINT(255) UNSIGNED NOT NULL , COUPON_ID BIGINT(255) UNSIGNED NOT NULL , AMOUNT INT(20) UNSIGNED , DATE DATE NOT NULL , PRIMARY KEY(ID), FOREIGN KEY(CUSTOMER_ID) REFERENCES customers(ID), FOREIGN KEY(COUPON_ID) REFERENCES coupons(ID))");
 			preparedStatement4.executeUpdate();
 			System.out.println("The table purchases has created");
 

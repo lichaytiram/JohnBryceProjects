@@ -2,11 +2,10 @@ package logic;
 
 import java.util.List;
 
-import beans.Coupon;
+import beans.Purchase;
 import dao.CouponsDao;
 import dao.CustomerDao;
 import dao.PurchasesDao;
-import enums.Category;
 import exception.ApplicationException;
 
 /**
@@ -50,69 +49,49 @@ public class PurchaseController {
 
 	}
 
-	public void deleteCoupon(long customerId, long couponId) throws ApplicationException {
+	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 		if (!purchasesDao.isCustomerBought(customerId, couponId)) {
 			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
 		}
 
-		purchasesDao.deleteCoupon(customerId, couponId);
+		purchasesDao.deletePurchase(customerId, couponId);
 
 	}
 
-	public void deleteCoupon(long id) throws ApplicationException {
+	public void deletePurchase(long id) throws ApplicationException {
 		if (!purchasesDao.isCustomerBought(id)) {
 			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
 		}
 
-		purchasesDao.deleteCoupon(id);
+		purchasesDao.deletePurchase(id);
 
 	}
 
-	public int getAmount(long customerId) throws ApplicationException {
+	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
 		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return purchasesDao.getAmount(customerId);
+			return purchasesDao.getPurchaseAmount(customerId);
 
 		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
 
 	}
 
-	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
-
-		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
-
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return purchasesDao.getCustomerCouponsByCustomerId(customerId);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
-
+	public List<Purchase> getAllPurchase() throws ApplicationException {
+		return purchasesDao.getAllPurchase();
 	}
 
-	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
+	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return purchasesDao.getCustomerCouponsByCategory(customerId, category);
+		if (!purchasesDao.isCustomerBoughtByCoustomerId(customerId))
+			throw new ApplicationException("Have a problem:\n" + "This customer didn't buy cupons");
 
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
-
-	}
-
-	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
-
-		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
-
-		if (purchasesDao.isCustomerBoughtByCoustomerId(customerId))
-			return purchasesDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
-
-		throw new ApplicationException("Have a problem:\n" + "This customer isn't buy any coupon");
+		return purchasesDao.getCustomerPurchase(customerId);
 
 	}
 

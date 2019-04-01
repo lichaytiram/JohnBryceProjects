@@ -91,31 +91,32 @@ public class DemoMain {
 			System.out.println(userController.getAllUsers());
 			System.out.println(customerController.getAllCustomer());
 			System.out.println(couponController.getAllCoupon());
-//			System.out.println(purchaseController.get); // ask Avi if need bean for purchases
+			System.out.println("----------------------------------------");
+			System.out.println(purchaseController.getAllPurchase());
+			System.out.println("----------------------------------------");
 
 			// read one
 			System.out.println(companyController.getCompany(1));
 			System.out.println(customerController.getCustomer(5));
 			System.out.println(couponController.getCoupon(1));
-			System.out.println("The amount is: " + purchaseController.getAmount(5));
+			System.out.println("The amount is: " + purchaseController.getPurchaseAmount(5));
 
 			// read specific
-			System.out.println(purchaseController.getCustomerCouponByCustomerId(5));
-			System.out.println(purchaseController.getCustomerCouponsByCategory(5, Category.Comics));
-			System.out.println(purchaseController.getCustomerCouponsByCategory(5, Category.Food));
-			System.out.println(purchaseController.getCustomerCouponsByMaxPrice(5, 50.6));
+			System.out.println(couponController.getCustomerCouponByCustomerId(5));
+			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Comics));
+			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Food));
+			System.out.println(couponController.getCustomerCouponsByMaxPrice(5, 50.6));
 
 			// delete
-			purchaseController.deleteCoupon(5, 3);
-			purchaseController.deleteCoupon(2);
+			purchaseController.deletePurchase(5, 3);
+			purchaseController.deletePurchase(2);
 			userController.deleteUser(1);
 			customerController.deleteCustomer(6);
 
 			purchaseController.purchaseCoupon(5, 3, 1);
 
 			companyController.deleteCompany(2);
-			
-			
+
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}

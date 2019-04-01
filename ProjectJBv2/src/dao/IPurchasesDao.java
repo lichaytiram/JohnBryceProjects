@@ -1,9 +1,5 @@
 package dao;
 
-import java.util.List;
-
-import beans.Coupon;
-import enums.Category;
 import exception.ApplicationException;
 
 /**
@@ -27,13 +23,13 @@ public interface IPurchasesDao {
 	 * @param couponId   Receive a coupon id and delete id from data base
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	void deleteCoupon(long customerId, long couponId) throws ApplicationException;
+	void deletePurchase(long customerId, long couponId) throws ApplicationException;
 
 	/**
 	 * @param id Receive an id
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	void deleteCoupon(long id) throws ApplicationException;
+	void deletePurchase(long id) throws ApplicationException;
 
 //	/**
 //	 * @param id     Receive an id
@@ -60,30 +56,6 @@ public interface IPurchasesDao {
 	 * @return This function return the amount of coupon that bought by customer
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
-	int getAmount(long coustomerId) throws ApplicationException;
-
-	/**
-	 * @param customerID Receive a customer id
-	 * @return This function return all coupons that customer bought by his id
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException;
-
-	/**
-	 * @param customerID Receive a customer id
-	 * @param category   Receive a category
-	 * @return This function return all coupons that customer bought by his category
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException;
-
-	/**
-	 * @param customerID Receive a customer id
-	 * @param maxPrice   Receive max price
-	 * @return This function return all coupons that customer bought by max price
-	 *         and his id
-	 * @throws ApplicationException Can throw an ApplicationException
-	 */
-	List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
+	int getPurchaseAmount(long coustomerId) throws ApplicationException;
 
 }

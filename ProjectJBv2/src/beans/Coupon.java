@@ -12,7 +12,7 @@ import enums.Category;
  */
 public class Coupon {
 
-	// properties
+	// property
 
 	private long id;
 	private long companyId;

@@ -53,22 +53,6 @@ public interface ICouponsDao {
 	 */
 	Coupon getCoupon(long couponId) throws ApplicationException;
 
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param couponId   Receive a coupon id and add to list purchase (in customer
-//	 *                   vs coupons)
-//	 * @throws ApplicationException Can throw an ApplicationException
-//	 */
-//	void addCouponPurchase(long customerId, long couponId) throws ApplicationException;
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param couponId   Receive a coupon id and delete it from list purchase (in
-//	 *                   customer vs coupons)
-//	 * @throws ApplicationException Can throw an ApplicationException
-//	 */
-//	void deleteCouponPurchase(long customerId, long couponId) throws ApplicationException;
-
 	/**
 	 * @param companyID Receive a company id
 	 * @return This function return all coupons by his company id
@@ -97,5 +81,29 @@ public interface ICouponsDao {
 	 * @throws ApplicationException Can throw an ApplicationException
 	 */
 	public List<Integer> getAllexpiredCouponsId() throws ApplicationException;
+
+	/**
+	 * @param customerID Receive a customer id
+	 * @return This function return all coupons that customer bought by his id
+	 * @throws ApplicationException Can throw an ApplicationException
+	 */
+	List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException;
+
+	/**
+	 * @param customerID Receive a customer id
+	 * @param category   Receive a category
+	 * @return This function return all coupons that customer bought by his category
+	 * @throws ApplicationException Can throw an ApplicationException
+	 */
+	List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException;
+
+	/**
+	 * @param customerID Receive a customer id
+	 * @param maxPrice   Receive max price
+	 * @return This function return all coupons that customer bought by max price
+	 *         and his id
+	 * @throws ApplicationException Can throw an ApplicationException
+	 */
+	List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException;
 
 }

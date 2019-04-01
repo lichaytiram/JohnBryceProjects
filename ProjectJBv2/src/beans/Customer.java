@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Customer {
 
-	// properties
+	// property
 
 	private long id;
 	private String firstName;
