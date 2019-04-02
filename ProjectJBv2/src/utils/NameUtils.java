@@ -1,5 +1,6 @@
 package utils;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 public class NameUtils {
@@ -11,7 +12,7 @@ public class NameUtils {
 	public static void isValidName(String name) throws ApplicationException {
 
 		if (name == null || name.isEmpty())
-			throw new ApplicationException("Your name is empty");
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (name.length() < 2)
 			throw new ApplicationException("Your name is invalid (must contain at least 2 letters)");

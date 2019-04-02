@@ -1,5 +1,6 @@
 package utils;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 public class PhoneNumberUtils {
@@ -7,7 +8,7 @@ public class PhoneNumberUtils {
 	public static void isValidPhoneNumber(String phoneNumber) throws ApplicationException {
 
 		if (phoneNumber == null || phoneNumber.isEmpty())
-			throw new ApplicationException("Your phone number is empty!");
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (phoneNumber.charAt(0) != '0')
 			throw new ApplicationException("Your phone number invalid!");

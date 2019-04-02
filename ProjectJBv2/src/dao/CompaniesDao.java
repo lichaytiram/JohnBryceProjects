@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Company;
-import enums.ProblemsException;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
@@ -40,7 +40,7 @@ public class CompaniesDao implements ICompaniesDao {
 			System.out.println("insert companies has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -63,7 +63,7 @@ public class CompaniesDao implements ICompaniesDao {
 			System.out.println("delete from company has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -91,7 +91,7 @@ public class CompaniesDao implements ICompaniesDao {
 			System.out.println("update companies has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -120,7 +120,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -143,7 +143,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -172,7 +172,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -204,7 +204,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -221,7 +221,7 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.setString(3, email);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
 	}

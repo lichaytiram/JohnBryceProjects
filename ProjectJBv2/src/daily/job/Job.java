@@ -3,7 +3,7 @@ package daily.job;
 import java.util.List;
 
 import dao.CouponsDao;
-import enums.ProblemsException;
+import enums.ErrorType;
 import exception.ApplicationException;
 
 /**
@@ -65,7 +65,7 @@ public class Job implements Runnable {
 			wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		}
 	}
 

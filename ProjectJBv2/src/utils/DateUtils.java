@@ -2,6 +2,7 @@ package utils;
 
 import java.util.Date;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 /**
@@ -29,7 +30,7 @@ public class DateUtils {
 	public static void isValidDate(Date startDate, Date endDate) throws ApplicationException {
 
 		if (startDate == null || endDate == null)
-			throw new ApplicationException("This date is empty");
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (startDate.after(endDate) || startDate.equals(endDate))
 			throw new ApplicationException(

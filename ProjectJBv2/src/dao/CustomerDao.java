@@ -11,7 +11,7 @@ import java.util.List;
 //import beans.Company;
 //import beans.Coupon;
 import beans.Customer;
-import enums.ProblemsException;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
@@ -46,7 +46,7 @@ public class CustomerDao implements ICustomersDao {
 			System.out.println("insert customers has succeed");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -71,7 +71,7 @@ public class CustomerDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -99,7 +99,7 @@ public class CustomerDao implements ICustomersDao {
 			System.out.println("update customers has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -130,7 +130,7 @@ public class CustomerDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -153,7 +153,7 @@ public class CustomerDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -185,7 +185,7 @@ public class CustomerDao implements ICustomersDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}

@@ -7,6 +7,7 @@ import beans.Company;
 import dao.CompaniesDao;
 import dao.CouponsDao;
 import dao.PurchasesDao;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.EmailUtils;
 import utils.IdUtils;
@@ -34,16 +35,19 @@ public class CompanyController {
 
 	public void createCompany(Company company) throws ApplicationException {
 
+		if (company == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+
 		NameUtils.isValidName(company.getName());
 		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
 		EmailUtils.isValidEmail(company.getEmail());
 
 		if (companiesDao.isCompanyExists(company.getId()))
-			throw new ApplicationException("Have a problem:\n" + "This company exist!");
+			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
 
-		if (companiesDao.isCompanyExists(company.getName())) {
-			throw new ApplicationException("Have a problem:\n" + "This company name is exist!");
-		}
+		if (companiesDao.isCompanyExists(company.getName()))
+			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
+
 		companiesDao.createCompany(company);
 	}
 
@@ -51,10 +55,11 @@ public class CompanyController {
 		List<Long> list = new ArrayList<>();
 
 		if (!companiesDao.isCompanyExists(companyId))
-			throw new ApplicationException("Have a problem:\n" + "This company exist");
-		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
-		while (list.size() > 0) {
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
 
+		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
+
+		while (list.size() > 0) {
 			purchasesDao.deletePurchaseByCouponId(list.get(0));
 			list.remove(0);
 		}
@@ -67,15 +72,19 @@ public class CompanyController {
 
 	public void updateCompany(Company company) throws ApplicationException {
 
+		if (company == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+
 		IdUtils.isValidId(company.getId());
 		NameUtils.isValidName(company.getName());
 		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
 		EmailUtils.isValidEmail(company.getEmail());
 
-		if (!companiesDao.isCompanyExists(company.getId())) {
-			throw new ApplicationException("Have a problem:\n" + "This company isn't exist");
-		}
+		if (!companiesDao.isCompanyExists(company.getId()))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+
 		companiesDao.updateCompany(company);
+
 	}
 
 	public List<Company> getAllCompany() throws ApplicationException {
@@ -83,10 +92,11 @@ public class CompanyController {
 	}
 
 	public Company getCompany(long companyId) throws ApplicationException {
-		if (companiesDao.isCompanyExists(companyId)) {
-			return companiesDao.getCompany(companyId);
-		}
-		throw new ApplicationException("Have a problem:\n" + "This company exist");
+
+		if (!companiesDao.isCompanyExists(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+
+		return companiesDao.getCompany(companyId);
 
 	}
 

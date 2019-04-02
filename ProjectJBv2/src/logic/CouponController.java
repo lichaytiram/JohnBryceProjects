@@ -7,6 +7,7 @@ import dao.CouponsDao;
 import dao.CustomerDao;
 import dao.PurchasesDao;
 import enums.Category;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.DateUtils;
 import utils.IdUtils;
@@ -26,6 +27,9 @@ public class CouponController {
 	}
 
 	public void createCoupon(Coupon coupon) throws ApplicationException {
+
+		if (coupon == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		NameUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
@@ -51,6 +55,9 @@ public class CouponController {
 	}
 
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
+
+		if (coupon == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		IdUtils.isValidId(coupon.getId());
 		NameUtils.isValidName(coupon.getTitle());

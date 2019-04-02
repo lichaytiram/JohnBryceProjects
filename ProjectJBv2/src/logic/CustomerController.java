@@ -7,6 +7,7 @@ import beans.User;
 import dao.CustomerDao;
 import dao.PurchasesDao;
 import dao.UsersDao;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.EmailUtils;
 import utils.IdUtils;
@@ -34,13 +35,16 @@ public class CustomerController {
 
 	public void createCustomer(Customer customer) throws ApplicationException {
 
+		if (customer == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+
 		NameUtils.isValidName(customer.getFirstName());
 		NameUtils.isValidName(customer.getUser().getUserName());
 		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
 		EmailUtils.isValidEmail(customer.getEmail());
 
 		if (usersDao.isUserExist(customer.getUser().getUserName()))
-			throw new ApplicationException("Have a problem:\n" + "This customer exist!");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage());
 
 		User user = customer.getUser();
 
@@ -56,7 +60,7 @@ public class CustomerController {
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		purchasesDao.deletePurchaseByCustomerId(customerId);
 		customerDao.deleteCustomer(customerId);
@@ -66,17 +70,17 @@ public class CustomerController {
 
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
+		if (customer == null)
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+
 		IdUtils.isValidId(customer.getId());
 		NameUtils.isValidName(customer.getFirstName());
 		NameUtils.isValidName(customer.getUser().getUserName());
 		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
 		EmailUtils.isValidEmail(customer.getEmail());
 
-		if (customer.getId() != customer.getUser().getId())
-			throw new ApplicationException("Have a problem:\n" + "This user id invalid!");
-
 		if (!customerDao.isCustomerExists(customer.getId()))
-			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		customerDao.updateCustomer(customer);
 
@@ -89,7 +93,7 @@ public class CustomerController {
 	public Customer getCustomer(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return customerDao.getCustomer(customerId);
 	}

@@ -1,5 +1,6 @@
 package utils;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 public class EmailUtils {
@@ -12,7 +13,7 @@ public class EmailUtils {
 	public static void isValidEmail(String email) throws ApplicationException {
 
 		if (email == null || email.isEmpty())
-			throw new ApplicationException("Your email is empty");
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (!email.contains("@"))
 			throw new ApplicationException("Your email invalid (isn't contain <@>)");

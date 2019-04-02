@@ -10,7 +10,7 @@ import java.util.List;
 
 import beans.User;
 import enums.ClientType;
-import enums.ProblemsException;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
@@ -42,10 +42,10 @@ public class UsersDao {
 				System.out.println("insert users has succeed");
 				return resultSet.getLong(1);
 			}
-			throw new ApplicationException(ProblemsException.problem.getName() + "Failed to create user id");
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + "Failed to create user id");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -66,7 +66,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -87,7 +87,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -108,7 +108,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -138,7 +138,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -161,7 +161,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -189,11 +189,11 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
-		throw new ApplicationException(ProblemsException.problem.getName() + "Login isn't success");
+		throw new ApplicationException(ErrorType.PROBLEM.getMessage() + "Login isn't success");
 	}
 
 	public boolean isUserExistByCompanyId(long companyId) throws ApplicationException {
@@ -215,7 +215,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -241,7 +241,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -267,7 +267,7 @@ public class UsersDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -284,7 +284,7 @@ public class UsersDao {
 			preparedStatement.setString(2, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ProblemsException.problem.getName() + e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
 	}

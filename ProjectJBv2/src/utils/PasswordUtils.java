@@ -1,5 +1,6 @@
 package utils;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 public class PasswordUtils {
@@ -21,13 +22,10 @@ public class PasswordUtils {
 	 *                 least
 	 * @return Check if the password valid and return true or false
 	 */
-	private static boolean checkPassword(String password) {
+	private static boolean checkPassword(String password) throws ApplicationException {
 
-		if (password == null)
-			return false;
-
-		if (password.isEmpty())
-			return false;
+		if (password == null || password.isEmpty())
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		char checkLetter = 'a';
 

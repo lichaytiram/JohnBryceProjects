@@ -5,6 +5,7 @@ import java.util.List;
 import beans.User;
 import dao.UsersDao;
 import enums.ClientType;
+import enums.ErrorType;
 import exception.ApplicationException;
 import utils.IdUtils;
 import utils.NameUtils;
@@ -21,15 +22,14 @@ public class UserController {
 	public long createUser(User user) throws ApplicationException {
 
 		if (user == null)
-			throw new ApplicationException("Have a problem\n" + "This user is empty!");
+			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		NameUtils.isValidName(user.getUserName());
 		PasswordUtils.isValidPassword(user.getPassword());
 
 		if (usersDao.isUserExist(user.getUserName()))
-			throw new ApplicationException("Have a problem\n" + "This user name already exist!");
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
 
-		// return id from this user
 		return usersDao.createUser(user);
 
 	}
@@ -37,7 +37,7 @@ public class UserController {
 	public void deleteUser(long userId) throws ApplicationException {
 
 		if (!usersDao.isUserExist(userId))
-			throw new ApplicationException("Have a problem\n" + "This user id isn't exist!");
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
 
 		usersDao.deleteUser(userId);
 
@@ -46,7 +46,8 @@ public class UserController {
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
 
 		if (!usersDao.isUserExistByCompanyId(companyId))
-			throw new ApplicationException("Have a problem\n" + "This company id isn't exist!");
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
+
 		usersDao.deleteUserByCompanyId(companyId);
 
 	}
@@ -58,10 +59,10 @@ public class UserController {
 		PasswordUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userId))
-			throw new ApplicationException("Have a problem\n" + "This id isn't exist!");
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
 
 		if (usersDao.isUserExist(userName))
-			throw new ApplicationException("Have a problem\n" + "This user name already exist!");
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
 
 		usersDao.updateUser(userName, password, userId);
 
@@ -75,10 +76,11 @@ public class UserController {
 
 	public ClientType login(String userName, String password) throws ApplicationException {
 
-		if (usersDao.isUserExist(userName))
-			return usersDao.login(userName, password);
+		if (!usersDao.isUserExist(userName))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
 
-		throw new ApplicationException("Have a problem\n" + "This user isn't exist!");
+		return usersDao.login(userName, password);
+
 	}
 
 }
