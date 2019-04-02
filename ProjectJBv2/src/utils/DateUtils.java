@@ -26,14 +26,19 @@ public class DateUtils {
 	 *         isn't
 	 * @throws ApplicationException Can throw an exception by name
 	 */
-	public static boolean isDateValid(Date startDate, Date endDate) throws ApplicationException {
+	public static void isValidDate(Date startDate, Date endDate) throws ApplicationException {
 
 		if (startDate == null || endDate == null)
 			throw new ApplicationException("This date is empty");
 
+		if (startDate.after(endDate) || startDate.equals(endDate))
+			throw new ApplicationException(
+					"have a problem:\n" + "This coupon date isn't valid (start date must be before end date)");
+
 		Date currentDate = new Date();
-		if (startDate.before(endDate) && endDate.after(currentDate))
-			return true;
-		return false;
+		if (endDate.before(currentDate))
+			throw new ApplicationException(
+					"have a problem:\n" + "This coupon date isn't valid (end date must be after current date");
+
 	}
 }

@@ -13,10 +13,10 @@ public class IdUtils {
 	 * @return This function return true if id is valid or throw exception if didn't
 	 * @throws ApplicationException throw exception by name
 	 */
-	public static boolean isIdvalid(long id) throws ApplicationException {
-		if (id > 0)
-			return true;
+	public static void isValidId(long id) throws ApplicationException {
 
-		throw new ApplicationException("Your Id must contain at least 1 digit and be bigger then 0");
+		if (id < 1)
+			throw new ApplicationException("Your Id must be bigger then 0");
+
 	}
 }

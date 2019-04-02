@@ -1,6 +1,5 @@
 package logic;
 
-import java.util.Date;
 import java.util.List;
 
 import beans.Coupon;
@@ -10,6 +9,8 @@ import dao.PurchasesDao;
 import enums.Category;
 import exception.ApplicationException;
 import utils.DateUtils;
+import utils.IdUtils;
+import utils.NameUtils;
 
 public class CouponController {
 
@@ -26,8 +27,10 @@ public class CouponController {
 
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
-		if (!DateUtils.isDateValid(coupon.getStartDate(), coupon.getEndDate()))
-			throw new ApplicationException("have a problem:\n" + "This coupon date isn't valid");
+		NameUtils.isValidName(coupon.getTitle());
+		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
+		isValidAmount(coupon.getAmount());
+		isValidPrice(coupon.getPrice());
 
 		if (couponsDao.isCouponExists(coupon)) {
 			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
@@ -49,17 +52,15 @@ public class CouponController {
 
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
-		if (!couponsDao.isCouponExists(coupon.getId())) {
+		IdUtils.isValidId(coupon.getId());
+		NameUtils.isValidName(coupon.getTitle());
+		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
+		isValidAmount(coupon.getAmount());
+		isValidPrice(coupon.getPrice());
+
+		if (!couponsDao.isCouponExists(coupon.getId()))
 			throw new ApplicationException("This coupon id isn't exist");
-		}
 
-		if (!(coupon.getStartDate().before(coupon.getEndDate())))
-			throw new ApplicationException("This date isn't well! (must be start date before end date)");
-
-		if (coupon.getEndDate().before(new Date())) {
-			throw new ApplicationException("This date isn't well! (end date must be after current date)");
-		}
-		// add check for update - if can update title and more
 		couponsDao.updateCoupon(coupon);
 	}
 
@@ -75,14 +76,6 @@ public class CouponController {
 
 		throw new ApplicationException("This coupon id isn't exist");
 	}
-
-//	public ArrayList<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException {
-//		if (companiesDao.isCompanyExists(companyId))
-//			return couponsDao.getCompanyCouponsById(companyId);
-//
-//		throw new ApplicationException("Have a problem:\n" + "This company isn't exist");
-//
-//	}
 
 	public long howMuchCouponRemain(long couponId) throws ApplicationException {
 		if (couponsDao.isCouponExists(couponId))
@@ -116,6 +109,20 @@ public class CouponController {
 			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
 
 		return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
+
+	}
+
+	private void isValidAmount(int amount) throws ApplicationException {
+
+		if (amount < 0)
+			throw new ApplicationException("Have a problem:\n" + "This amount invalid!");
+
+	}
+
+	private void isValidPrice(double price) throws ApplicationException {
+
+		if (price <= 0)
+			throw new ApplicationException("Have a problem:\n" + "This price invalid! (must be bigger then 0)");
 
 	}
 

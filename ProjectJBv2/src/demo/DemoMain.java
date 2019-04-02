@@ -39,7 +39,7 @@ public class DemoMain {
 			couponController = new CouponController();
 			userController = new UserController();
 
-			Customer customer1 = new Customer("moshe", "david", "0504755324", "gw@gmail.com");
+			Customer customer1 = new Customer("moshe", "david", "0504755320", "gw@gmail.com");
 			User user1 = new User("username1", "123Xx", ClientType.Customer, null);
 			customer1.setUser(user1);
 			Customer customer2 = new Customer("tom", "tor", "0527466077", "tor.tor@gmail.com");
@@ -53,10 +53,10 @@ public class DemoMain {
 					"image.com");
 			Coupon coupon3 = new Coupon(1, Category.Iceland, "title3", "description3", new Date(), endDate, 10, 20.7,
 					"image.com");
-			User user3 = new User("user3", "password", ClientType.Company, 1L);
-			User user4 = new User("user4", "password", ClientType.Company, 2L);
-			User user5 = new User("user5", "password", ClientType.Company, 2L);
-			User user6 = new User("user6", "password", ClientType.Administrator, null);
+			User user3 = new User("user3", "passwordP1", ClientType.Company, 1L);
+			User user4 = new User("user4", "passwordP1", ClientType.Company, 2L);
+			User user5 = new User("user5", "passwordP1", ClientType.Company, 2L);
+			User user6 = new User("user6", "passwordP1", ClientType.Administrator, null);
 
 			// create
 			companyController.createCompany(company1);
@@ -79,7 +79,7 @@ public class DemoMain {
 
 			// update
 			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
-			userController.updateUser("user33", "password", 5);
+			userController.updateUser("user33", "passwordX5", 5);
 			customer1.setFirstName("newFirst"); // update customer1
 			System.out.println(customer1.getUser());
 			customerController.updateCustomer(customer1);

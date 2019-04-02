@@ -1,8 +1,5 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class create a customer
  * 
@@ -18,7 +15,6 @@ public class Customer {
 	private String lastName;
 	private String phoneNumber;
 	private String email;
-	private List<Coupon> couponList;
 	private User user;
 
 	// constructor
@@ -60,7 +56,6 @@ public class Customer {
 	 */
 	public Customer() {
 		super();
-		couponList = new ArrayList<>();
 	}
 
 	// getter & setter
@@ -103,14 +98,6 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public List<Coupon> getCouponList() {
-		return couponList;
-	}
-
-	public void setCouponList(List<Coupon> couponList) {
-		this.couponList = couponList;
 	}
 
 	public User getUser() {

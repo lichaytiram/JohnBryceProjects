@@ -7,6 +7,7 @@ import dao.CouponsDao;
 import dao.CustomerDao;
 import dao.PurchasesDao;
 import exception.ApplicationException;
+import utils.IdUtils;
 
 /**
  * This class manage the all function for purchase facade
@@ -26,6 +27,9 @@ public class PurchaseController {
 	}
 
 	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+
+		IdUtils.isValidId(customerId);
+		IdUtils.isValidId(couponId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException("Have a problem:\n" + "This customer id isn't exist!");

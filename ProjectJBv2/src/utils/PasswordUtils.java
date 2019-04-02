@@ -9,12 +9,11 @@ public class PasswordUtils {
 	 *                 valid
 	 * @throws ApplicationException Throw an exception by name
 	 */
-	public static boolean isPasswordValid(String password) throws ApplicationException {
+	public static void isValidPassword(String password) throws ApplicationException {
 
-		if (checkPassword(password))
-			return true;
+		if (!checkPassword(password))
+			throw new ApplicationException("The password must contain one digit , one big letter and one small letter");
 
-		throw new ApplicationException("The password must contain one digit , one big letter and one small letter");
 	}
 
 	/**
@@ -23,11 +22,15 @@ public class PasswordUtils {
 	 * @return Check if the password valid and return true or false
 	 */
 	private static boolean checkPassword(String password) {
+
 		if (password == null)
 			return false;
+
 		if (password.isEmpty())
 			return false;
+
 		char checkLetter = 'a';
+
 		while (checkLetter <= 'z') {
 			if (password.contains(checkLetter + ""))
 				break;
@@ -35,6 +38,7 @@ public class PasswordUtils {
 				return false;
 			checkLetter++;
 		}
+
 		checkLetter = 'A';
 		while (checkLetter <= 'Z') {
 			if (password.contains(checkLetter + ""))

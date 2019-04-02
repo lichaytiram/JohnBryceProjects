@@ -8,6 +8,10 @@ import dao.CustomerDao;
 import dao.PurchasesDao;
 import dao.UsersDao;
 import exception.ApplicationException;
+import utils.EmailUtils;
+import utils.IdUtils;
+import utils.NameUtils;
+import utils.PhoneNumberUtils;
 
 /**
  * This class manage the all function for customer facade
@@ -29,6 +33,11 @@ public class CustomerController {
 	}
 
 	public void createCustomer(Customer customer) throws ApplicationException {
+
+		NameUtils.isValidName(customer.getFirstName());
+		NameUtils.isValidName(customer.getUser().getUserName());
+		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
+		EmailUtils.isValidEmail(customer.getEmail());
 
 		if (usersDao.isUserExist(customer.getUser().getUserName()))
 			throw new ApplicationException("Have a problem:\n" + "This customer exist!");
@@ -57,6 +66,12 @@ public class CustomerController {
 
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
+		IdUtils.isValidId(customer.getId());
+		NameUtils.isValidName(customer.getFirstName());
+		NameUtils.isValidName(customer.getUser().getUserName());
+		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
+		EmailUtils.isValidEmail(customer.getEmail());
+
 		if (customer.getId() != customer.getUser().getId())
 			throw new ApplicationException("Have a problem:\n" + "This user id invalid!");
 
@@ -64,7 +79,6 @@ public class CustomerController {
 			throw new ApplicationException("Have a problem:\n" + "This customer doesn't exist");
 
 		customerDao.updateCustomer(customer);
-		// maybe need check about user
 
 	}
 

@@ -9,14 +9,17 @@ public class EmailUtils {
 	 *              definitions)
 	 * @throws ApplicationException Throw an exception by name
 	 */
-	public static boolean setEmail(String email) throws ApplicationException {
+	public static void isValidEmail(String email) throws ApplicationException {
+
+		if (email == null || email.isEmpty())
+			throw new ApplicationException("Your email is empty");
 
 		if (!email.contains("@"))
 			throw new ApplicationException("Your email invalid (isn't contain <@>)");
-		else if (!(email.indexOf('@') + 1 < email.lastIndexOf('.')))
+
+		if (!(email.indexOf('@') + 1 < email.lastIndexOf('.')))
 			throw new ApplicationException("Your email invalid (isn't contain <.> after <@> one letter at least)");
 
-		return true;
 	}
 
 }

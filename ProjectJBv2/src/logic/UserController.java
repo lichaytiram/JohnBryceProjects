@@ -6,6 +6,9 @@ import beans.User;
 import dao.UsersDao;
 import enums.ClientType;
 import exception.ApplicationException;
+import utils.IdUtils;
+import utils.NameUtils;
+import utils.PasswordUtils;
 
 public class UserController {
 
@@ -19,6 +22,9 @@ public class UserController {
 
 		if (user == null)
 			throw new ApplicationException("Have a problem\n" + "This user is empty!");
+
+		NameUtils.isValidName(user.getUserName());
+		PasswordUtils.isValidPassword(user.getPassword());
 
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException("Have a problem\n" + "This user name already exist!");
@@ -46,6 +52,10 @@ public class UserController {
 	}
 
 	public void updateUser(String userName, String password, long userId) throws ApplicationException {
+
+		IdUtils.isValidId(userId);
+		NameUtils.isValidName(userName);
+		PasswordUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userId))
 			throw new ApplicationException("Have a problem\n" + "This id isn't exist!");

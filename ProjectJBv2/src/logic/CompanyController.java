@@ -8,6 +8,10 @@ import dao.CompaniesDao;
 import dao.CouponsDao;
 import dao.PurchasesDao;
 import exception.ApplicationException;
+import utils.EmailUtils;
+import utils.IdUtils;
+import utils.NameUtils;
+import utils.PhoneNumberUtils;
 
 /**
  * This class manage the all function for company facade
@@ -29,6 +33,10 @@ public class CompanyController {
 	}
 
 	public void createCompany(Company company) throws ApplicationException {
+
+		NameUtils.isValidName(company.getName());
+		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
+		EmailUtils.isValidEmail(company.getEmail());
 
 		if (companiesDao.isCompanyExists(company.getId()))
 			throw new ApplicationException("Have a problem:\n" + "This company exist!");
@@ -58,6 +66,12 @@ public class CompanyController {
 	}
 
 	public void updateCompany(Company company) throws ApplicationException {
+
+		IdUtils.isValidId(company.getId());
+		NameUtils.isValidName(company.getName());
+		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
+		EmailUtils.isValidEmail(company.getEmail());
+
 		if (!companiesDao.isCompanyExists(company.getId())) {
 			throw new ApplicationException("Have a problem:\n" + "This company isn't exist");
 		}
