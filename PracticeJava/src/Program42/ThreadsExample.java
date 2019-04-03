@@ -1,8 +1,9 @@
 package Program42;
 
-public class Program {
+public class ThreadsExample {
 
 	public static void main(String[] args) {
+//		Window window = new Window();
 
 	}
 
