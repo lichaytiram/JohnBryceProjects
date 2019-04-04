@@ -21,8 +21,9 @@ import utils.JdbcUtils;
  * @author Lichay
  *
  */
-public class CustomerDao implements ICustomersDao {
+public class CustomersDao implements ICustomersDao {
 
+	@Override
 	public void createCustomer(Customer customer) throws ApplicationException {
 
 		Connection connection = null;
@@ -48,6 +49,7 @@ public class CustomerDao implements ICustomersDao {
 		}
 	}
 
+	@Override
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
 		Connection connection = null;
@@ -67,6 +69,7 @@ public class CustomerDao implements ICustomersDao {
 		}
 	}
 
+	@Override
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
 		Connection connection = null;
@@ -91,10 +94,11 @@ public class CustomerDao implements ICustomersDao {
 		}
 	}
 
+	@Override
 	public List<Customer> getAllCustomer() throws ApplicationException {
 
 		List<Customer> list = new ArrayList<>();
-		
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -121,6 +125,7 @@ public class CustomerDao implements ICustomersDao {
 
 	}
 
+	@Override
 	public boolean isCustomerExists(long customerId) throws ApplicationException {
 
 		Connection connection = null;
@@ -148,10 +153,11 @@ public class CustomerDao implements ICustomersDao {
 
 	}
 
+	@Override
 	public Customer getCustomer(long customerId) throws ApplicationException {
 
 		Customer customer = null;
-		
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -167,7 +173,6 @@ public class CustomerDao implements ICustomersDao {
 				customer = (new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
 						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
 						resultSet.getString("EMAIL")));
-
 			}
 
 		} catch (SQLException e) {

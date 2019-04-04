@@ -108,6 +108,9 @@ public class DemoMain {
 			System.out.println("The amount is: " + purchaseController.getCustomerPurchase(6));
 
 			// read specific
+			System.out.println(couponController.getCompanyCouponsByCompanyId(2));
+			System.out.println(couponController.getCompanyCouponsByCategory(2, Category.Iceland));
+			System.out.println(couponController.getCompanyCouponsByMaxPrice(2, 33));
 			System.out.println(couponController.getCustomerCouponByCustomerId(5));
 			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Comics));
 			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Food));

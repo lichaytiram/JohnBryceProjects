@@ -3,8 +3,9 @@ package logic;
 import java.util.List;
 
 import beans.Coupon;
+import dao.CompaniesDao;
 import dao.CouponsDao;
-import dao.CustomerDao;
+import dao.CustomersDao;
 import dao.PurchasesDao;
 import enums.Category;
 import enums.ErrorType;
@@ -18,13 +19,15 @@ public class CouponController {
 
 	private CouponsDao couponsDao;
 	private PurchasesDao purchasesDao;
-	private CustomerDao customerDao;
+	private CustomersDao customerDao;
+	private CompaniesDao companyDao;
 
 	public CouponController() {
 
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
-		customerDao = new CustomerDao();
+		customerDao = new CustomersDao();
+		companyDao = new CompaniesDao();
 
 	}
 
@@ -104,6 +107,41 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 
 		return couponsDao.howMuchCouponRemain(couponId);
+
+	}
+
+	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
+
+		if (!companyDao.isCompanyExists(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+
+		return couponsDao.getCompanyCouponsByCompanyId(companyId);
+
+	}
+
+	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
+		isValidCategory(category);
+
+		if (!companyDao.isCompanyExists(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+
+		return couponsDao.getCompanyCouponsByCategory(companyId, category);
+
+	}
+
+	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
+		isValidPrice(maxPrice);
+
+		if (!companyDao.isCompanyExists(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+
+		return couponsDao.getCompanyCouponsByMaxPrice(companyId, maxPrice);
 
 	}
 

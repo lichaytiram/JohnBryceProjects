@@ -4,7 +4,7 @@ import java.util.List;
 
 import beans.Purchase;
 import dao.CouponsDao;
-import dao.CustomerDao;
+import dao.CustomersDao;
 import dao.PurchasesDao;
 import enums.ErrorType;
 import exception.ApplicationException;
@@ -20,13 +20,13 @@ public class PurchaseController {
 
 	private PurchasesDao purchasesDao;
 	private CouponsDao couponsDao;
-	private CustomerDao customerDao;
+	private CustomersDao customerDao;
 
 	public PurchaseController() throws ApplicationException {
 
 		purchasesDao = new PurchasesDao();
 		couponsDao = new CouponsDao();
-		customerDao = new CustomerDao();
+		customerDao = new CustomersDao();
 
 	}
 

@@ -20,6 +20,7 @@ import utils.JdbcUtils;
  */
 public class CompaniesDao implements ICompaniesDao {
 
+	@Override
 	public void createCompany(Company company) throws ApplicationException {
 
 		Connection connection = null;
@@ -42,6 +43,7 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
+	@Override
 	public void deleteCompany(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -62,6 +64,7 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
+	@Override
 	public void updateCompany(Company company) throws ApplicationException {
 
 		Connection connection = null;
@@ -85,6 +88,7 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
+	@Override
 	public List<Company> getAllCompany() throws ApplicationException {
 
 		List<Company> list = new ArrayList<>();
@@ -113,6 +117,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	@Override
 	public boolean isCompanyExists(String name) throws ApplicationException {
 
 		Connection connection = null;
@@ -141,6 +146,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	@Override
 	public boolean isCompanyExists(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -167,6 +173,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	@Override
 	public Company getCompany(long companyId) throws ApplicationException {
 
 		Company company = null;
@@ -195,7 +202,7 @@ public class CompaniesDao implements ICompaniesDao {
 		return company;
 	}
 
-// extract
+	// extract
 
 	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String name,
 			String phoneNumber, String email) throws ApplicationException {

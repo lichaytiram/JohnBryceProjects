@@ -14,8 +14,9 @@ import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
-public class UsersDao {
+public class UsersDao implements IUsersDao {
 
+	@Override
 	public long createUser(User user) throws ApplicationException {
 
 		BigDecimal bigDecimal = null;
@@ -57,6 +58,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public void deleteUser(long userId) throws ApplicationException {
 
 		Connection connection = null;
@@ -78,6 +80,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -99,6 +102,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public List<User> getAllUsers() throws ApplicationException {
 
 		List<User> list = new ArrayList<>();
@@ -131,6 +135,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public void updateUser(String userName, String password, long userId) throws ApplicationException {
 
 		Connection connection = null;
@@ -153,6 +158,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public ClientType login(String userName, String password) throws ApplicationException {
 
 		Connection connection = null;
@@ -181,6 +187,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public boolean isUserExistByCompanyId(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -208,6 +215,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public boolean isUserExist(String userName) throws ApplicationException {
 
 		Connection connection = null;
@@ -235,6 +243,7 @@ public class UsersDao {
 
 	}
 
+	@Override
 	public boolean isUserExist(long userId) throws ApplicationException {
 
 		Connection connection = null;

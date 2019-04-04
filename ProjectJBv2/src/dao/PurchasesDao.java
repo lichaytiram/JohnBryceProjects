@@ -22,6 +22,7 @@ import utils.JdbcUtils;
  */
 public class PurchasesDao implements IPurchasesDao {
 
+	@Override
 	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		Date currentDate = new Date();
@@ -46,6 +47,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -67,6 +69,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public void deletePurchase(long id) throws ApplicationException {
 
 		Connection connection = null;
@@ -87,6 +90,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public void deletePurchaseByCouponId(long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -107,6 +111,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public void deletePurchaseByCustomerId(long customerId) throws ApplicationException {
 
 		Connection connection = null;
@@ -127,6 +132,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public void deletePurchaseByCompanyId(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -148,6 +154,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
+	@Override
 	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -176,6 +183,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	@Override
 	public boolean isCustomerBought(long id) throws ApplicationException {
 
 		Connection connection = null;
@@ -203,6 +211,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	@Override
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
 		int amount = 0;
@@ -232,6 +241,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	@Override
 	public List<Purchase> getAllPurchase() throws ApplicationException {
 
 		List<Purchase> list = new ArrayList<>();
@@ -261,6 +271,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	@Override
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
 		List<Purchase> list = new ArrayList<>();

@@ -27,6 +27,7 @@ import utils.JdbcUtils;
  */
 public class CouponsDao implements ICouponsDao {
 
+	@Override
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
@@ -48,6 +49,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
+	@Override
 	public void deleteCoupon(long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -68,6 +70,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
+	@Override
 	public void deleteCouponbyCompanyId(long companyId) throws ApplicationException {
 
 		Connection connection = null;
@@ -88,6 +91,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
+	@Override
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
@@ -111,6 +115,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
+	@Override
 	public void updateCoupon(long couponId, int amount) throws ApplicationException {
 
 		Connection connection = null;
@@ -132,6 +137,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
+	@Override
 	public List<Coupon> getAllCoupon() throws ApplicationException {
 
 		Category category = null;
@@ -165,6 +171,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
 		Category category = null;
@@ -202,7 +209,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
-////////////////////////////////////////////////////////////////
+	@Override
 	public boolean isCouponExists(long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -230,6 +237,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public boolean isCouponExists(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
@@ -258,6 +266,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public boolean isCouponValid(long couponId) throws ApplicationException {
 
 		Date date = new Date();
@@ -288,6 +297,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public int howMuchCouponRemain(long couponId) throws ApplicationException {
 
 		int amount = 0;
@@ -316,6 +326,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
 
 		Category category = null;
@@ -350,7 +361,43 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
-	public List<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException {
+	@Override
+	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category) throws ApplicationException {
+
+		List<Coupon> list = new ArrayList<>();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection
+					.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND CATEGORY = ?");
+			preparedStatement.setLong(1, companyId);
+			preparedStatement.setString(2, category.toString().toUpperCase());
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				list.add(new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
+						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
+						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+		return list;
+
+	}
+
+	@Override
+	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
 
 		Category category = null;
 		List<Coupon> list = new ArrayList<>();
@@ -386,40 +433,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
-	public List<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws ApplicationException {
-
-		List<Coupon> list = new ArrayList<>();
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection
-					.prepareStatement("SELECT * FROM coupons WHERE COMPANY_ID = ? AND CATEGORY = ?");
-			preparedStatement.setLong(1, companyId);
-			preparedStatement.setString(2, category.toString().toUpperCase());
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				list.add(new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
-						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
-						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-		return list;
-
-	}
-
+	@Override
 	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
 
 		List<Coupon> list = new ArrayList<Coupon>();
@@ -455,6 +469,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 
 		List<Coupon> list = new ArrayList<Coupon>();
@@ -490,6 +505,7 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
+	@Override
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 
 		List<Coupon> list = new ArrayList<Coupon>();

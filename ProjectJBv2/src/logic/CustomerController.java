@@ -4,7 +4,7 @@ import java.util.List;
 
 import beans.Customer;
 import beans.User;
-import dao.CustomerDao;
+import dao.CustomersDao;
 import dao.PurchasesDao;
 import dao.UsersDao;
 import enums.ErrorType;
@@ -23,14 +23,14 @@ import utils.TypeUtils;
  */
 public class CustomerController {
 
-	private CustomerDao customerDao;
+	private CustomersDao customerDao;
 	private PurchasesDao purchasesDao;
 	private UserController userController;
 	private UsersDao usersDao;
 
 	public CustomerController() throws ApplicationException {
 
-		customerDao = new CustomerDao();
+		customerDao = new CustomersDao();
 		purchasesDao = new PurchasesDao();
 		userController = new UserController();
 		usersDao = new UsersDao();
