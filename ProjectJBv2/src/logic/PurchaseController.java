@@ -59,6 +59,9 @@ public class PurchaseController {
 
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 
+		IdUtils.isValidId(customerId);
+		IdUtils.isValidId(couponId);
+
 		if (!purchasesDao.isCustomerBought(customerId, couponId))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
 
@@ -68,6 +71,8 @@ public class PurchaseController {
 
 	public void deletePurchase(long id) throws ApplicationException {
 
+		IdUtils.isValidId(id);
+
 		if (!purchasesDao.isCustomerBought(id))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
 
@@ -76,6 +81,8 @@ public class PurchaseController {
 	}
 
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
+
+		IdUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -91,6 +98,8 @@ public class PurchaseController {
 	}
 
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
+
+		IdUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());

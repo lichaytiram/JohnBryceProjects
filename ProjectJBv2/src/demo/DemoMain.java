@@ -18,6 +18,7 @@ import test.RefreshDataBase;
 
 public class DemoMain {
 
+	// controller
 	private static CustomerController customerController = null;
 	private static PurchaseController purchaseController = null;
 	private static CompanyController companyController = null;
@@ -44,6 +45,7 @@ public class DemoMain {
 			couponController = new CouponController();
 			userController = new UserController();
 
+			// bean
 			Customer customer1 = new Customer("moshe", "david", "0504755320", "gw@gmail.com");
 			User user1 = new User("username1", "123Xx", ClientType.Customer, null);
 			customer1.setUser(user1);

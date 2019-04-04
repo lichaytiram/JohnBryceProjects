@@ -27,10 +27,12 @@ public class CompanyController {
 	private UserController userController;
 
 	public CompanyController() throws ApplicationException {
+
 		companiesDao = new CompaniesDao();
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
 		userController = new UserController();
+
 	}
 
 	public void createCompany(Company company) throws ApplicationException {
@@ -52,6 +54,8 @@ public class CompanyController {
 	}
 
 	public void deleteCompany(long companyId) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
 		List<Long> list = new ArrayList<>();
 
 		if (!companiesDao.isCompanyExists(companyId))
@@ -88,10 +92,14 @@ public class CompanyController {
 	}
 
 	public List<Company> getAllCompany() throws ApplicationException {
+
 		return companiesDao.getAllCompany();
+
 	}
 
 	public Company getCompany(long companyId) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
 
 		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());

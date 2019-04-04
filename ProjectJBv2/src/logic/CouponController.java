@@ -33,6 +33,8 @@ public class CouponController {
 		if (coupon == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
+		IdUtils.isValidId(coupon.getCompanyId());
+		isValidCategory(coupon.getCategory());
 		NameUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		AmountUtils.isValidAmount(coupon.getAmount());
@@ -46,6 +48,8 @@ public class CouponController {
 	}
 
 	public void deleteCoupon(long couponId) throws ApplicationException {
+
+		IdUtils.isValidId(couponId);
 
 		if (!couponsDao.isCouponExists(couponId))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
@@ -62,6 +66,8 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		IdUtils.isValidId(coupon.getId());
+		IdUtils.isValidId(coupon.getCompanyId());
+		isValidCategory(coupon.getCategory());
 		NameUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		AmountUtils.isValidAmount(coupon.getAmount());
@@ -82,6 +88,8 @@ public class CouponController {
 
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
+		IdUtils.isValidId(couponId);
+
 		if (couponsDao.isCouponExists(couponId))
 			return couponsDao.getCoupon(couponId);
 
@@ -89,6 +97,8 @@ public class CouponController {
 	}
 
 	public long howMuchCouponRemain(long couponId) throws ApplicationException {
+
+		IdUtils.isValidId(couponId);
 
 		if (!couponsDao.isCouponExists(couponId))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
@@ -99,6 +109,8 @@ public class CouponController {
 
 	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 
+		IdUtils.isValidId(customerId);
+
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
@@ -108,6 +120,9 @@ public class CouponController {
 
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 
+		IdUtils.isValidId(customerId);
+		isValidCategory(category);
+
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
@@ -116,6 +131,9 @@ public class CouponController {
 	}
 
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
+
+		IdUtils.isValidId(customerId);
+		isValidPrice(maxPrice);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -128,6 +146,13 @@ public class CouponController {
 
 		if (price <= 0)
 			throw new ApplicationException(ErrorType.INVALID_PRICE.getMessage());
+
+	}
+
+	private void isValidCategory(Category category) throws ApplicationException {
+
+		if (category == null)
+			throw new ApplicationException(ErrorType.INVALID_CATEGORY.getMessage());
 
 	}
 

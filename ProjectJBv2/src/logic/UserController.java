@@ -10,13 +10,16 @@ import exception.ApplicationException;
 import utils.IdUtils;
 import utils.NameUtils;
 import utils.PasswordUtils;
+import utils.TypeUtils;
 
 public class UserController {
 
 	private UsersDao usersDao;
 
 	public UserController() {
+
 		usersDao = new UsersDao();
+
 	}
 
 	public long createUser(User user) throws ApplicationException {
@@ -26,6 +29,7 @@ public class UserController {
 
 		NameUtils.isValidName(user.getUserName());
 		PasswordUtils.isValidPassword(user.getPassword());
+		TypeUtils.isValidType(user.getType());
 
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
@@ -36,6 +40,8 @@ public class UserController {
 
 	public void deleteUser(long userId) throws ApplicationException {
 
+		IdUtils.isValidId(userId);
+
 		if (!usersDao.isUserExist(userId))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
 
@@ -44,6 +50,8 @@ public class UserController {
 	}
 
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
+
+		IdUtils.isValidId(companyId);
 
 		if (!usersDao.isUserExistByCompanyId(companyId))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
@@ -75,6 +83,9 @@ public class UserController {
 	}
 
 	public ClientType login(String userName, String password) throws ApplicationException {
+
+		NameUtils.isValidName(userName);
+		PasswordUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userName))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
