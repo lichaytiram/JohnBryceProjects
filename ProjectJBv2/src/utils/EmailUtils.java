@@ -16,10 +16,10 @@ public class EmailUtils {
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (!email.contains("@"))
-			throw new ApplicationException("Your email invalid (isn't contain <@>)");
+			throw new ApplicationException(ErrorType.INVALID_EMAIL.getMessage());
 
 		if (!(email.indexOf('@') + 1 < email.lastIndexOf('.')))
-			throw new ApplicationException("Your email invalid (isn't contain <.> after <@> one letter at least)");
+			throw new ApplicationException(ErrorType.INVALID_EMAIL.getMessage());
 
 	}
 

@@ -6,7 +6,9 @@ import beans.Purchase;
 import dao.CouponsDao;
 import dao.CustomerDao;
 import dao.PurchasesDao;
+import enums.ErrorType;
 import exception.ApplicationException;
+import utils.AmountUtils;
 import utils.IdUtils;
 
 /**
@@ -21,51 +23,53 @@ public class PurchaseController {
 	private CustomerDao customerDao;
 
 	public PurchaseController() throws ApplicationException {
+
 		purchasesDao = new PurchasesDao();
 		couponsDao = new CouponsDao();
 		customerDao = new CustomerDao();
+
 	}
 
 	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		IdUtils.isValidId(customerId);
 		IdUtils.isValidId(couponId);
+		AmountUtils.isValidAmount(amount);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer id isn't exist!");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		if (!couponsDao.isCouponExists(couponId))
-			throw new ApplicationException("Have a problem:\n" + "This coupon id isn't exist!");
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 
 		if (!couponsDao.isCouponValid(couponId))
-			throw new ApplicationException("Have a problem:\n" + "This coupon id isn't valid anymore!");
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
 
-		int amountOfCouponFromDataBase = couponsDao.howMuchCouponRemain(couponId);
+		int amountOfCouponRemain = couponsDao.howMuchCouponRemain(couponId);
 
-		if (amountOfCouponFromDataBase < amount)
-			throw new ApplicationException(
-					"Have a problem:\n" + "Dont have from this coupon enough!\nYou can buy only ["
-							+ amountOfCouponFromDataBase + "] coupons");
+		if (amountOfCouponRemain < amount)
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
 
-		int amountLeft = amountOfCouponFromDataBase - amount;
+		int amountLeft = amountOfCouponRemain - amount;
+
 		couponsDao.updateCoupon(couponId, amountLeft);
 		purchasesDao.purchaseCoupon(customerId, couponId, amount);
 
 	}
 
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
-		if (!purchasesDao.isCustomerBought(customerId, couponId)) {
-			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
-		}
+
+		if (!purchasesDao.isCustomerBought(customerId, couponId))
+			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
 
 		purchasesDao.deletePurchase(customerId, couponId);
 
 	}
 
 	public void deletePurchase(long id) throws ApplicationException {
-		if (!purchasesDao.isCustomerBought(id)) {
-			throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist from your history!");
-		}
+
+		if (!purchasesDao.isCustomerBought(id))
+			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
 
 		purchasesDao.deletePurchase(id);
 
@@ -74,19 +78,22 @@ public class PurchaseController {
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return purchasesDao.getPurchaseAmount(customerId);
+
 	}
 
 	public List<Purchase> getAllPurchase() throws ApplicationException {
+
 		return purchasesDao.getAllPurchase();
+
 	}
 
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return purchasesDao.getCustomerPurchase(customerId);
 

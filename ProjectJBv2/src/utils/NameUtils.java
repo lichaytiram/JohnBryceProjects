@@ -15,7 +15,7 @@ public class NameUtils {
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (name.length() < 2)
-			throw new ApplicationException("Your name is invalid (must contain at least 2 letters)");
+			throw new ApplicationException(ErrorType.INVALID_NAME.getMessage());
 
 	}
 

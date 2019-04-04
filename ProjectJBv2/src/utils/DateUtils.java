@@ -32,14 +32,10 @@ public class DateUtils {
 		if (startDate == null || endDate == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		if (startDate.after(endDate) || startDate.equals(endDate))
-			throw new ApplicationException(
-					"have a problem:\n" + "This coupon date isn't valid (start date must be before end date)");
-
 		Date currentDate = new Date();
-		if (endDate.before(currentDate))
-			throw new ApplicationException(
-					"have a problem:\n" + "This coupon date isn't valid (end date must be after current date");
+
+		if (startDate.after(endDate) || startDate.equals(endDate) || endDate.before(currentDate))
+			throw new ApplicationException(ErrorType.INVALID_DATES.getMessage());
 
 	}
 }

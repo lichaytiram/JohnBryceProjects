@@ -1,12 +1,9 @@
 package utils;
 
+import enums.ErrorType;
 import exception.ApplicationException;
 
 public class IdUtils {
-
-	/**
-	 * @param id Receive an id and change it for the new one (if it valid)
-	 */
 
 	/**
 	 * @param id Receive an id
@@ -16,7 +13,7 @@ public class IdUtils {
 	public static void isValidId(long id) throws ApplicationException {
 
 		if (id < 1)
-			throw new ApplicationException("Your Id must be bigger then 0");
+			throw new ApplicationException(ErrorType.INVALID_ID.getMessage());
 
 	}
 }

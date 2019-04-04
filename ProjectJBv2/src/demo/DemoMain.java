@@ -28,7 +28,12 @@ public class DemoMain {
 	public static void main(String[] args) {
 
 		RefreshDataBase refreshDataBase = new RefreshDataBase();
-		refreshDataBase.refreshDB();
+		try {
+			refreshDataBase.refreshDB();
+		} catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+
 		Date endDate = new Date();
 		endDate.setYear(120);
 

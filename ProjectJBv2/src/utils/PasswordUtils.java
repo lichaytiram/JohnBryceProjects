@@ -13,7 +13,7 @@ public class PasswordUtils {
 	public static void isValidPassword(String password) throws ApplicationException {
 
 		if (!checkPassword(password))
-			throw new ApplicationException("The password must contain one digit , one big letter and one small letter");
+			throw new ApplicationException(ErrorType.INVALID_PASSWORD.getMessage());
 
 	}
 
@@ -55,5 +55,6 @@ public class PasswordUtils {
 			checkDigit++;
 		}
 		return true;
+
 	}
 }

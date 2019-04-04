@@ -11,16 +11,15 @@ public class PhoneNumberUtils {
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
 		if (phoneNumber.charAt(0) != '0')
-			throw new ApplicationException("Your phone number invalid!");
+			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
 
 		if (phoneNumber.length() != 10)
-			throw new ApplicationException("Your phone number invalid! (must contain ten digits)");
+			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
 
 		for (int i = 0; i < phoneNumber.length(); i++) {
-
 			if (phoneNumber.charAt(i) > '9' || phoneNumber.charAt(i) < '0')
-				throw new ApplicationException("Your phone number invalid! (must contain only digits)");
-
+				throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
 		}
+
 	}
 }

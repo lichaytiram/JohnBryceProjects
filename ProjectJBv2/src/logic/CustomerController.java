@@ -27,10 +27,12 @@ public class CustomerController {
 	private UsersDao usersDao;
 
 	public CustomerController() throws ApplicationException {
+		
 		customerDao = new CustomerDao();
 		purchasesDao = new PurchasesDao();
 		userController = new UserController();
 		usersDao = new UsersDao();
+		
 	}
 
 	public void createCustomer(Customer customer) throws ApplicationException {

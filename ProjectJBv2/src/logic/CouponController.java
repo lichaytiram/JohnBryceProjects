@@ -9,6 +9,7 @@ import dao.PurchasesDao;
 import enums.Category;
 import enums.ErrorType;
 import exception.ApplicationException;
+import utils.AmountUtils;
 import utils.DateUtils;
 import utils.IdUtils;
 import utils.NameUtils;
@@ -20,6 +21,7 @@ public class CouponController {
 	private CustomerDao customerDao;
 
 	public CouponController() {
+
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
 		customerDao = new CustomerDao();
@@ -33,25 +35,25 @@ public class CouponController {
 
 		NameUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
-		isValidAmount(coupon.getAmount());
+		AmountUtils.isValidAmount(coupon.getAmount());
 		isValidPrice(coupon.getPrice());
 
-		if (couponsDao.isCouponExists(coupon)) {
-			throw new ApplicationException("have a problem:\n" + "This coupon already exist on data base");
-		}
+		if (couponsDao.isCouponExists(coupon))
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+
 		couponsDao.createCoupon(coupon);
 
 	}
 
 	public void deleteCoupon(long couponId) throws ApplicationException {
 
-		if (!couponsDao.isCouponExists(couponId)) {
-			throw new ApplicationException("This coupon id isn't exist");
-		}
+		if (!couponsDao.isCouponExists(couponId))
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 
 		purchasesDao.deletePurchaseByCouponId(couponId);
 
 		couponsDao.deleteCoupon(couponId);
+
 	}
 
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
@@ -62,16 +64,18 @@ public class CouponController {
 		IdUtils.isValidId(coupon.getId());
 		NameUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
-		isValidAmount(coupon.getAmount());
+		AmountUtils.isValidAmount(coupon.getAmount());
 		isValidPrice(coupon.getPrice());
 
 		if (!couponsDao.isCouponExists(coupon.getId()))
-			throw new ApplicationException("This coupon id isn't exist");
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 
 		couponsDao.updateCoupon(coupon);
+
 	}
 
 	public List<Coupon> getAllCoupon() throws ApplicationException {
+
 		return couponsDao.getAllCoupon();
 
 	}
@@ -81,21 +85,22 @@ public class CouponController {
 		if (couponsDao.isCouponExists(couponId))
 			return couponsDao.getCoupon(couponId);
 
-		throw new ApplicationException("This coupon id isn't exist");
+		throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 	}
 
 	public long howMuchCouponRemain(long couponId) throws ApplicationException {
-		if (couponsDao.isCouponExists(couponId))
-			return couponsDao.howMuchCouponRemain(couponId);
 
-		throw new ApplicationException("Have a problem:\n" + "This coupon isn't exist");
+		if (!couponsDao.isCouponExists(couponId))
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+
+		return couponsDao.howMuchCouponRemain(couponId);
 
 	}
 
 	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return couponsDao.getCustomerCouponsByCustomerId(customerId);
 
@@ -104,7 +109,7 @@ public class CouponController {
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return couponsDao.getCustomerCouponsByCategory(customerId, category);
 
@@ -113,23 +118,16 @@ public class CouponController {
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException("Have a problem:\n" + "This customer isn't exists");
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
 		return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
-
-	}
-
-	private void isValidAmount(int amount) throws ApplicationException {
-
-		if (amount < 0)
-			throw new ApplicationException("Have a problem:\n" + "This amount invalid!");
 
 	}
 
 	private void isValidPrice(double price) throws ApplicationException {
 
 		if (price <= 0)
-			throw new ApplicationException("Have a problem:\n" + "This price invalid! (must be bigger then 0)");
+			throw new ApplicationException(ErrorType.INVALID_PRICE.getMessage());
 
 	}
 
