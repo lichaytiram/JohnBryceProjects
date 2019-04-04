@@ -1,6 +1,5 @@
 package logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import beans.Company;
@@ -56,18 +55,11 @@ public class CompanyController {
 	public void deleteCompany(long companyId) throws ApplicationException {
 
 		IdUtils.isValidId(companyId);
-		List<Long> list = new ArrayList<>();
 
 		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
 
-		list = couponsDao.getAllCouponsIdByCompanyId(companyId);
-
-		while (list.size() > 0) {
-			purchasesDao.deletePurchaseByCouponId(list.get(0));
-			list.remove(0);
-		}
-
+		purchasesDao.deletePurchaseByCompanyId(companyId);
 		couponsDao.deleteCouponbyCompanyId(companyId);
 		userController.deleteUserByCompanyId(companyId);
 		companiesDao.deleteCompany(companyId);

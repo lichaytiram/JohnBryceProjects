@@ -105,9 +105,7 @@ public class DemoMain {
 			System.out.println(customerController.getCustomer(5));
 			System.out.println(couponController.getCoupon(1));
 			System.out.println("The amount is: " + purchaseController.getPurchaseAmount(5));
-			System.out.println("----------------------------------------");
 			System.out.println("The amount is: " + purchaseController.getCustomerPurchase(6));
-			System.out.println("----------------------------------------");
 
 			// read specific
 			System.out.println(couponController.getCustomerCouponByCustomerId(5));

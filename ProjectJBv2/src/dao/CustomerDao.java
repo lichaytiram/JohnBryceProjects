@@ -110,7 +110,7 @@ public class CustomerDao implements ICustomersDao {
 	 * 
 	 * @see dao.ICustomersDAO#getAllCustomer()
 	 */
-	@Override
+//	@Override
 	public List<Customer> getAllCustomer() throws ApplicationException {
 		List<Customer> list = new ArrayList<>();
 		Connection connection = null;

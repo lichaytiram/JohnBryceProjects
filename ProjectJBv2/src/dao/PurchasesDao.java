@@ -45,7 +45,7 @@ public class PurchasesDao implements IPurchasesDao {
 			System.out.println("insert purchases has succeed");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -70,7 +70,7 @@ public class PurchasesDao implements IPurchasesDao {
 			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -94,7 +94,7 @@ public class PurchasesDao implements IPurchasesDao {
 			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -118,7 +118,7 @@ public class PurchasesDao implements IPurchasesDao {
 			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -137,17 +137,32 @@ public class PurchasesDao implements IPurchasesDao {
 			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#isCustomerBought(long, long)
-	 */
+	public void deletePurchaseByCompanyId(long companyId) throws ApplicationException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement(
+					"DELETE FROM purchases WHERE COUPON_ID IN ( SELECT ID FROM coupons WHERE COMPANY_ID = ? ) ");
+			preparedStatement.setLong(1, companyId);
+			preparedStatement.executeUpdate();
+
+			System.out.println("delete from purchases has done");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+	}
+
 	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;
@@ -167,7 +182,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -197,7 +212,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -228,7 +243,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -253,7 +268,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -281,7 +296,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -299,7 +314,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.setLong(2, couponId);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
 	}

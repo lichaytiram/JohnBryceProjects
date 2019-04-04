@@ -20,14 +20,12 @@ import utils.JdbcUtils;
  */
 public class CompaniesDao implements ICompaniesDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#insert(javaBeans.Company)
-	 */
+	
 	public void createCompany(Company company) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -37,7 +35,6 @@ public class CompaniesDao implements ICompaniesDao {
 					company.getEmail());
 			preparedStatement.executeUpdate();
 
-			System.out.println("insert companies has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -46,21 +43,18 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#delete(int)
-	 */
 	public void deleteCompany(long companyId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("DELETE FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.executeUpdate();
-			System.out.println("delete from company has done");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -69,12 +63,8 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#update(javaBeans.Company)
-	 */
 	public void updateCompany(Company company) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -82,13 +72,12 @@ public class CompaniesDao implements ICompaniesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("UPDATE companies SET NAME= ? , PHONE_NUMBER= ? , EMAIL= ?  WHERE ID= ? ");
+					.prepareStatement("UPDATE companies SET NAME= ? , PHONE_NUMBER= ? , EMAIL= ? WHERE ID= ?");
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
 			preparedStatement.executeUpdate();
 
-			System.out.println("update companies has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -97,17 +86,13 @@ public class CompaniesDao implements ICompaniesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#getAllCompany()
-	 */
-	@Override
 	public List<Company> getAllCompany() throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		List<Company> list = new ArrayList<>();
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies");
@@ -125,18 +110,22 @@ public class CompaniesDao implements ICompaniesDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
+
 	}
 
 	public boolean isCompanyExists(String name) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE NAME = ? ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE NAME = ?");
 			preparedStatement.setString(1, name);
 
 			resultSet = preparedStatement.executeQuery();
+
 			if (resultSet.next()) {
 				return true;
 			}
@@ -152,18 +141,15 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#isCompanyExists(long)
-	 */
 	public boolean isCompanyExists(long companyId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ? ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -181,16 +167,13 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICompaniesDAO#getOneCompany(int)
-	 */
 	public Company getCompany(long companyId) throws ApplicationException {
+
 		Connection connection = null;
 		Company company = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -211,14 +194,16 @@ public class CompaniesDao implements ICompaniesDao {
 		return company;
 	}
 
-// extracts
+// extract
 
 	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String name,
 			String phoneNumber, String email) throws ApplicationException {
+
 		try {
 			preparedStatement.setString(1, name);
 			preparedStatement.setString(2, phoneNumber);
 			preparedStatement.setString(3, email);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
