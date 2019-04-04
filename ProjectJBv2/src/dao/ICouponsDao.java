@@ -50,7 +50,7 @@ public interface ICouponsDao {
 //	 * @return This function return all coupons by his company id
 //	 * @throws ApplicationException Can throw an ApplicationException
 //	 */
-//	public List<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException;
+//	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException;
 //
 //	/**
 //	 * @param maxPrice  Receive a max price

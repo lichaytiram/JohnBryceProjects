@@ -36,15 +36,15 @@ public class Job implements Runnable {
 		while (true) {
 
 			try {
-				synchronized (coupon.getAllexpiredCouponsId()) {
-					List<Integer> list = coupon.getAllexpiredCouponsId();
-					while (list.size() > 0) {
-						// need add all check..
-						coupon.deleteCoupon(list.get(0));
-						System.out.println("coupon id= [" + list.get(0) + "] has been deleted");
-						list.remove(0);
-					}
-				}
+//				synchronized (coupon.getAllexpiredCouponsId()) {
+//					List<Integer> list = coupon.getAllexpiredCouponsId();
+//					while (list.size() > 0) {
+//						// need add all check..
+//						coupon.deleteCoupon(list.get(0));
+//						System.out.println("coupon id= [" + list.get(0) + "] has been deleted");
+//						list.remove(0);
+//					}
+//				}
 				Thread.sleep(1000 * 60 * 60 * 24);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -65,7 +65,7 @@ public class Job implements Runnable {
 			wait();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() , e);
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 	}
 

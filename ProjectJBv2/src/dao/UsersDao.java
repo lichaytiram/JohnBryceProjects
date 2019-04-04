@@ -18,6 +18,8 @@ public class UsersDao {
 
 	public long createUser(User user) throws ApplicationException {
 
+		BigDecimal bigDecimal = null;
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -30,19 +32,22 @@ public class UsersDao {
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
-//			if (user.getCompanyId() != null)
-//				preparedStatement.setLong(4, user.getCompanyId());
 
-			preparedStatement.setBigDecimal(4,
-					(user.getCompanyId() == null) ? null : BigDecimal.valueOf(user.getCompanyId()));
+			if (user.getCompanyId() != null) {
+				bigDecimal = BigDecimal.valueOf(user.getCompanyId());
+			}
 
+			preparedStatement.setBigDecimal(4, bigDecimal);
 			preparedStatement.executeUpdate();
+
 			resultSet = preparedStatement.getGeneratedKeys();
+
 			if (resultSet.next()) {
-				System.out.println("insert users has succeed");
 				return resultSet.getLong(1);
 			}
+
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + "Failed to create user id");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -94,30 +99,10 @@ public class UsersDao {
 
 	}
 
-	public void deleteUser(String userName) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection.prepareStatement("DELETE FROM users WHERE USER_NAME = ? ");
-			preparedStatement.setString(1, userName);
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
-		}
-
-	}
-
 	public List<User> getAllUsers() throws ApplicationException {
 
 		List<User> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -127,12 +112,12 @@ public class UsersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM users");
 			resultSet = preparedStatement.executeQuery();
+
 			while (resultSet.next()) {
 				User user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
 						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")),
 						resultSet.getLong("COMPANY_ID"));
 
-				// company id can be null and do some problems
 				list.add(user);
 			}
 
@@ -183,7 +168,6 @@ public class UsersDao {
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				System.out.println("login has successed");
 				return ClientType.valueOf(resultSet.getString("TYPE"));
 			}
 
@@ -193,7 +177,8 @@ public class UsersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
-		throw new ApplicationException(ErrorType.PROBLEM.getMessage() + "Login isn't success");
+		throw new ApplicationException(ErrorType.LOGIN_FAILED.getMessage());
+
 	}
 
 	public boolean isUserExistByCompanyId(long companyId) throws ApplicationException {
@@ -220,6 +205,7 @@ public class UsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
+
 	}
 
 	public boolean isUserExist(String userName) throws ApplicationException {
@@ -246,6 +232,7 @@ public class UsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
+
 	}
 
 	public boolean isUserExist(long userId) throws ApplicationException {
@@ -272,6 +259,7 @@ public class UsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
+
 	}
 
 	// extract
@@ -287,6 +275,7 @@ public class UsersDao {
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
+
 	}
 
 }

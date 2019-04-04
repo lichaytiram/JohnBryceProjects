@@ -20,7 +20,6 @@ import utils.JdbcUtils;
  */
 public class CompaniesDao implements ICompaniesDao {
 
-	
 	public void createCompany(Company company) throws ApplicationException {
 
 		Connection connection = null;
@@ -72,7 +71,7 @@ public class CompaniesDao implements ICompaniesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("UPDATE companies SET NAME= ? , PHONE_NUMBER= ? , EMAIL= ? WHERE ID= ?");
+					.prepareStatement("UPDATE companies SET NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
@@ -88,9 +87,10 @@ public class CompaniesDao implements ICompaniesDao {
 
 	public List<Company> getAllCompany() throws ApplicationException {
 
+		List<Company> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		List<Company> list = new ArrayList<>();
 		ResultSet resultSet = null;
 
 		try {
@@ -169,8 +169,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 	public Company getCompany(long companyId) throws ApplicationException {
 
-		Connection connection = null;
 		Company company = null;
+
+		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 

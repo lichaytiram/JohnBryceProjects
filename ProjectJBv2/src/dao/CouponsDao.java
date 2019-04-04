@@ -27,15 +27,11 @@ import utils.JdbcUtils;
  */
 public class CouponsDao implements ICouponsDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#insert(javaBeans.Coupon)
-	 */
 	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -43,7 +39,7 @@ public class CouponsDao implements ICouponsDao {
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
 			preparedStatement(preparedStatement, coupon);
 			preparedStatement.executeUpdate();
-			System.out.println("insert coupons has succeed");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -52,14 +48,11 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#delete(int)
-	 */
 	public void deleteCoupon(long couponId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -67,7 +60,6 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.setLong(1, couponId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from coupons has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -77,8 +69,10 @@ public class CouponsDao implements ICouponsDao {
 	}
 
 	public void deleteCouponbyCompanyId(long companyId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -86,7 +80,6 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from coupons has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -95,26 +88,21 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#update(javaBeans.Coupon)
-	 */
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("UPDATE coupons SET COMPANY_ID=? , CATEGORY=? , TITLE=? , DESCRIPTION=? ,"
-							+ " START_DATE=? , END_DATE=? , AMOUNT=? , PRICE=? , IMAGE=?  WHERE ID=?");
+					.prepareStatement("UPDATE coupons SET COMPANY_ID = ? , CATEGORY = ? , TITLE = ? , DESCRIPTION = ? ,"
+							+ " START_DATE = ? , END_DATE = ? , AMOUNT = ? , PRICE = ? , IMAGE = ?  WHERE ID = ?");
 			preparedStatement(preparedStatement, coupon);
 			preparedStatement.setLong(10, coupon.getId());
 			preparedStatement.executeUpdate();
 
-			System.out.println("update coupons has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -127,15 +115,15 @@ public class CouponsDao implements ICouponsDao {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("UPDATE coupons SET AMOUNT=? WHERE ID = ?");
+			preparedStatement = connection.prepareStatement("UPDATE coupons SET AMOUNT = ? WHERE ID = ?");
 			preparedStatement.setInt(1, amount);
 			preparedStatement.setLong(2, couponId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("update coupons has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -144,18 +132,15 @@ public class CouponsDao implements ICouponsDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getAllCoupon()
-	 */
-//	@Override
 	public List<Coupon> getAllCoupon() throws ApplicationException {
-		List<Coupon> list = new ArrayList<>();
+
 		Category category = null;
+		List<Coupon> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -177,19 +162,18 @@ public class CouponsDao implements ICouponsDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getOneCoupon(int)
-	 */
 	public Coupon getCoupon(long couponId) throws ApplicationException {
+
 		Category category = null;
 		Coupon coupon = null;
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -215,20 +199,132 @@ public class CouponsDao implements ICouponsDao {
 		}
 
 		return coupon;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getCompanyCouponsByID(long)
-	 */
-	public List<Coupon> getCompanyCouponsById(long companyId) throws ApplicationException {
+////////////////////////////////////////////////////////////////
+	public boolean isCouponExists(long couponId) throws ApplicationException {
 
-		List<Coupon> list = new ArrayList<>();
-		Category category = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT ID FROM coupons WHERE ID = ?");
+			preparedStatement.setLong(1, couponId);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return false;
+
+	}
+
+	public boolean isCouponExists(Coupon coupon) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE TITLE = ? AND COMPANY_ID = ?");
+			preparedStatement.setString(1, coupon.getTitle());
+			preparedStatement.setLong(2, coupon.getCompanyId());
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return false;
+
+	}
+
+	public boolean isCouponValid(long couponId) throws ApplicationException {
+
+		Date date = new Date();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT END_DATE FROM coupons WHERE ID = ?");
+			preparedStatement.setLong(1, couponId);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				if (resultSet.getDate("END_DATE").after(date))
+					return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return false;
+
+	}
+
+	public int howMuchCouponRemain(long couponId) throws ApplicationException {
+
+		int amount = 0;
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT AMOUNT FROM coupons WHERE ID = ?");
+			preparedStatement.setLong(1, couponId);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next())
+				amount = resultSet.getInt("AMOUNT");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return amount;
+
+	}
+
+	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
+
+		Category category = null;
+		List<Coupon> list = new ArrayList<>();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -251,19 +347,18 @@ public class CouponsDao implements ICouponsDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getCompanyCouponsByMaxPrice(double, long)
-	 */
 	public List<Coupon> getCompanyCouponsByMaxPrice(double maxPrice, long companyId) throws ApplicationException {
-		List<Coupon> list = new ArrayList<>();
+
 		Category category = null;
+		List<Coupon> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -291,16 +386,14 @@ public class CouponsDao implements ICouponsDao {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getCompanyCouponsByCategory(javaBeans.Category, long)
-	 */
 	public List<Coupon> getCompanyCouponsByCategory(Category category, long companyId) throws ApplicationException {
+
 		List<Coupon> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
@@ -324,140 +417,7 @@ public class CouponsDao implements ICouponsDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return list;
-	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.ICouponsDAO#getAllexpiredCouponsById()
-	 */
-	public List<Integer> getAllexpiredCouponsId() throws ApplicationException {
-
-		List<Integer> list = new ArrayList<>();
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Date date = new Date();
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection.prepareStatement("SELECT ID , END_DATE FROM coupons");
-			resultSet = preparedStatement.executeQuery();
-
-			while (resultSet.next()) {
-				if (date.after(resultSet.getDate("END_DATE"))) {
-					list.add(resultSet.getInt("ID"));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-		return list;
-	}
-
-	public boolean isCouponExists(long couponId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT ID FROM coupons WHERE ID = ?");
-			preparedStatement.setLong(1, couponId);
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		return false;
-	}
-
-	public boolean isCouponExists(Coupon coupon) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection
-					.prepareStatement("SELECT * FROM coupons WHERE TITLE = ? AND COMPANY_ID = ? ");
-			preparedStatement.setString(1, coupon.getTitle());
-			preparedStatement.setLong(2, coupon.getCompanyId());
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		return false;
-	}
-
-	public boolean isCouponValid(long couponId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		Date date = new Date();
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT END_DATE FROM coupons WHERE ID = ? ");
-			preparedStatement.setLong(1, couponId);
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				if (resultSet.getDate("END_DATE").after(date))
-					return true;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		return false;
-	}
-
-	public int howMuchCouponRemain(long couponId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		int amount = 0;
-
-		try {
-			connection = JdbcUtils.getConnection();
-			preparedStatement = connection.prepareStatement("SELECT AMOUNT FROM coupons WHERE ID = ?");
-			preparedStatement.setLong(1, couponId);
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.next())
-				amount = resultSet.getInt("AMOUNT");
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		return amount;
 	}
 
 	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
@@ -492,9 +452,11 @@ public class CouponsDao implements ICouponsDao {
 		}
 
 		return list;
+
 	}
 
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
+
 		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
@@ -525,9 +487,11 @@ public class CouponsDao implements ICouponsDao {
 		}
 
 		return list;
+
 	}
 
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
+
 		List<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
@@ -560,6 +524,7 @@ public class CouponsDao implements ICouponsDao {
 		}
 
 		return list;
+
 	}
 
 	// extract

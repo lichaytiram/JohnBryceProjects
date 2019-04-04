@@ -22,11 +22,6 @@ import utils.JdbcUtils;
  */
 public class PurchasesDao implements IPurchasesDao {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#insert(long, long ,int )
-	 */
 	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		Date currentDate = new Date();
@@ -42,7 +37,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.setInt(3, amount);
 			preparedStatement.setDate(4, DateUtils.javaDateToSqlDate(currentDate));
 			preparedStatement.executeUpdate();
-			System.out.println("insert purchases has succeed");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -51,23 +46,19 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#delete(long, long)
-	 */
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ? ");
+					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
 			preparedStatement(preparedStatement, customerId, couponId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -76,22 +67,18 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#delete(long)
-	 */
 	public void deletePurchase(long id) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE ID = ? ");
+			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE ID = ?");
 			preparedStatement.setLong(1, id);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -100,22 +87,18 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#delete(long)
-	 */
 	public void deletePurchaseByCouponId(long couponId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE COUPON_ID = ? ");
+			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE COUPON_ID = ?");
 			preparedStatement.setLong(1, couponId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -125,16 +108,17 @@ public class PurchasesDao implements IPurchasesDao {
 	}
 
 	public void deletePurchaseByCustomerId(long customerId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? ");
+			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ?");
 			preparedStatement.setLong(1, customerId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -144,17 +128,18 @@ public class PurchasesDao implements IPurchasesDao {
 	}
 
 	public void deletePurchaseByCompanyId(long companyId) throws ApplicationException {
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"DELETE FROM purchases WHERE COUPON_ID IN ( SELECT ID FROM coupons WHERE COMPANY_ID = ? ) ");
+					"DELETE FROM purchases WHERE COUPON_ID IN ( SELECT ID FROM coupons WHERE COMPANY_ID = ? )");
 			preparedStatement.setLong(1, companyId);
 			preparedStatement.executeUpdate();
 
-			System.out.println("delete from purchases has done");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
@@ -173,9 +158,10 @@ public class PurchasesDao implements IPurchasesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ? ");
+					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
 			preparedStatement(preparedStatement, customerId, couponId);
 			resultSet = preparedStatement.executeQuery();
+
 			if (resultSet.next()) {
 				return true;
 			}
@@ -187,13 +173,9 @@ public class PurchasesDao implements IPurchasesDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#isCustomerBought(long)
-	 */
 	public boolean isCustomerBought(long id) throws ApplicationException {
 
 		Connection connection = null;
@@ -203,9 +185,10 @@ public class PurchasesDao implements IPurchasesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("SELECT * FROM purchases WHERE ID = ? ");
+			preparedStatement = connection.prepareStatement("SELECT * FROM purchases WHERE ID = ?");
 			preparedStatement.setLong(1, id);
 			resultSet = preparedStatement.executeQuery();
+
 			if (resultSet.next()) {
 				return true;
 			}
@@ -217,26 +200,24 @@ public class PurchasesDao implements IPurchasesDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return false;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see dao.IPurchasesDao#getAmount(long)
-	 */
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
+
+		int amount = 0;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		int amount = 0;
 
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("SELECT AMOUNT FROM purchases WHERE CUSTOMER_ID = ? ");
+			preparedStatement = connection.prepareStatement("SELECT AMOUNT FROM purchases WHERE CUSTOMER_ID = ?");
 			preparedStatement.setLong(1, customerId);
 			resultSet = preparedStatement.executeQuery();
+
 			while (resultSet.next()) {
 				amount += resultSet.getInt("AMOUNT");
 			}
@@ -248,10 +229,13 @@ public class PurchasesDao implements IPurchasesDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return amount;
+
 	}
 
 	public List<Purchase> getAllPurchase() throws ApplicationException {
+
 		List<Purchase> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -274,10 +258,13 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 
 		return list;
+
 	}
 
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
+
 		List<Purchase> list = new ArrayList<>();
+
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -302,6 +289,7 @@ public class PurchasesDao implements IPurchasesDao {
 		}
 
 		return list;
+
 	}
 
 	// extract
@@ -317,6 +305,7 @@ public class PurchasesDao implements IPurchasesDao {
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
+
 	}
 
 }
