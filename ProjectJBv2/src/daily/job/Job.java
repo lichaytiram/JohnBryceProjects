@@ -1,6 +1,5 @@
 package daily.job;
 
-import java.util.List;
 
 import dao.CouponsDao;
 import enums.ErrorType;
@@ -36,6 +35,7 @@ public class Job implements Runnable {
 		while (true) {
 
 			try {
+				System.out.println(coupon); // nothing
 //				synchronized (coupon.getAllexpiredCouponsId()) {
 //					List<Integer> list = coupon.getAllexpiredCouponsId();
 //					while (list.size() > 0) {

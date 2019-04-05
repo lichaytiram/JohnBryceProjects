@@ -25,7 +25,6 @@ public class DemoMain {
 	private static CouponController couponController = null;
 	private static UserController userController = null;
 
-	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 
 		RefreshDataBase refreshDataBase = new RefreshDataBase();
@@ -36,7 +35,9 @@ public class DemoMain {
 		}
 
 		Date endDate = new Date();
-		endDate.setYear(120);
+//		endDate.setYear(120);
+
+		endDate.setTime(1600000000000L);
 
 		try {
 			customerController = new CustomerController();

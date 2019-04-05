@@ -105,6 +105,7 @@ public class UsersDao implements IUsersDao {
 	@Override
 	public List<User> getAllUsers() throws ApplicationException {
 
+		Long companyId = null;
 		List<User> list = new ArrayList<>();
 
 		Connection connection = null;
@@ -118,9 +119,13 @@ public class UsersDao implements IUsersDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
+
+				companyId = null;
+				if (resultSet.getLong("COMPANY_ID") != 0)
+					companyId = resultSet.getLong("COMPANY_ID");
+
 				User user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
-						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")),
-						resultSet.getLong("COMPANY_ID"));
+						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
 
 				list.add(user);
 			}
