@@ -42,6 +42,7 @@ public class CouponController {
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		AmountUtils.isValidAmount(coupon.getAmount());
 		isValidPrice(coupon.getPrice());
+		isValidImage(coupon.getImage());
 
 		if (couponsDao.isCouponExists(coupon))
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
@@ -75,6 +76,7 @@ public class CouponController {
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		AmountUtils.isValidAmount(coupon.getAmount());
 		isValidPrice(coupon.getPrice());
+		isValidImage(coupon.getImage());
 
 		if (!couponsDao.isCouponExists(coupon.getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
@@ -194,4 +196,10 @@ public class CouponController {
 
 	}
 
+	private void isValidImage(String image) throws ApplicationException {
+
+		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
+			throw new ApplicationException(ErrorType.INVALID_IMAGE.getMessage());
+
+	}
 }
