@@ -27,6 +27,7 @@ public enum ErrorType {
 	INVALID_NAME("The name you've enter is invalid."),
 	INVALID_AMOUNT("The amount you've entered is invalid."),
 	INVALID_PRICE("The price you've entered is invalid."),
+	INVALID_IMAGE("The image you've entered is invalid."),
 	INVALID_PHONE_NUMBER("The phone number you've entered is invalid."),
 	INVALID_EMAIL("The email you've entered is invalid."),
 	INVALID_PASSWORD("The password you've entered is invalid. Please try again.\nThe password must contain one small & big letter and one digit!"),
