@@ -90,7 +90,7 @@ public class DemoMain {
 //			userController.updateUser("user33", "passwordX5", 5);
 			customer1.setFirstName("newFirst"); // update customer1
 			System.out.println(customer1.getUser());
-			customer1.setUser(new User(5, "2d", "ddS3", ClientType.Customer, null));
+			customer1.setUser(new User(5, "2d", "ddS3", ClientType.Customer, null)); // fix it for update
 			customerController.updateCustomer(customer1);
 			couponController.updateCoupon( // update coupon 2
 					new Coupon(2, 2, Category.Iceland, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
