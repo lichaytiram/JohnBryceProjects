@@ -30,7 +30,7 @@ public interface ICouponsDao {
 
 	public boolean isCouponExists(long couponId) throws ApplicationException;
 
-	public boolean isCouponExists(Coupon coupon) throws ApplicationException;
+	public boolean isCouponExists(long companyId, String title) throws ApplicationException;
 
 	public boolean isCouponValid(long couponId) throws ApplicationException;
 

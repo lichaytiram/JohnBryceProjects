@@ -87,12 +87,13 @@ public class DemoMain {
 
 			// update
 			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
-			userController.updateUser("user33", "passwordX5", 5);
+//			userController.updateUser("user33", "passwordX5", 5);
 			customer1.setFirstName("newFirst"); // update customer1
 			System.out.println(customer1.getUser());
+			customer1.setUser(new User(5, "2d", "ddS3", ClientType.Customer, null));
 			customerController.updateCustomer(customer1);
 			couponController.updateCoupon( // update coupon 2
-					new Coupon(2, 2, Category.Iceland, "title", "description", new Date(), endDate, 15, 30, "ss.co"));
+					new Coupon(2, 2, Category.Iceland, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
 
 			// read all
 			System.out.println(companyController.getAllCompany());
@@ -118,14 +119,14 @@ public class DemoMain {
 			System.out.println(couponController.getCustomerCouponsByMaxPrice(5, 50.6));
 
 			// delete
-			purchaseController.deletePurchase(5, 3);
-			purchaseController.deletePurchase(2);
-			userController.deleteUser(1);
-			customerController.deleteCustomer(6);
-
-			purchaseController.purchaseCoupon(5, 3, 1);
-
-			companyController.deleteCompany(2);
+//			purchaseController.deletePurchase(5, 3);
+//			purchaseController.deletePurchase(2);
+//			userController.deleteUser(1);
+//			customerController.deleteCustomer(6);
+//
+//			purchaseController.purchaseCoupon(5, 3, 1);
+//
+//			companyController.deleteCompany(2);
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();

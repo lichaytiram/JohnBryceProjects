@@ -44,7 +44,10 @@ public class CouponController {
 		isValidPrice(coupon.getPrice());
 		isValidImage(coupon.getImage());
 
-		if (couponsDao.isCouponExists(coupon))
+		if (couponsDao.isCouponExists(coupon.getId()))
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+
+		if (couponsDao.isCouponExists(coupon.getCompanyId(), coupon.getTitle()))
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
 
 		couponsDao.createCoupon(coupon);
@@ -80,6 +83,16 @@ public class CouponController {
 
 		if (!couponsDao.isCouponExists(coupon.getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+
+		Coupon couponFromDataBase = couponsDao.getCoupon(coupon.getId());
+
+		if (!couponFromDataBase.getTitle().equals(coupon.getTitle())) {
+
+			if (couponsDao.isCouponExists(coupon.getCompanyId(), coupon.getTitle()))
+
+				throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+
+		}
 
 		couponsDao.updateCoupon(coupon);
 

@@ -79,6 +79,17 @@ public class CompanyController {
 		if (!companiesDao.isCompanyExists(company.getId()))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
 
+		Company companyFromDataBase = companiesDao.getCompany(company.getId());
+
+		if (!companyFromDataBase.getName().equals(company.getName())) {
+
+			if (companiesDao.isCompanyExists(company.getName())) {
+
+				throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
+
+			}
+		}
+
 		companiesDao.updateCompany(company);
 
 	}

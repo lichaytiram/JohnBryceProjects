@@ -99,6 +99,16 @@ public class CustomerController {
 		if (!customerDao.isCustomerExists(customer.getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
+		User userFromDataBase = usersDao.getUser(customer.getId());
+
+		if (!userFromDataBase.getUserName().equals(customer.getUser().getUserName())) {
+
+			if (usersDao.isUserExist(customer.getUser().getUserName()))
+
+				throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage());
+
+		}
+
 		customerDao.updateCustomer(customer);
 
 	}

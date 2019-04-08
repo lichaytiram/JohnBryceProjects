@@ -238,7 +238,7 @@ public class CouponsDao implements ICouponsDao {
 	}
 
 	@Override
-	public boolean isCouponExists(Coupon coupon) throws ApplicationException {
+	public boolean isCouponExists(long companyId, String title) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -247,8 +247,8 @@ public class CouponsDao implements ICouponsDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE TITLE = ? AND COMPANY_ID = ?");
-			preparedStatement.setString(1, coupon.getTitle());
-			preparedStatement.setLong(2, coupon.getCompanyId());
+			preparedStatement.setString(1, title);
+			preparedStatement.setLong(2, companyId);
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {

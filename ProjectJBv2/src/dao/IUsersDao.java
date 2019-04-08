@@ -14,6 +14,8 @@ public interface IUsersDao {
 
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException;
 
+	public User getUser(long userId) throws ApplicationException;
+
 	public List<User> getAllUsers() throws ApplicationException;
 
 	public void updateUser(String userName, String password, long userId) throws ApplicationException;
