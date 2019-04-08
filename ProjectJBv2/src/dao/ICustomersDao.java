@@ -7,7 +7,7 @@ import exception.ApplicationException;
 
 public interface ICustomersDao {
 
-	public void createCustomer(Customer customer) throws ApplicationException;
+	public long createCustomer(Customer customer) throws ApplicationException;
 
 	public void deleteCustomer(long customerId) throws ApplicationException;
 

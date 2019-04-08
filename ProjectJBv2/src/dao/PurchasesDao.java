@@ -23,27 +23,37 @@ import utils.JdbcUtils;
 public class PurchasesDao implements IPurchasesDao {
 
 	@Override
-	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		Date currentDate = new Date();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO purchases (CUSTOMER_ID,COUPON_ID,AMOUNT,DATE) VALUES ( ? , ? , ? , ? )");
+					"INSERT INTO purchases (CUSTOMER_ID,COUPON_ID,AMOUNT,DATE) VALUES ( ? , ? , ? , ? )",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement(preparedStatement, customerId, couponId);
 			preparedStatement.setInt(3, amount);
 			preparedStatement.setDate(4, DateUtils.javaDateToSqlDate(currentDate));
 			preparedStatement.executeUpdate();
 
+			resultSet = preparedStatement.getGeneratedKeys();
+
+			if (resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 	}
 

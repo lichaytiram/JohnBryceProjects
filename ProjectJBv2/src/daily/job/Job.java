@@ -1,9 +1,6 @@
 package daily.job;
 
-
 import dao.CouponsDao;
-import enums.ErrorType;
-import exception.ApplicationException;
 
 /**
  * 
@@ -24,11 +21,6 @@ public class Job implements Runnable {
 		System.out.println("Daily job is running!");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Runnable#run()
-	 */
 	@Override
 	public void run() {
 
@@ -45,28 +37,15 @@ public class Job implements Runnable {
 //						list.remove(0);
 //					}
 //				}
+
 				Thread.sleep(1000 * 60 * 60 * 24);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
 
-	}
-
-	/**
-	 * This function to stop this daily job
-	 * 
-	 * @throws ApplicationException
-	 */
-	public void stop() throws ApplicationException {
-		try {
-			System.out.println("Daily job has stopped");
-			wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		}
 	}
 
 }

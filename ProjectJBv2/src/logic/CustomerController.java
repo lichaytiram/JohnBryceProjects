@@ -37,7 +37,7 @@ public class CustomerController {
 
 	}
 
-	public void createCustomer(Customer customer) throws ApplicationException {
+	public long createCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
@@ -62,7 +62,7 @@ public class CustomerController {
 		customer.setId(id);
 		customer.getUser().setId(id);
 
-		customerDao.createCustomer(customer);
+		return customerDao.createCustomer(customer);
 
 	}
 
@@ -109,6 +109,9 @@ public class CustomerController {
 
 		}
 
+		User userToUpdate = customer.getUser();
+
+		usersDao.updateUser(userToUpdate.getUserName(), userToUpdate.getPassword(), userToUpdate.getId());
 		customerDao.updateCustomer(customer);
 
 	}

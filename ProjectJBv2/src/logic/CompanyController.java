@@ -34,7 +34,7 @@ public class CompanyController {
 
 	}
 
-	public void createCompany(Company company) throws ApplicationException {
+	public long createCompany(Company company) throws ApplicationException {
 
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
@@ -49,7 +49,8 @@ public class CompanyController {
 		if (companiesDao.isCompanyExists(company.getName()))
 			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
 
-		companiesDao.createCompany(company);
+		return companiesDao.createCompany(company);
+
 	}
 
 	public void deleteCompany(long companyId) throws ApplicationException {

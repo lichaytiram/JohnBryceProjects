@@ -14,7 +14,7 @@ import exception.ApplicationException;
  */
 public interface ICouponsDao {
 
-	public void createCoupon(Coupon coupon) throws ApplicationException;
+	public long createCoupon(Coupon coupon) throws ApplicationException;
 
 	public void deleteCoupon(long couponId) throws ApplicationException;
 

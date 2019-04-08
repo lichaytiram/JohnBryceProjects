@@ -31,7 +31,7 @@ public class CouponController {
 
 	}
 
-	public void createCoupon(Coupon coupon) throws ApplicationException {
+	public long createCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
@@ -50,7 +50,7 @@ public class CouponController {
 		if (couponsDao.isCouponExists(coupon.getCompanyId(), coupon.getTitle()))
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
 
-		couponsDao.createCoupon(coupon);
+		return couponsDao.createCoupon(coupon);
 
 	}
 

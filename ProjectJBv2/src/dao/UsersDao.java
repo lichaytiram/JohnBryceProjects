@@ -47,7 +47,7 @@ public class UsersDao implements IUsersDao {
 				return resultSet.getLong(1);
 			}
 
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + "Failed to create user id");
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

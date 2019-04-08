@@ -30,7 +30,7 @@ public class PurchaseController {
 
 	}
 
-	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		IdUtils.isValidId(customerId);
 		IdUtils.isValidId(couponId);
@@ -53,7 +53,7 @@ public class PurchaseController {
 		int amountLeft = amountOfCouponRemain - amount;
 
 		couponsDao.updateCoupon(couponId, amountLeft);
-		purchasesDao.purchaseCoupon(customerId, couponId, amount);
+		return purchasesDao.purchaseCoupon(customerId, couponId, amount);
 
 	}
 

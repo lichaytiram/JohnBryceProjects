@@ -24,7 +24,7 @@ import utils.JdbcUtils;
 public class CustomersDao implements ICustomersDao {
 
 	@Override
-	public void createCustomer(Customer customer) throws ApplicationException {
+	public long createCustomer(Customer customer) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -33,12 +33,11 @@ public class CustomersDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO customers (ID,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? , ? , ? )");
-			preparedStatement.setLong(1, customer.getId());
-			preparedStatement.setString(2, customer.getFirstName());
-			preparedStatement.setString(3, customer.getLastName());
-			preparedStatement.setString(4, customer.getPhoneNumber());
-			preparedStatement.setString(5, customer.getEmail());
+					"INSERT INTO customers (FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ID) VALUES ( ? , ? , ? , ? , ? )");
+
+			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
+					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -47,6 +46,8 @@ public class CustomersDao implements ICustomersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
+		return customer.getId();
 	}
 
 	@Override
@@ -79,11 +80,10 @@ public class CustomersDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement(
 					"UPDATE customers SET FIRST_NAME= ? , LAST_NAME= ? , PHONE_NUMBER= ? , EMAIL= ? WHERE ID= ?");
-			preparedStatement.setString(1, customer.getFirstName());
-			preparedStatement.setString(2, customer.getLastName());
-			preparedStatement.setString(3, customer.getPhoneNumber());
-			preparedStatement.setString(4, customer.getEmail());
-			preparedStatement.setLong(5, customer.getId());
+
+			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
+					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -183,6 +183,25 @@ public class CustomersDao implements ICustomersDao {
 		}
 		return customer;
 
+	}
+
+	// extract
+
+	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String firstName,
+			String lastName, String phoneNumber, String email, long id) throws ApplicationException {
+
+		try {
+			preparedStatement.setString(1, firstName);
+			preparedStatement.setString(2, lastName);
+			preparedStatement.setString(3, phoneNumber);
+			preparedStatement.setString(4, email);
+			preparedStatement.setLong(5, id);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		}
+		return preparedStatement;
 	}
 
 }

@@ -7,7 +7,7 @@ import exception.ApplicationException;
 
 public interface IPurchasesDao {
 
-	public void purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException;
+	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException;
 
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException;
 

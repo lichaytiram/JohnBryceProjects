@@ -28,24 +28,34 @@ import utils.JdbcUtils;
 public class CouponsDao implements ICouponsDao {
 
 	@Override
-	public void createCoupon(Coupon coupon) throws ApplicationException {
+	public long createCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"INSERT INTO coupons (COMPANY_ID,CATEGORY,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ");
+					"INSERT INTO coupons (COMPANY_ID,CATEGORY,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			preparedStatement(preparedStatement, coupon);
 			preparedStatement.executeUpdate();
+
+			resultSet = preparedStatement.getGeneratedKeys();
+
+			if (resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 	}
 

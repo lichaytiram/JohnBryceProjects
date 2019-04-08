@@ -21,26 +21,37 @@ import utils.JdbcUtils;
 public class CompaniesDao implements ICompaniesDao {
 
 	@Override
-	public void createCompany(Company company) throws ApplicationException {
+	public long createCompany(Company company) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection
-					.prepareStatement("INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )");
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )",
+					PreparedStatement.RETURN_GENERATED_KEYS);
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.executeUpdate();
+
+			resultSet = preparedStatement.getGeneratedKeys();
+
+			if (resultSet.next()) {
+				return resultSet.getLong(1);
+			}
+
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
+
 	}
 
 	@Override

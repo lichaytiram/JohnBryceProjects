@@ -7,7 +7,7 @@ import exception.ApplicationException;
 
 public interface ICompaniesDao {
 
-	public void createCompany(Company company) throws ApplicationException;
+	public long createCompany(Company company) throws ApplicationException;
 
 	public void deleteCompany(long companyId) throws ApplicationException;
 
