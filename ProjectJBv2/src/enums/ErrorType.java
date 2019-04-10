@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * This class create an error by names
+ * This enum create an error by names
  * 
  * @author Lichay
  *
@@ -42,12 +42,18 @@ public enum ErrorType {
 
 	// constructor
 	
+	/**
+	 * @param problem Receive a problem
+	 */
 	private ErrorType(String problem) {
 		this.internalMessage = problem;
 	}
 
 	// getter
 	
+	/**
+	 * @return This function return a message
+	 */
 	public String getMessage() {
 		return internalMessage;
 	}

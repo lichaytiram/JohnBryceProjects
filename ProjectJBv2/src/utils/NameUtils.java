@@ -3,11 +3,17 @@ package utils;
 import enums.ErrorType;
 import exception.ApplicationException;
 
+/**
+ * This class create an utilities filter
+ * 
+ * @author Lichay
+ *
+ */
 public class NameUtils {
 
 	/**
 	 * @param name This function set a new name if valid
-	 * @throws ApplicationException Throw an exception by name
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public static void isValidName(String name) throws ApplicationException {
 

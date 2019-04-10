@@ -6,9 +6,10 @@ import enums.ErrorType;
 import exception.ApplicationException;
 
 /**
- * This class implements converter from util date to sql date
+ * This class create an utilities filter
  * 
  * @author Lichay
+ *
  */
 public class DateUtils {
 
@@ -23,9 +24,7 @@ public class DateUtils {
 	/**
 	 * @param startDate Receive a start date
 	 * @param endDate   Receive a end date
-	 * @return This function return true if date is valid or throw exception if
-	 *         isn't
-	 * @throws ApplicationException Can throw an exception by name
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public static void isValidDate(Date startDate, Date endDate) throws ApplicationException {
 
@@ -34,6 +33,7 @@ public class DateUtils {
 
 		Date currentDate = new Date();
 
+		// check if date is valid
 		if (startDate.after(endDate) || startDate.equals(endDate) || endDate.before(currentDate))
 			throw new ApplicationException(ErrorType.INVALID_DATES.getMessage());
 

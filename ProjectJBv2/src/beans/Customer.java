@@ -51,59 +51,95 @@ public class Customer {
 	}
 
 	/**
-	 * 
 	 * constructor for create a show for this class
 	 */
 	public Customer() {
 		super();
+		
 	}
 
 	// getter & setter
 
+	/**
+	 * @return This function return an id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id Receive an id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return This function return a first name
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
+	/**
+	 * @param firstName Receive a first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
+	/**
+	 * @return This function get a last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
 
+	/**
+	 * @param lastName Receive a last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
+	/**
+	 * @return This function return a phone number
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/**
+	 * @param phoneNumber Receive a phone number
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
+	/**
+	 * @return This function return an email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @param email Receive an email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * @return This function return an user
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * @param user Receive an user
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}

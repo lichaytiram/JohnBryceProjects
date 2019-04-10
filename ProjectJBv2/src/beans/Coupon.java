@@ -37,7 +37,7 @@ public class Coupon {
 	 * @param description Receive a description
 	 * @param startDate   Receive a start date
 	 * @param endDate     Receive an end date
-	 * @param amount      Receive an amount for this coupon
+	 * @param amount      Receive an amount
 	 * @param price       Receive a price
 	 * @param image       Receive an image
 	 */
@@ -56,7 +56,7 @@ public class Coupon {
 	 * @param description Receive a description
 	 * @param startDate   Receive a start date
 	 * @param endDate     Receive an end date
-	 * @param amount      Receive an amount for this coupon
+	 * @param amount      Receive an amount
 	 * @param price       Receive a price
 	 * @param image       Receive an image
 	 */
@@ -76,90 +76,150 @@ public class Coupon {
 
 	/**
 	 * constructor for create a show for this class
-	 * 
 	 */
 	public Coupon() {
+		super();
 
 	}
 
 	// getter & setter
 
+	/**
+	 * @return This function return an id
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id Receive an id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return This function return a company id
+	 */
 	public long getCompanyId() {
 		return companyId;
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 */
 	public void setCompanyId(long companyId) {
 		this.companyId = companyId;
 	}
 
+	/**
+	 * @return This function return a category
+	 */
 	public Category getCategory() {
 		return category;
 	}
 
+	/**
+	 * @param category Receive a category
+	 */
 	public void setCategory(Category category) {
 		this.category = category;
 	}
 
+	/**
+	 * @return This function return a title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title Receive a title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * @return This function return a description
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description Receive a description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * @return This function return a start date
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
 
+	/**
+	 * @param startDate Receive a start date
+	 */
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
+	/**
+	 * @return This function return an end date
+	 */
 	public Date getEndDate() {
 		return endDate;
 	}
 
+	/**
+	 * @param endDate Receive an end date
+	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
+	/**
+	 * @return This function return an amount
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * @param amount Receive an amount
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * @return This function receive a price
+	 */
 	public double getPrice() {
 		return price;
 	}
 
+	/**
+	 * @param price Receive a price
+	 */
 	public void setPrice(double price) {
 		this.price = price;
 	}
 
+	/**
+	 * @return This function return an image
+	 */
 	public String getImage() {
 		return image;
 	}
 
+	/**
+	 * @param image Receive an image
+	 */
 	public void setImage(String image) {
 		this.image = image;
 	}

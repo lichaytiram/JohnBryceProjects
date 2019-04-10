@@ -6,6 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * This class create an utilities
+ * 
+ * @author Lichay
+ *
+ */
 public class JdbcUtils {
 
 	static {
@@ -16,6 +22,10 @@ public class JdbcUtils {
 		}
 	}
 
+	/**
+	 * @return This class return a connection
+	 * @throws SQLException Can throw a sql exception
+	 */
 	public static Connection getConnection() throws SQLException {
 		Connection connection = DriverManager.getConnection(
 				"jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", "root",
@@ -23,6 +33,10 @@ public class JdbcUtils {
 		return connection;
 	}
 
+	/**
+	 * @param connection        Receive a connection
+	 * @param preparedStatement Receive a preparedStatement
+	 */
 	public static void closeResources(Connection connection, PreparedStatement preparedStatement) {
 		try {
 			if (connection != null) {
@@ -41,6 +55,11 @@ public class JdbcUtils {
 		}
 	}
 
+	/**
+	 * @param connection        Receive a connection
+	 * @param preparedStatement Receive a preparedStatement
+	 * @param resultSet         Receive a resultSet
+	 */
 	public static void closeResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
 		closeResources(connection, preparedStatement);
 		try {
@@ -53,6 +72,11 @@ public class JdbcUtils {
 
 	}
 
+	/**
+	 * @param connection         Receive a connection
+	 * @param preparedStatement1 Receive a preparedStatement1
+	 * @param preparedStatement2 Receive a preparedStatement2
+	 */
 	public static void closeResources(Connection connection, PreparedStatement preparedStatement1,
 			PreparedStatement preparedStatement2) {
 		closeResources(connection, preparedStatement1);
@@ -66,6 +90,14 @@ public class JdbcUtils {
 
 	}
 
+	/**
+	 * @param connection         Receive a connection
+	 * @param preparedStatement1 Receive a preparedStatement1
+	 * @param preparedStatement2 Receive a preparedStatement2
+	 * @param preparedStatement3 Receive a preparedStatement3
+	 * @param preparedStatement4 Receive a preparedStatement4
+	 * @param preparedStatement5 Receive a preparedStatement5
+	 */
 	public static void closeResources(Connection connection, PreparedStatement preparedStatement1,
 			PreparedStatement preparedStatement2, PreparedStatement preparedStatement3,
 			PreparedStatement preparedStatement4, PreparedStatement preparedStatement5) {

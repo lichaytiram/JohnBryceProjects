@@ -3,12 +3,17 @@ package utils;
 import enums.ErrorType;
 import exception.ApplicationException;
 
+/**
+ * This class create an utilities filter
+ * 
+ * @author Lichay
+ *
+ */
 public class PasswordUtils {
 
 	/**
-	 * @param password This function receive a password and check if the password
-	 *                 valid
-	 * @throws ApplicationException Throw an exception by name
+	 * @param password Receive a password
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public static void isValidPassword(String password) throws ApplicationException {
 
@@ -18,9 +23,9 @@ public class PasswordUtils {
 	}
 
 	/**
-	 * @param password Check if password contain big&small letter and one digit at
-	 *                 least
+	 * @param password Receive a password
 	 * @return Check if the password valid and return true or false
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	private static boolean checkPassword(String password) throws ApplicationException {
 
@@ -29,6 +34,7 @@ public class PasswordUtils {
 
 		char checkLetter = 'a';
 
+		// check if checkLetter contain at least lower case letter
 		while (checkLetter <= 'z') {
 			if (password.contains(checkLetter + ""))
 				break;
@@ -38,6 +44,8 @@ public class PasswordUtils {
 		}
 
 		checkLetter = 'A';
+
+		// check if checkLetter contain at least upper case letter
 		while (checkLetter <= 'Z') {
 			if (password.contains(checkLetter + ""))
 				break;
@@ -47,6 +55,8 @@ public class PasswordUtils {
 		}
 
 		int checkDigit = 0;
+
+		// check if checkLetter contain at least one digit
 		while (checkDigit < 10) {
 			if (password.contains(checkDigit + ""))
 				break;

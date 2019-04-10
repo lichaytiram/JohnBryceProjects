@@ -31,28 +31,29 @@ public class Test {
 	private static CouponController couponController = null;
 	private static UserController userController = null;
 
+	private static RefreshDataBase refreshDataBase = null;
+
 	/**
-	 * This function implement all method for this class
+	 * This function implement all method for this project
 	 */
 	public static void testAll() {
-
-		RefreshDataBase refreshDataBase = new RefreshDataBase();
-		try {
-			refreshDataBase.refreshDB();
-		} catch (ApplicationException e) {
-			e.printStackTrace();
-		}
 
 		Date endDate = new Date();
 
 		endDate.setTime(1600000000000L);
 
 		try {
+
+			// instantiate controllers
 			customerController = new CustomerController();
 			purchaseController = new PurchaseController();
 			companyController = new CompanyController();
 			couponController = new CouponController();
 			userController = new UserController();
+
+			// refresh data base
+			refreshDataBase = new RefreshDataBase();
+			refreshDataBase.refreshDB();
 
 			// bean
 			Customer customer1 = new Customer("moshe", "david", "0504755320", "gw@gmail.com");
