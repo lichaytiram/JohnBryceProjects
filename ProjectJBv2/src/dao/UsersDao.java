@@ -14,6 +14,12 @@ import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
+/**
+ * This class create a connection with data base
+ * 
+ * @author Lichay
+ *
+ */
 public class UsersDao implements IUsersDao {
 
 	/**

@@ -13,7 +13,7 @@ import exception.ApplicationException;
 import utils.JdbcUtils;
 
 /**
- * This class create a connection with data base ( with name companies )
+ * This class create a connection with data base
  * 
  * @author Lichay
  *

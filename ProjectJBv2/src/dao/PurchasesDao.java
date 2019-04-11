@@ -15,7 +15,7 @@ import utils.DateUtils;
 import utils.JdbcUtils;
 
 /**
- * This class create a connection with data base ( with name customersVsCoupons)
+ * This class create a connection with data base
  * 
  * @author Lichay
  *

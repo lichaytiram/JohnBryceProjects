@@ -7,16 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import beans.Category;
-//import beans.Company;
-//import beans.Coupon;
 import beans.Customer;
 import enums.ErrorType;
 import exception.ApplicationException;
 import utils.JdbcUtils;
 
 /**
- * This class create a connection with data base ( with name customers )
+ * This class create a connection with data base
  * 
  * @author Lichay
  *
