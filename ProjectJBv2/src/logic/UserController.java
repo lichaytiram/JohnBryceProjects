@@ -7,10 +7,7 @@ import dao.UsersDao;
 import enums.ClientType;
 import enums.ErrorType;
 import exception.ApplicationException;
-import utils.IdUtils;
-import utils.NameUtils;
-import utils.PasswordUtils;
-import utils.TypeUtils;
+import utils.ValidationUtils;
 
 public class UserController {
 
@@ -27,9 +24,9 @@ public class UserController {
 		if (user == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		NameUtils.isValidName(user.getUserName());
-		PasswordUtils.isValidPassword(user.getPassword());
-		TypeUtils.isValidType(user.getType());
+		ValidationUtils.isValidName(user.getUserName());
+		ValidationUtils.isValidPassword(user.getPassword());
+		ValidationUtils.isValidType(user.getType());
 
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
@@ -40,7 +37,7 @@ public class UserController {
 
 	public void deleteUser(long userId) throws ApplicationException {
 
-		IdUtils.isValidId(userId);
+		ValidationUtils.isValidId(userId);
 
 		if (!usersDao.isUserExist(userId))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
@@ -51,7 +48,7 @@ public class UserController {
 
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
 
-		IdUtils.isValidId(companyId);
+		ValidationUtils.isValidId(companyId);
 
 		if (!usersDao.isUserExistByCompanyId(companyId))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
@@ -62,9 +59,9 @@ public class UserController {
 
 	public void updateUser(String userName, String password, long userId) throws ApplicationException {
 
-		IdUtils.isValidId(userId);
-		NameUtils.isValidName(userName);
-		PasswordUtils.isValidPassword(password);
+		ValidationUtils.isValidId(userId);
+		ValidationUtils.isValidName(userName);
+		ValidationUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userId))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
@@ -84,8 +81,8 @@ public class UserController {
 
 	public ClientType login(String userName, String password) throws ApplicationException {
 
-		NameUtils.isValidName(userName);
-		PasswordUtils.isValidPassword(password);
+		ValidationUtils.isValidName(userName);
+		ValidationUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userName))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());

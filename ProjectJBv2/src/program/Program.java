@@ -15,4 +15,5 @@ public class Program {
 
 		Test.testAll();
 	}
+
 }

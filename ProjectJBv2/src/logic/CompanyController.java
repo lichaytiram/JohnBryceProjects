@@ -8,10 +8,7 @@ import dao.CouponsDao;
 import dao.PurchasesDao;
 import enums.ErrorType;
 import exception.ApplicationException;
-import utils.EmailUtils;
-import utils.IdUtils;
-import utils.NameUtils;
-import utils.PhoneNumberUtils;
+import utils.ValidationUtils;
 
 /**
  * This class manage the all function for company facade
@@ -39,9 +36,9 @@ public class CompanyController {
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		NameUtils.isValidName(company.getName());
-		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
-		EmailUtils.isValidEmail(company.getEmail());
+		ValidationUtils.isValidName(company.getName());
+		ValidationUtils.isValidPhoneNumber(company.getPhoneNumber());
+		ValidationUtils.isValidEmail(company.getEmail());
 
 		if (companiesDao.isCompanyExists(company.getId()))
 			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
@@ -55,7 +52,7 @@ public class CompanyController {
 
 	public void deleteCompany(long companyId) throws ApplicationException {
 
-		IdUtils.isValidId(companyId);
+		ValidationUtils.isValidId(companyId);
 
 		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
@@ -72,10 +69,10 @@ public class CompanyController {
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		IdUtils.isValidId(company.getId());
-		NameUtils.isValidName(company.getName());
-		PhoneNumberUtils.isValidPhoneNumber(company.getPhoneNumber());
-		EmailUtils.isValidEmail(company.getEmail());
+		ValidationUtils.isValidId(company.getId());
+		ValidationUtils.isValidName(company.getName());
+		ValidationUtils.isValidPhoneNumber(company.getPhoneNumber());
+		ValidationUtils.isValidEmail(company.getEmail());
 
 		if (!companiesDao.isCompanyExists(company.getId()))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
@@ -103,7 +100,7 @@ public class CompanyController {
 
 	public Company getCompany(long companyId) throws ApplicationException {
 
-		IdUtils.isValidId(companyId);
+		ValidationUtils.isValidId(companyId);
 
 		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());

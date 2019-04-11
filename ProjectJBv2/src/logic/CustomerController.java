@@ -9,12 +9,7 @@ import dao.PurchasesDao;
 import dao.UsersDao;
 import enums.ErrorType;
 import exception.ApplicationException;
-import utils.EmailUtils;
-import utils.IdUtils;
-import utils.NameUtils;
-import utils.PasswordUtils;
-import utils.PhoneNumberUtils;
-import utils.TypeUtils;
+import utils.ValidationUtils;
 
 /**
  * This class manage the all function for customer facade
@@ -45,12 +40,12 @@ public class CustomerController {
 		if (customer.getUser() == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		NameUtils.isValidName(customer.getFirstName());
-		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
-		EmailUtils.isValidEmail(customer.getEmail());
-		NameUtils.isValidName(customer.getUser().getUserName());
-		PasswordUtils.isValidPassword(customer.getUser().getPassword());
-		TypeUtils.isValidType(customer.getUser().getType());
+		ValidationUtils.isValidName(customer.getFirstName());
+		ValidationUtils.isValidPhoneNumber(customer.getPhoneNumber());
+		ValidationUtils.isValidEmail(customer.getEmail());
+		ValidationUtils.isValidName(customer.getUser().getUserName());
+		ValidationUtils.isValidPassword(customer.getUser().getPassword());
+		ValidationUtils.isValidType(customer.getUser().getType());
 
 		if (usersDao.isUserExist(customer.getUser().getUserName()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage());
@@ -68,7 +63,7 @@ public class CustomerController {
 
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
+		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -87,14 +82,14 @@ public class CustomerController {
 		if (customer.getUser() == null)
 			throw new ApplicationException(ErrorType.EMPTY.getMessage());
 
-		IdUtils.isValidId(customer.getId());
-		NameUtils.isValidName(customer.getFirstName());
-		PhoneNumberUtils.isValidPhoneNumber(customer.getPhoneNumber());
-		EmailUtils.isValidEmail(customer.getEmail());
-		IdUtils.isValidId(customer.getUser().getId());
-		NameUtils.isValidName(customer.getUser().getUserName());
-		PasswordUtils.isValidPassword(customer.getUser().getPassword());
-		TypeUtils.isValidType(customer.getUser().getType());
+		ValidationUtils.isValidId(customer.getId());
+		ValidationUtils.isValidName(customer.getFirstName());
+		ValidationUtils.isValidPhoneNumber(customer.getPhoneNumber());
+		ValidationUtils.isValidEmail(customer.getEmail());
+		ValidationUtils.isValidId(customer.getUser().getId());
+		ValidationUtils.isValidName(customer.getUser().getUserName());
+		ValidationUtils.isValidPassword(customer.getUser().getPassword());
+		ValidationUtils.isValidType(customer.getUser().getType());
 
 		if (!customerDao.isCustomerExists(customer.getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -124,7 +119,7 @@ public class CustomerController {
 
 	public Customer getCustomer(long customerId) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
+		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());

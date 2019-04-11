@@ -11,6 +11,7 @@ import enums.ErrorType;
 public class ApplicationException extends Exception {
 
 	private static final long serialVersionUID = -1835434097622353495L;
+
 	private ErrorType errorType;
 
 	/**
@@ -32,6 +33,10 @@ public class ApplicationException extends Exception {
 
 	}
 
+	/**
+	 * @param errorType Receive an error type
+	 * @param problem   Receive a problem
+	 */
 	public ApplicationException(ErrorType errorType, String problem) {
 
 		super(problem);

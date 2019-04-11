@@ -16,6 +16,9 @@ import utils.JdbcUtils;
 
 public class UsersDao implements IUsersDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long createUser(User user) throws ApplicationException {
 
@@ -34,11 +37,17 @@ public class UsersDao implements IUsersDao {
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
 
+			// check if user is a company or else.
+			// if user isn't get company id he stay null
 			if (user.getCompanyId() != null) {
+
+				// save the digit of company
 				bigDecimal = BigDecimal.valueOf(user.getCompanyId());
 			}
 
+			// BigDecimal is a class that can contain digit or null
 			preparedStatement.setBigDecimal(4, bigDecimal);
+
 			preparedStatement.executeUpdate();
 
 			resultSet = preparedStatement.getGeneratedKeys();
@@ -58,6 +67,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteUser(long userId) throws ApplicationException {
 
@@ -69,6 +81,7 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM users WHERE ID = ?");
 			preparedStatement.setLong(1, userId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -80,6 +93,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
 
@@ -91,6 +107,7 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM users WHERE COMPANY_ID = ?");
 			preparedStatement.setLong(1, companyId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -102,6 +119,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User getUser(long userId) throws ApplicationException {
 
@@ -117,13 +137,19 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE ID = ?");
 			preparedStatement.setLong(1, userId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
 
 				companyId = null;
-				if (resultSet.getLong("COMPANY_ID") != 0)
+
+				// check if user is a company or else.
+				// if user isn't get company id he stay null
+				if (resultSet.getLong("COMPANY_ID") != 0) {
+
 					companyId = resultSet.getLong("COMPANY_ID");
+				}
 
 				user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
 						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
@@ -139,6 +165,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> getAllUsers() throws ApplicationException {
 
@@ -153,13 +182,19 @@ public class UsersDao implements IUsersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM users");
+
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
 
 				companyId = null;
-				if (resultSet.getLong("COMPANY_ID") != 0)
+
+				// check if user is a company or else.
+				// if user isn't get company id he stay null
+				if (resultSet.getLong("COMPANY_ID") != 0) {
+
 					companyId = resultSet.getLong("COMPANY_ID");
+				}
 
 				User user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
 						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
@@ -177,6 +212,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateUser(String userName, String password, long userId) throws ApplicationException {
 
@@ -189,6 +227,7 @@ public class UsersDao implements IUsersDao {
 			preparedStatement = connection.prepareStatement("UPDATE users SET USER_NAME= ? , PASSWORD=? WHERE ID= ?");
 			preparedStatement(preparedStatement, userName, password);
 			preparedStatement.setLong(3, userId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -200,6 +239,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public ClientType login(String userName, String password) throws ApplicationException {
 
@@ -213,10 +255,12 @@ public class UsersDao implements IUsersDao {
 			preparedStatement = connection
 					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
 			preparedStatement(preparedStatement, userName, password);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
 				return ClientType.valueOf(resultSet.getString("TYPE"));
+
 			}
 
 		} catch (SQLException e) {
@@ -229,6 +273,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUserExistByCompanyId(long companyId) throws ApplicationException {
 
@@ -241,6 +288,7 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT COMPANY_ID FROM users WHERE COMPANY_ID = ?");
 			preparedStatement.setLong(1, companyId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -257,6 +305,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUserExist(String userName) throws ApplicationException {
 
@@ -269,6 +320,7 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT USER_NAME FROM users WHERE USER_NAME = ?");
 			preparedStatement.setString(1, userName);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -285,6 +337,9 @@ public class UsersDao implements IUsersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUserExist(long userId) throws ApplicationException {
 
@@ -297,6 +352,7 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT ID FROM users WHERE ID = ?");
 			preparedStatement.setLong(1, userId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {

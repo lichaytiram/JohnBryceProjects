@@ -20,6 +20,9 @@ import utils.JdbcUtils;
  */
 public class CompaniesDao implements ICompaniesDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long createCompany(Company company) throws ApplicationException {
 
@@ -35,6 +38,7 @@ public class CompaniesDao implements ICompaniesDao {
 					PreparedStatement.RETURN_GENERATED_KEYS);
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
+
 			preparedStatement.executeUpdate();
 
 			resultSet = preparedStatement.getGeneratedKeys();
@@ -54,6 +58,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteCompany(long companyId) throws ApplicationException {
 
@@ -65,6 +72,7 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -73,8 +81,12 @@ public class CompaniesDao implements ICompaniesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateCompany(Company company) throws ApplicationException {
 
@@ -89,6 +101,7 @@ public class CompaniesDao implements ICompaniesDao {
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -97,8 +110,12 @@ public class CompaniesDao implements ICompaniesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Company> getAllCompany() throws ApplicationException {
 
@@ -111,6 +128,7 @@ public class CompaniesDao implements ICompaniesDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies");
+
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
@@ -128,6 +146,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isCompanyExists(String name) throws ApplicationException {
 
@@ -157,6 +178,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isCompanyExists(long companyId) throws ApplicationException {
 
@@ -168,7 +192,9 @@ public class CompaniesDao implements ICompaniesDao {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
+
 			resultSet = preparedStatement.executeQuery();
+
 			if (resultSet.next()) {
 				return true;
 			}
@@ -184,6 +210,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Company getCompany(long companyId) throws ApplicationException {
 
@@ -198,7 +227,9 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM companies WHERE ID = ?");
 			preparedStatement.setLong(1, companyId);
+
 			resultSet = preparedStatement.executeQuery();
+
 			while (resultSet.next()) {
 				company = new Company(resultSet.getInt("ID"), resultSet.getString("NAME"),
 						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL"));
@@ -211,6 +242,7 @@ public class CompaniesDao implements ICompaniesDao {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
 		return company;
+
 	}
 
 	// extract

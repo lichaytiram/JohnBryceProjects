@@ -23,6 +23,9 @@ import utils.JdbcUtils;
  */
 public class CustomersDao implements ICustomersDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long createCustomer(Customer customer) throws ApplicationException {
 
@@ -48,8 +51,12 @@ public class CustomersDao implements ICustomersDao {
 		}
 
 		return customer.getId();
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
@@ -60,6 +67,7 @@ public class CustomersDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE ID = ?");
 			preparedStatement.setLong(1, customerId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -68,8 +76,12 @@ public class CustomersDao implements ICustomersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
@@ -92,8 +104,12 @@ public class CustomersDao implements ICustomersDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Customer> getAllCustomer() throws ApplicationException {
 
@@ -107,8 +123,11 @@ public class CustomersDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers");
+
 			resultSet = preparedStatement.executeQuery();
+
 			while (resultSet.next()) {
+
 				list.add(new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
 						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
 						resultSet.getString("EMAIL")));
@@ -125,6 +144,9 @@ public class CustomersDao implements ICustomersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isCustomerExists(long customerId) throws ApplicationException {
 
@@ -136,6 +158,7 @@ public class CustomersDao implements ICustomersDao {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE ID = ?");
 			preparedStatement.setLong(1, customerId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -153,6 +176,9 @@ public class CustomersDao implements ICustomersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Customer getCustomer(long customerId) throws ApplicationException {
 
@@ -167,12 +193,14 @@ public class CustomersDao implements ICustomersDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE ID = ? ");
 			preparedStatement.setLong(1, customerId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				customer = (new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
+
+				customer = new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
 						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
-						resultSet.getString("EMAIL")));
+						resultSet.getString("EMAIL"));
 			}
 
 		} catch (SQLException e) {
@@ -202,6 +230,7 @@ public class CustomersDao implements ICustomersDao {
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
 		}
 		return preparedStatement;
+
 	}
 
 }

@@ -8,8 +8,7 @@ import dao.CustomersDao;
 import dao.PurchasesDao;
 import enums.ErrorType;
 import exception.ApplicationException;
-import utils.AmountUtils;
-import utils.IdUtils;
+import utils.ValidationUtils;
 
 /**
  * This class manage the all function for purchase facade
@@ -32,9 +31,9 @@ public class PurchaseController {
 
 	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
-		IdUtils.isValidId(couponId);
-		AmountUtils.isValidAmount(amount);
+		ValidationUtils.isValidId(customerId);
+		ValidationUtils.isValidId(couponId);
+		ValidationUtils.isValidAmount(amount);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -59,8 +58,8 @@ public class PurchaseController {
 
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
-		IdUtils.isValidId(couponId);
+		ValidationUtils.isValidId(customerId);
+		ValidationUtils.isValidId(couponId);
 
 		if (!purchasesDao.isCustomerBought(customerId, couponId))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
@@ -71,7 +70,7 @@ public class PurchaseController {
 
 	public void deletePurchase(long id) throws ApplicationException {
 
-		IdUtils.isValidId(id);
+		ValidationUtils.isValidId(id);
 
 		if (!purchasesDao.isCustomerBought(id))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
@@ -82,7 +81,7 @@ public class PurchaseController {
 
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
+		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
@@ -99,7 +98,7 @@ public class PurchaseController {
 
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
-		IdUtils.isValidId(customerId);
+		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());

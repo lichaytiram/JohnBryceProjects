@@ -22,6 +22,9 @@ import utils.JdbcUtils;
  */
 public class PurchasesDao implements IPurchasesDao {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
@@ -39,6 +42,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement(preparedStatement, customerId, couponId);
 			preparedStatement.setInt(3, amount);
 			preparedStatement.setDate(4, DateUtils.javaDateToSqlDate(currentDate));
+
 			preparedStatement.executeUpdate();
 
 			resultSet = preparedStatement.getGeneratedKeys();
@@ -55,8 +59,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 
@@ -69,6 +77,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection
 					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
 			preparedStatement(preparedStatement, customerId, couponId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -77,8 +86,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deletePurchase(long id) throws ApplicationException {
 
@@ -90,6 +103,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE ID = ?");
 			preparedStatement.setLong(1, id);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -98,8 +112,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deletePurchaseByCouponId(long couponId) throws ApplicationException {
 
@@ -111,6 +129,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE COUPON_ID = ?");
 			preparedStatement.setLong(1, couponId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -119,8 +138,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deletePurchaseByCustomerId(long customerId) throws ApplicationException {
 
@@ -132,6 +155,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ?");
 			preparedStatement.setLong(1, customerId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -140,8 +164,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deletePurchaseByCompanyId(long companyId) throws ApplicationException {
 
@@ -154,6 +182,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection.prepareStatement(
 					"DELETE FROM purchases WHERE COUPON_ID IN ( SELECT ID FROM coupons WHERE COMPANY_ID = ? )");
 			preparedStatement.setLong(1, companyId);
+
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -162,8 +191,12 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
+
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
 
@@ -177,6 +210,7 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
 			preparedStatement(preparedStatement, customerId, couponId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -193,6 +227,9 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isCustomerBought(long id) throws ApplicationException {
 
@@ -205,6 +242,7 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM purchases WHERE ID = ?");
 			preparedStatement.setLong(1, id);
+
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
@@ -221,6 +259,9 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
@@ -251,6 +292,9 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Purchase> getAllPurchase() throws ApplicationException {
 
@@ -264,8 +308,11 @@ public class PurchasesDao implements IPurchasesDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM purchases");
+
 			resultSet = preparedStatement.executeQuery();
+
 			while (resultSet.next()) {
+
 				list.add(new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
 						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE")));
 			}
@@ -281,6 +328,9 @@ public class PurchasesDao implements IPurchasesDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
@@ -295,9 +345,11 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ?");
 			preparedStatement.setLong(1, customerId);
+
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
+
 				list.add(new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
 						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE")));
 			}
