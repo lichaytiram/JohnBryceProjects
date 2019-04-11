@@ -5,6 +5,9 @@ import java.util.List;
 import beans.Purchase;
 import dao.CouponsDao;
 import dao.CustomersDao;
+import dao.ICouponsDao;
+import dao.ICustomersDao;
+import dao.IPurchasesDao;
 import dao.PurchasesDao;
 import enums.ErrorType;
 import exception.ApplicationException;
@@ -17,10 +20,15 @@ import utils.ValidationUtils;
  */
 public class PurchaseController {
 
-	private PurchasesDao purchasesDao;
-	private CouponsDao couponsDao;
-	private CustomersDao customerDao;
+	private IPurchasesDao purchasesDao;
+	private ICouponsDao couponsDao;
+	private ICustomersDao customerDao;
 
+	/**
+	 * This function instantiate all references
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public PurchaseController() throws ApplicationException {
 
 		purchasesDao = new PurchasesDao();
@@ -29,6 +37,13 @@ public class PurchaseController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @param couponId   Receive a coupon id
+	 * @param amount     Receive an amount
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -56,6 +71,11 @@ public class PurchaseController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @param couponId   Receive a coupon id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -68,6 +88,10 @@ public class PurchaseController {
 
 	}
 
+	/**
+	 * @param id Receive an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deletePurchase(long id) throws ApplicationException {
 
 		ValidationUtils.isValidId(id);
@@ -79,6 +103,11 @@ public class PurchaseController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return purchase amount
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public int getPurchaseAmount(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -90,12 +119,21 @@ public class PurchaseController {
 
 	}
 
+	/**
+	 * @return This function return a purchase list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Purchase> getAllPurchase() throws ApplicationException {
 
 		return purchasesDao.getAllPurchase();
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return a purchase list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);

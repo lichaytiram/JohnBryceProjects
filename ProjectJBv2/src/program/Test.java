@@ -24,22 +24,22 @@ import test.RefreshDataBase;
  */
 public class Test {
 
-	// controller
-	private static CustomerController customerController = null;
-	private static PurchaseController purchaseController = null;
-	private static CompanyController companyController = null;
-	private static CouponController couponController = null;
-	private static UserController userController = null;
-
-	private static RefreshDataBase refreshDataBase = null;
-
 	/**
 	 * This function implement all method for this project
 	 */
 	public static void testAll() {
 
-		Date endDate = new Date();
+		// controller
+		CustomerController customerController = null;
+		PurchaseController purchaseController = null;
+		CompanyController companyController = null;
+		CouponController couponController = null;
+		UserController userController = null;
 
+		RefreshDataBase refreshDataBase = null;
+
+		// set end date
+		Date endDate = new Date();
 		endDate.setTime(1600000000000L);
 
 		try {

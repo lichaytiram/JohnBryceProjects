@@ -123,6 +123,33 @@ public class UsersDao implements IUsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void updateUser(String userName, String password, long userId) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement("UPDATE users SET USER_NAME= ? , PASSWORD=? WHERE ID= ?");
+			preparedStatement(preparedStatement, userName, password);
+			preparedStatement.setLong(3, userId);
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public User getUser(long userId) throws ApplicationException {
 
 		Long companyId = null;
@@ -209,33 +236,6 @@ public class UsersDao implements IUsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 		return list;
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void updateUser(String userName, String password, long userId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection.prepareStatement("UPDATE users SET USER_NAME= ? , PASSWORD=? WHERE ID= ?");
-			preparedStatement(preparedStatement, userName, password);
-			preparedStatement.setLong(3, userId);
-
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
-		}
 
 	}
 

@@ -28,6 +28,14 @@ public interface IUsersDao {
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException;
 
 	/**
+	 * @param userName Receive an user name
+	 * @param password Receive a password
+	 * @param userId   Receive an user id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void updateUser(String userName, String password, long userId) throws ApplicationException;
+
+	/**
 	 * @param userId Receive an user id
 	 * @return This function return an user
 	 * @throws ApplicationException This function can throw an applicationException
@@ -39,14 +47,6 @@ public interface IUsersDao {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public List<User> getAllUsers() throws ApplicationException;
-
-	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
-	 * @param userId   Receive an user id
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public void updateUser(String userName, String password, long userId) throws ApplicationException;
 
 	/**
 	 * @param userName Receive an user name

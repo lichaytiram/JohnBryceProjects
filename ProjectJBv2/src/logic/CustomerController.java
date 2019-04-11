@@ -5,6 +5,9 @@ import java.util.List;
 import beans.Customer;
 import beans.User;
 import dao.CustomersDao;
+import dao.ICustomersDao;
+import dao.IPurchasesDao;
+import dao.IUsersDao;
 import dao.PurchasesDao;
 import dao.UsersDao;
 import enums.ErrorType;
@@ -18,11 +21,16 @@ import utils.ValidationUtils;
  */
 public class CustomerController {
 
-	private CustomersDao customerDao;
-	private PurchasesDao purchasesDao;
+	private ICustomersDao customerDao;
+	private IPurchasesDao purchasesDao;
 	private UserController userController;
-	private UsersDao usersDao;
+	private IUsersDao usersDao;
 
+	/**
+	 * This function instantiate all references
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public CustomerController() throws ApplicationException {
 
 		customerDao = new CustomersDao();
@@ -32,6 +40,11 @@ public class CustomerController {
 
 	}
 
+	/**
+	 * @param customer Receive a customer
+	 * @return
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long createCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
@@ -61,6 +74,10 @@ public class CustomerController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deleteCustomer(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -74,6 +91,10 @@ public class CustomerController {
 
 	}
 
+	/**
+	 * @param customer Receive a customer
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
@@ -111,12 +132,21 @@ public class CustomerController {
 
 	}
 
+	/**
+	 * @return This function return customer list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Customer> getAllCustomer() throws ApplicationException {
 
 		return customerDao.getAllCustomer();
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return a customer
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public Customer getCustomer(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);

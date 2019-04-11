@@ -3,22 +3,38 @@ package logic;
 import java.util.List;
 
 import beans.User;
+import dao.IUsersDao;
 import dao.UsersDao;
 import enums.ClientType;
 import enums.ErrorType;
 import exception.ApplicationException;
 import utils.ValidationUtils;
 
+/**
+ * This class manage the all function for user facade
+ * 
+ * @author Lichay
+ */
 public class UserController {
 
-	private UsersDao usersDao;
+	private IUsersDao usersDao;
 
+	/**
+	 * This function instantiate all references
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public UserController() {
 
 		usersDao = new UsersDao();
 
 	}
 
+	/**
+	 * @param user Receive an user
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long createUser(User user) throws ApplicationException {
 
 		if (user == null)
@@ -35,6 +51,10 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param userId Receive an user id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deleteUser(long userId) throws ApplicationException {
 
 		ValidationUtils.isValidId(userId);
@@ -46,6 +66,10 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);
@@ -57,6 +81,12 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param userName Receive an user name
+	 * @param password Receive a password
+	 * @param userId   Receive an user id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void updateUser(String userName, String password, long userId) throws ApplicationException {
 
 		ValidationUtils.isValidId(userId);
@@ -73,12 +103,22 @@ public class UserController {
 
 	}
 
+	/**
+	 * @return This function return an user list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<User> getAllUsers() throws ApplicationException {
 
 		return usersDao.getAllUsers();
 
 	}
 
+	/**
+	 * @param userName Receive an user name
+	 * @param password Receive a password
+	 * @return This function return a client type
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public ClientType login(String userName, String password) throws ApplicationException {
 
 		ValidationUtils.isValidName(userName);

@@ -6,6 +6,10 @@ import beans.Coupon;
 import dao.CompaniesDao;
 import dao.CouponsDao;
 import dao.CustomersDao;
+import dao.ICompaniesDao;
+import dao.ICouponsDao;
+import dao.ICustomersDao;
+import dao.IPurchasesDao;
 import dao.PurchasesDao;
 import enums.Category;
 import enums.ErrorType;
@@ -13,14 +17,24 @@ import exception.ApplicationException;
 import utils.DateUtils;
 import utils.ValidationUtils;
 
+/**
+ * This class manage the all function for coupon facade
+ * 
+ * @author Lichay
+ */
 public class CouponController {
 
-	private CouponsDao couponsDao;
-	private PurchasesDao purchasesDao;
-	private CustomersDao customerDao;
-	private CompaniesDao companyDao;
+	private ICouponsDao couponsDao;
+	private IPurchasesDao purchasesDao;
+	private ICustomersDao customerDao;
+	private ICompaniesDao companyDao;
 
-	public CouponController() {
+	/**
+	 * This function instantiate all references
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public CouponController() throws ApplicationException {
 
 		couponsDao = new CouponsDao();
 		purchasesDao = new PurchasesDao();
@@ -29,6 +43,11 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param coupon Receive a coupon
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long createCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
@@ -52,6 +71,10 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param couponId Receive a coupon id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deleteCoupon(long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
@@ -65,6 +88,10 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param coupon Receive a coupon
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
@@ -96,12 +123,21 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @return This function return coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getAllCoupon() throws ApplicationException {
 
 		return couponsDao.getAllCoupon();
 
 	}
 
+	/**
+	 * @param couponId Receive a coupon id
+	 * @return This function return a coupon
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
@@ -112,6 +148,11 @@ public class CouponController {
 		throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 	}
 
+	/**
+	 * @param couponId Receive a coupon id
+	 * @return This function return an amount of coupon that remain
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long howMuchCouponRemain(long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
@@ -123,6 +164,11 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);
@@ -134,6 +180,12 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @param category  Receive a category
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);
@@ -146,6 +198,12 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @param maxPrice  Receive a max price
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);
@@ -158,6 +216,11 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -169,6 +232,12 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @param category   Receive a category
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -181,6 +250,12 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @param maxPrice   Receive a max price
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
@@ -193,6 +268,10 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param price Receive a price
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	private void isValidPrice(double price) throws ApplicationException {
 
 		if (price <= 0)
@@ -200,6 +279,10 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param category Receive a category
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	private void isValidCategory(Category category) throws ApplicationException {
 
 		if (category == null)
@@ -207,6 +290,10 @@ public class CouponController {
 
 	}
 
+	/**
+	 * @param image Receive an image
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	private void isValidImage(String image) throws ApplicationException {
 
 		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')

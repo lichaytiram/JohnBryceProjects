@@ -5,6 +5,9 @@ import java.util.List;
 import beans.Company;
 import dao.CompaniesDao;
 import dao.CouponsDao;
+import dao.ICompaniesDao;
+import dao.ICouponsDao;
+import dao.IPurchasesDao;
 import dao.PurchasesDao;
 import enums.ErrorType;
 import exception.ApplicationException;
@@ -17,11 +20,16 @@ import utils.ValidationUtils;
  */
 public class CompanyController {
 
-	private CompaniesDao companiesDao;
-	private CouponsDao couponsDao;
-	private PurchasesDao purchasesDao;
+	private ICompaniesDao companiesDao;
+	private ICouponsDao couponsDao;
+	private IPurchasesDao purchasesDao;
 	private UserController userController;
 
+	/**
+	 * This function instantiate all references
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public CompanyController() throws ApplicationException {
 
 		companiesDao = new CompaniesDao();
@@ -31,6 +39,11 @@ public class CompanyController {
 
 	}
 
+	/**
+	 * @param company Receive a company
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public long createCompany(Company company) throws ApplicationException {
 
 		if (company == null)
@@ -50,6 +63,10 @@ public class CompanyController {
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void deleteCompany(long companyId) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);
@@ -64,6 +81,10 @@ public class CompanyController {
 
 	}
 
+	/**
+	 * @param company Receive a company
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public void updateCompany(Company company) throws ApplicationException {
 
 		if (company == null)
@@ -92,12 +113,21 @@ public class CompanyController {
 
 	}
 
+	/**
+	 * @return This function return company list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public List<Company> getAllCompany() throws ApplicationException {
 
 		return companiesDao.getAllCompany();
 
 	}
 
+	/**
+	 * @param companyId Receive a company id
+	 * @return This function return a company
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public Company getCompany(long companyId) throws ApplicationException {
 
 		ValidationUtils.isValidId(companyId);

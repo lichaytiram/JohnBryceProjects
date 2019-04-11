@@ -22,7 +22,7 @@ public class RefreshDataBase implements ICreate {
 	}
 
 	/**
-	 * This function refresh all DataBase info
+	 * This function refresh all data base info
 	 * 
 	 * @throws ApplicationException
 	 */
@@ -32,7 +32,7 @@ public class RefreshDataBase implements ICreate {
 
 			drop();
 			create();
-			System.out.println("refresh DataBase end! (delete all DB)");
+			System.out.println("refresh DataBase end!");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,6 +41,9 @@ public class RefreshDataBase implements ICreate {
 
 	}
 
+	/**
+	 * This function create tables
+	 */
 	public void create() throws ApplicationException {
 
 		Connection connection = null;
@@ -80,8 +83,12 @@ public class RefreshDataBase implements ICreate {
 			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
 					preparedStatement4, preparedStatement5);
 		}
+
 	}
 
+	/**
+	 * This function drop tables
+	 */
 	public void drop() throws ApplicationException {
 
 		Connection connection = null;
@@ -116,5 +123,6 @@ public class RefreshDataBase implements ICreate {
 			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
 					preparedStatement4, preparedStatement5);
 		}
+
 	}
 }
