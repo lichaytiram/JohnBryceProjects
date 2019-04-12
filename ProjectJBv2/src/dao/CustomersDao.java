@@ -88,7 +88,7 @@ public class CustomersDao implements ICustomersDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement(
-					"UPDATE customers SET FIRST_NAME= ? , LAST_NAME= ? , PHONE_NUMBER= ? , EMAIL= ? WHERE ID= ?");
+					"UPDATE customers SET FIRST_NAME = ? , LAST_NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
 
 			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
 					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
@@ -110,7 +110,8 @@ public class CustomersDao implements ICustomersDao {
 	@Override
 	public List<Customer> getAllCustomer() throws ApplicationException {
 
-		List<Customer> list = new ArrayList<>();
+		Customer customer = null;
+		List<Customer> list = new ArrayList<Customer>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -125,9 +126,12 @@ public class CustomersDao implements ICustomersDao {
 
 			while (resultSet.next()) {
 
-				list.add(new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
+				customer = new Customer(resultSet.getInt("ID"), resultSet.getString("FIRST_NAME"),
 						resultSet.getString("LAST_NAME"), resultSet.getString("PHONE_NUMBER"),
-						resultSet.getString("EMAIL")));
+						resultSet.getString("EMAIL"));
+
+				list.add(customer);
+
 			}
 
 		} catch (SQLException e) {

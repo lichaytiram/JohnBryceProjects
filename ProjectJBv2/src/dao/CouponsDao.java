@@ -199,8 +199,9 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getAllCoupon() throws ApplicationException {
 
+		Coupon coupon = null;
 		Category category = null;
-		List<Coupon> list = new ArrayList<>();
+		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -218,10 +219,13 @@ public class CouponsDao implements ICouponsDao {
 				// change category from string to Category
 				category = Category.valueOf(resultSet.getString("CATEGORY"));
 
-				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {
@@ -240,8 +244,8 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
-		Category category = null;
 		Coupon coupon = null;
+		Category category = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -264,6 +268,7 @@ public class CouponsDao implements ICouponsDao {
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
 						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
 			}
 
 		} catch (SQLException e) {
@@ -417,8 +422,9 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
 
+		Coupon coupon = null;
 		Category category = null;
-		List<Coupon> list = new ArrayList<>();
+		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -436,10 +442,13 @@ public class CouponsDao implements ICouponsDao {
 				// change category from string to Category
 				category = Category.valueOf(resultSet.getString("CATEGORY"));
 
-				list.add(new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {
@@ -458,7 +467,8 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category) throws ApplicationException {
 
-		List<Coupon> list = new ArrayList<>();
+		Coupon coupon = null;
+		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -476,10 +486,13 @@ public class CouponsDao implements ICouponsDao {
 
 			while (resultSet.next()) {
 
-				list.add(new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {
@@ -498,8 +511,9 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
 
+		Coupon coupon = null;
 		Category category = null;
-		List<Coupon> list = new ArrayList<>();
+		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -520,10 +534,13 @@ public class CouponsDao implements ICouponsDao {
 				// change category from string to Category
 				category = Category.valueOf(resultSet.getString("CATEGORY"));
 
-				list.add(new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {
@@ -542,6 +559,7 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
 
+		Coupon coupon = null;
 		List<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
@@ -561,10 +579,12 @@ public class CouponsDao implements ICouponsDao {
 				// change category from string to Category
 				category = Category.valueOf(resultSet.getString("CATEGORY"));
 
-				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
 
 			}
 
@@ -585,6 +605,7 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
 
+		Coupon coupon = null;
 		List<Coupon> list = new ArrayList<Coupon>();
 
 		Connection connection = null;
@@ -602,10 +623,13 @@ public class CouponsDao implements ICouponsDao {
 
 			while (resultSet.next()) {
 
-				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {
@@ -625,6 +649,7 @@ public class CouponsDao implements ICouponsDao {
 	@Override
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
 
+		Coupon coupon = null;
 		List<Coupon> list = new ArrayList<Coupon>();
 		Category category = null;
 
@@ -647,10 +672,13 @@ public class CouponsDao implements ICouponsDao {
 				// change category from string to Category
 				category = Category.valueOf(resultSet.getString("CATEGORY"));
 
-				list.add(new Coupon(resultSet.getInt("ID"), resultSet.getInt("COMPANY_ID"), category,
+				coupon = new Coupon(resultSet.getLong("ID"), resultSet.getLong("COMPANY_ID"), category,
 						resultSet.getString("TITLE"), resultSet.getString("DESCRIPTION"),
 						resultSet.getDate("START_DATE"), resultSet.getDate("END_DATE"), resultSet.getInt("AMOUNT"),
-						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE")));
+						resultSet.getDouble("PRICE"), resultSet.getString("IMAGE"));
+
+				list.add(coupon);
+
 			}
 
 		} catch (SQLException e) {

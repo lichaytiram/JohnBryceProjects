@@ -305,6 +305,7 @@ public class PurchasesDao implements IPurchasesDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
+
 				amount += resultSet.getInt("AMOUNT");
 			}
 
@@ -324,7 +325,8 @@ public class PurchasesDao implements IPurchasesDao {
 	@Override
 	public List<Purchase> getAllPurchase() throws ApplicationException {
 
-		List<Purchase> list = new ArrayList<>();
+		Purchase purchase = null;
+		List<Purchase> list = new ArrayList<Purchase>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -339,8 +341,11 @@ public class PurchasesDao implements IPurchasesDao {
 
 			while (resultSet.next()) {
 
-				list.add(new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
-						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE")));
+				purchase = new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
+						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE"));
+
+				list.add(purchase);
+
 			}
 
 		} catch (SQLException e) {
@@ -360,7 +365,8 @@ public class PurchasesDao implements IPurchasesDao {
 	@Override
 	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
 
-		List<Purchase> list = new ArrayList<>();
+		Purchase purchase = null;
+		List<Purchase> list = new ArrayList<Purchase>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -376,8 +382,11 @@ public class PurchasesDao implements IPurchasesDao {
 
 			while (resultSet.next()) {
 
-				list.add(new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
-						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE")));
+				purchase = new Purchase(resultSet.getLong("ID"), resultSet.getLong("CUSTOMER_ID"),
+						resultSet.getLong("COUPON_ID"), resultSet.getInt("AMOUNT"), resultSet.getDate("DATE"));
+
+				list.add(purchase);
+
 			}
 
 		} catch (SQLException e) {
@@ -397,8 +406,10 @@ public class PurchasesDao implements IPurchasesDao {
 			throws ApplicationException {
 
 		try {
+
 			preparedStatement.setLong(1, customerId);
 			preparedStatement.setLong(2, couponId);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);

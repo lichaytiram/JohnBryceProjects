@@ -59,6 +59,7 @@ public class UsersDao implements IUsersDao {
 			resultSet = preparedStatement.getGeneratedKeys();
 
 			if (resultSet.next()) {
+
 				return resultSet.getLong(1);
 			}
 
@@ -186,6 +187,7 @@ public class UsersDao implements IUsersDao {
 
 				user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
 						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
+
 			}
 
 		} catch (SQLException e) {
@@ -205,7 +207,8 @@ public class UsersDao implements IUsersDao {
 	public List<User> getAllUsers() throws ApplicationException {
 
 		Long companyId = null;
-		List<User> list = new ArrayList<>();
+		User user = null;
+		List<User> list = new ArrayList<User>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -229,10 +232,11 @@ public class UsersDao implements IUsersDao {
 					companyId = resultSet.getLong("COMPANY_ID");
 				}
 
-				User user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
+				user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
 						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
 
 				list.add(user);
+
 			}
 
 		} catch (SQLException e) {
@@ -265,8 +269,8 @@ public class UsersDao implements IUsersDao {
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
-				return ClientType.valueOf(resultSet.getString("TYPE"));
 
+				return ClientType.valueOf(resultSet.getString("TYPE"));
 			}
 
 		} catch (SQLException e) {

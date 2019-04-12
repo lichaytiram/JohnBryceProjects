@@ -69,9 +69,9 @@ public class Test {
 			Company company2 = new Company("companyX", "0504233689", "XX@company.com");
 			Coupon coupon1 = new Coupon(2, Category.Food, "title1", "description1", new Date(), endDate, 10, 50.7,
 					"image.com");
-			Coupon coupon2 = new Coupon(2, Category.Museum, "title2", "description2", new Date(), endDate, 10, 100.3,
+			Coupon coupon2 = new Coupon(2, Category.Paintball, "title2", "description2", new Date(), endDate, 10, 100.3,
 					"image.com");
-			Coupon coupon3 = new Coupon(1, Category.Iceland, "title3", "description3", new Date(), endDate, 10, 20.7,
+			Coupon coupon3 = new Coupon(1, Category.Vacation, "title3", "description3", new Date(), endDate, 10, 20.7,
 					"image.com");
 			User user3 = new User("user3", "passwordP1", ClientType.Company, 1L);
 			User user4 = new User("user4", "passwordP1", ClientType.Company, 2L);
@@ -105,7 +105,7 @@ public class Test {
 			customer1.setUser(new User(5, "username18", "ddS3", ClientType.Customer, null)); // fix it for update
 			customerController.updateCustomer(customer1);
 			couponController.updateCoupon( // update coupon 2
-					new Coupon(2, 2, Category.Iceland, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
+					new Coupon(2, 2, Category.Vacation, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
 
 			// read all
 			System.out.println(companyController.getAllCompany());
@@ -123,7 +123,7 @@ public class Test {
 
 			// read specific
 			System.out.println(couponController.getCompanyCouponsByCompanyId(2));
-			System.out.println(couponController.getCompanyCouponsByCategory(2, Category.Iceland));
+			System.out.println(couponController.getCompanyCouponsByCategory(2, Category.Vacation));
 			System.out.println(couponController.getCompanyCouponsByMaxPrice(2, 33));
 			System.out.println(couponController.getCustomerCouponByCustomerId(5));
 			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Comics));

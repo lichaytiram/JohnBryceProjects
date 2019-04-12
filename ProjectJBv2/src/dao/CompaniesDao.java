@@ -119,7 +119,8 @@ public class CompaniesDao implements ICompaniesDao {
 	@Override
 	public List<Company> getAllCompany() throws ApplicationException {
 
-		List<Company> list = new ArrayList<>();
+		Company company = null;
+		List<Company> list = new ArrayList<Company>();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -132,8 +133,12 @@ public class CompaniesDao implements ICompaniesDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
-				list.add(new Company(resultSet.getLong("ID"), resultSet.getString("NAME"),
-						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL")));
+
+				company = new Company(resultSet.getLong("ID"), resultSet.getString("NAME"),
+						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL"));
+
+				list.add(company);
+
 			}
 
 		} catch (SQLException e) {
@@ -231,8 +236,10 @@ public class CompaniesDao implements ICompaniesDao {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
+
 				company = new Company(resultSet.getInt("ID"), resultSet.getString("NAME"),
 						resultSet.getString("PHONE_NUMBER"), resultSet.getString("EMAIL"));
+
 			}
 
 		} catch (SQLException e) {
