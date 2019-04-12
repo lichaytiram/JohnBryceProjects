@@ -1,25 +1,28 @@
-package logic;
+package coupons.logic;
 
 import java.util.List;
 
-import beans.Company;
-import dao.CompaniesDao;
-import dao.CouponsDao;
-import dao.ICompaniesDao;
-import dao.ICouponsDao;
-import dao.IPurchasesDao;
-import dao.IUsersDao;
-import dao.PurchasesDao;
-import dao.UsersDao;
-import enums.ErrorType;
-import exception.ApplicationException;
-import utils.ValidationUtils;
+import org.springframework.stereotype.Controller;
+
+import coupons.beans.Company;
+import coupons.dao.CompaniesDao;
+import coupons.dao.CouponsDao;
+import coupons.dao.ICompaniesDao;
+import coupons.dao.ICouponsDao;
+import coupons.dao.IPurchasesDao;
+import coupons.dao.IUsersDao;
+import coupons.dao.PurchasesDao;
+import coupons.dao.UsersDao;
+import coupons.enums.ErrorType;
+import coupons.exception.ApplicationException;
+import coupons.utils.ValidationUtils;
 
 /**
  * This class manage the all function for company facade
  * 
  * @author Lichay
  */
+@Controller
 public class CompanyController {
 
 	private ICompaniesDao companiesDao;
