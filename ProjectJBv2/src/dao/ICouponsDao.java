@@ -34,6 +34,11 @@ public interface ICouponsDao {
 	public void deleteCouponbyCompanyId(long companyId) throws ApplicationException;
 
 	/**
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void deleteExpiredCoupon() throws ApplicationException;
+
+	/**
 	 * @param coupon Receive a coupon
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

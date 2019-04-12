@@ -116,6 +116,31 @@ public class CouponsDao implements ICouponsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void deleteExpiredCoupon() throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement("DELETE FROM coupons WHERE END_DATE < NOW()");
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		Connection connection = null;

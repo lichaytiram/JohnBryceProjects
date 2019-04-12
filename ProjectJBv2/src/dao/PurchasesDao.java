@@ -198,6 +198,32 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void deleteExpiredPurchase() throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement(
+					"DELETE FROM purchases WHERE COUPON_ID IN ( SELECT ID FROM coupons WHERE END_DATE < NOW() )");
+
+			preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;

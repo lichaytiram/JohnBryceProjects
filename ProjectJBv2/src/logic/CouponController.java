@@ -89,6 +89,17 @@ public class CouponController {
 	}
 
 	/**
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void deleteExpiredCoupon() throws ApplicationException {
+
+		purchasesDao.deleteExpiredPurchase();
+
+		couponsDao.deleteExpiredCoupon();
+
+	}
+
+	/**
 	 * @param coupon Receive a coupon
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

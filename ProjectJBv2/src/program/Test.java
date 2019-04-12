@@ -6,6 +6,7 @@ import beans.Company;
 import beans.Coupon;
 import beans.Customer;
 import beans.User;
+import daily.job.MyTimer;
 import enums.Category;
 import enums.ClientType;
 import exception.ApplicationException;
@@ -43,6 +44,8 @@ public class Test {
 		endDate.setTime(1600000000000L);
 
 		try {
+
+			MyTimer.createTimer();
 
 			// instantiate controllers
 			customerController = new CustomerController();

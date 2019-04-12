@@ -48,6 +48,11 @@ public interface IPurchasesDao {
 	public void deletePurchaseByCompanyId(long companyId) throws ApplicationException;
 
 	/**
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void deleteExpiredPurchase() throws ApplicationException;
+
+	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id
 	 * @return This function return true if customer bought
