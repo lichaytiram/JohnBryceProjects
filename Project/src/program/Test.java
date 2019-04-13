@@ -5,6 +5,7 @@ import java.util.Date;
 import beans.Company;
 import beans.Coupon;
 import beans.Customer;
+import beans.Purchase;
 import beans.User;
 import daily.job.MyTimer;
 import enums.Category;
@@ -78,6 +79,14 @@ public class Test {
 			User user5 = new User("user5", "passwordP1", ClientType.Company, 2L);
 			User user6 = new User("user6", "passwordP1", ClientType.Administrator, null);
 
+			Purchase purchase1 = new Purchase(5, 1, 4);
+			Purchase purchase2 = new Purchase(5, 1, 4);
+			Purchase purchase3 = new Purchase(5, 1, 1);
+			Purchase purchase4 = new Purchase(5, 3, 2);
+			Purchase purchase5 = new Purchase(6, 2, 2);
+			Purchase purchase6 = new Purchase(6, 3, 1);
+			Purchase purchase7 = new Purchase(5, 3, 1);
+
 			// create
 			companyController.createCompany(company1);
 			companyController.createCompany(company2);
@@ -90,12 +99,12 @@ public class Test {
 			couponController.createCoupon(coupon1);
 			couponController.createCoupon(coupon2);
 			couponController.createCoupon(coupon3);
-			purchaseController.purchaseCoupon(5, 1, 4);
-			purchaseController.purchaseCoupon(5, 1, 4);
-			purchaseController.purchaseCoupon(5, 1, 1);
-			purchaseController.purchaseCoupon(5, 3, 2);
-			purchaseController.purchaseCoupon(6, 2, 2);
-			purchaseController.purchaseCoupon(6, 3, 1);
+			purchaseController.purchaseCoupon(purchase1);
+			purchaseController.purchaseCoupon(purchase2);
+			purchaseController.purchaseCoupon(purchase3);
+			purchaseController.purchaseCoupon(purchase4);
+			purchaseController.purchaseCoupon(purchase5);
+			purchaseController.purchaseCoupon(purchase6);
 
 			// update
 			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
@@ -136,7 +145,7 @@ public class Test {
 			userController.deleteUser(1);
 			customerController.deleteCustomer(6);
 
-			purchaseController.purchaseCoupon(5, 3, 1);
+			purchaseController.purchaseCoupon(purchase7);
 
 			companyController.deleteCompany(2);
 

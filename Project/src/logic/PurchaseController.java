@@ -38,36 +38,35 @@ public class PurchaseController {
 	}
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @param amount     Receive an amount
+	 * @param purchase Receive a purchase
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
 
-		ValidationUtils.isValidId(customerId);
-		ValidationUtils.isValidId(couponId);
-		ValidationUtils.isValidAmount(amount);
+		ValidationUtils.isValidId(purchase.getCustomerId());
+		ValidationUtils.isValidId(purchase.getCouponId());
+		ValidationUtils.isValidAmount(purchase.getAmount());
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customerDao.isCustomerExists(purchase.getCustomerId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
 
-		if (!couponsDao.isCouponExists(couponId))
+		if (!couponsDao.isCouponExists(purchase.getCouponId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
 
-		if (!couponsDao.isCouponValid(couponId))
+		if (!couponsDao.isCouponValid(purchase.getCouponId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
 
-		int amountOfCouponRemain = couponsDao.howMuchCouponRemain(couponId);
+		int amountOfCouponRemain = couponsDao.howMuchCouponRemain(purchase.getCouponId());
 
-		if (amountOfCouponRemain < amount)
+		if (amountOfCouponRemain < purchase.getAmount())
 			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
 
-		int amountLeft = amountOfCouponRemain - amount;
+		int amountLeft = amountOfCouponRemain - purchase.getAmount();
 
-		couponsDao.updateCoupon(couponId, amountLeft);
-		return purchasesDao.purchaseCoupon(customerId, couponId, amount);
+		couponsDao.updateCoupon(purchase.getCouponId(), amountLeft);
+
+		return purchasesDao.purchaseCoupon(purchase);
 
 	}
 

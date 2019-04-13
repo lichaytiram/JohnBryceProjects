@@ -24,15 +24,13 @@ public class PurchaseApi {
 	private PurchaseController purchaseController;
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @param amount     Receive an amount
+	 * @param purchase Receive a purchase
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
 
-		return purchaseController.purchaseCoupon(customerId, couponId, amount);
+		return purchaseController.purchaseCoupon(purchase);
 
 	}
 

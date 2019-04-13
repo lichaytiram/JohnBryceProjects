@@ -26,7 +26,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public long purchaseCoupon(long customerId, long couponId, int amount) throws ApplicationException {
+	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
 
 		Date currentDate = new Date();
 
@@ -39,8 +39,8 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO purchases (CUSTOMER_ID,COUPON_ID,AMOUNT,DATE) VALUES ( ? , ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			preparedStatement(preparedStatement, customerId, couponId);
-			preparedStatement.setInt(3, amount);
+			preparedStatement(preparedStatement, purchase.getCustomerId(), purchase.getCouponId());
+			preparedStatement.setInt(3, purchase.getAmount());
 			preparedStatement.setDate(4, DateUtils.javaDateToSqlDate(currentDate));
 
 			preparedStatement.executeUpdate();

@@ -30,8 +30,12 @@ public class Purchase {
 	 * @param date       Receive a date
 	 */
 	public Purchase(long id, long customerId, long couponId, int amount, Date date) {
-		this(customerId, couponId, amount, date);
+		this();
 		this.id = id;
+		this.customerId = customerId;
+		this.couponId = couponId;
+		this.amount = amount;
+		this.date = date;
 
 	}
 
@@ -41,14 +45,13 @@ public class Purchase {
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id
 	 * @param amount     Receive an amount
-	 * @param date       Receive a date
 	 */
-	public Purchase(long customerId, long couponId, int amount, Date date) {
+	public Purchase(long customerId, long couponId, int amount) {
 		this();
 		this.customerId = customerId;
 		this.couponId = couponId;
 		this.amount = amount;
-		this.date = date;
+		this.date = new Date();
 
 	}
 
