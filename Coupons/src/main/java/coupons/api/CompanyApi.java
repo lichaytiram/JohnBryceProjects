@@ -29,7 +29,14 @@ public class CompanyApi {
 	@Autowired
 	private CompanyController companyController;
 
-	CompanyApi() throws ApplicationException {
+	// constructor
+
+	/**
+	 * Create instance for this class
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public CompanyApi() throws ApplicationException {
 
 		companyController = new CompanyController();
 

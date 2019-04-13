@@ -24,7 +24,7 @@ public class UserController {
 	 * 
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public UserController() {
+	public UserController() throws ApplicationException {
 
 		usersDao = new UsersDao();
 

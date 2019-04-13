@@ -2,6 +2,8 @@ package coupons.logic;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
+
 import coupons.beans.User;
 import coupons.dao.IUsersDao;
 import coupons.dao.UsersDao;
@@ -15,6 +17,7 @@ import coupons.utils.ValidationUtils;
  * 
  * @author Lichay
  */
+@Controller
 public class UserController {
 
 	private IUsersDao usersDao;
