@@ -3,6 +3,10 @@ package coupons.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +33,8 @@ public class CouponApi {
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createCoupon(Coupon coupon) throws ApplicationException {
+	@PostMapping
+	public long createCoupon(@RequestBody Coupon coupon) throws ApplicationException {
 
 		return couponController.createCoupon(coupon);
 
@@ -59,7 +64,8 @@ public class CouponApi {
 	 * @param coupon Receive a coupon
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCoupon(Coupon coupon) throws ApplicationException {
+	@PutMapping
+	public void updateCoupon(@RequestBody Coupon coupon) throws ApplicationException {
 
 		couponController.updateCoupon(coupon);
 
@@ -69,6 +75,7 @@ public class CouponApi {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@GetMapping
 	public List<Coupon> getAllCoupon() throws ApplicationException {
 
 		return couponController.getAllCoupon();

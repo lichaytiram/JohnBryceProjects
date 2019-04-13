@@ -3,6 +3,10 @@ package coupons.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +32,8 @@ public class PurchaseApi {
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
+	@PostMapping
+	public long purchaseCoupon(@RequestBody Purchase purchase) throws ApplicationException {
 
 		return purchaseController.purchaseCoupon(purchase);
 
@@ -70,6 +75,7 @@ public class PurchaseApi {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@GetMapping
 	public List<Purchase> getAllPurchase() throws ApplicationException {
 
 		return purchaseController.getAllPurchase();
@@ -81,7 +87,8 @@ public class PurchaseApi {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
+	@GetMapping("/{customerId}")
+	public List<Purchase> getCustomerPurchase(@PathVariable long customerId) throws ApplicationException {
 
 		return purchaseController.getCustomerPurchase(customerId);
 
