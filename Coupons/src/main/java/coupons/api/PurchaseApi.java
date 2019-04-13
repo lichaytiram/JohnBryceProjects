@@ -21,20 +21,7 @@ import coupons.logic.PurchaseController;
 public class PurchaseApi {
 
 	@Autowired
-	private PurchaseController purchaseController = null;
-
-	// constructor
-
-	/**
-	 * Create instance for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public PurchaseApi() throws ApplicationException {
-
-		purchaseController = new PurchaseController();
-
-	}
+	private PurchaseController purchaseController;
 
 	/**
 	 * @param customerId Receive a customer id

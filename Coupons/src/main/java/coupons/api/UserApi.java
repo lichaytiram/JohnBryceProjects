@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.User;
@@ -27,20 +28,7 @@ import coupons.logic.UserController;
 public class UserApi {
 
 	@Autowired
-	private UserController userController = null;
-
-	// constructor
-
-	/**
-	 * Create instance for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public UserApi() throws ApplicationException {
-
-		userController = new UserController();
-
-	}
+	private UserController userController;
 
 	/**
 	 * @param user Receive an user
@@ -107,8 +95,9 @@ public class UserApi {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/{login}") // ask avi how to do it
-	public ClientType login(@PathVariable("login") String userName, String password) throws ApplicationException {
+	@GetMapping("/byType")
+	public ClientType login(@RequestParam("userName") String userName, @RequestParam("password") String password)
+			throws ApplicationException {
 
 		return userController.login(userName, password);
 

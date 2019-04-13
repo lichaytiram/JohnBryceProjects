@@ -29,19 +29,6 @@ public class CompanyApi {
 	@Autowired
 	private CompanyController companyController;
 
-	// constructor
-
-	/**
-	 * Create instance for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public CompanyApi() throws ApplicationException {
-
-		companyController = new CompanyController();
-
-	}
-
 	/**
 	 * @param company Receive a company
 	 * @return This function return an id
@@ -60,8 +47,8 @@ public class CompanyApi {
 	 * @param companyId Receive a company id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@DeleteMapping("/{couponId}")
-	public void deleteCompany(@PathVariable("couponId") long companyId) throws ApplicationException {
+	@DeleteMapping("/{companyId}")
+	public void deleteCompany(@PathVariable("companyId") long companyId) throws ApplicationException {
 
 		companyController.deleteCompany(companyId);
 
@@ -94,8 +81,8 @@ public class CompanyApi {
 	 * @return This function return a company
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/{couponId}")
-	public Company getCompany(@PathVariable("couponId") long companyId) throws ApplicationException {
+	@GetMapping("/{companyId}")
+	public Company getCompany(@PathVariable("companyId") long companyId) throws ApplicationException {
 
 		return companyController.getCompany(companyId);
 

@@ -263,7 +263,7 @@ public class UsersDao implements IUsersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection
-					.prepareStatement("SELECT USER_NAME , PASSWORD FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
+					.prepareStatement("SELECT TYPE FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
 			preparedStatement(preparedStatement, userName, password);
 
 			resultSet = preparedStatement.executeQuery();

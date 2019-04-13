@@ -3,6 +3,8 @@ package coupons.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,20 +23,7 @@ import coupons.logic.CustomerController;
 public class CustomerApi {
 
 	@Autowired
-	private CustomerController customerController = null;
-
-	// constructor
-
-	/**
-	 * Create instance for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public CustomerApi() throws ApplicationException {
-
-		customerController = new CustomerController();
-
-	}
+	private CustomerController customerController;
 
 	/**
 	 * @param customer Receive a customer
@@ -71,6 +60,7 @@ public class CustomerApi {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@GetMapping
 	public List<Customer> getAllCustomer() throws ApplicationException {
 
 		return customerController.getAllCustomer();
@@ -82,7 +72,8 @@ public class CustomerApi {
 	 * @return This function return a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public Customer getCustomer(long customerId) throws ApplicationException {
+	@GetMapping("/{customerId}")
+	public Customer getCustomer(@PathVariable("companyId") long customerId) throws ApplicationException {
 
 		return customerController.getCustomer(customerId);
 

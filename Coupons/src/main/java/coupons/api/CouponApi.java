@@ -22,20 +22,7 @@ import coupons.logic.CouponController;
 public class CouponApi {
 
 	@Autowired
-	private CouponController couponController = null;
-
-	// constructor
-
-	/**
-	 * Create instance for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public CouponApi() throws ApplicationException {
-
-		couponController = new CouponController();
-
-	}
+	private CouponController couponController;
 
 	/**
 	 * @param coupon Receive a coupon
