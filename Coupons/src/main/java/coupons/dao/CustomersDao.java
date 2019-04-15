@@ -35,14 +35,17 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO customers (FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ID) VALUES ( ? , ? , ? , ? , ? )");
 
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
 					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
 
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -68,8 +71,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -90,14 +95,17 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement = connection.prepareStatement(
 					"UPDATE customers SET FIRST_NAME = ? , LAST_NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
 
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
 					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
 
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -135,8 +143,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -167,8 +177,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -205,8 +217,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -227,8 +241,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.setLong(5, id);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 

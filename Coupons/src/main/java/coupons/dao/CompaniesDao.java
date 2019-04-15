@@ -36,6 +36,8 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 
@@ -47,11 +49,13 @@ public class CompaniesDao implements ICompaniesDao {
 				return resultSet.getLong(1);
 			}
 
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -76,8 +80,10 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -98,6 +104,8 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection
 					.prepareStatement("UPDATE companies SET NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
+
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
@@ -105,8 +113,10 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -142,8 +152,10 @@ public class CompaniesDao implements ICompaniesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -173,8 +185,10 @@ public class CompaniesDao implements ICompaniesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -205,8 +219,10 @@ public class CompaniesDao implements ICompaniesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -243,8 +259,10 @@ public class CompaniesDao implements ICompaniesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -263,8 +281,10 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement.setString(3, email);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 	}

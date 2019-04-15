@@ -44,9 +44,9 @@ public class CouponApi {
 	 * @param couponId Receive a coupon id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCoupon(long couponId) throws ApplicationException {
+	public void deleteCoupon(long couponId, long companyId) throws ApplicationException {
 
-		couponController.deleteCoupon(couponId);
+		couponController.deleteCoupon(couponId, companyId);
 
 	}
 

@@ -9,7 +9,6 @@ package coupons.enums;
 public enum ErrorType {
 	
 	GENERAL_ERROR("General error."),
-	PROBLEM("Have a problem:\n"),
 	COMPANY_IS_ALREADY_EXISTS("The company you chose is already exist."),
 	COMPANY_IS_NOT_EXISTS("The company you chose isn't exist."),
 	CUSTOMER_IS_ALREADY_EXISTS("The customer you chose is already exist."),

@@ -2,10 +2,10 @@ package coupons.program;
 
 import java.util.Date;
 
-import coupons.beans.Purchase;
 import coupons.beans.Company;
 import coupons.beans.Coupon;
 import coupons.beans.Customer;
+import coupons.beans.Purchase;
 import coupons.beans.User;
 import coupons.daily.job.MyTimer;
 import coupons.enums.Category;
@@ -85,7 +85,7 @@ public class Test {
 			Purchase purchase4 = new Purchase(5, 3, 2);
 			Purchase purchase5 = new Purchase(6, 2, 2);
 			Purchase purchase6 = new Purchase(6, 3, 1);
-			Purchase purchase7 = new Purchase(5, 3, 1);
+//			Purchase purchase7 = new Purchase(5, 3, 1);
 
 			// create
 			companyController.createCompany(company1);
@@ -107,47 +107,49 @@ public class Test {
 			purchaseController.purchaseCoupon(purchase6);
 
 			// update
-			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
-			userController.updateUser("user33", "passwordX5", 6);
-			customer1.setFirstName("newFirst"); // update customer1
-			System.out.println(customer1.getUser());
-			customer1.setUser(new User(5, "username18", "ddS3", ClientType.Customer, null)); // fix it for update
-			customerController.updateCustomer(customer1);
-			couponController.updateCoupon( // update coupon 2
-					new Coupon(2, 2, Category.Vacation, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
+//			companyController.updateCompany(new Company(1, "newName", "0770466845", "email@com.com"));
+//			userController.updateUser("user33", "passwordX5", 6);
+//			customer1.setFirstName("newFirst"); // update customer1
+//			System.out.println(customer1.getUser());
+//			customer1.setUser(new User(5, "username18", "ddS3", ClientType.Customer, null)); // fix it for update
+//			customerController.updateCustomer(customer1);
+//			couponController.updateCoupon( // update coupon 2
+//					new Coupon(2, 2, Category.Vacation, "title8", "description", new Date(), endDate, 15, 30, "ss.co"));
 
 			// read all
-			System.out.println(companyController.getAllCompany());
-			System.out.println(userController.getAllUsers());
-			System.out.println(customerController.getAllCustomer());
-			System.out.println(couponController.getAllCoupon());
-			System.out.println(purchaseController.getAllPurchase());
+//			System.out.println(companyController.getAllCompany());
+//			System.out.println(userController.getAllUsers());
+//			System.out.println(customerController.getAllCustomer());
+//			System.out.println(couponController.getAllCoupon());
+//			System.out.println(purchaseController.getAllPurchase());
 
 			// read one
-			System.out.println(companyController.getCompany(1));
-			System.out.println(customerController.getCustomer(5));
-			System.out.println(couponController.getCoupon(1));
-			System.out.println("The amount is: " + purchaseController.getPurchaseAmount(5));
-			System.out.println("The amount is: " + purchaseController.getCustomerPurchase(6));
+//			System.out.println(companyController.getCompany(1));
+//			System.out.println(customerController.getCustomer(5));
+//			System.out.println(couponController.getCoupon(1));
+//			System.out.println("The amount is: " + purchaseController.getPurchaseAmount(5));
+//			System.out.println("The amount is: " + purchaseController.getCustomerPurchase(6));
 
 			// read specific
-			System.out.println(couponController.getCompanyCouponsByCompanyId(2));
-			System.out.println(couponController.getCompanyCouponsByCategory(2, Category.Vacation));
-			System.out.println(couponController.getCompanyCouponsByMaxPrice(2, 33));
-			System.out.println(couponController.getCustomerCouponByCustomerId(5));
-			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Comics));
-			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Food));
-			System.out.println(couponController.getCustomerCouponsByMaxPrice(5, 50.6));
+//			System.out.println(couponController.getCompanyCouponsByCompanyId(2));
+//			System.out.println(couponController.getCompanyCouponsByCategory(2, Category.Vacation));
+//			System.out.println(couponController.getCompanyCouponsByMaxPrice(2, 33));
+//			System.out.println(couponController.getCustomerCouponByCustomerId(5));
+//			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Comics));
+//			System.out.println(couponController.getCustomerCouponsByCategory(5, Category.Food));
+//			System.out.println(couponController.getCustomerCouponsByMaxPrice(5, 50.6));
 
 			// delete
-			purchaseController.deletePurchase(5, 3);
-			purchaseController.deletePurchase(2);
-			userController.deleteUser(1);
-			customerController.deleteCustomer(6);
-
-			purchaseController.purchaseCoupon(purchase7);
-
-			companyController.deleteCompany(2);
+//			purchaseController.deletePurchase(5, 3);
+//			purchaseController.deletePurchase(2);
+//			userController.deleteUser(1);
+//			customerController.deleteCustomer(6);
+//
+//			purchaseController.purchaseCoupon(purchase7);
+//
+//			companyController.deleteCompany(2);
+//
+//			couponController.deleteCoupon(3, 1);
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();

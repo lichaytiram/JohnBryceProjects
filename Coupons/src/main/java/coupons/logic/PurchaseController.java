@@ -47,23 +47,30 @@ public class PurchaseController {
 	 */
 	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
 
+		if (purchase == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
 		ValidationUtils.isValidId(purchase.getCustomerId());
 		ValidationUtils.isValidId(purchase.getCouponId());
 		ValidationUtils.isValidAmount(purchase.getAmount());
 
 		if (!customerDao.isCustomerExists(purchase.getCustomerId()))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		if (!couponsDao.isCouponExists(purchase.getCouponId()))
-			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		if (!couponsDao.isCouponValid(purchase.getCouponId()))
-			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
+					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
 
 		int amountOfCouponRemain = couponsDao.howMuchCouponRemain(purchase.getCouponId());
 
 		if (amountOfCouponRemain < purchase.getAmount())
-			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
+					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
 
 		int amountLeft = amountOfCouponRemain - purchase.getAmount();
 
@@ -83,8 +90,9 @@ public class PurchaseController {
 		ValidationUtils.isValidId(customerId);
 		ValidationUtils.isValidId(couponId);
 
-		if (!purchasesDao.isCustomerBought(customerId, couponId))
-			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
+		if (!purchasesDao.isCustomerPurchase(customerId, couponId))
+			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS,
+					ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage(), false);
 
 		purchasesDao.deletePurchase(customerId, couponId);
 
@@ -98,8 +106,9 @@ public class PurchaseController {
 
 		ValidationUtils.isValidId(id);
 
-		if (!purchasesDao.isCustomerBought(id))
-			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage());
+		if (!purchasesDao.isCustomerPurchase(id))
+			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS,
+					ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage(), false);
 
 		purchasesDao.deletePurchase(id);
 
@@ -115,7 +124,8 @@ public class PurchaseController {
 		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return purchasesDao.getPurchaseAmount(customerId);
 
@@ -141,7 +151,8 @@ public class PurchaseController {
 		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return purchasesDao.getCustomerPurchase(customerId);
 

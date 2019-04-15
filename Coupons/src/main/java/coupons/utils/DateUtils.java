@@ -29,13 +29,13 @@ public class DateUtils {
 	public static void isValidDate(Date startDate, Date endDate) throws ApplicationException {
 
 		if (startDate == null || endDate == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		Date currentDate = new Date();
 
 		// check if date is valid
 		if (startDate.after(endDate) || startDate.equals(endDate) || endDate.before(currentDate))
-			throw new ApplicationException(ErrorType.INVALID_DATES.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_DATES, ErrorType.INVALID_DATES.getMessage(), false);
 
 	}
 }
