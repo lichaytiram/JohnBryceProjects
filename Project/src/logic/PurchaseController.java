@@ -87,7 +87,7 @@ public class PurchaseController {
 		ValidationUtils.isValidId(customerId);
 		ValidationUtils.isValidId(couponId);
 
-		if (!purchasesDao.isCustomerBought(customerId, couponId))
+		if (!purchasesDao.isCustomerPurchase(customerId, couponId))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS,
 					ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage(), false);
 
@@ -103,7 +103,7 @@ public class PurchaseController {
 
 		ValidationUtils.isValidId(id);
 
-		if (!purchasesDao.isCustomerBought(id))
+		if (!purchasesDao.isCustomerPurchase(id))
 			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS,
 					ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage(), false);
 

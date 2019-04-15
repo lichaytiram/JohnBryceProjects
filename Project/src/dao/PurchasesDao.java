@@ -39,6 +39,8 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO purchases (CUSTOMER_ID,COUPON_ID,AMOUNT,DATE) VALUES ( ? , ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, purchase.getCustomerId(), purchase.getCouponId());
 			preparedStatement.setInt(3, purchase.getAmount());
 			preparedStatement.setDate(4, DateUtils.javaDateToSqlDate(currentDate));
@@ -78,6 +80,8 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection
 					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, customerId, couponId);
 
 			preparedStatement.executeUpdate();
@@ -238,7 +242,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException {
+	public boolean isCustomerPurchase(long customerId, long couponId) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -249,6 +253,8 @@ public class PurchasesDao implements IPurchasesDao {
 
 			preparedStatement = connection
 					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, customerId, couponId);
 
 			resultSet = preparedStatement.executeQuery();
@@ -273,7 +279,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean isCustomerBought(long id) throws ApplicationException {
+	public boolean isCustomerPurchase(long id) throws ApplicationException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

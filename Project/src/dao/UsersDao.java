@@ -40,6 +40,8 @@ public class UsersDao implements IUsersDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO users (USER_NAME,PASSWORD,TYPE,COMPANY_ID) VALUES ( ? , ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, user.getUserName(), user.getPassword());
 			preparedStatement.setString(3, user.getType().name());
 
@@ -145,6 +147,8 @@ public class UsersDao implements IUsersDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement("UPDATE users SET USER_NAME= ? , PASSWORD=? WHERE ID= ?");
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, userName, password);
 			preparedStatement.setLong(3, userId);
 
@@ -276,6 +280,8 @@ public class UsersDao implements IUsersDao {
 
 			preparedStatement = connection
 					.prepareStatement("SELECT TYPE FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
+
+			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, userName, password);
 
 			resultSet = preparedStatement.executeQuery();

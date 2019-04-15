@@ -149,7 +149,7 @@ public class Test {
 
 			companyController.deleteCompany(2);
 
-			couponController.deleteCoupon(2, 1);
+			couponController.deleteCoupon(3, 1);
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();

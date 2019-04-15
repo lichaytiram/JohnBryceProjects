@@ -35,6 +35,7 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO customers (FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ID) VALUES ( ? , ? , ? , ? , ? )");
 
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
 					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
 
@@ -94,6 +95,7 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement = connection.prepareStatement(
 					"UPDATE customers SET FIRST_NAME = ? , LAST_NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
 
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, customer.getFirstName(), customer.getLastName(),
 					customer.getPhoneNumber(), customer.getEmail(), customer.getId());
 

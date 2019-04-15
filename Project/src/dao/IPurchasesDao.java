@@ -56,14 +56,14 @@ public interface IPurchasesDao {
 	 * @return This function return true if customer bought
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public boolean isCustomerBought(long customerId, long couponId) throws ApplicationException;
+	public boolean isCustomerPurchase(long customerId, long couponId) throws ApplicationException;
 
 	/**
 	 * @param id Receive an id
 	 * @return This function return true if customer bought
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public boolean isCustomerBought(long id) throws ApplicationException;
+	public boolean isCustomerPurchase(long id) throws ApplicationException;
 
 	/**
 	 * @param customerId Receive a customer id

@@ -36,6 +36,8 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 
@@ -102,6 +104,8 @@ public class CompaniesDao implements ICompaniesDao {
 
 			preparedStatement = connection
 					.prepareStatement("UPDATE companies SET NAME = ? , PHONE_NUMBER = ? , EMAIL = ? WHERE ID = ?");
+
+			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
 			preparedStatement.setLong(4, company.getId());
