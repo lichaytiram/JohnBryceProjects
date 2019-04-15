@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"beans"},{"l":"daily.job"},{"l":"dao"},{"l":"enums"},{"l":"exception"},{"l":"logic"},{"l":"program"},{"l":"test"},{"l":"utils"}]

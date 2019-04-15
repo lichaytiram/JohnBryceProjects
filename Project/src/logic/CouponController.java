@@ -74,7 +74,8 @@ public class CouponController {
 	}
 
 	/**
-	 * @param couponId Receive a coupon id
+	 * @param couponId  Receive a coupon id
+	 * @param companyId Receive a company id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public void deleteCoupon(long couponId, long companyId) throws ApplicationException {

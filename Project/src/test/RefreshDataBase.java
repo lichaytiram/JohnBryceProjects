@@ -24,7 +24,7 @@ public class RefreshDataBase implements ICreate {
 	/**
 	 * This function refresh all data base info
 	 * 
-	 * @throws ApplicationException
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public void refreshDB() throws ApplicationException {
 

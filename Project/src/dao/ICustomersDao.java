@@ -9,7 +9,7 @@ public interface ICustomersDao {
 
 	/**
 	 * @param customer Receive a customer
-	 * @return
+	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public long createCustomer(Customer customer) throws ApplicationException;

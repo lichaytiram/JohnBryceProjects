@@ -14,7 +14,6 @@ public class ValidationUtils {
 
 	/**
 	 * @param id Receive an id
-	 * @return This function return true if id is valid or throw exception if didn't
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public static void isValidId(long id) throws ApplicationException {

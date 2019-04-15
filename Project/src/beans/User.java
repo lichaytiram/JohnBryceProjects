@@ -24,12 +24,12 @@ public class User {
 	/**
 	 * constructor for create a show for this class
 	 * 
-	 * @param id
-	 * @param userName
-	 * @param password
-	 * @param type
-	 * @param companyId
-	 * @throws ApplicationException
+	 * @param id        Receive an id
+	 * @param userName  Receive an user name
+	 * @param password  Receive a password
+	 * @param type      Receive a type
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public User(long id, String userName, String password, ClientType type, Long companyId)
 			throws ApplicationException {
@@ -40,12 +40,13 @@ public class User {
 	/**
 	 * constructor for create a show for this class
 	 * 
-	 * @param userName
-	 * @param password
-	 * @param type
-	 * @param companyId
+	 * @param userName  Receive an user name
+	 * @param password  Receive a password
+	 * @param type      Receive a type
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public User(String userName, String password, ClientType type, Long companyId) {
+	public User(String userName, String password, ClientType type, Long companyId) throws ApplicationException {
 		this();
 		this.userName = userName;
 		this.password = password;

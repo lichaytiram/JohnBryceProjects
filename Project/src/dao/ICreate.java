@@ -14,15 +14,14 @@ public interface ICreate {
 	/**
 	 * Create tables in the data base
 	 * 
-	 * @throws Exception Can throw an exception
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
-
 	void create() throws ApplicationException;
 
 	/**
 	 * Drop the data base
 	 * 
-	 * @throws Exception Can throw an exception
+	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	void drop() throws ApplicationException;
 
