@@ -140,15 +140,17 @@ public class Test {
 			System.out.println(couponController.getCustomerCouponsByMaxPrice(5, 50.6));
 
 			// delete
-			purchaseController.deletePurchase(5, 3);
-			purchaseController.deletePurchase(2);
-			userController.deleteUser(1);
-			customerController.deleteCustomer(6);
-
-			purchaseController.purchaseCoupon(purchase7);
-
-			companyController.deleteCompany(2);
-
+//			purchaseController.deletePurchase(5, 3);
+//			purchaseController.deletePurchase(2);
+//			userController.deleteUser(1);
+//			customerController.deleteCustomer(6);
+//
+//			purchaseController.purchaseCoupon(purchase7);
+//
+//			companyController.deleteCompany(2);	
+//			
+			couponController.deleteCoupon(2, 1);
+						
 		} catch (ApplicationException e) {
 			e.printStackTrace();
 		}

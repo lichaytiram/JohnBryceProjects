@@ -41,8 +41,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -68,8 +70,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -96,8 +100,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -135,8 +141,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -167,8 +175,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -205,8 +215,10 @@ public class CustomersDao implements ICustomersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -227,8 +239,10 @@ public class CustomersDao implements ICustomersDao {
 			preparedStatement.setLong(5, id);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 

@@ -63,11 +63,13 @@ public class UsersDao implements IUsersDao {
 				return resultSet.getLong(1);
 			}
 
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -92,8 +94,10 @@ public class UsersDao implements IUsersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -118,8 +122,10 @@ public class UsersDao implements IUsersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -145,8 +151,10 @@ public class UsersDao implements IUsersDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -191,8 +199,10 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -240,8 +250,10 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -274,12 +286,15 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
-		throw new ApplicationException(ErrorType.LOGIN_FAILED.getMessage());
+
+		throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), true);
 
 	}
 
@@ -306,8 +321,10 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -338,8 +355,10 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -370,8 +389,10 @@ public class UsersDao implements IUsersDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -387,9 +408,12 @@ public class UsersDao implements IUsersDao {
 		try {
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, password);
+
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 

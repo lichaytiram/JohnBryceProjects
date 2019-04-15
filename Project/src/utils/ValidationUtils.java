@@ -20,7 +20,7 @@ public class ValidationUtils {
 	public static void isValidId(long id) throws ApplicationException {
 
 		if (id < 1)
-			throw new ApplicationException(ErrorType.INVALID_ID.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_ID, ErrorType.INVALID_ID.getMessage(), false);
 
 	}
 
@@ -31,10 +31,10 @@ public class ValidationUtils {
 	public static void isValidName(String name) throws ApplicationException {
 
 		if (name == null || name.isEmpty())
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		if (name.length() < 2)
-			throw new ApplicationException(ErrorType.INVALID_NAME.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_NAME, ErrorType.INVALID_NAME.getMessage(), false);
 
 	}
 
@@ -45,18 +45,24 @@ public class ValidationUtils {
 	public static void isValidPhoneNumber(String phoneNumber) throws ApplicationException {
 
 		if (phoneNumber == null || phoneNumber.isEmpty())
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		if (phoneNumber.charAt(0) != '0')
-			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER, ErrorType.INVALID_PHONE_NUMBER.getMessage(),
+					false);
 
 		if (phoneNumber.length() != 10)
-			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER, ErrorType.INVALID_PHONE_NUMBER.getMessage(),
+					false);
 
 		// check if all char contain a digit
 		for (int i = 0; i < phoneNumber.length(); i++) {
-			if (phoneNumber.charAt(i) > '9' || phoneNumber.charAt(i) < '0')
-				throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER.getMessage());
+			if (phoneNumber.charAt(i) > '9' || phoneNumber.charAt(i) < '0') {
+
+				throw new ApplicationException(ErrorType.INVALID_PHONE_NUMBER,
+						ErrorType.INVALID_PHONE_NUMBER.getMessage(), false);
+
+			}
 		}
 
 	}
@@ -69,13 +75,13 @@ public class ValidationUtils {
 	public static void isValidEmail(String email) throws ApplicationException {
 
 		if (email == null || email.isEmpty())
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		if (!email.contains("@"))
-			throw new ApplicationException(ErrorType.INVALID_EMAIL.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_EMAIL, ErrorType.INVALID_EMAIL.getMessage(), false);
 
 		if (!(email.indexOf('@') + 1 < email.lastIndexOf('.')))
-			throw new ApplicationException(ErrorType.INVALID_EMAIL.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_EMAIL, ErrorType.INVALID_EMAIL.getMessage(), false);
 
 	}
 
@@ -86,7 +92,7 @@ public class ValidationUtils {
 	public static void isValidAmount(int amount) throws ApplicationException {
 
 		if (amount < 0)
-			throw new ApplicationException(ErrorType.INVALID_AMOUNT.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_AMOUNT, ErrorType.INVALID_AMOUNT.getMessage(), false);
 
 	}
 
@@ -97,7 +103,7 @@ public class ValidationUtils {
 	public static void isValidType(ClientType type) throws ApplicationException {
 
 		if (type == null)
-			throw new ApplicationException(ErrorType.INVALID_TYPE.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_TYPE, ErrorType.INVALID_TYPE.getMessage(), false);
 
 	}
 
@@ -108,7 +114,7 @@ public class ValidationUtils {
 	public static void isValidPassword(String password) throws ApplicationException {
 
 		if (!checkPassword(password))
-			throw new ApplicationException(ErrorType.INVALID_PASSWORD.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_PASSWORD, ErrorType.INVALID_PASSWORD.getMessage(), false);
 
 	}
 
@@ -120,7 +126,7 @@ public class ValidationUtils {
 	private static boolean checkPassword(String password) throws ApplicationException {
 
 		if (password == null || password.isEmpty())
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		char checkLetter = 'a';
 

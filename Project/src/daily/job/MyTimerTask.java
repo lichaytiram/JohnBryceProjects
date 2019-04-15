@@ -27,21 +27,15 @@ public class MyTimerTask extends TimerTask {
 	@Override
 	public void run() {
 
-		Thread thread = new Thread(() -> {
-			try {
+		try {
 
-				synchronized (couponController) {
+			couponController.deleteExpiredCoupon();
 
-					couponController.deleteExpiredCoupon();
+		} catch (ApplicationException e) {
 
-				}
+			e.printStackTrace();
 
-			} catch (ApplicationException e) {
-				e.printStackTrace();
-			}
-		});
-
-		thread.start();
+		}
 
 	}
 

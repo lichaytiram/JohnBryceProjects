@@ -51,11 +51,13 @@ public class PurchasesDao implements IPurchasesDao {
 				return resultSet.getLong(1);
 			}
 
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -81,8 +83,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -107,8 +111,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -133,8 +139,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -159,8 +167,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -186,8 +196,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -212,8 +224,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -244,8 +258,10 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -276,8 +292,10 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -310,8 +328,10 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -349,8 +369,10 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -390,8 +412,10 @@ public class PurchasesDao implements IPurchasesDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -411,8 +435,10 @@ public class PurchasesDao implements IPurchasesDao {
 			preparedStatement.setLong(2, couponId);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 

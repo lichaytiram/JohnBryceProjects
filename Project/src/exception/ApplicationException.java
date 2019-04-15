@@ -18,31 +18,27 @@ public class ApplicationException extends Exception {
 	// constructor
 
 	/**
-	 * @param problem   Receive a problem
-	 * @param throwable Receive addition exception
+	 * @param errorType  Receive an error type
+	 * @param message    Receive a message
+	 * @param isCritical Receive is critical
+	 * @param throwable  Receive a throwable
 	 */
-	public ApplicationException(String problem, Throwable throwable) {
+	public ApplicationException(ErrorType errorType, String message, boolean isCritical, Throwable throwable) {
 
-		super(problem, throwable);
+		super(message, throwable);
+		this.errorType = errorType;
+		this.isCritical = isCritical;
 
 	}
 
 	/**
-	 * @param problem Receive a problem
+	 * @param errorType  Receive an error type
+	 * @param message    Receive a message
+	 * @param isCritical Receive is critical
 	 */
-	public ApplicationException(String problem) {
+	public ApplicationException(ErrorType errorType, String message, boolean isCritical) {
 
-		super(problem);
-
-	}
-
-	/**
-	 * @param errorType Receive an error type
-	 * @param problem   Receive a problem
-	 */
-	public ApplicationException(ErrorType errorType, String problem, boolean isCritical) {
-
-		super(problem);
+		super(message);
 		this.errorType = errorType;
 		this.isCritical = isCritical;
 

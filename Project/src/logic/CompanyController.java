@@ -49,17 +49,19 @@ public class CompanyController {
 	public long createCompany(Company company) throws ApplicationException {
 
 		if (company == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidName(company.getName());
 		ValidationUtils.isValidPhoneNumber(company.getPhoneNumber());
 		ValidationUtils.isValidEmail(company.getEmail());
 
 		if (companiesDao.isCompanyExists(company.getId()))
-			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS,
+					ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage(), false);
 
 		if (companiesDao.isCompanyExists(company.getName()))
-			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS,
+					ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage(), false);
 
 		return companiesDao.createCompany(company);
 
@@ -74,7 +76,8 @@ public class CompanyController {
 		ValidationUtils.isValidId(companyId);
 
 		if (!companiesDao.isCompanyExists(companyId))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		purchasesDao.deletePurchaseByCompanyId(companyId);
 		couponsDao.deleteCouponbyCompanyId(companyId);
@@ -90,7 +93,7 @@ public class CompanyController {
 	public void updateCompany(Company company) throws ApplicationException {
 
 		if (company == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidId(company.getId());
 		ValidationUtils.isValidName(company.getName());
@@ -98,7 +101,8 @@ public class CompanyController {
 		ValidationUtils.isValidEmail(company.getEmail());
 
 		if (!companiesDao.isCompanyExists(company.getId()))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		Company companyFromDataBase = companiesDao.getCompany(company.getId());
 
@@ -106,7 +110,8 @@ public class CompanyController {
 
 			if (companiesDao.isCompanyExists(company.getName())) {
 
-				throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage());
+				throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS,
+						ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage(), false);
 
 			}
 		}
@@ -135,7 +140,8 @@ public class CompanyController {
 		ValidationUtils.isValidId(companyId);
 
 		if (!companiesDao.isCompanyExists(companyId))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		return companiesDao.getCompany(companyId);
 

@@ -35,8 +35,10 @@ public class RefreshDataBase implements ICreate {
 			System.out.println("refresh DataBase end!");
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 
 	}
@@ -77,8 +79,10 @@ public class RefreshDataBase implements ICreate {
 			preparedStatement5.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
 					preparedStatement4, preparedStatement5);
@@ -117,8 +121,10 @@ public class RefreshDataBase implements ICreate {
 			preparedStatement5.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement1, preparedStatement2, preparedStatement3,
 					preparedStatement4, preparedStatement5);

@@ -51,7 +51,7 @@ public class CouponController {
 	public long createCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidId(coupon.getCompanyId());
 		isValidCategory(coupon.getCategory());
@@ -62,10 +62,12 @@ public class CouponController {
 		isValidImage(coupon.getImage());
 
 		if (couponsDao.isCouponExists(coupon.getId()))
-			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
+					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
 		if (couponsDao.isCouponExists(coupon.getCompanyId(), coupon.getTitle()))
-			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
+					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
 		return couponsDao.createCoupon(coupon);
 
@@ -75,12 +77,21 @@ public class CouponController {
 	 * @param couponId Receive a coupon id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCoupon(long couponId) throws ApplicationException {
+	public void deleteCoupon(long couponId, long companyId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
+		ValidationUtils.isValidId(companyId);
 
 		if (!couponsDao.isCouponExists(couponId))
-			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		if (!companyDao.isCompanyExists(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
+
+		if (!couponsDao.isCouponBelongToCompany(couponId, companyId))
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
 		purchasesDao.deletePurchaseByCouponId(couponId);
 
@@ -106,7 +117,7 @@ public class CouponController {
 	public void updateCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidId(coupon.getId());
 		ValidationUtils.isValidId(coupon.getCompanyId());
@@ -118,7 +129,8 @@ public class CouponController {
 		isValidImage(coupon.getImage());
 
 		if (!couponsDao.isCouponExists(coupon.getId()))
-			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		Coupon couponFromDataBase = couponsDao.getCoupon(coupon.getId());
 
@@ -126,7 +138,8 @@ public class CouponController {
 
 			if (couponsDao.isCouponExists(coupon.getCompanyId(), coupon.getTitle()))
 
-				throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage());
+				throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
+						ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
 		}
 
@@ -156,7 +169,8 @@ public class CouponController {
 		if (couponsDao.isCouponExists(couponId))
 			return couponsDao.getCoupon(couponId);
 
-		throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+		throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
+				false);
 	}
 
 	/**
@@ -169,7 +183,8 @@ public class CouponController {
 		ValidationUtils.isValidId(couponId);
 
 		if (!couponsDao.isCouponExists(couponId))
-			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		return couponsDao.howMuchCouponRemain(couponId);
 
@@ -185,7 +200,8 @@ public class CouponController {
 		ValidationUtils.isValidId(companyId);
 
 		if (!companyDao.isCompanyExists(companyId))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCompanyCouponsByCompanyId(companyId);
 
@@ -203,7 +219,8 @@ public class CouponController {
 		isValidCategory(category);
 
 		if (!companyDao.isCompanyExists(companyId))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCompanyCouponsByCategory(companyId, category);
 
@@ -221,7 +238,8 @@ public class CouponController {
 		isValidPrice(maxPrice);
 
 		if (!companyDao.isCompanyExists(companyId))
-			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCompanyCouponsByMaxPrice(companyId, maxPrice);
 
@@ -237,7 +255,8 @@ public class CouponController {
 		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCustomerCouponsByCustomerId(customerId);
 
@@ -255,7 +274,8 @@ public class CouponController {
 		isValidCategory(category);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCustomerCouponsByCategory(customerId, category);
 
@@ -273,7 +293,8 @@ public class CouponController {
 		isValidPrice(maxPrice);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
 
@@ -286,7 +307,7 @@ public class CouponController {
 	private void isValidPrice(double price) throws ApplicationException {
 
 		if (price <= 0)
-			throw new ApplicationException(ErrorType.INVALID_PRICE.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_PRICE, ErrorType.INVALID_PRICE.getMessage(), false);
 
 	}
 
@@ -297,7 +318,7 @@ public class CouponController {
 	private void isValidCategory(Category category) throws ApplicationException {
 
 		if (category == null)
-			throw new ApplicationException(ErrorType.INVALID_CATEGORY.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_CATEGORY, ErrorType.INVALID_CATEGORY.getMessage(), false);
 
 	}
 
@@ -308,7 +329,7 @@ public class CouponController {
 	private void isValidImage(String image) throws ApplicationException {
 
 		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
-			throw new ApplicationException(ErrorType.INVALID_IMAGE.getMessage());
+			throw new ApplicationException(ErrorType.INVALID_IMAGE, ErrorType.INVALID_IMAGE.getMessage(), false);
 
 	}
 }

@@ -49,11 +49,13 @@ public class CouponsDao implements ICouponsDao {
 				return resultSet.getLong(1);
 			}
 
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage() + ErrorType.GENERAL_ERROR.getMessage());
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -78,8 +80,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -104,8 +108,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -129,8 +135,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -158,8 +166,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -185,8 +195,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
@@ -229,8 +241,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -272,8 +286,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -304,8 +320,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -337,8 +355,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -373,8 +393,45 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+		return false;
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isCouponBelongToCompany(long couponId, long companyId) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+			preparedStatement = connection.prepareStatement("SELECT * FROM coupons WHERE ID = ? AND COMPANY_ID = ?");
+			preparedStatement.setLong(1, couponId);
+			preparedStatement.setLong(2, companyId);
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -406,8 +463,10 @@ public class CouponsDao implements ICouponsDao {
 				amount = resultSet.getInt("AMOUNT");
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -452,8 +511,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -496,8 +557,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -544,8 +607,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -589,8 +654,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -633,8 +700,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -682,8 +751,10 @@ public class CouponsDao implements ICouponsDao {
 			}
 
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
 		}
@@ -708,8 +779,10 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement.setDouble(8, coupon.getPrice());
 			preparedStatement.setString(9, coupon.getImage());
 		} catch (SQLException e) {
+
 			e.printStackTrace();
-			throw new ApplicationException(ErrorType.PROBLEM.getMessage(), e);
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
 		}
 		return preparedStatement;
 

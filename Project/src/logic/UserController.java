@@ -38,14 +38,15 @@ public class UserController {
 	public long createUser(User user) throws ApplicationException {
 
 		if (user == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidName(user.getUserName());
 		ValidationUtils.isValidPassword(user.getPassword());
 		ValidationUtils.isValidType(user.getType());
 
 		if (usersDao.isUserExist(user.getUserName()))
-			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
+					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 
 		return usersDao.createUser(user);
 
@@ -60,7 +61,8 @@ public class UserController {
 		ValidationUtils.isValidId(userId);
 
 		if (!usersDao.isUserExist(userId))
-			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		usersDao.deleteUser(userId);
 
@@ -75,7 +77,8 @@ public class UserController {
 		ValidationUtils.isValidId(companyId);
 
 		if (!usersDao.isUserExistByCompanyId(companyId))
-			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		usersDao.deleteUserByCompanyId(companyId);
 
@@ -94,10 +97,12 @@ public class UserController {
 		ValidationUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userId))
-			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		if (usersDao.isUserExist(userName))
-			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
+					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 
 		usersDao.updateUser(userName, password, userId);
 
@@ -125,7 +130,8 @@ public class UserController {
 		ValidationUtils.isValidPassword(password);
 
 		if (!usersDao.isUserExist(userName))
-			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
 
 		return usersDao.login(userName, password);
 

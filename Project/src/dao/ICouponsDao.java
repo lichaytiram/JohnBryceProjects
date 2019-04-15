@@ -88,6 +88,14 @@ public interface ICouponsDao {
 	public boolean isCouponValid(long couponId) throws ApplicationException;
 
 	/**
+	 * @param couponId  Receive a coupon id
+	 * @param companyId Receive a company id
+	 * @return This function return true if coupon belong to company
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public boolean isCouponBelongToCompany(long couponId, long companyId) throws ApplicationException;
+
+	/**
 	 * @param couponId Receive a coupon id
 	 * @return This function return an amount of coupon that remain
 	 * @throws ApplicationException This function can throw an applicationException

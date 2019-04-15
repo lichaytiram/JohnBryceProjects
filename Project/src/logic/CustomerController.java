@@ -48,10 +48,10 @@ public class CustomerController {
 	public long createCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		if (customer.getUser() == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidName(customer.getFirstName());
 		ValidationUtils.isValidPhoneNumber(customer.getPhoneNumber());
@@ -61,7 +61,8 @@ public class CustomerController {
 		ValidationUtils.isValidType(customer.getUser().getType());
 
 		if (usersDao.isUserExist(customer.getUser().getUserName()))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS,
+					ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage(), false);
 
 		User user = customer.getUser();
 
@@ -83,7 +84,8 @@ public class CustomerController {
 		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		purchasesDao.deletePurchaseByCustomerId(customerId);
 		customerDao.deleteCustomer(customerId);
@@ -98,10 +100,10 @@ public class CustomerController {
 	public void updateCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		if (customer.getUser() == null)
-			throw new ApplicationException(ErrorType.EMPTY.getMessage());
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
 		ValidationUtils.isValidId(customer.getId());
 		ValidationUtils.isValidName(customer.getFirstName());
@@ -113,7 +115,8 @@ public class CustomerController {
 		ValidationUtils.isValidType(customer.getUser().getType());
 
 		if (!customerDao.isCustomerExists(customer.getId()))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		User userFromDataBase = usersDao.getUser(customer.getId());
 
@@ -121,7 +124,8 @@ public class CustomerController {
 
 			if (usersDao.isUserExist(customer.getUser().getUserName()))
 
-				throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage());
+				throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS,
+						ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage(), false);
 
 		}
 
@@ -152,7 +156,8 @@ public class CustomerController {
 		ValidationUtils.isValidId(customerId);
 
 		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage());
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return customerDao.getCustomer(customerId);
 
