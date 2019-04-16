@@ -72,42 +72,29 @@ public class UserController {
 	}
 
 	/**
-	 * @param companyId Receive a company id
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public void deleteUserByCompanyId(long companyId) throws ApplicationException {
-
-		ValidationUtils.isValidId(companyId);
-
-		if (!usersDao.isUserExistByCompanyId(companyId))
-			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-					false);
-
-		usersDao.deleteUserByCompanyId(companyId);
-
-	}
-
-	/**
 	 * @param userName Receive an user name
 	 * @param password Receive a password
 	 * @param userId   Receive an user id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateUser(String userName, String password, long userId) throws ApplicationException {
+	public void updateUser(User user) throws ApplicationException {
 
-		ValidationUtils.isValidId(userId);
-		ValidationUtils.isValidName(userName);
-		ValidationUtils.isValidPassword(password);
+		if (user == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		if (!usersDao.isUserExist(userId))
+		ValidationUtils.isValidId(user.getId());
+		ValidationUtils.isValidName(user.getUserName());
+		ValidationUtils.isValidPassword(user.getPassword());
+
+		if (!usersDao.isUserExist(user.getId()))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		if (usersDao.isUserExist(userName))
+		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
 					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 
-		usersDao.updateUser(userName, password, userId);
+		usersDao.updateUser(user.getUserName(), user.getPassword(), user.getId());
 
 	}
 

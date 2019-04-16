@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,29 +55,17 @@ public class UserApi {
 	}
 
 	/**
-	 * @param companyId Receive a company id
+	 * @param userName Receive an user name
+	 * @param password Receive a password
+	 * @param userId   Receive an user id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@DeleteMapping("/{companyId}")
-	public void deleteUserByCompanyId(@PathVariable("companyId") long companyId) throws ApplicationException {
+	@PutMapping
+	public void updateUser(@RequestBody User user) throws ApplicationException {
 
-		userController.deleteUserByCompanyId(companyId);
+		userController.updateUser(user);
 
 	}
-
-	// don't work with @RequestBody
-//	/**
-//	 * @param userName Receive an user name
-//	 * @param password Receive a password
-//	 * @param userId   Receive an user id
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@PutMapping
-//	public void updateUser(@RequestBody String userName, String password, long userId) throws ApplicationException {
-//
-//		userController.updateUser(userName, password, userId);
-//
-//	}
 
 	/**
 	 * @return This function return an user list

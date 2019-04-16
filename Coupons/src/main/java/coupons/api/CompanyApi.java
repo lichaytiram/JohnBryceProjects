@@ -37,8 +37,6 @@ public class CompanyApi {
 	@PostMapping
 	public long createCompany(@RequestBody Company company) throws ApplicationException {
 
-		System.out.println(company);
-
 		return companyController.createCompany(company);
 
 	}

@@ -3,8 +3,12 @@ package coupons.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,10 +31,11 @@ public class CustomerApi {
 
 	/**
 	 * @param customer Receive a customer
-	 * @return
+	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createCustomer(Customer customer) throws ApplicationException {
+	@PostMapping
+	public long createCustomer(@RequestBody Customer customer) throws ApplicationException {
 
 		return customerController.createCustomer(customer);
 
@@ -40,7 +45,8 @@ public class CustomerApi {
 	 * @param customerId Receive a customer id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCustomer(long customerId) throws ApplicationException {
+	@DeleteMapping("{customerId}")
+	public void deleteCustomer(@PathVariable("customerId") long customerId) throws ApplicationException {
 
 		customerController.deleteCustomer(customerId);
 
@@ -50,7 +56,8 @@ public class CustomerApi {
 	 * @param customer Receive a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCustomer(Customer customer) throws ApplicationException {
+	@PutMapping
+	public void updateCustomer(@RequestBody Customer customer) throws ApplicationException {
 
 		customerController.updateCustomer(customer);
 
@@ -68,12 +75,11 @@ public class CustomerApi {
 	}
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @return This function return a customer
+	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/{customerId}")
-	public Customer getCustomer(@PathVariable("companyId") long customerId) throws ApplicationException {
+	public Customer getCustomer(@PathVariable("customerId") long customerId) throws ApplicationException {
 
 		return customerController.getCustomer(customerId);
 

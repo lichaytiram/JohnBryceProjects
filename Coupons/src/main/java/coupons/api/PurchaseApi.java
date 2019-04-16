@@ -3,6 +3,7 @@ package coupons.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,7 +45,9 @@ public class PurchaseApi {
 	 * @param couponId   Receive a coupon id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
+	@DeleteMapping("/{customerId}/{couponId}")
+	public void deletePurchase(@PathVariable("customerId") long customerId, @PathVariable("couponId") long couponId)
+			throws ApplicationException {
 
 		purchaseController.deletePurchase(customerId, couponId);
 
@@ -54,7 +57,8 @@ public class PurchaseApi {
 	 * @param id Receive an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deletePurchase(long id) throws ApplicationException {
+	@DeleteMapping("/{id}")
+	public void deletePurchase(@PathVariable("id") long id) throws ApplicationException {
 
 		purchaseController.deletePurchase(id);
 
@@ -65,7 +69,8 @@ public class PurchaseApi {
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public int getPurchaseAmount(long customerId) throws ApplicationException {
+	@GetMapping("amount/{customerId}")
+	public int getPurchaseAmount(@PathVariable("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getPurchaseAmount(customerId);
 
@@ -88,7 +93,7 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/{customerId}")
-	public List<Purchase> getCustomerPurchase(@PathVariable long customerId) throws ApplicationException {
+	public List<Purchase> getCustomerPurchase(@PathVariable("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getCustomerPurchase(customerId);
 
