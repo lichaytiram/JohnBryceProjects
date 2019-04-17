@@ -254,7 +254,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCustomerCouponByCustomerId(long customerId) throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
 
 		ValidationUtils.isValidId(customerId);
 

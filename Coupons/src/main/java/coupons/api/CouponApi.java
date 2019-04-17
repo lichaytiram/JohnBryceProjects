@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Coupon;
+import coupons.enums.Category;
 import coupons.exception.ApplicationException;
 import coupons.logic.CouponController;
 
@@ -46,8 +48,9 @@ public class CouponApi {
 	 * @param companyId Receive a company id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@DeleteMapping("/{couponId}/{companyId}")
-	public void deleteCoupon(@PathVariable long couponId, @PathVariable long companyId) throws ApplicationException {
+	@DeleteMapping("/{couponId}")
+	public void deleteCoupon(@PathVariable("couponId") long couponId, @RequestParam("companyId") long companyId)
+			throws ApplicationException {
 
 		couponController.deleteCoupon(couponId, companyId);
 
@@ -92,8 +95,8 @@ public class CouponApi {
 	 * @return This function return an amount of coupon that remain
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/amount/{amount}")
-	public long howMuchCouponRemain(@PathVariable("amount") long couponId) throws ApplicationException {
+	@GetMapping("/amount/{couponId}")
+	public long howMuchCouponRemain(@PathVariable("couponId") long couponId) throws ApplicationException {
 
 		return couponController.howMuchCouponRemain(couponId);
 
@@ -104,80 +107,81 @@ public class CouponApi {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/company/{companyId}")
-	public List<Coupon> getCompanyCouponsByCompanyId(@PathVariable("companyId") long companyId)
+	@GetMapping("/company")
+	public List<Coupon> getCompanyCouponsByCompanyId(@RequestParam("companyId") long companyId)
 			throws ApplicationException {
 
 		return couponController.getCompanyCouponsByCompanyId(companyId);
 
 	}
 
-//	/**
-//	 * @param companyId Receive a company id
-//	 * @param category  Receive a category
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	// 2 function with same start
-//	@GetMapping("/category/{companyId}")
-//	public List<Coupon> getCompanyCouponsByCategory(@PathVariable("companyId") long companyId,
-//			@RequestParam("category1") Category category) throws ApplicationException {
-//
-//		return couponController.getCompanyCouponsByCategory(companyId, category);
-//
-//	}
+	/**
+	 * @param companyId Receive a company id
+	 * @param category  Receive a category
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/company/category")
+	public List<Coupon> getCompanyCouponsByCategory(@RequestParam("companyId") long companyId,
+			@RequestParam("category") Category category) throws ApplicationException {
 
-//	/**
-//	 * @param companyId Receive a company id
-//	 * @param maxPrice  Receive a max price
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping
-//	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
-//
-//		return couponController.getCompanyCouponsByMaxPrice(companyId, maxPrice);
-//
-//	}
-//
+		return couponController.getCompanyCouponsByCategory(companyId, category);
+
+	}
+
+	/**
+	 * @param companyId Receive a company id
+	 * @param maxPrice  Receive a max price
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/company/price")
+	public List<Coupon> getCompanyCouponsByMaxPrice(@RequestParam("companyId") long companyId,
+			@RequestParam("maxPrice") double maxPrice) throws ApplicationException {
+
+		return couponController.getCompanyCouponsByMaxPrice(companyId, maxPrice);
+
+	}
+
 	/**
 	 * @param customerId Receive a customer id
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/customer/{customerId}")
-	public List<Coupon> getCustomerCouponByCustomerId(@PathVariable("customerId") long customerId)
+	@GetMapping("/customer")
+	public List<Coupon> getCustomerCouponsByCustomerId(@RequestParam("customerId") long customerId)
 			throws ApplicationException {
 
-		return couponController.getCustomerCouponByCustomerId(customerId);
+		return couponController.getCustomerCouponsByCustomerId(customerId);
 
 	}
 
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param category   Receive a category
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping("/category/x/{customerId}")
-//	public List<Coupon> getCustomerCouponsByCategory(@PathVariable("customerId") long customerId,
-//			@RequestParam("category2") Category category) throws ApplicationException {
-//
-//		return couponController.getCustomerCouponsByCategory(customerId, category);
-//
-//	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param maxPrice   Receive a max price
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping
-//	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
-//
-//		return couponController.getCustomerCouponsByMaxPrice(customerId, maxPrice);
-//
-//	}
+	/**
+	 * @param customerId Receive a customer id
+	 * @param category   Receive a category
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/customer/category")
+	public List<Coupon> getCustomerCouponsByCategory(@RequestParam("customerId") long customerId,
+			@RequestParam("category") Category category) throws ApplicationException {
+
+		return couponController.getCustomerCouponsByCategory(customerId, category);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param maxPrice   Receive a max price
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/customer/price")
+	public List<Coupon> getCustomerCouponsByMaxPrice(@RequestParam("customerId") long customerId,
+			@RequestParam("maxPrice") double maxPrice) throws ApplicationException {
+
+		return couponController.getCustomerCouponsByMaxPrice(customerId, maxPrice);
+
+	}
 
 }

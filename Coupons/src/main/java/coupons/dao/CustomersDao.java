@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import coupons.beans.Customer;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -18,6 +20,7 @@ import coupons.utils.JdbcUtils;
  * @author Lichay
  *
  */
+@Repository
 public class CustomersDao implements ICustomersDao {
 
 	/**

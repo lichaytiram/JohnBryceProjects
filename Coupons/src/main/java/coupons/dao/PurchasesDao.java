@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import coupons.beans.Purchase;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -20,6 +22,7 @@ import coupons.utils.JdbcUtils;
  * @author Lichay
  *
  */
+@Repository
 public class PurchasesDao implements IPurchasesDao {
 
 	/**

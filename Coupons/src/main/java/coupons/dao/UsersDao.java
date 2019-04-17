@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import coupons.beans.User;
 import coupons.enums.ClientType;
 import coupons.enums.ErrorType;
@@ -20,6 +22,7 @@ import coupons.utils.JdbcUtils;
  * @author Lichay
  *
  */
+@Repository
 public class UsersDao implements IUsersDao {
 
 	/**

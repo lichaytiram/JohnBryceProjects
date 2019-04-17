@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Purchase;
@@ -45,8 +46,8 @@ public class PurchaseApi {
 	 * @param couponId   Receive a coupon id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@DeleteMapping("/{customerId}/{couponId}")
-	public void deletePurchase(@PathVariable("customerId") long customerId, @PathVariable("couponId") long couponId)
+	@DeleteMapping("delete")
+	public void deletePurchase(@RequestParam("customerId") long customerId, @RequestParam("couponId") long couponId)
 			throws ApplicationException {
 
 		purchaseController.deletePurchase(customerId, couponId);
@@ -69,8 +70,8 @@ public class PurchaseApi {
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("amount/{customerId}")
-	public int getPurchaseAmount(@PathVariable("customerId") long customerId) throws ApplicationException {
+	@GetMapping("/amount")
+	public int getPurchaseAmount(@RequestParam("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getPurchaseAmount(customerId);
 
@@ -92,8 +93,8 @@ public class PurchaseApi {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/{customerId}")
-	public List<Purchase> getCustomerPurchase(@PathVariable("customerId") long customerId) throws ApplicationException {
+	@GetMapping("/byId")
+	public List<Purchase> getCustomerPurchase(@RequestParam("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getCustomerPurchase(customerId);
 
