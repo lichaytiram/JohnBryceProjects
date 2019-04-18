@@ -46,7 +46,7 @@ public class PurchaseApi {
 	 * @param couponId   Receive a coupon id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@DeleteMapping("delete")
+	@DeleteMapping("/delete")
 	public void deletePurchase(@RequestParam("customerId") long customerId, @RequestParam("couponId") long couponId)
 			throws ApplicationException {
 
@@ -70,7 +70,7 @@ public class PurchaseApi {
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/amount")
+	@GetMapping("/customer/amount")
 	public int getPurchaseAmount(@RequestParam("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getPurchaseAmount(customerId);
@@ -93,7 +93,7 @@ public class PurchaseApi {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/byId")
+	@GetMapping("/customer")
 	public List<Purchase> getCustomerPurchase(@RequestParam("customerId") long customerId) throws ApplicationException {
 
 		return purchaseController.getCustomerPurchase(customerId);

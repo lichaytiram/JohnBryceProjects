@@ -84,7 +84,7 @@ public class UserApi {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/byType")
+	@GetMapping("/login")
 	public ClientType login(@RequestParam("userName") String userName, @RequestParam("password") String password)
 			throws ApplicationException {
 
