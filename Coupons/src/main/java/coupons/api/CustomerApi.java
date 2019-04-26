@@ -2,6 +2,8 @@ package coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Customer;
+import coupons.beans.UserData;
 import coupons.exception.ApplicationException;
 import coupons.logic.CustomerController;
 
@@ -35,7 +38,7 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public long createCustomer(@RequestBody Customer customer) throws ApplicationException {
+	public long createCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
 
 		return customerController.createCustomer(customer);
 
@@ -46,7 +49,8 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("{customerId}")
-	public void deleteCustomer(@PathVariable("customerId") long customerId) throws ApplicationException {
+	public void deleteCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
 
 		customerController.deleteCustomer(customerId);
 
@@ -57,7 +61,7 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
-	public void updateCustomer(@RequestBody Customer customer) throws ApplicationException {
+	public void updateCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
 
 		customerController.updateCustomer(customer);
 
@@ -79,8 +83,13 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/{customerId}")
-	public Customer getCustomer(@PathVariable("customerId") long customerId) throws ApplicationException {
+	public Customer getCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
 
+		UserData userData = (UserData) request.getAttribute("userData");
+		System.out.println(userData.getAdminId());
+		System.out.println(userData.getCompanyId());
+		System.out.println(userData.getCustomerId());
 		return customerController.getCustomer(customerId);
 
 	}

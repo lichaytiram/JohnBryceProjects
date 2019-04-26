@@ -2,6 +2,8 @@ package coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +50,8 @@ public class UserApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/{userId}")
-	public void deleteUser(@PathVariable("userId") long userId) throws ApplicationException {
+	public void deleteUser(@PathVariable("userId") long userId, HttpServletRequest request)
+			throws ApplicationException {
 
 		userController.deleteUser(userId);
 
@@ -61,9 +64,21 @@ public class UserApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
-	public void updateUser(@RequestBody User user) throws ApplicationException {
+	public void updateUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
 
 		userController.updateUser(user);
+
+	}
+
+	/**
+	 * @param userId Receive an user id
+	 * @return This function return an user
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/{userId}")
+	public User getUser(@PathVariable("userId") long userId, HttpServletRequest request) throws ApplicationException {
+
+		return userController.getUser(userId);
 
 	}
 

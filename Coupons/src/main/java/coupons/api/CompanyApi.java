@@ -2,6 +2,8 @@ package coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +48,8 @@ public class CompanyApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/{companyId}")
-	public void deleteCompany(@PathVariable("companyId") long companyId) throws ApplicationException {
+	public void deleteCompany(@PathVariable("companyId") long companyId, HttpServletRequest request)
+			throws ApplicationException {
 
 		companyController.deleteCompany(companyId);
 
@@ -57,7 +60,7 @@ public class CompanyApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
-	public void updateCompany(@RequestBody Company company) throws ApplicationException {
+	public void updateCompany(@RequestBody Company company, HttpServletRequest request) throws ApplicationException {
 
 		companyController.updateCompany(company);
 
@@ -80,7 +83,8 @@ public class CompanyApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/{companyId}")
-	public Company getCompany(@PathVariable("companyId") long companyId) throws ApplicationException {
+	public Company getCompany(@PathVariable("companyId") long companyId, HttpServletRequest request)
+			throws ApplicationException {
 
 		return companyController.getCompany(companyId);
 

@@ -2,9 +2,11 @@ package coupons.logic;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.User;
+import coupons.beans.UserData;
 import coupons.dao.IUsersDao;
 import coupons.dao.UsersDao;
 import coupons.enums.ClientType;
@@ -19,6 +21,9 @@ import coupons.utils.ValidationUtils;
  */
 @Controller
 public class UserController {
+
+	@Autowired
+	private ICacheManager cacheManager;
 
 	private IUsersDao usersDao;
 
@@ -99,6 +104,23 @@ public class UserController {
 	}
 
 	/**
+	 * @param userId Receive an user id
+	 * @return This function return an user
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public User getUser(long userId) throws ApplicationException {
+
+		ValidationUtils.isValidId(userId);
+
+		if (!usersDao.isUserExist(userId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		return usersDao.getUser(userId);
+
+	}
+
+	/**
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -123,7 +145,39 @@ public class UserController {
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		return usersDao.login(userName, password);
+		ClientType clientType = usersDao.login(userName, password);
+
+		int token = generateEncryptedToken(userName);
+		UserData userData = generateUserData(userName, clientType);
+		cacheManager.put(token, userData);
+		return clientType;
+
+	}
+
+	private int generateEncryptedToken(String userName) {
+
+		int additionEncrypt = (int) (Math.random() * 10000) + 1;
+
+		String token = "never FinD ThisEncrypt-coDe()" + additionEncrypt + "%G" + userName + "-/@by@` ";
+
+		return token.hashCode();
+
+	}
+
+	private UserData generateUserData(String userName, ClientType clientType) throws ApplicationException {
+
+		UserData userData = new UserData();
+
+		if (ClientType.Administrator.equals(clientType))
+			userData.setAdminId(usersDao.getUserIdByUserName(userName));
+
+		if (ClientType.Company.equals(clientType))
+			userData.setCompanyId(usersDao.getUserIdByUserName(userName));
+
+		if (ClientType.Customer.equals(clientType))
+			userData.setCustomerId(usersDao.getUserIdByUserName(userName));
+
+		return userData;
 
 	}
 

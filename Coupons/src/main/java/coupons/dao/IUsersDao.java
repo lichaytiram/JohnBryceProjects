@@ -43,6 +43,13 @@ public interface IUsersDao {
 	public User getUser(long userId) throws ApplicationException;
 
 	/**
+	 * @param userName Receive a user name
+	 * @return This function return an user id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public long getUserIdByUserName(String userName) throws ApplicationException;
+
+	/**
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
