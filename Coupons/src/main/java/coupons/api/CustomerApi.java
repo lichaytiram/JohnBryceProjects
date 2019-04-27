@@ -37,7 +37,7 @@ public class CustomerApi {
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@PostMapping
+	@PostMapping("/register")
 	public long createCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
 
 		return customerController.createCustomer(customer);

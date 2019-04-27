@@ -28,17 +28,15 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		System.out.println("inside filter");
-
 		String path = ((HttpServletRequest) request).getRequestURI();
-		if (path.startsWith("/users/login")) {
+		if (path.startsWith("/users/login") || path.startsWith("/customers/register")) {
 
 			chain.doFilter(request, response); // Just continue chain.
 
 		} else {
 
 //		    int token = Integer.parseInt(req.getParameter("token"));
-			HttpServletRequest req = (HttpServletRequest) request;
+//			HttpServletRequest req = (HttpServletRequest) request;
 //			String token = req.getParameter("token");
 //			UserData userData = (UserData) cacheManager.get(token);
 			UserData userData = (UserData) cacheManager.getFirst();
