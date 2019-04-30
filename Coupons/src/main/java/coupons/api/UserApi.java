@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import coupons.beans.Login;
 import coupons.beans.User;
 import coupons.beans.UserDataClient;
+import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 import coupons.logic.UserController;
 
@@ -78,7 +79,9 @@ public class UserApi {
 	@GetMapping("/{userId}")
 	public User getUser(@PathVariable("userId") long userId, HttpServletRequest request) throws ApplicationException {
 
-		return userController.getUser(userId);
+		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getUser(userDataMap.getId());
 
 	}
 

@@ -35,12 +35,6 @@ public class LoginFilter implements Filter {
 
 		} else {
 
-//		    int token = Integer.parseInt(req.getParameter("token"));
-//			HttpServletRequest req = (HttpServletRequest) request;
-//			String token = req.getParameter("token");
-//			UserData userData = (UserData) cacheManager.get(token);
-//			UserDataToMap userData = (UserDataToMap) cacheManager.getFirst();
-
 			HttpServletRequest req = (HttpServletRequest) request;
 
 			Integer token = Integer.parseInt(req.getParameter("token"));

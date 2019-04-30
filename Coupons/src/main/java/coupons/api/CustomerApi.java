@@ -87,8 +87,8 @@ public class CustomerApi {
 			throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-		System.out.println(userData);
-		return customerController.getCustomer(customerId);
+
+		return customerController.getCustomer(userData.getId());
 
 	}
 
