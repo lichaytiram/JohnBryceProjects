@@ -4,10 +4,8 @@ import coupons.beans.UserDataMap;
 
 public interface ICacheManager {
 
-	void put(Object key, UserDataMap value);
+	void put(Integer key, UserDataMap value);
 
-	Object get(Object key);
-
-	Object getFirst();
+	UserDataMap get(Integer key);
 
 }

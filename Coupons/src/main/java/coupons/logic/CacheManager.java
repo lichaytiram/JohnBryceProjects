@@ -10,34 +10,40 @@ import coupons.beans.UserDataMap;
 @Component
 public class CacheManager implements ICacheManager {
 
-	private Map<Object, UserDataMap> map;
+	private Map<Integer, UserDataMap> map;
 
 	public CacheManager() {
 
-		map = new HashMap<Object, UserDataMap>();
+		map = new HashMap<Integer, UserDataMap>();
 
 	}
 
 	@Override
-	public void put(Object key, UserDataMap value) {
+	public void put(Integer key, UserDataMap value) {
 
 		map.put(key, value);
 
 	}
 
 	@Override
-	public Object get(Object key) {
+	public UserDataMap get(Integer key) {
 
-		return map.get(key);
-
-	}
-
-	public Object getFirst() {
-
-		for (Object userData : map.values()) {
-			return userData;
+		System.out.println("the key is: " + key);
+		for (Object keys : map.keySet()) {
+			System.out.println("the key is: " + keys);
+			System.out.println("value is 1: " + map.get(key));
+			System.out.println("value is 2: " + map.get(keys));
+			if (key == keys)
+				System.out.println("yes1");
+			else
+				System.out.println("no1");
+			if (key.equals(keys))
+				System.out.println("yes2");
+			else
+				System.out.println("no2");
 		}
-		return null;
+		System.out.println("done");
+		return map.get(key);
 
 	}
 
