@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionsHandler {
 
 	@ExceptionHandler
-	public void handleError(Throwable throwable, HttpServletResponse response) {
+	public void handleError(Throwable throwable, HttpServletResponse response) throws Throwable {
 
 		if (throwable instanceof ApplicationException) {
 
@@ -19,6 +19,8 @@ public class ExceptionsHandler {
 				myException.printStackTrace();
 
 		}
+		
+		throw new Throwable();
 
 	}
 

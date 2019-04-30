@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Customer;
-import coupons.beans.UserData;
+import coupons.beans.UserDataToMap;
 import coupons.exception.ApplicationException;
 import coupons.logic.CustomerController;
 
@@ -86,10 +86,8 @@ public class CustomerApi {
 	public Customer getCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
 			throws ApplicationException {
 
-		UserData userData = (UserData) request.getAttribute("userData");
-		System.out.println(userData.getAdminId());
-		System.out.println(userData.getCompanyId());
-		System.out.println(userData.getCustomerId());
+		UserDataToMap userData = (UserDataToMap) request.getAttribute("userData");
+		System.out.println(userData);
 		return customerController.getCustomer(customerId);
 
 	}

@@ -10,11 +10,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import coupons.beans.UserData;
+import coupons.beans.UserDataToMap;
 import coupons.logic.ICacheManager;
 
 @Component
@@ -39,7 +40,14 @@ public class LoginFilter implements Filter {
 //			HttpServletRequest req = (HttpServletRequest) request;
 //			String token = req.getParameter("token");
 //			UserData userData = (UserData) cacheManager.get(token);
-			UserData userData = (UserData) cacheManager.getFirst();
+//			UserDataToMap userData = (UserDataToMap) cacheManager.getFirst();
+
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpSession session = req.getSession();
+
+			String token = (String) session.getAttribute("token");
+
+			String userData = (String) cacheManager.get(token);
 
 			if (userData != null) {
 

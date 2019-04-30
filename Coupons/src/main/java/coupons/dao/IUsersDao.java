@@ -3,6 +3,7 @@ package coupons.dao;
 import java.util.List;
 
 import coupons.beans.User;
+import coupons.beans.UserDataToMap;
 import coupons.enums.ClientType;
 import coupons.exception.ApplicationException;
 
@@ -47,7 +48,7 @@ public interface IUsersDao {
 	 * @return This function return an user id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long getUserIdByUserName(String userName) throws ApplicationException;
+	public UserDataToMap getUserDataToMap(String userName) throws ApplicationException;
 
 	/**
 	 * @return This function return an user list

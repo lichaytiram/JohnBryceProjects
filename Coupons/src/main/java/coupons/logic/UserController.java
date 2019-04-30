@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import coupons.beans.Login;
 import coupons.beans.User;
-import coupons.beans.UserData;
+import coupons.beans.UserDataToClient;
+import coupons.beans.UserDataToMap;
 import coupons.dao.IUsersDao;
 import coupons.dao.UsersDao;
 import coupons.enums.ClientType;
@@ -136,27 +138,35 @@ public class UserController {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public ClientType login(String userName, String password) throws ApplicationException {
+	public UserDataToClient login(Login login) throws ApplicationException {
 
-		ValidationUtils.isValidName(userName);
-		ValidationUtils.isValidPassword(password);
+		if (login == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		if (!usersDao.isUserExist(userName))
+		ValidationUtils.isValidName(login.getUserName());
+		ValidationUtils.isValidPassword(login.getPassword());
+
+		if (!usersDao.isUserExist(login.getUserName()))
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		ClientType clientType = usersDao.login(userName, password);
+		ClientType clientType = usersDao.login(login.getUserName(), login.getPassword());
+		int token = generateEncryptedToken(login.getUserName());
 
-		int token = generateEncryptedToken(userName);
-		UserData userData = generateUserData(userName, clientType);
-		cacheManager.put(token, userData);
-		return clientType;
+		UserDataToMap userDataToMap = generateUserDataToMap(login.getUserName());
+		UserDataToClient userDataToClient = generateUserDataToClient(clientType, token);
+
+		cacheManager.put(token, userDataToMap);
+
+		return userDataToClient;
 
 	}
 
+	// function
+
 	private int generateEncryptedToken(String userName) {
 
-		int additionEncrypt = (int) (Math.random() * 10000) + 1;
+		int additionEncrypt = (int) (Math.random() * 100000) + 1;
 
 		String token = "never FinD ThisEncrypt-coDe()" + additionEncrypt + "%G" + userName + "-/@by@` ";
 
@@ -164,18 +174,22 @@ public class UserController {
 
 	}
 
-	private UserData generateUserData(String userName, ClientType clientType) throws ApplicationException {
+	private UserDataToMap generateUserDataToMap(String userName) throws ApplicationException {
 
-		UserData userData = new UserData();
+		UserDataToMap userData = new UserDataToMap();
 
-		if (ClientType.Administrator.equals(clientType))
-			userData.setAdminId(usersDao.getUserIdByUserName(userName));
+		userData = usersDao.getUserDataToMap(userName);
 
-		if (ClientType.Company.equals(clientType))
-			userData.setCompanyId(usersDao.getUserIdByUserName(userName));
+		return userData;
 
-		if (ClientType.Customer.equals(clientType))
-			userData.setCustomerId(usersDao.getUserIdByUserName(userName));
+	}
+
+	private UserDataToClient generateUserDataToClient(ClientType clientType, int token) throws ApplicationException {
+
+		UserDataToClient userData = new UserDataToClient();
+
+		userData.setClientType(clientType);
+		userData.setToken(token);
 
 		return userData;
 

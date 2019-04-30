@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import coupons.beans.Login;
 import coupons.beans.User;
-import coupons.enums.ClientType;
+import coupons.beans.UserDataToClient;
 import coupons.exception.ApplicationException;
 import coupons.logic.UserController;
 
@@ -99,11 +99,10 @@ public class UserApi {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/login")
-	public ClientType login(@RequestParam("userName") String userName, @RequestParam("password") String password)
-			throws ApplicationException {
+	@PostMapping("/login")
+	public UserDataToClient login(@RequestBody Login login) throws ApplicationException {
 
-		return userController.login(userName, password);
+		return userController.login(login);
 
 	}
 

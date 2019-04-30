@@ -5,21 +5,21 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import coupons.beans.UserData;
+import coupons.beans.UserDataToMap;
 
 @Component
 public class CacheManager implements ICacheManager {
 
-	private Map<Object, UserData> map;
+	private Map<Object, UserDataToMap> map;
 
 	public CacheManager() {
 
-		map = new HashMap<Object, UserData>(); // try delete <Integer, UserData> and change for it
+		map = new HashMap<Object, UserDataToMap>();
 
 	}
 
 	@Override
-	public void put(Object key, UserData value) {
+	public void put(Object key, UserDataToMap value) {
 
 		map.put(key, value);
 

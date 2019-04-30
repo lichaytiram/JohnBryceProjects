@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import coupons.beans.User;
+import coupons.beans.UserDataToMap;
 import coupons.enums.ClientType;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -194,7 +195,7 @@ public class UsersDao implements IUsersDao {
 				companyId = null;
 
 				// check if user is a company or else.
-				// if user isn't get company id he stay null
+				// if user isn't get company id he will stay null
 				if (resultSet.getLong("COMPANY_ID") != 0) {
 
 					companyId = resultSet.getLong("COMPANY_ID");
@@ -221,7 +222,10 @@ public class UsersDao implements IUsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public long getUserIdByUserName(String userName) throws ApplicationException {
+	public UserDataToMap getUserDataToMap(String userName) throws ApplicationException {
+
+		Long companyId = null;
+		UserDataToMap userDataToMap = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -230,14 +234,23 @@ public class UsersDao implements IUsersDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("SELECT ID FROM users WHERE USER_NAME = ?");
+			preparedStatement = connection.prepareStatement("SELECT ID , COMPANY_ID FROM users WHERE USER_NAME = ?");
 			preparedStatement.setString(1, userName);
 
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
 
-				return resultSet.getLong("ID");
+				// check if user is a company or else.
+				// if user isn't get company id he will stay null
+				if (resultSet.getLong("COMPANY_ID") != 0) {
+
+					companyId = resultSet.getLong("COMPANY_ID");
+				}
+
+				userDataToMap = new UserDataToMap(resultSet.getLong("ID"), companyId);
+
+				return userDataToMap;
 
 			}
 
