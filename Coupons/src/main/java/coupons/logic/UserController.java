@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 
 import coupons.beans.Login;
 import coupons.beans.User;
-import coupons.beans.UserDataToClient;
-import coupons.beans.UserDataToMap;
+import coupons.beans.UserDataClient;
+import coupons.beans.UserDataMap;
 import coupons.dao.IUsersDao;
 import coupons.dao.UsersDao;
 import coupons.enums.ClientType;
@@ -138,7 +138,7 @@ public class UserController {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public UserDataToClient login(Login login) throws ApplicationException {
+	public UserDataClient login(Login login) throws ApplicationException {
 
 		if (login == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -153,8 +153,8 @@ public class UserController {
 		ClientType clientType = usersDao.login(login.getUserName(), login.getPassword());
 		int token = generateEncryptedToken(login.getUserName());
 
-		UserDataToMap userDataToMap = generateUserDataToMap(login.getUserName());
-		UserDataToClient userDataToClient = generateUserDataToClient(clientType, token);
+		UserDataMap userDataToMap = generateUserDataToMap(login.getUserName());
+		UserDataClient userDataToClient = generateUserDataToClient(clientType, token);
 
 		cacheManager.put(token, userDataToMap);
 
@@ -174,19 +174,19 @@ public class UserController {
 
 	}
 
-	private UserDataToMap generateUserDataToMap(String userName) throws ApplicationException {
+	private UserDataMap generateUserDataToMap(String userName) throws ApplicationException {
 
-		UserDataToMap userData = new UserDataToMap();
+		UserDataMap userData = new UserDataMap();
 
-		userData = usersDao.getUserDataToMap(userName);
+		userData = usersDao.getUserDataMap(userName);
 
 		return userData;
 
 	}
 
-	private UserDataToClient generateUserDataToClient(ClientType clientType, int token) throws ApplicationException {
+	private UserDataClient generateUserDataToClient(ClientType clientType, int token) throws ApplicationException {
 
-		UserDataToClient userData = new UserDataToClient();
+		UserDataClient userData = new UserDataClient();
 
 		userData.setClientType(clientType);
 		userData.setToken(token);

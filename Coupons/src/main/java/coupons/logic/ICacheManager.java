@@ -1,10 +1,10 @@
 package coupons.logic;
 
-import coupons.beans.UserDataToMap;
+import coupons.beans.UserDataMap;
 
 public interface ICacheManager {
 
-	void put(Object key, UserDataToMap value);
+	void put(Object key, UserDataMap value);
 
 	Object get(Object key);
 

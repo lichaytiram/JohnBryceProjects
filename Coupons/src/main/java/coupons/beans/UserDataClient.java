@@ -2,7 +2,7 @@ package coupons.beans;
 
 import coupons.enums.ClientType;
 
-public class UserDataToClient {
+public class UserDataClient {
 
 	// property
 
@@ -11,7 +11,7 @@ public class UserDataToClient {
 
 	// constructor
 
-	public UserDataToClient() {
+	public UserDataClient() {
 		super();
 	}
 

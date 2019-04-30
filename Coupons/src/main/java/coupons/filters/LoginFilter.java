@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import coupons.beans.UserDataToMap;
+import coupons.beans.UserDataMap;
 import coupons.logic.ICacheManager;
 
 @Component

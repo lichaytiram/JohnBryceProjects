@@ -11,7 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import coupons.beans.User;
-import coupons.beans.UserDataToMap;
+import coupons.beans.UserDataMap;
 import coupons.enums.ClientType;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -222,10 +222,10 @@ public class UsersDao implements IUsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public UserDataToMap getUserDataToMap(String userName) throws ApplicationException {
+	public UserDataMap getUserDataMap(String userName) throws ApplicationException {
 
 		Long companyId = null;
-		UserDataToMap userDataToMap = null;
+		UserDataMap userDataToMap = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -248,7 +248,7 @@ public class UsersDao implements IUsersDao {
 					companyId = resultSet.getLong("COMPANY_ID");
 				}
 
-				userDataToMap = new UserDataToMap(resultSet.getLong("ID"), companyId);
+				userDataToMap = new UserDataMap(resultSet.getLong("ID"), companyId);
 
 				return userDataToMap;
 

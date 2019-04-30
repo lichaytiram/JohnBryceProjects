@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Login;
 import coupons.beans.User;
-import coupons.beans.UserDataToClient;
+import coupons.beans.UserDataClient;
 import coupons.exception.ApplicationException;
 import coupons.logic.UserController;
 
@@ -100,7 +100,7 @@ public class UserApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping("/login")
-	public UserDataToClient login(@RequestBody Login login) throws ApplicationException {
+	public UserDataClient login(@RequestBody Login login) throws ApplicationException {
 
 		return userController.login(login);
 

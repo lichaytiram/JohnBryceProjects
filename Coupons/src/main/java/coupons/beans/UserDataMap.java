@@ -1,6 +1,6 @@
 package coupons.beans;
 
-public class UserDataToMap {
+public class UserDataMap {
 
 	// property
 
@@ -9,13 +9,13 @@ public class UserDataToMap {
 
 	// constructor
 
-	public UserDataToMap(long id, Long companyId) {
+	public UserDataMap(long id, Long companyId) {
 		this();
 		this.id = id;
 		this.companyId = companyId;
 	}
 
-	public UserDataToMap() {
+	public UserDataMap() {
 		super();
 	}
 
