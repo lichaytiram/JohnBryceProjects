@@ -45,10 +45,9 @@ public class CustomerController {
 
 	/**
 	 * @param customer Receive a customer
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createCustomer(Customer customer) throws ApplicationException {
+	public void createCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -74,7 +73,7 @@ public class CustomerController {
 		customer.setId(id);
 		customer.getUser().setId(id);
 
-		return customerDao.createCustomer(customer);
+		customerDao.createCustomer(customer);
 
 	}
 

@@ -31,13 +31,12 @@ public class PurchaseApi {
 
 	/**
 	 * @param purchase Receive a purchase
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public long purchaseCoupon(@RequestBody Purchase purchase) throws ApplicationException {
+	public void purchaseCoupon(@RequestBody Purchase purchase) throws ApplicationException {
 
-		return purchaseController.purchaseCoupon(purchase);
+		purchaseController.purchaseCoupon(purchase);
 
 	}
 

@@ -33,13 +33,12 @@ public class CouponApi {
 
 	/**
 	 * @param coupon Receive a coupon
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public long createCoupon(@RequestBody Coupon coupon) throws ApplicationException {
+	public void createCoupon(@RequestBody Coupon coupon) throws ApplicationException {
 
-		return couponController.createCoupon(coupon);
+		couponController.createCoupon(coupon);
 
 	}
 

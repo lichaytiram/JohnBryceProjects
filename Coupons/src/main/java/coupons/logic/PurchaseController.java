@@ -42,10 +42,9 @@ public class PurchaseController {
 
 	/**
 	 * @param purchase Receive a purchase
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long purchaseCoupon(Purchase purchase) throws ApplicationException {
+	public void purchaseCoupon(Purchase purchase) throws ApplicationException {
 
 		if (purchase == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -76,7 +75,7 @@ public class PurchaseController {
 
 		couponsDao.updateCoupon(purchase.getCouponId(), amountLeft);
 
-		return purchasesDao.purchaseCoupon(purchase);
+		purchasesDao.purchaseCoupon(purchase);
 
 	}
 

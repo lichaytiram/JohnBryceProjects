@@ -46,10 +46,9 @@ public class CompanyController {
 
 	/**
 	 * @param company Receive a company
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createCompany(Company company) throws ApplicationException {
+	public void createCompany(Company company) throws ApplicationException {
 
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -66,7 +65,7 @@ public class CompanyController {
 			throw new ApplicationException(ErrorType.COMPANY_IS_ALREADY_EXISTS,
 					ErrorType.COMPANY_IS_ALREADY_EXISTS.getMessage(), false);
 
-		return companiesDao.createCompany(company);
+		companiesDao.createCompany(company);
 
 	}
 

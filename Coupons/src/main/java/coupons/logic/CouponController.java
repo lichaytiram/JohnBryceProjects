@@ -48,10 +48,9 @@ public class CouponController {
 
 	/**
 	 * @param coupon Receive a coupon
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createCoupon(Coupon coupon) throws ApplicationException {
+	public void createCoupon(Coupon coupon) throws ApplicationException {
 
 		if (coupon == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -72,7 +71,7 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
-		return couponsDao.createCoupon(coupon);
+		couponsDao.createCoupon(coupon);
 
 	}
 

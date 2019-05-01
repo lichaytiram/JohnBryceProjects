@@ -33,13 +33,12 @@ public class CompanyApi {
 
 	/**
 	 * @param company Receive a company
-	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public long createCompany(@RequestBody Company company) throws ApplicationException {
+	public void createCompany(@RequestBody Company company) throws ApplicationException {
 
-		return companyController.createCompany(company);
+		companyController.createCompany(company);
 
 	}
 
