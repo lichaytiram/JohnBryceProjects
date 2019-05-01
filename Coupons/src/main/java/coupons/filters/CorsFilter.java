@@ -27,13 +27,15 @@ public class CorsFilter implements Filter {
 		// Authorize (allow) all domains to consume the content
 		((HttpServletResponse) response).addHeader("Access-Control-Allow-Credentials", "true");
 		((HttpServletResponse) response).addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-		((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods", "GET, OPTIONS, HEAD, PUT, POST");
+		((HttpServletResponse) response).addHeader("Access-Control-Allow-Methods",
+				"GET, POST, DELETE, PUT, OPTIONS, HEAD");
 		((HttpServletResponse) response).addHeader("Access-Control-Allow-Headers",
 				"Origin, Accept, x-auth-token, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 
 		((HttpServletResponse) response).setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
 		((HttpServletResponse) response).setHeader("Access-Control-Allow-Credentials", "true");
-		((HttpServletResponse) response).setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, HEAD, OPTIONS");
+		((HttpServletResponse) response).setHeader("Access-Control-Allow-Methods",
+				"GET, POST, DELETE, PUT, OPTIONS, HEAD");
 		((HttpServletResponse) response).setHeader("Access-Control-Allow-Headers",
 				"Origin, Accept, x-auth-token, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
 

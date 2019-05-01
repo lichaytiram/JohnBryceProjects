@@ -51,7 +51,10 @@ public class CustomerApi {
 	public void deleteCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
 			throws ApplicationException {
 
-		customerController.deleteCustomer(customerId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		System.out.println(userData.getId());
+		customerController.deleteCustomer(userData.getId());
 
 	}
 
