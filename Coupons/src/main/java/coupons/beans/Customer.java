@@ -55,7 +55,7 @@ public class Customer {
 	 */
 	public Customer() {
 		super();
-		
+
 	}
 
 	// getter & setter
@@ -142,6 +142,13 @@ public class Customer {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/**
+	 * @param id Receive an id
+	 */
+	public void setUserId(long id) {
+		this.user.setId(id);
 	}
 
 	@Override

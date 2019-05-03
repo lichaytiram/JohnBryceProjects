@@ -44,14 +44,16 @@ public class PurchaseController {
 	 * @param purchase Receive a purchase
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void purchaseCoupon(Purchase purchase) throws ApplicationException {
+	public void purchaseCoupon(Purchase purchase, long id) throws ApplicationException {
 
 		if (purchase == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		ValidationUtils.isValidId(purchase.getCustomerId());
+		ValidationUtils.isValidId(id);
 		ValidationUtils.isValidId(purchase.getCouponId());
 		ValidationUtils.isValidAmount(purchase.getAmount());
+
+		purchase.setCustomerId(id);
 
 		if (!customerDao.isCustomerExists(purchase.getCustomerId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,

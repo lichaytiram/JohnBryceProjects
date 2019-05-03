@@ -3,6 +3,7 @@ package coupons.logic;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import coupons.beans.Customer;
 import coupons.beans.User;
@@ -22,6 +23,7 @@ import coupons.utils.ValidationUtils;
  * @author Lichay
  */
 @Controller
+@Service
 public class CustomerController {
 
 	private ICustomersDao customerDao;
@@ -99,7 +101,7 @@ public class CustomerController {
 	 * @param customer Receive a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCustomer(Customer customer) throws ApplicationException {
+	public void updateCustomer(Customer customer, long id) throws ApplicationException {
 
 		if (customer == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -107,14 +109,16 @@ public class CustomerController {
 		if (customer.getUser() == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		ValidationUtils.isValidId(customer.getId());
+		ValidationUtils.isValidId(id);
 		ValidationUtils.isValidName(customer.getFirstName());
 		ValidationUtils.isValidPhoneNumber(customer.getPhoneNumber());
 		ValidationUtils.isValidEmail(customer.getEmail());
-		ValidationUtils.isValidId(customer.getUser().getId());
 		ValidationUtils.isValidName(customer.getUser().getUserName());
 		ValidationUtils.isValidPassword(customer.getUser().getPassword());
 		ValidationUtils.isValidType(customer.getUser().getType());
+
+		customer.setId(id);
+		customer.setUserId(id);
 
 		if (!customerDao.isCustomerExists(customer.getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,

@@ -2,6 +2,8 @@ package coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Coupon;
+import coupons.beans.UserDataMap;
 import coupons.enums.Category;
 import coupons.exception.ApplicationException;
 import coupons.logic.CouponController;
@@ -148,10 +151,12 @@ public class CouponApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/customer")
-	public List<Coupon> getCustomerCouponsByCustomerId(@RequestParam("customerId") long customerId)
-			throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByCustomerId(@RequestParam("customerId") long customerId,
+			HttpServletRequest request) throws ApplicationException {
 
-		return couponController.getCustomerCouponsByCustomerId(customerId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return couponController.getCustomerCouponsByCustomerId(userData.getId());
 
 	}
 
@@ -163,9 +168,11 @@ public class CouponApi {
 	 */
 	@GetMapping("/customer/category")
 	public List<Coupon> getCustomerCouponsByCategory(@RequestParam("customerId") long customerId,
-			@RequestParam("category") Category category) throws ApplicationException {
+			@RequestParam("category") Category category, HttpServletRequest request) throws ApplicationException {
 
-		return couponController.getCustomerCouponsByCategory(customerId, category);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return couponController.getCustomerCouponsByCategory(userData.getId(), category);
 
 	}
 
@@ -177,9 +184,11 @@ public class CouponApi {
 	 */
 	@GetMapping("/customer/price")
 	public List<Coupon> getCustomerCouponsByMaxPrice(@RequestParam("customerId") long customerId,
-			@RequestParam("maxPrice") double maxPrice) throws ApplicationException {
+			@RequestParam("maxPrice") double maxPrice, HttpServletRequest request) throws ApplicationException {
 
-		return couponController.getCustomerCouponsByMaxPrice(customerId, maxPrice);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return couponController.getCustomerCouponsByMaxPrice(userData.getId(), maxPrice);
 
 	}
 

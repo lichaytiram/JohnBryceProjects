@@ -37,6 +37,7 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping("/register")
+//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 4)
 	public void createCustomer(@RequestBody Customer customer) throws ApplicationException {
 
 		customerController.createCustomer(customer);
@@ -53,7 +54,6 @@ public class CustomerApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		System.out.println(userData.getId());
 		customerController.deleteCustomer(userData.getId());
 
 	}
@@ -65,7 +65,9 @@ public class CustomerApi {
 	@PutMapping
 	public void updateCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
 
-		customerController.updateCustomer(customer);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		customerController.updateCustomer(customer, userData.getId());
 
 	}
 

@@ -2,6 +2,8 @@ package coupons.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Purchase;
+import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 import coupons.logic.PurchaseController;
 
@@ -34,9 +37,11 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public void purchaseCoupon(@RequestBody Purchase purchase) throws ApplicationException {
+	public void purchaseCoupon(@RequestBody Purchase purchase, HttpServletRequest request) throws ApplicationException {
 
-		purchaseController.purchaseCoupon(purchase);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		purchaseController.purchaseCoupon(purchase, userData.getId());
 
 	}
 
@@ -46,10 +51,12 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/delete")
-	public void deletePurchase(@RequestParam("customerId") long customerId, @RequestParam("couponId") long couponId)
-			throws ApplicationException {
+	public void deletePurchase(@RequestParam("customerId") long customerId, @RequestParam("couponId") long couponId,
+			HttpServletRequest request) throws ApplicationException {
 
-		purchaseController.deletePurchase(customerId, couponId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		purchaseController.deletePurchase(userData.getId(), couponId);
 
 	}
 
@@ -70,9 +77,12 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/customer/amount")
-	public int getPurchaseAmount(@RequestParam("customerId") long customerId) throws ApplicationException {
+	public int getPurchaseAmount(@RequestParam("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
 
-		return purchaseController.getPurchaseAmount(customerId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getPurchaseAmount(userData.getId());
 
 	}
 
@@ -93,9 +103,12 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/customer")
-	public List<Purchase> getCustomerPurchase(@RequestParam("customerId") long customerId) throws ApplicationException {
+	public List<Purchase> getCustomerPurchase(@RequestParam("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
 
-		return purchaseController.getCustomerPurchase(customerId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getCustomerPurchase(userData.getId());
 
 	}
 
