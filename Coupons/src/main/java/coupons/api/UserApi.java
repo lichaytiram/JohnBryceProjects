@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Login;
+import coupons.beans.Name;
 import coupons.beans.User;
 import coupons.beans.UserDataClient;
 import coupons.beans.UserDataMap;
@@ -68,6 +69,21 @@ public class UserApi {
 	public void updateUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
 
 		userController.updateUser(user);
+
+	}
+
+	/**
+	 * @param userId Receive an user id
+	 * @return This function return an user name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/name/{userId}")
+	public Name getUserName(@PathVariable("userId") long userId, HttpServletRequest request)
+			throws ApplicationException {
+
+		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getUserName(userDataMap.getId());
 
 	}
 

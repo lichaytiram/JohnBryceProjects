@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Login;
+import coupons.beans.Name;
 import coupons.beans.User;
 import coupons.beans.UserDataClient;
 import coupons.beans.UserDataMap;
@@ -102,6 +103,27 @@ public class UserController {
 					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 
 		usersDao.updateUser(user.getUserName(), user.getPassword(), user.getId());
+
+	}
+
+	/**
+	 * @param userId Receive an user id
+	 * @return This function return an user name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public Name getUserName(long userId) throws ApplicationException {
+
+		ValidationUtils.isValidId(userId);
+
+		if (!usersDao.isUserExist(userId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		String name = usersDao.getUserName(userId);
+
+		Name myName = new Name(name);
+
+		return myName;
 
 	}
 

@@ -41,16 +41,16 @@ public interface ICustomersDao {
 
 	/**
 	 * @param customerId Receive a customer id
-	 * @return This function return a customer
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public Customer getCustomer(long customerId) throws ApplicationException;
-
-	/**
-	 * @param customerId Receive a customer id
 	 * @return This function return a customer name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public String getCustomerName(long customerId) throws ApplicationException;
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return a customer
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public Customer getCustomer(long customerId) throws ApplicationException;
 
 }

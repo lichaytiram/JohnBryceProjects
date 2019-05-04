@@ -173,6 +173,42 @@ public class UsersDao implements IUsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public String getUserName(long userId) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement("SELECT USER_NAME FROM users WHERE ID = ?");
+			preparedStatement.setLong(1, userId);
+
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+
+				return resultSet.getString("USER_NAME");
+			}
+
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement);
+		}
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public User getUser(long userId) throws ApplicationException {
 
 		Long companyId = null;

@@ -155,6 +155,27 @@ public class CustomerController {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @return This function return a customer name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public Name getCustomerName(long customerId) throws ApplicationException {
+
+		ValidationUtils.isValidId(customerId);
+
+		if (!customerDao.isCustomerExists(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		String name = customerDao.getCustomerName(customerId);
+
+		Name myName = new Name(name);
+
+		return myName;
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
 	 * @return This function return a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -167,27 +188,6 @@ public class CustomerController {
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		return customerDao.getCustomer(customerId);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @return This function return a customer name
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public Name getCustomerName(long customerId) throws ApplicationException {
-
-		ValidationUtils.isValidId(customerId);
-
-		if (!customerDao.isCustomerExists(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-
-		String Name = customerDao.getCustomerName(customerId);
-
-		Name myName = new Name(Name);
-
-		return myName;
 
 	}
 
