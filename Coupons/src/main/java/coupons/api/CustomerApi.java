@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Customer;
+import coupons.beans.Name;
 import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 import coupons.logic.CustomerController;
@@ -93,6 +94,20 @@ public class CustomerApi {
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
 		return customerController.getCustomer(userData.getId());
+
+	}
+
+	/**
+	 * @return This function return customer name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/name/{customerId}")
+	public Name getCustomerName(@PathVariable("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return customerController.getCustomerName(userData.getId());
 
 	}
 

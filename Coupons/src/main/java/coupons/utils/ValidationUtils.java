@@ -90,7 +90,7 @@ public class ValidationUtils {
 	 */
 	public static void isValidAmount(int amount) throws ApplicationException {
 
-		if (amount < 0)
+		if (amount <= 0)
 			throw new ApplicationException(ErrorType.INVALID_AMOUNT, ErrorType.INVALID_AMOUNT.getMessage(), false);
 
 	}

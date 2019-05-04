@@ -19,7 +19,7 @@ public class ExceptionsHandler {
 				myException.printStackTrace();
 
 		}
-		
+
 		throw new Throwable();
 
 	}

@@ -231,6 +231,42 @@ public class CustomersDao implements ICustomersDao {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getCustomerName(long customerId) throws ApplicationException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = JdbcUtils.getConnection();
+
+			preparedStatement = connection.prepareStatement("SELECT FIRST_NAME FROM customers WHERE ID = ? ");
+			preparedStatement.setLong(1, customerId);
+
+			resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+
+				return resultSet.getString("FIRST_NAME");
+			}
+
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
+
+		} finally {
+			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
+		}
+
+	}
+
 	// extract
 
 	private PreparedStatement extractPreparedStatement(PreparedStatement preparedStatement, String firstName,
