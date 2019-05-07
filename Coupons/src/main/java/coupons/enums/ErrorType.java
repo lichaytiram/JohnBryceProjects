@@ -32,6 +32,8 @@ public enum ErrorType {
 	INVALID_PASSWORD("The password you've entered is invalid. Please try again.\nThe password must contain one small & big letter and one digit!"),
 	INVALID_DATES("The dates you've entered is invalid."),
 	
+	INVALID_ACCESS("You don't have access to this page"),
+	SCAM("Use your real id please, don't try to scam us!"),
 	FIELD_IS_IRREPLACEABLE("You can't change this field."),
 	NAME_IS_IRREPLACEABLE("You can't change your name."),
 	COUPON_IS_OUT_OF_ORDER("Coupon is out of order."),

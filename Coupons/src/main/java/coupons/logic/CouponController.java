@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Coupon;
+import coupons.beans.UserDataMap;
 import coupons.dao.CompaniesDao;
 import coupons.dao.CouponsDao;
 import coupons.dao.CustomersDao;
@@ -47,13 +48,20 @@ public class CouponController {
 	}
 
 	/**
-	 * @param coupon Receive a coupon
+	 * @param coupon   Receive a coupon
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void createCoupon(Coupon coupon) throws ApplicationException {
+	public void createCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
 
 		if (coupon == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != coupon.getCompanyId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(coupon.getCompanyId());
 		isValidCategory(coupon.getCategory());
@@ -78,9 +86,16 @@ public class CouponController {
 	/**
 	 * @param couponId  Receive a coupon id
 	 * @param companyId Receive a company id
+	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCoupon(long couponId, long companyId) throws ApplicationException {
+	public void deleteCoupon(long couponId, long companyId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != companyId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(couponId);
 		ValidationUtils.isValidId(companyId);
@@ -114,13 +129,20 @@ public class CouponController {
 	}
 
 	/**
-	 * @param coupon Receive a coupon
+	 * @param coupon   Receive a coupon
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCoupon(Coupon coupon) throws ApplicationException {
+	public void updateCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
 
 		if (coupon == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != coupon.getCompanyId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(coupon.getId());
 		ValidationUtils.isValidId(coupon.getCompanyId());
@@ -151,10 +173,15 @@ public class CouponController {
 	}
 
 	/**
+	 * @param userData Receive an userData
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getAllCoupon() throws ApplicationException {
+	public List<Coupon> getAllCoupon(UserDataMap userData) throws ApplicationException {
+
+		// only customer can see coupon list for purchase
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		return couponsDao.getAllCoupon();
 
@@ -169,36 +196,27 @@ public class CouponController {
 
 		ValidationUtils.isValidId(couponId);
 
-		if (couponsDao.isCouponExists(couponId))
-			return couponsDao.getCoupon(couponId);
-
-		throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
-				false);
-	}
-
-	/**
-	 * @param couponId Receive a coupon id
-	 * @return This function return an amount of coupon that remain
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public long howMuchCouponRemain(long couponId) throws ApplicationException {
-
-		ValidationUtils.isValidId(couponId);
-
 		if (!couponsDao.isCouponExists(couponId))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		return couponsDao.howMuchCouponRemain(couponId);
+		return couponsDao.getCoupon(couponId);
 
 	}
 
 	/**
 	 * @param companyId Receive a company id
+	 * @param userData  Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCompanyCouponsByCompanyId(long companyId) throws ApplicationException {
+	public List<Coupon> getCompanyCouponsByCompanyId(long companyId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != companyId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
 
@@ -213,10 +231,18 @@ public class CouponController {
 	/**
 	 * @param companyId Receive a company id
 	 * @param category  Receive a category
+	 * @param userData  Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category) throws ApplicationException {
+	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != companyId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
 		isValidCategory(category);
@@ -232,10 +258,18 @@ public class CouponController {
 	/**
 	 * @param companyId Receive a company id
 	 * @param maxPrice  Receive a max price
+	 * @param userData  Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice) throws ApplicationException {
+	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != companyId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
 		isValidPrice(maxPrice);
@@ -250,10 +284,18 @@ public class CouponController {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCustomerCouponsByCustomerId(long customerId) throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 
@@ -268,10 +310,18 @@ public class CouponController {
 	/**
 	 * @param customerId Receive a customer id
 	 * @param category   Receive a category
+	 * @param userData   Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category) throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 		isValidCategory(category);
@@ -287,10 +337,18 @@ public class CouponController {
 	/**
 	 * @param customerId Receive a customer id
 	 * @param maxPrice   Receive a max price
+	 * @param userData   Receive an userData
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice) throws ApplicationException {
+	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 		isValidPrice(maxPrice);

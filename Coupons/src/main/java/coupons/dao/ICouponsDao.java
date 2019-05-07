@@ -100,7 +100,7 @@ public interface ICouponsDao {
 	 * @return This function return an amount of coupon that remain
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public int howMuchCouponRemain(long couponId) throws ApplicationException;
+	public int howMuchCouponsRemain(long couponId) throws ApplicationException;
 
 	/**
 	 * @param companyId Receive a company id

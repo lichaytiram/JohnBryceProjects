@@ -42,14 +42,21 @@ public class UserController {
 	}
 
 	/**
-	 * @param user Receive an user
+	 * @param user     Receive an user
+	 * @param userData Receive an userData
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public long createUser(User user) throws ApplicationException {
+	public long createUser(User user, UserDataMap userData) throws ApplicationException {
 
 		if (user == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (!user.getType().name().equals("Customer"))
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidName(user.getUserName());
 		ValidationUtils.isValidPassword(user.getPassword());
@@ -64,10 +71,17 @@ public class UserController {
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteUser(long userId) throws ApplicationException {
+	public void deleteUser(long userId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (userId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidId(userId);
 
@@ -80,15 +94,20 @@ public class UserController {
 	}
 
 	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
-	 * @param userId   Receive an user id
+	 * @param user     Receive an user
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateUser(User user) throws ApplicationException {
+	public void updateUser(User user, UserDataMap userData) throws ApplicationException {
 
 		if (user == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (user.getId() != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidId(user.getId());
 		ValidationUtils.isValidName(user.getUserName());
@@ -107,11 +126,15 @@ public class UserController {
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
 	 * @return This function return an user name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public Name getUserName(long userId) throws ApplicationException {
+	public Name getUserName(long userId, UserDataMap userDataMap) throws ApplicationException {
+
+		if (userDataMap.getId() != userId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(userId);
 
@@ -128,11 +151,18 @@ public class UserController {
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
 	 * @return This function return an user
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public User getUser(long userId) throws ApplicationException {
+	public User getUser(long userId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (userId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidId(userId);
 
@@ -145,18 +175,21 @@ public class UserController {
 	}
 
 	/**
+	 * @param userData Receive an userData
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<User> getAllUsers() throws ApplicationException {
+	public List<User> getAllUsers(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		return usersDao.getAllUsers();
 
 	}
 
 	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
+	 * @param login Receive a login (contain user name and password)
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -172,14 +205,13 @@ public class UserController {
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		ClientType clientType = usersDao.login(login.getUserName(), login.getPassword());
+		UserDataMap userDataMap = usersDao.login(login.getUserName(), login.getPassword());
 		int token = generateEncryptedToken(login.getUserName());
 
-		UserDataMap userDataToMap = generateUserDataToMap(login.getUserName());
-		UserDataClient userDataToClient = generateUserDataToClient(clientType, token);
+		UserDataClient userDataToClient = generateUserDataToClient(userDataMap.getId(), userDataMap.getClientType(),
+				token);
 
-		cacheManager.put(token, userDataToMap);
-
+		cacheManager.put(token, userDataMap);
 		return userDataToClient;
 
 	}
@@ -196,20 +228,12 @@ public class UserController {
 
 	}
 
-	private UserDataMap generateUserDataToMap(String userName) throws ApplicationException {
-
-		UserDataMap userData = new UserDataMap();
-
-		userData = usersDao.getUserDataMap(userName);
-
-		return userData;
-
-	}
-
-	private UserDataClient generateUserDataToClient(ClientType clientType, int token) throws ApplicationException {
+	private UserDataClient generateUserDataToClient(long id, ClientType clientType, int token)
+			throws ApplicationException {
 
 		UserDataClient userData = new UserDataClient();
 
+		userData.setId(id);
 		userData.setClientType(clientType);
 		userData.setToken(token);
 

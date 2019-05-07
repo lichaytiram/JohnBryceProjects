@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import coupons.beans.Customer;
 import coupons.beans.Name;
 import coupons.beans.User;
+import coupons.beans.UserDataMap;
 import coupons.dao.CustomersDao;
 import coupons.dao.ICustomersDao;
 import coupons.dao.IPurchasesDao;
@@ -29,7 +30,6 @@ public class CustomerController {
 
 	private ICustomersDao customerDao;
 	private IPurchasesDao purchasesDao;
-	private UserController userController;
 	private IUsersDao usersDao;
 
 	/**
@@ -41,7 +41,6 @@ public class CustomerController {
 
 		customerDao = new CustomersDao();
 		purchasesDao = new PurchasesDao();
-		userController = new UserController();
 		usersDao = new UsersDao();
 
 	}
@@ -71,7 +70,7 @@ public class CustomerController {
 
 		User user = customer.getUser();
 
-		long id = userController.createUser(user);
+		long id = usersDao.createUser(user);
 
 		customer.setId(id);
 		customer.getUser().setId(id);
@@ -82,9 +81,16 @@ public class CustomerController {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCustomer(long customerId) throws ApplicationException {
+	public void deleteCustomer(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 
@@ -92,17 +98,22 @@ public class CustomerController {
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
+		if (!usersDao.isUserExist(customerId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
 		purchasesDao.deletePurchaseByCustomerId(customerId);
 		customerDao.deleteCustomer(customerId);
-		userController.deleteUser(customerId);
+		usersDao.deleteUser(customerId);
 
 	}
 
 	/**
 	 * @param customer Receive a customer
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCustomer(Customer customer, long id) throws ApplicationException {
+	public void updateCustomer(Customer customer, UserDataMap userData) throws ApplicationException {
 
 		if (customer == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
@@ -110,16 +121,27 @@ public class CustomerController {
 		if (customer.getUser() == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		ValidationUtils.isValidId(id);
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customer.getId() != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getClientType().name().equals("Administrator")
+				|| userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.FIELD_IS_IRREPLACEABLE,
+					ErrorType.FIELD_IS_IRREPLACEABLE.getMessage(), false);
+
+		User userToUpdate = customer.getUser();
+
+		ValidationUtils.isValidId(customer.getId());
 		ValidationUtils.isValidName(customer.getFirstName());
 		ValidationUtils.isValidPhoneNumber(customer.getPhoneNumber());
 		ValidationUtils.isValidEmail(customer.getEmail());
-		ValidationUtils.isValidName(customer.getUser().getUserName());
-		ValidationUtils.isValidPassword(customer.getUser().getPassword());
-		ValidationUtils.isValidType(customer.getUser().getType());
-
-		customer.setId(id);
-		customer.setUserId(id);
+		ValidationUtils.isValidId(userToUpdate.getId());
+		ValidationUtils.isValidName(userToUpdate.getUserName());
+		ValidationUtils.isValidPassword(userToUpdate.getPassword());
+		ValidationUtils.isValidType(userToUpdate.getType());
 
 		if (!customerDao.isCustomerExists(customer.getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
@@ -136,18 +158,20 @@ public class CustomerController {
 
 		}
 
-		User userToUpdate = customer.getUser();
-
 		usersDao.updateUser(userToUpdate.getUserName(), userToUpdate.getPassword(), userToUpdate.getId());
 		customerDao.updateCustomer(customer);
 
 	}
 
 	/**
+	 * @param userData Receive an userData
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Customer> getAllCustomer() throws ApplicationException {
+	public List<Customer> getAllCustomer(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		return customerDao.getAllCustomer();
 
@@ -155,10 +179,17 @@ public class CustomerController {
 
 	/**
 	 * @param customerId Receive a customer id
-	 * @return This function return a customer name
+	 * @param userData   Receive an userData
+	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public Name getCustomerName(long customerId) throws ApplicationException {
+	public Name getCustomerName(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 
@@ -176,10 +207,17 @@ public class CustomerController {
 
 	/**
 	 * @param customerId Receive a customer id
-	 * @return This function return a customer
+	 * @param userData   Receive an userData
+	 * @return This function return customer name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public Customer getCustomer(long customerId) throws ApplicationException {
+	public Customer getCustomer(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 

@@ -212,6 +212,7 @@ public class UsersDao implements IUsersDao {
 	public User getUser(long userId) throws ApplicationException {
 
 		Long companyId = null;
+		ClientType clientType = null;
 		User user = null;
 
 		Connection connection = null;
@@ -237,8 +238,11 @@ public class UsersDao implements IUsersDao {
 					companyId = resultSet.getLong("COMPANY_ID");
 				}
 
+				// change type to client type
+				clientType = ClientType.valueOf(resultSet.getString("TYPE"));
+
 				user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
-						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
+						resultSet.getString("PASSWORD"), clientType, companyId);
 
 			}
 
@@ -258,24 +262,30 @@ public class UsersDao implements IUsersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public UserDataMap getUserDataMap(String userName) throws ApplicationException {
+	public UserDataMap login(String userName, String password) throws ApplicationException {
 
+		long id;
 		Long companyId = null;
+		ClientType clientType = null;
 		UserDataMap userDataToMap = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("SELECT ID , COMPANY_ID FROM users WHERE USER_NAME = ?");
-			preparedStatement.setString(1, userName);
+			preparedStatement = connection
+					.prepareStatement("SELECT ID , COMPANY_ID , TYPE FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
+
+			// call to private function that prepared the statement
+			preparedStatement(preparedStatement, userName, password);
 
 			resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
+
+				id = resultSet.getLong("ID");
 
 				// check if user is a company or else.
 				// if user isn't get company id he will stay null
@@ -284,13 +294,16 @@ public class UsersDao implements IUsersDao {
 					companyId = resultSet.getLong("COMPANY_ID");
 				}
 
-				userDataToMap = new UserDataMap(resultSet.getLong("ID"), companyId);
+				// change type to client type
+				clientType = ClientType.valueOf(resultSet.getString("TYPE"));
+
+				userDataToMap = new UserDataMap(id, companyId, clientType);
 
 				return userDataToMap;
 
 			}
 
-			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), false);
+			throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), false);
 
 		} catch (SQLException e) {
 
@@ -310,6 +323,7 @@ public class UsersDao implements IUsersDao {
 	public List<User> getAllUsers() throws ApplicationException {
 
 		Long companyId = null;
+		ClientType clientType = null;
 		User user = null;
 		List<User> list = new ArrayList<User>();
 
@@ -335,8 +349,11 @@ public class UsersDao implements IUsersDao {
 					companyId = resultSet.getLong("COMPANY_ID");
 				}
 
+				// change type to client type
+				clientType = ClientType.valueOf(resultSet.getString("TYPE"));
+
 				user = new User(resultSet.getLong("ID"), resultSet.getString("USER_NAME"),
-						resultSet.getString("PASSWORD"), ClientType.valueOf(resultSet.getString("TYPE")), companyId);
+						resultSet.getString("PASSWORD"), clientType, companyId);
 
 				list.add(user);
 
@@ -351,45 +368,6 @@ public class UsersDao implements IUsersDao {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
 		return list;
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public ClientType login(String userName, String password) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection
-					.prepareStatement("SELECT TYPE FROM users WHERE USER_NAME = ? AND PASSWORD = ?");
-
-			// call to private function that prepared the statement
-			preparedStatement(preparedStatement, userName, password);
-
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.next()) {
-
-				return ClientType.valueOf(resultSet.getString("TYPE"));
-			}
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
-
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-
-		throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), true);
 
 	}
 

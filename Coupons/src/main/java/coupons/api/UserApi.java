@@ -36,44 +36,52 @@ public class UserApi {
 	private UserController userController;
 
 	/**
-	 * @param user Receive an user
+	 * @param user    Receive an user
+	 * @param request Receive a httpServletRequest
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public long createUser(@RequestBody User user) throws ApplicationException {
+	public long createUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
 
-		return userController.createUser(user);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return userController.createUser(user, userData);
 
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/{userId}")
 	public void deleteUser(@PathVariable("userId") long userId, HttpServletRequest request)
 			throws ApplicationException {
 
-		userController.deleteUser(userId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		userController.deleteUser(userId, userData);
 
 	}
 
 	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
-	 * @param userId   Receive an user id
+	 * @param user    Receive an user
+	 * @param request Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
 	public void updateUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
 
-		userController.updateUser(user);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		userController.updateUser(user, userData);
 
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
 	 * @return This function return an user name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -83,38 +91,41 @@ public class UserApi {
 
 		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
 
-		return userController.getUserName(userDataMap.getId());
+		return userController.getUserName(userId, userDataMap);
 
 	}
 
 	/**
-	 * @param userId Receive an user id
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
 	 * @return This function return an user
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/{userId}")
 	public User getUser(@PathVariable("userId") long userId, HttpServletRequest request) throws ApplicationException {
 
-		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return userController.getUser(userDataMap.getId());
+		return userController.getUser(userId, userData);
 
 	}
 
 	/**
+	 * @param request Receive a httpServletRequest
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<User> getAllUsers() throws ApplicationException {
+	public List<User> getAllUsers(HttpServletRequest request) throws ApplicationException {
 
-		return userController.getAllUsers();
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getAllUsers(userData);
 
 	}
 
 	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
+	 * @param login Receive a login (contain user name and password)
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

@@ -6,6 +6,7 @@ public class UserDataClient {
 
 	// property
 
+	private long id;
 	private ClientType clientType;
 	private int token;
 
@@ -16,6 +17,14 @@ public class UserDataClient {
 	}
 
 	// getter & setter
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public ClientType getClientType() {
 		return clientType;
@@ -31,6 +40,11 @@ public class UserDataClient {
 
 	public void setToken(int token) {
 		this.token = token;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDataClient [id=" + id + ", clientType=" + clientType + ", token=" + token + "]";
 	}
 
 }

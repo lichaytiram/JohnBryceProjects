@@ -47,6 +47,7 @@ public class CustomerApi {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("{customerId}")
@@ -55,12 +56,13 @@ public class CustomerApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		customerController.deleteCustomer(userData.getId());
+		customerController.deleteCustomer(customerId, userData);
 
 	}
 
 	/**
 	 * @param customer Receive a customer
+	 * @param request  Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
@@ -68,22 +70,27 @@ public class CustomerApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		customerController.updateCustomer(customer, userData.getId());
+		customerController.updateCustomer(customer, userData);
 
 	}
 
 	/**
+	 * @param request Receive a httpServletRequest
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Customer> getAllCustomer() throws ApplicationException {
+	public List<Customer> getAllCustomer(HttpServletRequest request) throws ApplicationException {
 
-		return customerController.getAllCustomer();
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return customerController.getAllCustomer(userData);
 
 	}
 
 	/**
+	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -93,11 +100,13 @@ public class CustomerApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return customerController.getCustomer(userData.getId());
+		return customerController.getCustomer(customerId, userData);
 
 	}
 
 	/**
+	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
 	 * @return This function return customer name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -107,7 +116,7 @@ public class CustomerApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return customerController.getCustomerName(userData.getId());
+		return customerController.getCustomerName(customerId, userData);
 
 	}
 

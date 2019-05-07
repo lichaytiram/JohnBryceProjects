@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Company;
+import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 import coupons.logic.CompanyController;
 
@@ -33,51 +34,64 @@ public class CompanyApi {
 
 	/**
 	 * @param company Receive a company
+	 * @param request Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
-	public void createCompany(@RequestBody Company company) throws ApplicationException {
+	public void createCompany(@RequestBody Company company, HttpServletRequest request) throws ApplicationException {
 
-		companyController.createCompany(company);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		companyController.createCompany(company, userData);
 
 	}
 
 	/**
 	 * @param companyId Receive a company id
+	 * @param request   Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/{companyId}")
 	public void deleteCompany(@PathVariable("companyId") long companyId, HttpServletRequest request)
 			throws ApplicationException {
 
-		companyController.deleteCompany(companyId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		companyController.deleteCompany(companyId, userData);
 
 	}
 
 	/**
 	 * @param company Receive a company
+	 * @param request Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PutMapping
 	public void updateCompany(@RequestBody Company company, HttpServletRequest request) throws ApplicationException {
 
-		companyController.updateCompany(company);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		companyController.updateCompany(company, userData);
 
 	}
 
 	/**
+	 * @param request Receive a httpServletRequest
 	 * @return This function return company list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Company> getAllCompany() throws ApplicationException {
+	public List<Company> getAllCompany(HttpServletRequest request) throws ApplicationException {
 
-		return companyController.getAllCompany();
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return companyController.getAllCompany(userData);
 
 	}
 
 	/**
 	 * @param companyId Receive a company id
+	 * @param request   Receive a httpServletRequest
 	 * @return This function return a company
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -85,7 +99,9 @@ public class CompanyApi {
 	public Company getCompany(@PathVariable("companyId") long companyId, HttpServletRequest request)
 			throws ApplicationException {
 
-		return companyController.getCompany(companyId);
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return companyController.getCompany(companyId, userData);
 
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Purchase;
+import coupons.beans.UserDataMap;
 import coupons.dao.CouponsDao;
 import coupons.dao.CustomersDao;
 import coupons.dao.ICouponsDao;
@@ -42,18 +43,23 @@ public class PurchaseController {
 
 	/**
 	 * @param purchase Receive a purchase
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void purchaseCoupon(Purchase purchase, long id) throws ApplicationException {
+	public void purchaseCoupon(Purchase purchase, UserDataMap userData) throws ApplicationException {
 
 		if (purchase == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
 
-		ValidationUtils.isValidId(id);
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (purchase.getCustomerId() != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(purchase.getCustomerId());
 		ValidationUtils.isValidId(purchase.getCouponId());
 		ValidationUtils.isValidAmount(purchase.getAmount());
-
-		purchase.setCustomerId(id);
 
 		if (!customerDao.isCustomerExists(purchase.getCustomerId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
@@ -67,7 +73,7 @@ public class PurchaseController {
 			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
 					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
 
-		int amountOfCouponRemain = couponsDao.howMuchCouponRemain(purchase.getCouponId());
+		int amountOfCouponRemain = couponsDao.howMuchCouponsRemain(purchase.getCouponId());
 
 		if (amountOfCouponRemain < purchase.getAmount())
 			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
@@ -84,9 +90,16 @@ public class PurchaseController {
 	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id
+	 * @param userData   Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
+	public void deletePurchase(long customerId, long couponId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(customerId);
 		ValidationUtils.isValidId(couponId);
@@ -117,10 +130,20 @@ public class PurchaseController {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public int getPurchaseAmount(long customerId) throws ApplicationException {
+	public int getPurchaseAmount(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), true);
+
+		if (userData.getClientType().name().equals("Customer")) {
+			if (customerId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidId(customerId);
 
@@ -133,10 +156,14 @@ public class PurchaseController {
 	}
 
 	/**
+	 * @param userData Receive an userData
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getAllPurchase() throws ApplicationException {
+	public List<Purchase> getAllPurchase(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		return purchasesDao.getAllPurchase();
 
@@ -144,10 +171,20 @@ public class PurchaseController {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getCustomerPurchase(long customerId) throws ApplicationException {
+	public List<Purchase> getCustomerPurchase(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (userData.getClientType().name().equals("Customer")) {
+			if (customerId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+
+		if (userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
 
 		ValidationUtils.isValidId(customerId);
 

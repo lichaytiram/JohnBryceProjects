@@ -4,7 +4,6 @@ import java.util.List;
 
 import coupons.beans.User;
 import coupons.beans.UserDataMap;
-import coupons.enums.ClientType;
 import coupons.exception.ApplicationException;
 
 public interface IUsersDao {
@@ -52,24 +51,17 @@ public interface IUsersDao {
 
 	/**
 	 * @param userName Receive a user name
-	 * @return This function return an user id
+	 * @param password Receive a password
+	 * @return This function return an userDataMap
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public UserDataMap getUserDataMap(String userName) throws ApplicationException;
+	public UserDataMap login(String userName, String password) throws ApplicationException;
 
 	/**
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public List<User> getAllUsers() throws ApplicationException;
-
-	/**
-	 * @param userName Receive an user name
-	 * @param password Receive a password
-	 * @return This function return a client type
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public ClientType login(String userName, String password) throws ApplicationException;
 
 	/**
 	 * @param companyId Receive a company id

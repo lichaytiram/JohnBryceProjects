@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Company;
+import coupons.beans.UserDataMap;
 import coupons.dao.CompaniesDao;
 import coupons.dao.CouponsDao;
 import coupons.dao.ICompaniesDao;
@@ -45,13 +46,17 @@ public class CompanyController {
 	}
 
 	/**
-	 * @param company Receive a company
+	 * @param company  Receive a company
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void createCompany(Company company) throws ApplicationException {
+	public void createCompany(Company company, UserDataMap userData) throws ApplicationException {
 
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidName(company.getName());
 		ValidationUtils.isValidPhoneNumber(company.getPhoneNumber());
@@ -71,9 +76,13 @@ public class CompanyController {
 
 	/**
 	 * @param companyId Receive a company id
+	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void deleteCompany(long companyId) throws ApplicationException {
+	public void deleteCompany(long companyId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
 
@@ -89,13 +98,17 @@ public class CompanyController {
 	}
 
 	/**
-	 * @param company Receive a company
+	 * @param company  Receive a company
+	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public void updateCompany(Company company) throws ApplicationException {
+	public void updateCompany(Company company, UserDataMap userData) throws ApplicationException {
 
 		if (company == null)
 			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(company.getId());
 		ValidationUtils.isValidName(company.getName());
@@ -123,10 +136,14 @@ public class CompanyController {
 	}
 
 	/**
+	 * @param userData Receive an userData
 	 * @return This function return company list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Company> getAllCompany() throws ApplicationException {
+	public List<Company> getAllCompany(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		return companiesDao.getAllCompany();
 
@@ -134,10 +151,20 @@ public class CompanyController {
 
 	/**
 	 * @param companyId Receive a company id
+	 * @param userData  Receive an userData
 	 * @return This function return a company
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public Company getCompany(long companyId) throws ApplicationException {
+	public Company getCompany(long companyId, UserDataMap userData) throws ApplicationException {
+
+		if (userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getClientType().name().equals("Company")) {
+			if (userData.getCompanyId() != companyId)
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
 
 		ValidationUtils.isValidId(companyId);
 

@@ -34,6 +34,7 @@ public class PurchaseApi {
 
 	/**
 	 * @param purchase Receive a purchase
+	 * @param request  Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostMapping
@@ -41,13 +42,14 @@ public class PurchaseApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		purchaseController.purchaseCoupon(purchase, userData.getId());
+		purchaseController.purchaseCoupon(purchase, userData);
 
 	}
 
 	/**
 	 * @param customerId Receive a customer id
 	 * @param couponId   Receive a coupon id
+	 * @param request    Receive a httpServletRequest
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@DeleteMapping("/delete")
@@ -56,7 +58,7 @@ public class PurchaseApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		purchaseController.deletePurchase(userData.getId(), couponId);
+		purchaseController.deletePurchase(customerId, couponId, userData);
 
 	}
 
@@ -73,6 +75,7 @@ public class PurchaseApi {
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -82,23 +85,27 @@ public class PurchaseApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return purchaseController.getPurchaseAmount(userData.getId());
+		return purchaseController.getPurchaseAmount(customerId, userData);
 
 	}
 
 	/**
+	 * @param request Receive a httpServletRequest
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Purchase> getAllPurchase() throws ApplicationException {
+	public List<Purchase> getAllPurchase(HttpServletRequest request) throws ApplicationException {
 
-		return purchaseController.getAllPurchase();
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getAllPurchase(userData);
 
 	}
 
 	/**
 	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -108,7 +115,7 @@ public class PurchaseApi {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return purchaseController.getCustomerPurchase(userData.getId());
+		return purchaseController.getCustomerPurchase(customerId, userData);
 
 	}
 

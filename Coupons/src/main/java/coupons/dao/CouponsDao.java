@@ -42,7 +42,7 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO coupons (COMPANY_ID,CATEGORY,TITLE,DESCRIPTION,START_DATE,END_DATE,AMOUNT,PRICE,IMAGE) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? ) ",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
 			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, coupon);
 
@@ -165,7 +165,7 @@ public class CouponsDao implements ICouponsDao {
 			preparedStatement = connection
 					.prepareStatement("UPDATE coupons SET COMPANY_ID = ? , CATEGORY = ? , TITLE = ? , DESCRIPTION = ? ,"
 							+ " START_DATE = ? , END_DATE = ? , AMOUNT = ? , PRICE = ? , IMAGE = ?  WHERE ID = ?");
-			
+
 			// call to private function that prepared the statement
 			preparedStatement(preparedStatement, coupon);
 			preparedStatement.setLong(10, coupon.getId());
@@ -451,7 +451,7 @@ public class CouponsDao implements ICouponsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public int howMuchCouponRemain(long couponId) throws ApplicationException {
+	public int howMuchCouponsRemain(long couponId) throws ApplicationException {
 
 		int amount = 0;
 
