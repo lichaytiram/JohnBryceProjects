@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Repository;
+
 import coupons.dao.ICreate;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -15,10 +17,12 @@ import coupons.utils.JdbcUtils;
  * @author Lichay
  *
  */
+@Repository
 public class RefreshDataBase implements ICreate {
 
-	public RefreshDataBase() {
+	public RefreshDataBase() throws ApplicationException {
 		super();
+//		refreshDB();
 	}
 
 	/**
@@ -105,19 +109,19 @@ public class RefreshDataBase implements ICreate {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement1 = connection.prepareStatement("DROP TABLE purchases");
+			preparedStatement1 = connection.prepareStatement("DROP TABLE IF EXISTS purchases");
 			preparedStatement1.executeUpdate();
 
-			preparedStatement2 = connection.prepareStatement("DROP TABLE coupons");
+			preparedStatement2 = connection.prepareStatement("DROP TABLE IF EXISTS coupons");
 			preparedStatement2.executeUpdate();
 
-			preparedStatement3 = connection.prepareStatement("DROP TABLE customers");
+			preparedStatement3 = connection.prepareStatement("DROP TABLE IF EXISTS customers");
 			preparedStatement3.executeUpdate();
 
-			preparedStatement4 = connection.prepareStatement("DROP TABLE users");
+			preparedStatement4 = connection.prepareStatement("DROP TABLE IF EXISTS users");
 			preparedStatement4.executeUpdate();
 
-			preparedStatement5 = connection.prepareStatement("DROP TABLE companies");
+			preparedStatement5 = connection.prepareStatement("DROP TABLE IF EXISTS companies");
 			preparedStatement5.executeUpdate();
 
 		} catch (SQLException e) {

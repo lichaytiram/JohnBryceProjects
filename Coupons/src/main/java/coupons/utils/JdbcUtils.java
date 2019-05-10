@@ -28,8 +28,8 @@ public class JdbcUtils {
 	 */
 	public static Connection getConnection() throws SQLException {
 		Connection connection = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC", "root",
-				null);
+				"jdbc:mysql://localhost:3306/coupons?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+				"root", "1232");
 		return connection;
 	}
 

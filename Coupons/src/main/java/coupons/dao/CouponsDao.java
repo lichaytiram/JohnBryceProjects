@@ -135,7 +135,7 @@ public class CouponsDao implements ICouponsDao {
 		try {
 			connection = JdbcUtils.getConnection();
 
-			preparedStatement = connection.prepareStatement("DELETE FROM coupons WHERE END_DATE < NOW()");
+			preparedStatement = connection.prepareStatement("DELETE FROM coupons WHERE END_DATE < CURDATE()");
 
 			preparedStatement.executeUpdate();
 

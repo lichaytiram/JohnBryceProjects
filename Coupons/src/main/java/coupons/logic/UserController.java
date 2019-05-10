@@ -208,10 +208,12 @@ public class UserController {
 		UserDataMap userDataMap = usersDao.login(login.getUserName(), login.getPassword());
 		int token = generateEncryptedToken(login.getUserName());
 
-		UserDataClient userDataToClient = generateUserDataToClient(userDataMap.getId(), userDataMap.getClientType(),
-				token);
+		// create user data to client
+		UserDataClient userDataToClient = generateUserDataToClient(userDataMap.getId(), userDataMap.getCompanyId(),
+				userDataMap.getClientType(), token);
 
 		cacheManager.put(token, userDataMap);
+
 		return userDataToClient;
 
 	}
@@ -228,12 +230,13 @@ public class UserController {
 
 	}
 
-	private UserDataClient generateUserDataToClient(long id, ClientType clientType, int token)
+	private UserDataClient generateUserDataToClient(long id, Long companyId, ClientType clientType, int token)
 			throws ApplicationException {
 
 		UserDataClient userData = new UserDataClient();
 
 		userData.setId(id);
+		userData.setCompanyId(companyId);
 		userData.setClientType(clientType);
 		userData.setToken(token);
 

@@ -51,7 +51,7 @@ public class UserDataMap {
 
 	@Override
 	public String toString() {
-		return "UserDataMap [id=" + id + ", companyId=" + companyId + ", clientType=" + clientType + "]";
+		return "UserDataMap [id=" + getId() + ", companyId=" + getCompanyId() + ", clientType=" + getClientType() + "]";
 	}
 
 }
