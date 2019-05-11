@@ -10,6 +10,8 @@ import coupons.beans.Name;
 import coupons.beans.User;
 import coupons.beans.UserDataClient;
 import coupons.beans.UserDataMap;
+import coupons.dao.CompaniesDao;
+import coupons.dao.ICompaniesDao;
 import coupons.dao.IUsersDao;
 import coupons.dao.UsersDao;
 import coupons.enums.ClientType;
@@ -29,6 +31,7 @@ public class UserController {
 	private ICacheManager cacheManager;
 
 	private IUsersDao usersDao;
+	private ICompaniesDao companiesDao;
 
 	/**
 	 * This function instantiate all references
@@ -38,6 +41,7 @@ public class UserController {
 	public UserController() throws ApplicationException {
 
 		usersDao = new UsersDao();
+		companiesDao = new CompaniesDao();
 
 	}
 
@@ -62,6 +66,25 @@ public class UserController {
 		ValidationUtils.isValidPassword(user.getPassword());
 		ValidationUtils.isValidType(user.getType());
 
+		// check validation for create company
+		if (user.getType().name().equals("Company")) {
+
+			Long companyId = user.getCompanyId();
+
+			ValidationUtils.isValidCompanyId(companyId);
+
+			if (!companiesDao.isCompanyExists(companyId))
+				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
+
+			// check validation for create customer || administrator
+		} else if (user.getCompanyId() != null) {
+
+			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
+					false);
+
+		}
+
 		if (usersDao.isUserExist(user.getUserName()))
 			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
 					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
@@ -82,7 +105,6 @@ public class UserController {
 				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		}
-
 		ValidationUtils.isValidId(userId);
 
 		if (!usersDao.isUserExist(userId))

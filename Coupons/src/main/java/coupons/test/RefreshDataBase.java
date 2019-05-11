@@ -22,7 +22,7 @@ public class RefreshDataBase implements ICreate {
 
 	public RefreshDataBase() throws ApplicationException {
 		super();
-//		refreshDB();
+		refreshDB();
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class RefreshDataBase implements ICreate {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement1 = connection.prepareStatement(
-					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(10) NOT NULL ,PHONE_NUMBER VARCHAR(10) NOT NULL , EMAIL VARCHAR(25) NOT NULL ,PRIMARY KEY(ID))");
+					"CREATE TABLE IF NOT EXISTS companies (ID BIGINT(255) UNSIGNED NOT NULL AUTO_INCREMENT ,NAME VARCHAR(15) NOT NULL ,PHONE_NUMBER VARCHAR(10) NOT NULL , EMAIL VARCHAR(25) NOT NULL ,PRIMARY KEY(ID))");
 			preparedStatement1.executeUpdate();
 
 			preparedStatement2 = connection.prepareStatement(

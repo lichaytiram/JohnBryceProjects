@@ -24,6 +24,22 @@ public class ValidationUtils {
 	}
 
 	/**
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public static void isValidCompanyId(Long companyId) throws ApplicationException {
+
+		if (companyId == null)
+			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
+					false);
+
+		if (companyId < 1)
+			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
+					false);
+
+	}
+
+	/**
 	 * @param name This function set a new name if valid
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

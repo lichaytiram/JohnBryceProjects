@@ -21,6 +21,7 @@ public enum ErrorType {
 	PURCHASE_IS_NOT_EXISTS("The purchase you chose isn't exist."),
 	EMPTY("The input is empty"),
 	INVALID_ID("The ID you've enter is invalid."),
+	INVALID_COMPANY_ID("The company id you've enter is invalid."),
 	INVALID_CATEGORY("The category you've enter is invalid."),
 	INVALID_TYPE("The type you've enter is invalid."),
 	INVALID_NAME("The name you've enter is invalid."),
