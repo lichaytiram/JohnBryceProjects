@@ -95,11 +95,11 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Purchase> getAllPurchase(HttpServletRequest request) throws ApplicationException {
+	public List<Purchase> getAllPurchases(HttpServletRequest request) throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return purchaseController.getAllPurchase(userData);
+		return purchaseController.getAllPurchases(userData);
 
 	}
 

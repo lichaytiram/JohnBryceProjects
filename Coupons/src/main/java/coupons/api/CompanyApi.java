@@ -81,11 +81,11 @@ public class CompanyApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Company> getAllCompany(HttpServletRequest request) throws ApplicationException {
+	public List<Company> getAllCompanies(HttpServletRequest request) throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return companyController.getAllCompany(userData);
+		return companyController.getAllCompanies(userData);
 
 	}
 

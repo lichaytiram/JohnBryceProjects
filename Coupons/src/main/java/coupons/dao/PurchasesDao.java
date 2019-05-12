@@ -352,7 +352,7 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Purchase> getAllPurchase() throws ApplicationException {
+	public List<Purchase> getAllPurchases() throws ApplicationException {
 
 		Purchase purchase = null;
 		List<Purchase> list = new ArrayList<Purchase>();

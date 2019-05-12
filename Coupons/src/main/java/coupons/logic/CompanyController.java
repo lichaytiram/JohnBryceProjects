@@ -140,12 +140,12 @@ public class CompanyController {
 	 * @return This function return company list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Company> getAllCompany(UserDataMap userData) throws ApplicationException {
+	public List<Company> getAllCompanies(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		return companiesDao.getAllCompany();
+		return companiesDao.getAllCompanies();
 
 	}
 

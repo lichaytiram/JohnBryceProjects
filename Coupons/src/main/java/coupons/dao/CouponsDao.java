@@ -216,7 +216,7 @@ public class CouponsDao implements ICouponsDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Coupon> getAllCoupon() throws ApplicationException {
+	public List<Coupon> getAllCoupons() throws ApplicationException {
 
 		Coupon coupon = null;
 		Category category = null;

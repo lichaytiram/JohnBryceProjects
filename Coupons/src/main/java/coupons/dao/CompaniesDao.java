@@ -130,7 +130,7 @@ public class CompaniesDao implements ICompaniesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Company> getAllCompany() throws ApplicationException {
+	public List<Company> getAllCompanies() throws ApplicationException {
 
 		Company company = null;
 		List<Company> list = new ArrayList<Company>();

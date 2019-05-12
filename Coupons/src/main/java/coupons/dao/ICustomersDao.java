@@ -30,7 +30,7 @@ public interface ICustomersDao {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Customer> getAllCustomer() throws ApplicationException;
+	public List<Customer> getAllCustomers() throws ApplicationException;
 
 	/**
 	 * @param customerId Receive a customer id

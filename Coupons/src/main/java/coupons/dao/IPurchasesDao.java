@@ -76,7 +76,7 @@ public interface IPurchasesDao {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getAllPurchase() throws ApplicationException;
+	public List<Purchase> getAllPurchases() throws ApplicationException;
 
 	/**
 	 * @param customerId Receive a customer id

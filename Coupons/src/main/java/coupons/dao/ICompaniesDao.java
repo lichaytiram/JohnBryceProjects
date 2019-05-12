@@ -30,7 +30,7 @@ public interface ICompaniesDao {
 	 * @return This function return company list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Company> getAllCompany() throws ApplicationException;
+	public List<Company> getAllCompanies() throws ApplicationException;
 
 	/**
 	 * @param name Receive a name

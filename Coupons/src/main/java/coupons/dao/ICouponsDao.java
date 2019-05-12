@@ -55,7 +55,7 @@ public interface ICouponsDao {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getAllCoupon() throws ApplicationException;
+	public List<Coupon> getAllCoupons() throws ApplicationException;
 
 	/**
 	 * @param couponId Receive a coupon id

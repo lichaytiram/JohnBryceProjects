@@ -80,11 +80,11 @@ public class CustomerApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Customer> getAllCustomer(HttpServletRequest request) throws ApplicationException {
+	public List<Customer> getAllCustomers(HttpServletRequest request) throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return customerController.getAllCustomer(userData);
+		return customerController.getAllCustomers(userData);
 
 	}
 

@@ -177,13 +177,13 @@ public class CouponController {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Coupon> getAllCoupon(UserDataMap userData) throws ApplicationException {
+	public List<Coupon> getAllCoupons(UserDataMap userData) throws ApplicationException {
 
 		// only customer can see coupon list for purchase
 		if (!userData.getClientType().name().equals("Customer"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		return couponsDao.getAllCoupon();
+		return couponsDao.getAllCoupons();
 
 	}
 

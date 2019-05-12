@@ -160,12 +160,12 @@ public class PurchaseController {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getAllPurchase(UserDataMap userData) throws ApplicationException {
+	public List<Purchase> getAllPurchases(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		return purchasesDao.getAllPurchase();
+		return purchasesDao.getAllPurchases();
 
 	}
 

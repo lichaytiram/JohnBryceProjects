@@ -168,12 +168,12 @@ public class CustomerController {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Customer> getAllCustomer(UserDataMap userData) throws ApplicationException {
+	public List<Customer> getAllCustomers(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		return customerDao.getAllCustomer();
+		return customerDao.getAllCustomers();
 
 	}
 

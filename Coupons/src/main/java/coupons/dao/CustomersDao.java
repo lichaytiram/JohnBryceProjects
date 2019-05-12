@@ -119,7 +119,7 @@ public class CustomersDao implements ICustomersDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Customer> getAllCustomer() throws ApplicationException {
+	public List<Customer> getAllCustomers() throws ApplicationException {
 
 		Customer customer = null;
 		List<Customer> list = new ArrayList<Customer>();

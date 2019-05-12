@@ -84,11 +84,11 @@ public class CouponApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping
-	public List<Coupon> getAllCoupon(HttpServletRequest request) throws ApplicationException {
+	public List<Coupon> getAllCoupons(HttpServletRequest request) throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return couponController.getAllCoupon(userData);
+		return couponController.getAllCoupons(userData);
 
 	}
 
