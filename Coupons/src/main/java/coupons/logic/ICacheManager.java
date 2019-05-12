@@ -8,4 +8,8 @@ public interface ICacheManager {
 
 	UserDataMap get(Integer key);
 
+	public void deleteFromMap(Integer key);
+
+	public void all();
+
 }

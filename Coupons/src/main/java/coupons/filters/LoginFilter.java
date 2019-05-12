@@ -31,7 +31,31 @@ public class LoginFilter implements Filter {
 		String path = ((HttpServletRequest) request).getRequestURI();
 		if (path.startsWith("/users/login") || path.startsWith("/customers/register")) {
 
+			cacheManager.all();
+
 			chain.doFilter(request, response); // Just continue chain.
+
+		} else if (path.startsWith("/users/valid")) {
+
+			HttpServletRequest req = (HttpServletRequest) request;
+
+			Integer token = Integer.parseInt(req.getParameter("token"));
+
+			if (cacheManager.get(token) != null)
+				request.setAttribute("valid", "true");
+
+			else
+				request.setAttribute("valid", "false");
+
+			chain.doFilter(request, response); // Just continue chain.
+
+		} else if (path.startsWith("/users/logout")) {
+
+			HttpServletRequest req = (HttpServletRequest) request;
+
+			Integer token = Integer.parseInt(req.getParameter("token"));
+
+			cacheManager.deleteFromMap(token);
 
 		} else {
 

@@ -32,4 +32,16 @@ public class CacheManager implements ICacheManager {
 
 	}
 
+	public void deleteFromMap(Integer key) {
+
+		map.remove(key);
+
+	}
+
+	public void all() {
+
+		System.out.println(map);
+
+	}
+
 }

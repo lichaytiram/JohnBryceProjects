@@ -136,4 +136,12 @@ public class UserApi {
 
 	}
 
+	@GetMapping("/valid")
+	public boolean isValidToken(HttpServletRequest request) throws ApplicationException {
+
+		System.out.println("insdie functon");
+		return Boolean.parseBoolean((String) request.getAttribute("valid"));
+
+	}
+
 }
