@@ -38,9 +38,16 @@ public class CacheManager implements ICacheManager {
 
 	}
 
+	public boolean contain(Integer key) {
+
+		return map.containsKey(key);
+
+	}
+
 	public void all() {
 
-		System.out.println(map);
+		for (Integer key : map.keySet())
+			System.out.println("key : " + key);
 
 	}
 

@@ -31,8 +31,6 @@ public class LoginFilter implements Filter {
 		String path = ((HttpServletRequest) request).getRequestURI();
 		if (path.startsWith("/users/login") || path.startsWith("/customers/register")) {
 
-			cacheManager.all();
-
 			chain.doFilter(request, response); // Just continue chain.
 
 		} else if (path.startsWith("/users/valid")) {
@@ -41,7 +39,8 @@ public class LoginFilter implements Filter {
 
 			Integer token = Integer.parseInt(req.getParameter("token"));
 
-			if (cacheManager.get(token) != null)
+			System.out.println("This is token: " + token);
+			if (cacheManager.contain(token))
 				request.setAttribute("valid", "true");
 
 			else
@@ -54,8 +53,11 @@ public class LoginFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 
 			Integer token = Integer.parseInt(req.getParameter("token"));
-
+			System.out.println("before");
+			cacheManager.all();
 			cacheManager.deleteFromMap(token);
+			System.out.println("after");
+			cacheManager.all();
 
 		} else {
 
