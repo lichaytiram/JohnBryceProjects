@@ -5,14 +5,19 @@ public class Product {
 	private int weight;
 
 	public Product(String nameProduct, int weight) {
-		super();
+		this();
 		this.nameProduct = nameProduct;
 		this.weight = weight > 0 ? weight : 0;
 	}
 
 	public Product(Product product) {
+		this();
 		this.nameProduct = product.nameProduct;
 		this.weight = product.weight;
+	}
+
+	public Product() {
+		super();
 	}
 
 	public String getNameProduct() {

@@ -6,10 +6,14 @@ public class Person {
 	private int age;
 
 	public Person(String name, int id, int age) {
-		super();
+		this();
 		setName(name);
 		setId(id);
 		setAge(age);
+	}
+
+	public Person() {
+		super();
 	}
 
 	public String getName() {
