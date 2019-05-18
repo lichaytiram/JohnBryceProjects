@@ -129,17 +129,10 @@ public class UserApi {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@PostMapping("/login")
+	@PostMapping("/login/unsecured")
 	public UserDataClient login(@RequestBody Login login) throws ApplicationException {
 
 		return userController.login(login);
-
-	}
-
-	@GetMapping("/valid")
-	public boolean isValidToken(HttpServletRequest request) throws ApplicationException {
-
-		return Boolean.parseBoolean((String) request.getAttribute("valid"));
 
 	}
 

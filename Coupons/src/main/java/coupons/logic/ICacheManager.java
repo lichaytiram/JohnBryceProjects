@@ -10,8 +10,6 @@ public interface ICacheManager {
 
 	public void deleteFromMap(Integer key);
 
-	public boolean contain(Integer key);
-
 	public void all();
 
 }

@@ -79,7 +79,7 @@ public class PurchaseApi {
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@GetMapping("/customer/amount")
+	@GetMapping("/amount")
 	public int getPurchaseAmount(@RequestParam("customerId") long customerId, HttpServletRequest request)
 			throws ApplicationException {
 

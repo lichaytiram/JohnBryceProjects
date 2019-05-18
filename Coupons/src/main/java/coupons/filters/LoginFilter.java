@@ -24,27 +24,14 @@ public class LoginFilter implements Filter {
 	@Autowired
 	private ICacheManager cacheManager;
 
+	public static final String UNSECURED = "unsecured";
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
 		String path = ((HttpServletRequest) request).getRequestURI();
-		if (path.startsWith("/users/login") || path.startsWith("/customers/register")) {
-
-			chain.doFilter(request, response); // Just continue chain.
-
-		} else if (path.startsWith("/users/valid")) {
-
-			HttpServletRequest req = (HttpServletRequest) request;
-
-			Integer token = Integer.parseInt(req.getParameter("token"));
-
-			System.out.println("This is token: " + token);
-			if (cacheManager.contain(token))
-				request.setAttribute("valid", "true");
-
-			else
-				request.setAttribute("valid", "false");
+		if (path.endsWith(UNSECURED)) {
 
 			chain.doFilter(request, response); // Just continue chain.
 
