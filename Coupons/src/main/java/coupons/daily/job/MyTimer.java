@@ -3,9 +3,18 @@ package coupons.daily.job;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.springframework.stereotype.Repository;
+
 import coupons.exception.ApplicationException;
 
+@Repository
 public class MyTimer {
+
+	public MyTimer() throws ApplicationException {
+
+		createTimer();
+
+	}
 
 	public static void createTimer() throws ApplicationException {
 

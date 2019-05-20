@@ -30,6 +30,7 @@ public class MyTimerTask extends TimerTask {
 		try {
 
 			couponController.deleteExpiredCoupon();
+			System.out.println("inside timer");
 
 		} catch (ApplicationException e) {
 

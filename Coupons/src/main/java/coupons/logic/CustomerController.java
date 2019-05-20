@@ -3,7 +3,6 @@ package coupons.logic;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import coupons.beans.Customer;
 import coupons.beans.Name;
@@ -25,7 +24,6 @@ import coupons.utils.ValidationUtils;
  * @author Lichay
  */
 @Controller
-@Service
 public class CustomerController {
 
 	private ICustomersDao customerDao;
