@@ -16,6 +16,8 @@ public class MyTimerTask extends TimerTask {
 	private CouponController couponController;
 
 	/**
+	 * constructor for create a show for this class
+	 * 
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public MyTimerTask() throws ApplicationException {
@@ -29,8 +31,7 @@ public class MyTimerTask extends TimerTask {
 
 		try {
 
-			couponController.deleteExpiredCoupon();
-			System.out.println("inside timer");
+			couponController.deleteExpiredCoupons();
 
 		} catch (ApplicationException e) {
 

@@ -3,19 +3,33 @@ package coupons.daily.job;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.springframework.stereotype.Repository;
-
 import coupons.exception.ApplicationException;
 
-@Repository
+/**
+ * This class create a timer
+ * 
+ * @author Lichay
+ *
+ */
 public class MyTimer {
 
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public MyTimer() throws ApplicationException {
 
 		createTimer();
 
 	}
 
+	/**
+	 * This function create timer with task
+	 * 
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
 	public static void createTimer() throws ApplicationException {
 
 		// Creating a task
