@@ -5,11 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import coupons.beans.ErrorBean;
+
 @RestControllerAdvice
 public class ExceptionsHandler {
 
 	@ExceptionHandler(Throwable.class)
-	public void handleError(Throwable throwable, HttpServletResponse response) throws Throwable {
+	public ErrorBean handleError(Throwable throwable, HttpServletResponse response) throws Throwable {
 
 		if (throwable instanceof ApplicationException) {
 
@@ -18,9 +20,10 @@ public class ExceptionsHandler {
 			if (myException.getIsCritical())
 				myException.printStackTrace();
 
+			return new ErrorBean(501, myException.getErrorType(), myException.getMessage());
 		}
 
-		throw new Throwable();
+		return new ErrorBean();
 
 	}
 
