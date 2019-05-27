@@ -35,6 +35,7 @@ public enum ErrorType {
 	
 	INVALID_ACCESS("You don't have access to this page"),
 	SCAM("Use your real id please, don't try to scam us!"),
+	INTERNAL_SERVER_ERROR("internal server error, plz try again later."),
 	FIELD_IS_IRREPLACEABLE("You can't change this field."),
 	NAME_IS_IRREPLACEABLE("You can't change your name."),
 	COUPON_IS_OUT_OF_ORDER("Coupon is out of order."),
