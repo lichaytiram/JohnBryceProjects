@@ -39,7 +39,7 @@ public class CompaniesDao implements ICompaniesDao {
 			preparedStatement = connection.prepareStatement(
 					"INSERT INTO companies (NAME,PHONE_NUMBER,EMAIL) VALUES ( ? , ? , ? )",
 					PreparedStatement.RETURN_GENERATED_KEYS);
-			
+
 			// call to private function that prepared the statement
 			extractPreparedStatement(preparedStatement, company.getName(), company.getPhoneNumber(),
 					company.getEmail());
@@ -56,7 +56,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -84,7 +83,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -117,7 +115,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -156,7 +153,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -189,7 +185,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -223,7 +218,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -263,7 +257,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -285,7 +278,6 @@ public class CompaniesDao implements ICompaniesDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		}

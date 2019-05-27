@@ -73,7 +73,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -101,7 +100,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -129,7 +127,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -160,7 +157,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -196,7 +192,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -248,7 +243,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -307,7 +301,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -361,7 +354,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -395,7 +387,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -429,7 +420,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -463,7 +453,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -484,7 +473,6 @@ public class UsersDao implements IUsersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		}

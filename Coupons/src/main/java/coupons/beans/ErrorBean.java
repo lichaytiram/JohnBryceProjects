@@ -8,10 +8,6 @@ import coupons.enums.ErrorType;
  * @author Lichay
  *
  */
-/**
- * @author Lichay
- *
- */
 public class ErrorBean {
 
 	// property
@@ -27,10 +23,10 @@ public class ErrorBean {
 	 * 
 	 * @param statusCode      Receive a status code
 	 * @param internalMessage Receive an internal message
-	 * @param externalMessage Receive a external message
+	 * @param externalMessage Receive an external message
 	 */
 	public ErrorBean(int statusCode, ErrorType internalMessage, String externalMessage) {
-		super();
+		this();
 		this.statusCode = statusCode;
 		this.internalMessage = internalMessage;
 		this.externalMessage = externalMessage;
@@ -67,16 +63,22 @@ public class ErrorBean {
 	}
 
 	/**
-	 * @param internalMessage Receive a internal message
+	 * @param internalMessage Receive an internal message
 	 */
 	public void setInternalMessage(ErrorType internalMessage) {
 		this.internalMessage = internalMessage;
 	}
 
+	/**
+	 * @return This function return an external message
+	 */
 	public String getExternalMessage() {
 		return externalMessage;
 	}
 
+	/**
+	 * @param externalMessage Receive an external message
+	 */
 	public void setExternalMessage(String externalMessage) {
 		this.externalMessage = externalMessage;
 	}

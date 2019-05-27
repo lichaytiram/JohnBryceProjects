@@ -17,14 +17,16 @@ public class ExceptionsHandler {
 		if (e.getIsCritical())
 			e.printStackTrace();
 
-		ErrorBean errorBean = new ErrorBean(501, e.getErrorType(), e.getMessage());
+		ErrorBean errorBean = new ErrorBean(500, e.getErrorType(), e.getMessage());
 
-		return new ResponseEntity<ErrorBean>(errorBean, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ErrorBean>(errorBean, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<ErrorBean> handleError(Throwable e) {
+
+		e.printStackTrace();
 
 		ErrorBean errorBean = new ErrorBean(600, ErrorType.INTERNAL_SERVER_ERROR,
 				ErrorType.INTERNAL_SERVER_ERROR.getMessage());

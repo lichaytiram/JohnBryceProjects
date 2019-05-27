@@ -46,7 +46,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -75,7 +74,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -106,7 +104,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -147,7 +144,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -181,7 +177,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -219,7 +214,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -257,7 +251,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
@@ -281,7 +274,6 @@ public class CustomersDao implements ICustomersDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		}
