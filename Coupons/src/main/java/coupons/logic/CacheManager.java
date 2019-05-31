@@ -38,11 +38,4 @@ public class CacheManager implements ICacheManager {
 
 	}
 
-	public void all() {
-
-		for (Integer key : map.keySet())
-			System.out.println("key : " + key);
-
-	}
-
 }

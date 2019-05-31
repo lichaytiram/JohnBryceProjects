@@ -40,11 +40,7 @@ public class LoginFilter implements Filter {
 			HttpServletRequest req = (HttpServletRequest) request;
 
 			Integer token = Integer.parseInt(req.getParameter("token"));
-			System.out.println("before");
-			cacheManager.all();
 			cacheManager.deleteFromMap(token);
-			System.out.println("after");
-			cacheManager.all();
 
 		} else {
 
