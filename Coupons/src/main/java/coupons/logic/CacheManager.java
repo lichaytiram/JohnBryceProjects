@@ -7,17 +7,31 @@ import org.springframework.stereotype.Component;
 
 import coupons.beans.UserDataMap;
 
+/**
+ * create a cache manager
+ * 
+ * @author Lichay
+ *
+ */
 @Component
 public class CacheManager implements ICacheManager {
 
 	private Map<Integer, UserDataMap> map;
 
+	/**
+	 * This function instantiate all references
+	 */
 	public CacheManager() {
 
 		map = new HashMap<Integer, UserDataMap>();
 
 	}
 
+	// functions
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void put(Integer key, UserDataMap value) {
 
@@ -25,6 +39,9 @@ public class CacheManager implements ICacheManager {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public UserDataMap get(Integer key) {
 
@@ -32,6 +49,10 @@ public class CacheManager implements ICacheManager {
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void deleteFromMap(Integer key) {
 
 		map.remove(key);

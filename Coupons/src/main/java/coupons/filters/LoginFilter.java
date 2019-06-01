@@ -17,6 +17,12 @@ import org.springframework.stereotype.Component;
 import coupons.beans.UserDataMap;
 import coupons.logic.ICacheManager;
 
+/**
+ * This class filter requests
+ * 
+ * @author Lichay
+ *
+ */
 @Component
 @WebFilter("/*")
 public class LoginFilter implements Filter {
@@ -26,6 +32,9 @@ public class LoginFilter implements Filter {
 
 	public static final String UNSECURED = "unsecured";
 
+	/**
+	 * This function filter requests
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

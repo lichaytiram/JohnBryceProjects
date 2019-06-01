@@ -6,6 +6,12 @@ import coupons.beans.User;
 import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 
+/**
+ * This interface will implement by class usersDao
+ * 
+ * @author Lichay
+ *
+ */
 public interface IUsersDao {
 
 	/**

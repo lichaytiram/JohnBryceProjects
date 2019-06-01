@@ -5,6 +5,12 @@ import java.util.List;
 import coupons.beans.Customer;
 import coupons.exception.ApplicationException;
 
+/**
+ * This interface will implement by class customersDao
+ * 
+ * @author Lichay
+ *
+ */
 public interface ICustomersDao {
 
 	/**

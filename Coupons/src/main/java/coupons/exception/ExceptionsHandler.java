@@ -8,9 +8,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import coupons.beans.ErrorBean;
 import coupons.enums.ErrorType;
 
+/**
+ * This class handling with exceptions
+ * 
+ * @author Lichay
+ *
+ */
 @RestControllerAdvice
 public class ExceptionsHandler {
 
+	/**
+	 * @param e Receive an applicationException
+	 * @return This function return a ResponseEntity<ErrorBean>
+	 */
 	@ExceptionHandler(ApplicationException.class)
 	public ResponseEntity<ErrorBean> handleError(ApplicationException e) {
 
@@ -23,6 +33,10 @@ public class ExceptionsHandler {
 
 	}
 
+	/**
+	 * @param e Receive a throwable
+	 * @return This function return a ResponseEntity<ErrorBean>
+	 */
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<ErrorBean> handleError(Throwable e) {
 

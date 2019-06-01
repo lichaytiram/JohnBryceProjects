@@ -7,7 +7,7 @@ import coupons.enums.Category;
 import coupons.exception.ApplicationException;
 
 /**
- * This interface will implement by class couponsDBDAO
+ * This interface will implement by class couponsDao
  * 
  * @author Lichay
  *

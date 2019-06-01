@@ -13,10 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * This class bring access control
+ * 
+ * @author Lichay
+ *
+ */
 @Component
 @WebFilter("/*")
 public class CorsFilter implements Filter {
 
+	/**
+	 * This function bring access control
+	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
