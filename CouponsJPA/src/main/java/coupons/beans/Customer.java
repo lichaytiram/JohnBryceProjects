@@ -1,20 +1,36 @@
 package coupons.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This class create a customer
  * 
  * @author Lichay
  *
  */
+@Entity
+@Table(name = "Customers")
 public class Customer {
 
 	// property
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private String firstName;
 	private String lastName;
 	private String phoneNumber;
 	private String email;
+	@JsonIgnore
+	@OneToOne
 	private User user;
 
 	// constructor

@@ -1,5 +1,11 @@
 package coupons.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import coupons.enums.ClientType;
 import coupons.exception.ApplicationException;
 
@@ -9,10 +15,15 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
+@Entity
+@Table(name = "Users")
 public class User {
 
 	// property
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private String userName;
 	private String password;

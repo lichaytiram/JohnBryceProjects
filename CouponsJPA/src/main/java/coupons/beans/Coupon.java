@@ -2,6 +2,12 @@ package coupons.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import coupons.enums.Category;
 
 /**
@@ -10,10 +16,15 @@ import coupons.enums.Category;
  * @author Lichay
  *
  */
+@Entity
+@Table(name = "Coupons")
 public class Coupon {
 
 	// property
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private long companyId;
 	private Category category;

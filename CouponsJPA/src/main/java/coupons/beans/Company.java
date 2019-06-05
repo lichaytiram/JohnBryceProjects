@@ -1,15 +1,26 @@
 package coupons.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * This class create a company
  * 
  * @author Lichay
  *
  */
+@Entity
+@Table(name = "Companies")
 public class Company {
 
 	// property
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private String name;
 	private String phoneNumber;

@@ -2,16 +2,27 @@ package coupons.beans;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * This class create a purchase
  * 
  * @author Lichay
  *
  */
+@Entity
+@Table(name = "Purchases")
 public class Purchase {
 
 	// property
 
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
 	private long id;
 	private long customerId;
 	private long couponId;
