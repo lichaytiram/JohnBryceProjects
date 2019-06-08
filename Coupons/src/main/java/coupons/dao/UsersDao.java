@@ -297,7 +297,7 @@ public class UsersDao implements IUsersDao {
 
 			}
 
-			throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), false);
+			throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), true);
 
 		} catch (SQLException e) {
 

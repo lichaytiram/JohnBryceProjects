@@ -110,12 +110,12 @@ public class PurchaseApi {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@GetMapping("/customer")
-	public List<Purchase> getCustomerPurchase(@RequestParam("customerId") long customerId, HttpServletRequest request)
+	public List<Purchase> getCustomerPurchases(@RequestParam("customerId") long customerId, HttpServletRequest request)
 			throws ApplicationException {
 
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
-		return purchaseController.getCustomerPurchase(customerId, userData);
+		return purchaseController.getCustomerPurchases(customerId, userData);
 
 	}
 

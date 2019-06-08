@@ -175,7 +175,7 @@ public class PurchaseController {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	public List<Purchase> getCustomerPurchase(long customerId, UserDataMap userData) throws ApplicationException {
+	public List<Purchase> getCustomerPurchases(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (userData.getClientType().name().equals("Customer")) {
 			if (customerId != userData.getId())
@@ -192,7 +192,7 @@ public class PurchaseController {
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
-		return purchasesDao.getCustomerPurchase(customerId);
+		return purchasesDao.getCustomerPurchases(customerId);
 
 	}
 
