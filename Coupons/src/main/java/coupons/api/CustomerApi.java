@@ -28,9 +28,7 @@ import coupons.logic.CustomerController;
  */
 @RestController
 @RequestMapping("/customers")
-public class CustomerApi extends RuntimeException {
-
-	private static final long serialVersionUID = 1L;
+public class CustomerApi {
 
 	@Autowired
 	private CustomerController customerController;
