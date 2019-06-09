@@ -2,18 +2,16 @@ package coupons.logic;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Customer;
 import coupons.beans.Name;
 import coupons.beans.User;
 import coupons.beans.UserDataMap;
-import coupons.dao.CustomersDao;
 import coupons.dao.ICustomersDao;
 import coupons.dao.IPurchasesDao;
 import coupons.dao.IUsersDao;
-import coupons.dao.PurchasesDao;
-import coupons.dao.UsersDao;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
 import coupons.utils.ValidationUtils;
@@ -26,22 +24,12 @@ import coupons.utils.ValidationUtils;
 @Controller
 public class CustomerController {
 
+	@Autowired
 	private ICustomersDao customerDao;
+	@Autowired
 	private IPurchasesDao purchasesDao;
+	@Autowired
 	private IUsersDao usersDao;
-
-	/**
-	 * This function instantiate all references
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public CustomerController() throws ApplicationException {
-
-		customerDao = new CustomersDao();
-		purchasesDao = new PurchasesDao();
-		usersDao = new UsersDao();
-
-	}
 
 	/**
 	 * @param customer Receive a customer

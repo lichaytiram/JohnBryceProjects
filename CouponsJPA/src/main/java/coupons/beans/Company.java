@@ -1,10 +1,16 @@
 package coupons.beans;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * This class create a company
@@ -13,19 +19,25 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 public class Company {
 
 	// property
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
+	@Column(name = "NAME", nullable = false, unique = true, length = 15)
 	private String name;
+	@Column(name = "PHONE_NUMBER", nullable = false, unique = false, length = 10)
 	private String phoneNumber;
+	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
-
+	@JoinColumn(name = "COUPONS")
+	@JsonIgnore
+	@OneToMany(mappedBy = "")
+	private List<Coupon> coupons;
 	// constructor
 
 	/**

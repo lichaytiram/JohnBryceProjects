@@ -16,18 +16,22 @@ import coupons.exception.ApplicationException;
  *
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
 	// property
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
+	@Column(name = "USER_NAME", nullable = false, unique = true, length = 25)
 	private String userName;
+	@Column(name = "PASSWORD", nullable = false, unique = false, length = 50)
 	private String password;
+	@Column(name = "TYPE", nullable = false, unique = true, length = 50)
 	private ClientType type;
+	@Column(name = "COMPANY_ID", nullable = true, unique = false, length = 255) // UNSIGNED
 	private Long companyId;
 
 	// constructor

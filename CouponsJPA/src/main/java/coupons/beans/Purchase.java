@@ -15,18 +15,22 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "Purchases")
+@Table(name = "purchases")
 public class Purchase {
 
 	// property
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
+	@Column(name = "CUSTOMER_ID", nullable = false, unique = false, length = 255) // UNSIGNED
 	private long customerId;
+	@Column(name = "COUPON_ID", nullable = false, unique = false, length = 255) // UNSIGNED
 	private long couponId;
+	@Column(name = "AMOUNT", nullable = false, unique = false, length = 20) // UNSIGNED
 	private int amount;
+	@Column(name = "DATE", nullable = false, unique = false, length = 255)
 	private Date date;
 
 	// constructor

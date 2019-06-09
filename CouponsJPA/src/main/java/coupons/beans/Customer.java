@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,19 +17,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-@Table(name = "Customers")
+@Table(name = "customers")
 public class Customer {
 
 	// property
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
+	@Column(name = "FIRST_NAME", nullable = false, unique = false, length = 20)
 	private String firstName;
+	@Column(name = "LAST_NAME", nullable = true, unique = false, length = 20)
 	private String lastName;
+	@Column(name = "PHONE_NUMBER", nullable = false, unique = false, length = 10)
 	private String phoneNumber;
+	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
+	@JoinColumn(name = "USER_ID")
 	@JsonIgnore
 	@OneToOne
 	private User user;

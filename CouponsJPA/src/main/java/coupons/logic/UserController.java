@@ -10,10 +10,8 @@ import coupons.beans.Name;
 import coupons.beans.User;
 import coupons.beans.UserDataClient;
 import coupons.beans.UserDataMap;
-import coupons.dao.CompaniesDao;
 import coupons.dao.ICompaniesDao;
 import coupons.dao.IUsersDao;
-import coupons.dao.UsersDao;
 import coupons.enums.ClientType;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -30,20 +28,10 @@ public class UserController {
 	@Autowired
 	private ICacheManager cacheManager;
 
+	@Autowired
 	private IUsersDao usersDao;
+	@Autowired
 	private ICompaniesDao companiesDao;
-
-	/**
-	 * This function instantiate all references
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public UserController() throws ApplicationException {
-
-		usersDao = new UsersDao();
-		companiesDao = new CompaniesDao();
-
-	}
 
 	/**
 	 * @param user     Receive an user

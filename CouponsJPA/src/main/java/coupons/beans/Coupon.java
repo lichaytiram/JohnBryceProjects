@@ -17,23 +17,32 @@ import coupons.enums.Category;
  *
  */
 @Entity
-@Table(name = "Coupons")
+@Table(name = "coupons")
 public class Coupon {
 
 	// property
 
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
+	@Column(name = "COMPANY_ID", nullable = false, unique = false, length = 255) // UNSIGNED
 	private long companyId;
+	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
 	private Category category;
+	@Column(name = "TITLE", nullable = false, unique = false, length = 25) // unique = true for same company
 	private String title;
+	@Column(name = "DESCRIPTION", nullable = true, unique = false, length = 255)
 	private String description;
+	@Column(name = "START_DATE", nullable = false, unique = true, length = 255)
 	private Date startDate;
+	@Column(name = "END_DATE", nullable = false, unique = true, length = 255)
 	private Date endDate;
+	@Column(name = "AMOUNT", nullable = false, unique = false, length = 200) // UNSIGNED
 	private int amount;
+	@Column(name = "PRICE", nullable = false, unique = false, length = 255) // UNSIGNED
 	private double price;
+	@Column(name = "IMAGE", nullable = true, unique = false, length = 50)
 	private String image;
 
 	// constructor
