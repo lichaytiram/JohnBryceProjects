@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import coupons.enums.Category;
@@ -44,6 +46,9 @@ public class Coupon {
 	private double price;
 	@Column(name = "IMAGE", nullable = true, unique = false, length = 50)
 	private String image;
+	@JoinColumn(name = "COMPANY", nullable = false, unique = false)
+	@ManyToOne
+	private Company company;
 
 	// constructor
 
@@ -242,6 +247,16 @@ public class Coupon {
 	 */
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	// java persistence API
+
+	public Company getCompanyId2() {
+		return company;
+	}
+
+	public void setCompanyId2(Company companyId2) {
+		this.company = companyId2;
 	}
 
 	@Override

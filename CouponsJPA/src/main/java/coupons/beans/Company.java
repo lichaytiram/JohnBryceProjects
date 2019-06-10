@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,10 +33,13 @@ public class Company {
 	private String phoneNumber;
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
-	@JoinColumn(name = "COUPONS")
 	@JsonIgnore
-	@OneToMany(mappedBy = "")
+	@OneToMany(mappedBy = "company")
 	private List<Coupon> coupons;
+	@JsonIgnore
+	@OneToMany(mappedBy = "company")
+	private List<User> users;
+
 	// constructor
 
 	/**
@@ -132,6 +134,24 @@ public class Company {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	// java persistence API
+
+	public List<Coupon> getCoupons() {
+		return coupons;
+	}
+
+	public void setCoupons(List<Coupon> coupons) {
+		this.coupons = coupons;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	@Override
