@@ -1,11 +1,15 @@
 package coupons.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +20,14 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "purchases")
-public class Purchase {
+public class Purchase implements Serializable {
 
 	// property
 
+	private static final long serialVersionUID = 1727970319277632036L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "CUSTOMER_ID", nullable = false, unique = false, length = 255) // UNSIGNED
@@ -32,6 +38,12 @@ public class Purchase {
 	private int amount;
 	@Column(name = "DATE", nullable = false, unique = false, length = 255)
 	private Date date;
+	@JoinColumn(name = "CUSTOMER", nullable = false, unique = false)
+	@ManyToOne
+	private Customer customer;
+	@JoinColumn(name = "COUPON", nullable = false, unique = false)
+	@ManyToOne
+	private Coupon coupon;
 
 	// constructor
 
@@ -148,6 +160,24 @@ public class Purchase {
 	 */
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	// java persistence API
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public Coupon getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(Coupon coupon) {
+		this.coupon = coupon;
 	}
 
 	@Override

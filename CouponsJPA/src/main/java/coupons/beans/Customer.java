@@ -1,10 +1,16 @@
 package coupons.beans;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,12 +24,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Serializable {
 
 	// property
 
+	private static final long serialVersionUID = 3898819993872121294L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "FIRST_NAME", nullable = false, unique = false, length = 20)
@@ -34,10 +42,12 @@ public class Customer {
 	private String phoneNumber;
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
-	@JoinColumn(name = "USER_ID")
-	@JsonIgnore
+	@JoinColumn(name = "USER")
 	@OneToOne
 	private User user;
+	@JsonIgnore
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	private List<Purchase> purchases;
 
 	// constructor
 
@@ -171,6 +181,16 @@ public class Customer {
 	 */
 	public void setUserId(long id) {
 		this.user.setId(id);
+	}
+
+	// java persistence API
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override

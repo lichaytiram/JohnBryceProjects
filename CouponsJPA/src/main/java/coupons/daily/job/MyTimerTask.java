@@ -13,31 +13,31 @@ import coupons.logic.CouponController;
  */
 public class MyTimerTask extends TimerTask {
 
-	private CouponController couponController;
+//	private CouponController couponController;
 
-	/**
-	 * constructor for create a show for this class
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public MyTimerTask() throws ApplicationException {
-
-		couponController = new CouponController();
-
-	}
+//	/**
+//	 * constructor for create a show for this class
+//	 * 
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	public MyTimerTask() throws ApplicationException {
+//
+//		couponController = new CouponController();
+//
+//	}
 
 	@Override
 	public void run() {
 
-		try {
-
-			couponController.deleteExpiredCoupons();
-
-		} catch (ApplicationException e) {
-
-			e.printStackTrace();
-
-		}
+//		try {
+//
+//			couponController.deleteExpiredCoupons();
+//
+//		} catch (ApplicationException e) {
+//
+//			e.printStackTrace();
+//
+//		}
 
 	}
 

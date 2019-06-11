@@ -1,8 +1,11 @@
 package coupons.beans;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,12 +22,14 @@ import coupons.exception.ApplicationException;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
 	// property
 
+	private static final long serialVersionUID = 1652799167889220323L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "USER_NAME", nullable = false, unique = true, length = 25)

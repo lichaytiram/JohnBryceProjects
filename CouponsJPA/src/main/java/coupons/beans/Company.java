@@ -1,15 +1,18 @@
 package coupons.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * This class create a company
@@ -19,12 +22,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "companies")
-public class Company {
+@JsonIgnoreProperties({ "coupons", "users" })
+public class Company implements Serializable {
 
 	// property
 
+	private static final long serialVersionUID = 7779786765840219658L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "NAME", nullable = false, unique = true, length = 15)
@@ -33,11 +39,9 @@ public class Company {
 	private String phoneNumber;
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
-	@JsonIgnore
-	@OneToMany(mappedBy = "company")
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	private List<Coupon> coupons;
-	@JsonIgnore
-	@OneToMany(mappedBy = "company")
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	private List<User> users;
 
 	// constructor

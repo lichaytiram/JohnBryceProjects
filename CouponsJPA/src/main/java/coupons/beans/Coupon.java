@@ -1,14 +1,21 @@
 package coupons.beans;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import coupons.enums.Category;
 
@@ -20,19 +27,21 @@ import coupons.enums.Category;
  */
 @Entity
 @Table(name = "coupons")
-public class Coupon {
+public class Coupon implements Serializable {
 
 	// property
 
+	private static final long serialVersionUID = 3463614049774120920L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "COMPANY_ID", nullable = false, unique = false, length = 255) // UNSIGNED
 	private long companyId;
 	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
 	private Category category;
-	@Column(name = "TITLE", nullable = false, unique = false, length = 25) // unique = true for same company
+	@Column(name = "TITLE", nullable = false, unique = false, length = 25)
 	private String title;
 	@Column(name = "DESCRIPTION", nullable = true, unique = false, length = 255)
 	private String description;
@@ -49,6 +58,9 @@ public class Coupon {
 	@JoinColumn(name = "COMPANY", nullable = false, unique = false)
 	@ManyToOne
 	private Company company;
+	@JsonIgnore
+	@OneToMany(mappedBy = "coupon", fetch = FetchType.LAZY)
+	private List<Purchase> purchases;
 
 	// constructor
 
@@ -257,6 +269,22 @@ public class Coupon {
 
 	public void setCompanyId2(Company companyId2) {
 		this.company = companyId2;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override

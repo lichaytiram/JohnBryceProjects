@@ -30,94 +30,94 @@ import coupons.logic.CustomerController;
 @RequestMapping("/customers")
 public class CustomerApi {
 
-	@Autowired
-	private CustomerController customerController;
-
-	/**
-	 * @param customer Receive a customer
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 4)
-	@PostMapping("/unsecured")
-	public void createCustomer(@RequestBody Customer customer) throws ApplicationException {
-		System.out.println("hi" + customer);
-		customerController.createCustomer(customer);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param request    Receive a httpServletRequest
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@DeleteMapping("{customerId}")
-	public void deleteCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
-			throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		customerController.deleteCustomer(customerId, userData);
-
-	}
-
-	/**
-	 * @param customer Receive a customer
-	 * @param request  Receive a httpServletRequest
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@PutMapping
-	public void updateCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		customerController.updateCustomer(customer, userData);
-
-	}
-
-	/**
-	 * @param request Receive a httpServletRequest
-	 * @return This function return customer list
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@GetMapping
-	public List<Customer> getAllCustomers(HttpServletRequest request) throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		return customerController.getAllCustomers(userData);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param request    Receive a httpServletRequest
-	 * @return This function return customer list
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@GetMapping("/{customerId}")
-	public Customer getCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
-			throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		return customerController.getCustomer(customerId, userData);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param request    Receive a httpServletRequest
-	 * @return This function return customer name
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@GetMapping("/name/{customerId}")
-	public Name getCustomerName(@PathVariable("customerId") long customerId, HttpServletRequest request)
-			throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		return customerController.getCustomerName(customerId, userData);
-
-	}
+//	@Autowired
+//	private CustomerController customerController;
+//
+//	/**
+//	 * @param customer Receive a customer
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+////	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 4)
+//	@PostMapping("/unsecured")
+//	public void createCustomer(@RequestBody Customer customer) throws ApplicationException {
+//		System.out.println("hi" + customer);
+//		customerController.createCustomer(customer);
+//
+//	}
+//
+//	/**
+//	 * @param customerId Receive a customer id
+//	 * @param request    Receive a httpServletRequest
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	@DeleteMapping("{customerId}")
+//	public void deleteCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
+//			throws ApplicationException {
+//
+//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+//
+//		customerController.deleteCustomer(customerId, userData);
+//
+//	}
+//
+//	/**
+//	 * @param customer Receive a customer
+//	 * @param request  Receive a httpServletRequest
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	@PutMapping
+//	public void updateCustomer(@RequestBody Customer customer, HttpServletRequest request) throws ApplicationException {
+//
+//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+//
+//		customerController.updateCustomer(customer, userData);
+//
+//	}
+//
+//	/**
+//	 * @param request Receive a httpServletRequest
+//	 * @return This function return customer list
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	@GetMapping
+//	public List<Customer> getAllCustomers(HttpServletRequest request) throws ApplicationException {
+//
+//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+//
+//		return customerController.getAllCustomers(userData);
+//
+//	}
+//
+//	/**
+//	 * @param customerId Receive a customer id
+//	 * @param request    Receive a httpServletRequest
+//	 * @return This function return customer list
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	@GetMapping("/{customerId}")
+//	public Customer getCustomer(@PathVariable("customerId") long customerId, HttpServletRequest request)
+//			throws ApplicationException {
+//
+//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+//
+//		return customerController.getCustomer(customerId, userData);
+//
+//	}
+//
+//	/**
+//	 * @param customerId Receive a customer id
+//	 * @param request    Receive a httpServletRequest
+//	 * @return This function return customer name
+//	 * @throws ApplicationException This function can throw an applicationException
+//	 */
+//	@GetMapping("/name/{customerId}")
+//	public Name getCustomerName(@PathVariable("customerId") long customerId, HttpServletRequest request)
+//			throws ApplicationException {
+//
+//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+//
+//		return customerController.getCustomerName(customerId, userData);
+//
+//	}
 
 }
