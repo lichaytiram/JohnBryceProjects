@@ -14,7 +14,9 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
-public interface IUsersDao extends CrudRepository<User, Long>{
+public interface IUsersDao extends CrudRepository<User, Long> {
+
+	public boolean existsByUserName(String userName);
 
 //	/**
 //	 * @param user Receive an user

@@ -1,5 +1,6 @@
 package coupons.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,6 @@ public class CustomerController {
 	@Autowired
 	private ICustomersDao customerDao;
 	@Autowired
-	private IPurchasesDao purchasesDao;
-	@Autowired
 	private IUsersDao usersDao;
 
 //	/**
@@ -50,50 +49,48 @@ public class CustomerController {
 //		ValidationUtils.isValidPassword(customer.getUser().getPassword());
 //		ValidationUtils.isValidType(customer.getUser().getType());
 //
-//		if (usersDao.isUserExist(customer.getUser().getUserName()))
+//		if (usersDao.existsByUserName(customer.getUser().getUserName()))
 //			throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS,
 //					ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage(), false);
 //
 //		User user = customer.getUser();
 //
-//		long id = usersDao.createUser(user);
+//		long id = usersDao.createUser(user); // return generate key
 //
 //		customer.setId(id);
 //		customer.getUser().setId(id);
 //
-//		customerDao.createCustomer(customer);
+//		customerDao.save(customer);
 //
 //	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param userData   Receive an userData
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void deleteCustomer(long customerId, UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Customer"))
-//			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
-//
-//		if (customerId != userData.getId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(customerId);
-//
-//		if (!customerDao.isCustomerExists(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		if (!usersDao.isUserExist(customerId))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		purchasesDao.deletePurchaseByCustomerId(customerId);
-//		customerDao.deleteCustomer(customerId);
-//		usersDao.deleteUser(customerId);
-//
-//	}
-//
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void deleteCustomer(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(customerId);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		if (!usersDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		customerDao.deleteById(customerId);
+
+	}
+
 //	/**
 //	 * @param customer Receive a customer
 //	 * @param userData Receive an userData
@@ -129,40 +126,45 @@ public class CustomerController {
 //		ValidationUtils.isValidPassword(userToUpdate.getPassword());
 //		ValidationUtils.isValidType(userToUpdate.getType());
 //
-//		if (!customerDao.isCustomerExists(customer.getId()))
+//		if (!customerDao.existsById(customer.getId()))
 //			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 //					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 //
-//		User userFromDataBase = usersDao.getUser(customer.getId());
+//		User userFromDataBase = usersDao.findById(customer.getId()).get();
 //
 //		if (!userFromDataBase.getUserName().equals(customer.getUser().getUserName())) {
 //
-//			if (usersDao.isUserExist(customer.getUser().getUserName()))
+//			if (usersDao.existsByUserName(customer.getUser().getUserName()))
 //
 //				throw new ApplicationException(ErrorType.CUSTOMER_IS_ALREADY_EXISTS,
 //						ErrorType.CUSTOMER_IS_ALREADY_EXISTS.getMessage(), false);
 //
 //		}
 //
-//		usersDao.updateUser(userToUpdate.getUserName(), userToUpdate.getPassword(), userToUpdate.getId());
-//		customerDao.updateCustomer(customer);
+//		usersDao.updateUser(userToUpdate.getUserName(), userToUpdate.getPassword(), userToUpdate.getId()); // wait avi
+//																											// answer
+//		customerDao.save(customer);
 //
 //	}
-//
-//	/**
-//	 * @param userData Receive an userData
-//	 * @return This function return customer list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<Customer> getAllCustomers(UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Administrator"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		return customerDao.getAllCustomers();
-//
-//	}
-//
+
+	/**
+	 * @param userData Receive an userData
+	 * @return This function return customer list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<Customer> getAllCustomers(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		List<Customer> customers = new ArrayList<Customer>();
+
+		customerDao.findAll().forEach(customers::add);
+
+		return customers;
+
+	}
+
 //	/**
 //	 * @param customerId Receive a customer id
 //	 * @param userData   Receive an userData
@@ -179,7 +181,7 @@ public class CustomerController {
 //
 //		ValidationUtils.isValidId(customerId);
 //
-//		if (!customerDao.isCustomerExists(customerId))
+//		if (!customerDao.existsById(customerId))
 //			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 //					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 //
@@ -190,29 +192,29 @@ public class CustomerController {
 //		return myName;
 //
 //	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param userData   Receive an userData
-//	 * @return This function return customer name
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public Customer getCustomer(long customerId, UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Customer"))
-//			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
-//
-//		if (customerId != userData.getId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(customerId);
-//
-//		if (!customerDao.isCustomerExists(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return customerDao.getCustomer(customerId);
-//
-//	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
+	 * @return This function return customer name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public Customer getCustomer(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(customerId);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		return customerDao.findById(customerId).get();
+
+	}
 
 }

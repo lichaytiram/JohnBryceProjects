@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import coupons.beans.Purchase;
-import coupons.exception.ApplicationException;
 
 /**
  * This interface will implement while running

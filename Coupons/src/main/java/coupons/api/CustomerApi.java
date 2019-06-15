@@ -40,7 +40,7 @@ public class CustomerApi {
 //	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 4)
 	@PostMapping("/unsecured")
 	public void createCustomer(@RequestBody Customer customer) throws ApplicationException {
-		System.out.println("hi" + customer);
+
 		customerController.createCustomer(customer);
 
 	}

@@ -13,7 +13,7 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
-public interface ICustomersDao  extends CrudRepository<Customer, Long> {
+public interface ICustomersDao extends CrudRepository<Customer, Long> {
 
 //	/**
 //	 * @param customer Receive a customer
