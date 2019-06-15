@@ -8,7 +8,7 @@ import coupons.beans.Customer;
 import coupons.exception.ApplicationException;
 
 /**
- * This interface will implement by class customersDao
+ * This interface will implement while running
  * 
  * @author Lichay
  *

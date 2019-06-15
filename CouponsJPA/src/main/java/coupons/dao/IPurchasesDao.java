@@ -8,12 +8,14 @@ import coupons.beans.Purchase;
 import coupons.exception.ApplicationException;
 
 /**
- * This interface will implement by class purchasesDao
+ * This interface will implement while running
  * 
  * @author Lichay
  *
  */
 public interface IPurchasesDao extends CrudRepository<Purchase, Long> {
+
+	public List<Purchase> findByCustomerId(long customerId);
 
 //	/**
 //	 * @param purchase Receive a purchase
@@ -21,13 +23,6 @@ public interface IPurchasesDao extends CrudRepository<Purchase, Long> {
 //	 * @throws ApplicationException This function can throw an applicationException
 //	 */
 //	public long purchaseCoupon(Purchase purchase) throws ApplicationException;
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param couponId   Receive a coupon id
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void deletePurchase(long customerId, long couponId) throws ApplicationException;
 //
 //	/**
 //	 * @param id Receive an id

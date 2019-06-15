@@ -30,7 +30,7 @@ public class CompanyController {
 	@Autowired
 	private IPurchasesDao purchasesDao;
 	@Autowired
-	private IUsersDao userDao;
+	private IUsersDao usersDao;
 
 	/**
 	 * @param company  Receive a company
@@ -79,7 +79,7 @@ public class CompanyController {
 
 		purchasesDao.deletePurchaseByCompanyId(companyId);
 		couponsDao.deleteCouponbyCompanyId(companyId);
-		userDao.deleteUserByCompanyId(companyId);
+		usersDao.deleteUserByCompanyId(companyId);
 		companiesDao.deleteCompany(companyId);
 
 	}

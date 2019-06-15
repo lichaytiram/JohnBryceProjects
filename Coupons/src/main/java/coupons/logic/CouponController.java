@@ -30,7 +30,7 @@ public class CouponController {
 	@Autowired
 	private IPurchasesDao purchasesDao;
 	@Autowired
-	private ICustomersDao customerDao;
+	private ICustomersDao customersDao;
 	@Autowired
 	private ICompaniesDao companyDao;
 
@@ -286,7 +286,7 @@ public class CouponController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customersDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -313,7 +313,7 @@ public class CouponController {
 		ValidationUtils.isValidId(customerId);
 		isValidCategory(category);
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customersDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -340,7 +340,7 @@ public class CouponController {
 		ValidationUtils.isValidId(customerId);
 		isValidPrice(maxPrice);
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customersDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 

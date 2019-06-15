@@ -25,15 +25,15 @@ import coupons.utils.ValidationUtils;
 @Controller
 public class CouponController {
 
-//	@Autowired
-//	private ICouponsDao couponsDao;
-//	@Autowired
-//	private IPurchasesDao purchasesDao;
-//	@Autowired
-//	private ICustomersDao customerDao;
-//	@Autowired
-//	private ICompaniesDao companyDao;
-//
+	@Autowired
+	private ICouponsDao couponsDao;
+	@Autowired
+	private IPurchasesDao purchasesDao;
+	@Autowired
+	private ICustomersDao customerDao;
+	@Autowired
+	private ICompaniesDao companyDao;
+
 //	/**
 //	 * @param coupon   Receive a coupon
 //	 * @param userData Receive an userData

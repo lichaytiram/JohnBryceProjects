@@ -47,22 +47,6 @@ public class PurchaseApi {
 	}
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @param request    Receive a httpServletRequest
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	@DeleteMapping("/delete")
-	public void deletePurchase(@RequestParam("customerId") long customerId, @RequestParam("couponId") long couponId,
-			HttpServletRequest request) throws ApplicationException {
-
-		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-
-		purchaseController.deletePurchase(customerId, couponId, userData);
-
-	}
-
-	/**
 	 * @param id Receive an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

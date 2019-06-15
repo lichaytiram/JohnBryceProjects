@@ -24,13 +24,13 @@ import coupons.utils.ValidationUtils;
 @Controller
 public class CustomerController {
 
-//	@Autowired
-//	private ICustomersDao customerDao;
-//	@Autowired
-//	private IPurchasesDao purchasesDao;
-//	@Autowired
-//	private IUsersDao usersDao;
-//
+	@Autowired
+	private ICustomersDao customerDao;
+	@Autowired
+	private IPurchasesDao purchasesDao;
+	@Autowired
+	private IUsersDao usersDao;
+
 //	/**
 //	 * @param customer Receive a customer
 //	 * @throws ApplicationException This function can throw an applicationException

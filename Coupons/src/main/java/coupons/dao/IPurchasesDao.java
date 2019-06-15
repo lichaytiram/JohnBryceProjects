@@ -21,13 +21,6 @@ public interface IPurchasesDao {
 	public long purchaseCoupon(Purchase purchase) throws ApplicationException;
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public void deletePurchase(long customerId, long couponId) throws ApplicationException;
-
-	/**
 	 * @param id Receive an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
@@ -55,14 +48,6 @@ public interface IPurchasesDao {
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	public void deleteExpiredPurchase() throws ApplicationException;
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @return This function return true if customer bought
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public boolean isCustomerPurchase(long customerId, long couponId) throws ApplicationException;
 
 	/**
 	 * @param id Receive an id

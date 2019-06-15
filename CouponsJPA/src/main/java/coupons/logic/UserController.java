@@ -28,11 +28,11 @@ public class UserController {
 	@Autowired
 	private ICacheManager cacheManager;
 
-//	@Autowired
-//	private IUsersDao usersDao;
-//	@Autowired
-//	private ICompaniesDao companiesDao;
-//
+	@Autowired
+	private IUsersDao usersDao;
+	@Autowired
+	private ICompaniesDao companiesDao;
+
 //	/**
 //	 * @param user     Receive an user
 //	 * @param userData Receive an userData

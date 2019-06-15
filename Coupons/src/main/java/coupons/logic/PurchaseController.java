@@ -27,7 +27,7 @@ public class PurchaseController {
 	@Autowired
 	private ICouponsDao couponsDao;
 	@Autowired
-	private ICustomersDao customerDao;
+	private ICustomersDao customersDao;
 
 	/**
 	 * @param purchase Receive a purchase
@@ -49,7 +49,7 @@ public class PurchaseController {
 		ValidationUtils.isValidId(purchase.getCouponId());
 		ValidationUtils.isValidAmount(purchase.getAmount());
 
-		if (!customerDao.isCustomerExists(purchase.getCustomerId()))
+		if (!customersDao.isCustomerExists(purchase.getCustomerId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -72,31 +72,6 @@ public class PurchaseController {
 		couponsDao.updateCoupon(purchase.getCouponId(), amountLeft);
 
 		purchasesDao.purchaseCoupon(purchase);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param couponId   Receive a coupon id
-	 * @param userData   Receive an userData
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public void deletePurchase(long customerId, long couponId, UserDataMap userData) throws ApplicationException {
-
-		if (!userData.getClientType().name().equals("Customer"))
-			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
-
-		if (customerId != userData.getId())
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		ValidationUtils.isValidId(customerId);
-		ValidationUtils.isValidId(couponId);
-
-		if (!purchasesDao.isCustomerPurchase(customerId, couponId))
-			throw new ApplicationException(ErrorType.PURCHASE_IS_NOT_EXISTS,
-					ErrorType.PURCHASE_IS_NOT_EXISTS.getMessage(), false);
-
-		purchasesDao.deletePurchase(customerId, couponId);
 
 	}
 
@@ -135,7 +110,7 @@ public class PurchaseController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customersDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -176,7 +151,7 @@ public class PurchaseController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.isCustomerExists(customerId))
+		if (!customersDao.isCustomerExists(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 

@@ -3,6 +3,7 @@ package coupons.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Customer implements Serializable {
 	private static final long serialVersionUID = 3898819993872121294L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
 	private long id;
 	@Column(name = "FIRST_NAME", nullable = false, unique = false, length = 20)
@@ -43,10 +44,10 @@ public class Customer implements Serializable {
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
 	@JoinColumn(name = "USER")
-	@OneToOne
+	@OneToOne(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private User user;
 	@JsonIgnore
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Purchase> purchases;
 
 	// constructor

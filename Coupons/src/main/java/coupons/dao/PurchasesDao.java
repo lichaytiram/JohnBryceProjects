@@ -72,36 +72,6 @@ public class PurchasesDao implements IPurchasesDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deletePurchase(long customerId, long couponId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection
-					.prepareStatement("DELETE FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
-
-			// call to private function that prepared the statement
-			preparedStatement(preparedStatement, customerId, couponId);
-
-			preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-
-			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
-
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement);
-		}
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void deletePurchase(long id) throws ApplicationException {
 
 		Connection connection = null;
@@ -231,42 +201,6 @@ public class PurchasesDao implements IPurchasesDao {
 		} finally {
 			JdbcUtils.closeResources(connection, preparedStatement);
 		}
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isCustomerPurchase(long customerId, long couponId) throws ApplicationException {
-
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = JdbcUtils.getConnection();
-
-			preparedStatement = connection
-					.prepareStatement("SELECT * FROM purchases WHERE CUSTOMER_ID = ? AND COUPON_ID = ?");
-
-			// call to private function that prepared the statement
-			preparedStatement(preparedStatement, customerId, couponId);
-
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.next()) {
-				return true;
-			}
-
-		} catch (SQLException e) {
-
-			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
-
-		} finally {
-			JdbcUtils.closeResources(connection, preparedStatement, resultSet);
-		}
-		return false;
 
 	}
 

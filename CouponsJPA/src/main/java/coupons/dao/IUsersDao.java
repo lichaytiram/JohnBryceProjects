@@ -9,7 +9,7 @@ import coupons.beans.UserDataMap;
 import coupons.exception.ApplicationException;
 
 /**
- * This interface will implement by class usersDao
+ * This interface will implement while running
  * 
  * @author Lichay
  *
