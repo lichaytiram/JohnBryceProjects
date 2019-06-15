@@ -1,12 +1,8 @@
 package coupons.dao;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import coupons.beans.User;
-import coupons.beans.UserDataMap;
-import coupons.exception.ApplicationException;
 
 /**
  * This interface will implement while running

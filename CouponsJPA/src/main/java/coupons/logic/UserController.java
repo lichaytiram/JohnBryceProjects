@@ -1,5 +1,6 @@
 package coupons.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class UserController {
 //
 //			ValidationUtils.isValidCompanyId(companyId);
 //
-//			if (!companiesDao.isCompanyExists(companyId))
+//			if (!companiesDao.existsById(companyId))
 //				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 //						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 //
@@ -73,36 +74,36 @@ public class UserController {
 //
 //		}
 //
-//		if (usersDao.isUserExist(user.getUserName()))
+//		if (usersDao.existsByUserName(user.getUserName()))
 //			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
 //					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 //
 //		return usersDao.createUser(user);
 //
 //	}
-//
-//	/**
-//	 * @param userId   Receive an user id
-//	 * @param userData Receive an userData
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void deleteUser(long userId, UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Administrator")) {
-//			if (userId != userData.getId())
-//				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		}
-//		ValidationUtils.isValidId(userId);
-//
-//		if (!usersDao.isUserExist(userId))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		usersDao.deleteUser(userId);
-//
-//	}
-//
+
+	/**
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void deleteUser(long userId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (userId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+		ValidationUtils.isValidId(userId);
+
+		if (!usersDao.existsById(userId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		usersDao.deleteById(userId);
+
+	}
+
 //	/**
 //	 * @param user     Receive an user
 //	 * @param userData Receive an userData
@@ -123,18 +124,18 @@ public class UserController {
 //		ValidationUtils.isValidName(user.getUserName());
 //		ValidationUtils.isValidPassword(user.getPassword());
 //
-//		if (!usersDao.isUserExist(user.getId()))
+//		if (!usersDao.existsById(user.getId()))
 //			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 //					false);
 //
-//		if (usersDao.isUserExist(user.getUserName()))
+//		if (usersDao.existsByUserName(user.getUserName()))
 //			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
 //					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
 //
-//		usersDao.updateUser(user.getUserName(), user.getPassword(), user.getId());
+//		usersDao.updateUser(user.getUserName(), user.getPassword(), user.getId()); // save all user or 3 parameters
 //
 //	}
-//
+
 //	/**
 //	 * @param userId   Receive an user id
 //	 * @param userData Receive an userData
@@ -148,7 +149,7 @@ public class UserController {
 //
 //		ValidationUtils.isValidId(userId);
 //
-//		if (!usersDao.isUserExist(userId))
+//		if (!usersDao.existsById(userId))
 //			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 //					false);
 //
@@ -159,45 +160,49 @@ public class UserController {
 //		return myName;
 //
 //	}
-//
-//	/**
-//	 * @param userId   Receive an user id
-//	 * @param userData Receive an userData
-//	 * @return This function return an user
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public User getUser(long userId, UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Administrator")) {
-//			if (userId != userData.getId())
-//				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		}
-//
-//		ValidationUtils.isValidId(userId);
-//
-//		if (!usersDao.isUserExist(userId))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		return usersDao.getUser(userId);
-//
-//	}
-//
-//	/**
-//	 * @param userData Receive an userData
-//	 * @return This function return an user list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<User> getAllUsers(UserDataMap userData) throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Administrator"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		return usersDao.getAllUsers();
-//
-//	}
-//
+
+	/**
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
+	 * @return This function return an user
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public User getUser(long userId, UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (userId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+
+		ValidationUtils.isValidId(userId);
+
+		if (!usersDao.existsById(userId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		return usersDao.findById(userId).get();
+
+	}
+
+	/**
+	 * @param userData Receive an userData
+	 * @return This function return an user list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<User> getAllUsers(UserDataMap userData) throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Administrator"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		List<User> users = new ArrayList<User>();
+
+		usersDao.findAll().forEach(users::add);
+
+		return users;
+
+	}
+
 //	/**
 //	 * @param login Receive a login (contain user name and password)
 //	 * @return This function return a client type
@@ -211,7 +216,7 @@ public class UserController {
 //		ValidationUtils.isValidName(login.getUserName());
 //		ValidationUtils.isValidPassword(login.getPassword());
 //
-//		if (!usersDao.isUserExist(login.getUserName()))
+//		if (!usersDao.existsByUserName(login.getUserName()))
 //			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 //					false);
 //

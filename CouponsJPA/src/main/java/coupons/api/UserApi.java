@@ -32,9 +32,9 @@ import coupons.logic.UserController;
 @RequestMapping("/users")
 public class UserApi {
 
-//	@Autowired
-//	private UserController userController;
-//
+	@Autowired
+	private UserController userController;
+
 //	/**
 //	 * @param user    Receive an user
 //	 * @param request Receive a httpServletRequest
@@ -49,22 +49,22 @@ public class UserApi {
 //		return userController.createUser(user, userData);
 //
 //	}
-//
-//	/**
-//	 * @param userId  Receive an user id
-//	 * @param request Receive a httpServletRequest
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@DeleteMapping("/{userId}")
-//	public void deleteUser(@PathVariable("userId") long userId, HttpServletRequest request)
-//			throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		userController.deleteUser(userId, userData);
-//
-//	}
-//
+
+	/**
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@DeleteMapping("/{userId}")
+	public void deleteUser(@PathVariable("userId") long userId, HttpServletRequest request)
+			throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		userController.deleteUser(userId, userData);
+
+	}
+
 //	/**
 //	 * @param user    Receive an user
 //	 * @param request Receive a httpServletRequest
@@ -78,7 +78,7 @@ public class UserApi {
 //		userController.updateUser(user, userData);
 //
 //	}
-//
+
 //	/**
 //	 * @param userId  Receive an user id
 //	 * @param request Receive a httpServletRequest
@@ -94,36 +94,36 @@ public class UserApi {
 //		return userController.getUserName(userId, userDataMap);
 //
 //	}
-//
-//	/**
-//	 * @param userId  Receive an user id
-//	 * @param request Receive a httpServletRequest
-//	 * @return This function return an user
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping("/{userId}")
-//	public User getUser(@PathVariable("userId") long userId, HttpServletRequest request) throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		return userController.getUser(userId, userData);
-//
-//	}
-//
-//	/**
-//	 * @param request Receive a httpServletRequest
-//	 * @return This function return an user list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping
-//	public List<User> getAllUsers(HttpServletRequest request) throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		return userController.getAllUsers(userData);
-//
-//	}
-//
+
+	/**
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
+	 * @return This function return an user
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/{userId}")
+	public User getUser(@PathVariable("userId") long userId, HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getUser(userId, userData);
+
+	}
+
+	/**
+	 * @param request Receive a httpServletRequest
+	 * @return This function return an user list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping
+	public List<User> getAllUsers(HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getAllUsers(userData);
+
+	}
+
 //	/**
 //	 * @param login Receive a login (contain user name and password)
 //	 * @return This function return a client type
