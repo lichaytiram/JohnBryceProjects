@@ -44,7 +44,7 @@ public class Customer implements Serializable {
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
 	@JoinColumn(name = "USER")
-	@OneToOne(mappedBy = "id", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private User user;
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

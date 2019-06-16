@@ -15,11 +15,15 @@ import coupons.exception.ApplicationException;
  *
  */
 public interface ICouponsDao extends CrudRepository<Coupon, Long> {
-	
-	public boolean existsByCompanyIdAndTitle(long companyId,String title);
 
-	public boolean existsByIdAndCompanyId(long couponId,long companyId);
-	
+	public boolean existsByCompanyIdAndTitle(long companyId, String title);
+
+	public boolean existsByIdAndCompanyId(long couponId, long companyId);
+
+	public List<Coupon> findByCompanyId(long companyId);
+
+	public List<Coupon> findByCompanyIdAndCategory(long companyId, Category category);
+
 //	/**
 //	 * @param coupon Receive a coupon
 //	 * @return This function return an id

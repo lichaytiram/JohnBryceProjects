@@ -40,7 +40,7 @@ public class User implements Serializable {
 	private ClientType type;
 	@Column(name = "COMPANY_ID", nullable = true, unique = false, length = 255) // UNSIGNED
 	private Long companyId;
-	@JoinColumn(name = "COMPANY", nullable = false, unique = false)
+	@JoinColumn(name = "COMPANY", nullable = true, unique = false)
 	@ManyToOne
 	private Company company;
 
