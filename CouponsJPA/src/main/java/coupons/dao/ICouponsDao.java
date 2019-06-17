@@ -2,11 +2,13 @@ package coupons.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import coupons.beans.Coupon;
 import coupons.enums.Category;
-import coupons.exception.ApplicationException;
 
 /**
  * This interface will implement while running
@@ -14,6 +16,7 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
+@Repository
 public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 
 	public boolean existsByCompanyIdAndTitle(long companyId, String title);
@@ -23,6 +26,9 @@ public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 	public List<Coupon> findByCompanyId(long companyId);
 
 	public List<Coupon> findByCompanyIdAndCategory(long companyId, Category category);
+
+	@Query("SELECT c FROM Coupon c WHERE c.id =: coupon_id AND END_DATE > CURDATE()")
+	public boolean isCouponValid(@Param("coupon_id") long couponId);
 
 //	/**
 //	 * @param coupon Receive a coupon

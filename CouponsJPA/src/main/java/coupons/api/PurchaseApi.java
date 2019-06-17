@@ -57,21 +57,21 @@ public class PurchaseApi {
 
 	}
 
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param request    Receive a httpServletRequest
-//	 * @return This function return purchase amount
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping("/amount")
-//	public int getPurchaseAmount(@RequestParam("customerId") long customerId, HttpServletRequest request)
-//			throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		return purchaseController.getPurchaseAmount(customerId, userData);
-//
-//	}
+	/**
+	 * @param customerId Receive a customer id
+	 * @param request    Receive a httpServletRequest
+	 * @return This function return purchase amount
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/amount")
+	public int getPurchaseAmount(@RequestParam("customerId") long customerId, HttpServletRequest request)
+			throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getPurchaseAmount(customerId, userData);
+
+	}
 
 	/**
 	 * @param request Receive a httpServletRequest

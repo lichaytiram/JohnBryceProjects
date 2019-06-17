@@ -35,41 +35,41 @@ public class CouponController {
 	@Autowired
 	private ICompaniesDao companyDao;
 
-//	/**
-//	 * @param coupon   Receive a coupon
-//	 * @param userData Receive an userData
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void createCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
-//
-//		if (coupon == null)
-//			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
-//
-//		if (!userData.getClientType().name().equals("Company"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		if (userData.getCompanyId() != coupon.getCompanyId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(coupon.getCompanyId());
-//		isValidCategory(coupon.getCategory());
-//		ValidationUtils.isValidName(coupon.getTitle());
-//		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
-//		ValidationUtils.isValidAmount(coupon.getAmount());
-//		isValidPrice(coupon.getPrice());
-//		isValidImage(coupon.getImage());
-//
-//		if (couponsDao.existsById(coupon.getId()))
-//			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
-//					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
-//
-//		if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompanyId(), coupon.getTitle()))
-//			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
-//					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
-//
-//		couponsDao.createCoupon(coupon);
-//
-//	}
+	/**
+	 * @param coupon   Receive a coupon
+	 * @param userData Receive an userData
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void createCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
+
+		if (coupon == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != coupon.getCompanyId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(coupon.getCompanyId());
+		isValidCategory(coupon.getCategory());
+		ValidationUtils.isValidName(coupon.getTitle());
+		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
+		ValidationUtils.isValidAmount(coupon.getAmount());
+		isValidPrice(coupon.getPrice());
+		isValidImage(coupon.getImage());
+
+		if (couponsDao.existsById(coupon.getId()))
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
+					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
+
+		if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompanyId(), coupon.getTitle()))
+			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
+					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
+
+		couponsDao.save(coupon);
+
+	}
 
 	/**
 	 * @param couponId  Receive a coupon id

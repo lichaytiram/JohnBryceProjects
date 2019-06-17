@@ -65,35 +65,35 @@ public class UserApi {
 
 	}
 
-//	/**
-//	 * @param user    Receive an user
-//	 * @param request Receive a httpServletRequest
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@PutMapping
-//	public void updateUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		userController.updateUser(user, userData);
-//
-//	}
+	/**
+	 * @param user    Receive an user
+	 * @param request Receive a httpServletRequest
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@PutMapping
+	public void updateUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
 
-//	/**
-//	 * @param userId  Receive an user id
-//	 * @param request Receive a httpServletRequest
-//	 * @return This function return an user name
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@GetMapping("/name/{userId}")
-//	public Name getUserName(@PathVariable("userId") long userId, HttpServletRequest request)
-//			throws ApplicationException {
-//
-//		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
-//
-//		return userController.getUserName(userId, userDataMap);
-//
-//	}
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		userController.updateUser(user, userData);
+
+	}
+
+	/**
+	 * @param userId  Receive an user id
+	 * @param request Receive a httpServletRequest
+	 * @return This function return an user name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/name/{userId}")
+	public Name getUserName(@PathVariable("userId") long userId, HttpServletRequest request)
+			throws ApplicationException {
+
+		UserDataMap userDataMap = (UserDataMap) request.getAttribute("userData");
+
+		return userController.getUserName(userId, userDataMap);
+
+	}
 
 	/**
 	 * @param userId  Receive an user id

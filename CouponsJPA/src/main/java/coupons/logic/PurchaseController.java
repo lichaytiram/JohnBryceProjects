@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import coupons.beans.Coupon;
 import coupons.beans.Purchase;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICouponsDao;
@@ -58,20 +59,23 @@ public class PurchaseController {
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
 					false);
 
-//		if (!couponsDao.isCouponValid(purchase.getCouponId()))
-//			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
-//					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
-//
-//		int amountOfCouponRemain = couponsDao.howMuchCouponsRemain(purchase.getCouponId());
-//
-//		if (amountOfCouponRemain < purchase.getAmount())
-//			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
-//					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
-//
-//		int amountLeft = amountOfCouponRemain - purchase.getAmount();
-//
-//		couponsDao.updateCoupon(purchase.getCouponId(), amountLeft);
+		if (!couponsDao.isCouponValid(purchase.getCouponId()))
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
+					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
 
+		Coupon coupon = couponsDao.findById(purchase.getCouponId()).get();
+
+		int amountOfCouponRemain = coupon.getAmount();
+
+		if (amountOfCouponRemain < purchase.getAmount())
+			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
+					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
+
+		int amountLeft = amountOfCouponRemain - purchase.getAmount();
+
+		coupon.setAmount(amountLeft);
+
+		couponsDao.save(coupon);
 		purchasesDao.save(purchase);
 
 	}
@@ -92,32 +96,40 @@ public class PurchaseController {
 
 	}
 
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param userData   Receive an userData
-//	 * @return This function return purchase amount
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public int getPurchaseAmount(long customerId, UserDataMap userData) throws ApplicationException {
-//
-//		if (userData.getClientType().name().equals("Company"))
-//			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), true);
-//
-//		if (userData.getClientType().name().equals("Customer")) {
-//			if (customerId != userData.getId())
-//				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		}
-//
-//		ValidationUtils.isValidId(customerId);
-//
-//		if (!customerDao.existsById(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return purchasesDao.getPurchaseAmount(customerId);
-//
-//	}
+	/**
+	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
+	 * @return This function return purchase amount
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public int getPurchaseAmount(long customerId, UserDataMap userData) throws ApplicationException {
+
+		if (userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), true);
+
+		if (userData.getClientType().name().equals("Customer")) {
+			if (customerId != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+
+		ValidationUtils.isValidId(customerId);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		List<Purchase> purchases = purchasesDao.findByCustomerId(customerId);
+
+		int amount = 0;
+
+		for (int i = 0; i < purchases.size(); i++) {
+			amount += purchases.get(i).getAmount();
+		}
+
+		return amount;
+
+	}
 
 	/**
 	 * @param userData Receive an userData

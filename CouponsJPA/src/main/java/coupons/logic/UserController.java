@@ -104,62 +104,69 @@ public class UserController {
 
 	}
 
-//	/**
-//	 * @param user     Receive an user
-//	 * @param userData Receive an userData
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void updateUser(User user, UserDataMap userData) throws ApplicationException {
-//
-//		if (user == null)
-//			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
-//
-//		if (!userData.getClientType().name().equals("Administrator")) {
-//			if (user.getId() != userData.getId())
-//				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		}
-//
-//		ValidationUtils.isValidId(user.getId());
-//		ValidationUtils.isValidName(user.getUserName());
-//		ValidationUtils.isValidPassword(user.getPassword());
-//
-//		if (!usersDao.existsById(user.getId()))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		if (usersDao.existsByUserName(user.getUserName()))
-//			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
-//					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
-//
-//		usersDao.updateUser(user.getUserName(), user.getPassword(), user.getId()); // save all user or 3 parameters
-//
-//	}
+	/**
+	 * @param user     Receive an user
+	 * @param userData Receive an userData
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void updateUser(User user, UserDataMap userData) throws ApplicationException {
 
-//	/**
-//	 * @param userId   Receive an user id
-//	 * @param userData Receive an userData
-//	 * @return This function return an user name
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public Name getUserName(long userId, UserDataMap userDataMap) throws ApplicationException {
-//
-//		if (userDataMap.getId() != userId)
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(userId);
-//
-//		if (!usersDao.existsById(userId))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		String name = usersDao.getUserName(userId);
-//
-//		Name myName = new Name(name);
-//
-//		return myName;
-//
-//	}
+		if (user == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (user.getId() != userData.getId())
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+
+		ValidationUtils.isValidId(user.getId());
+		ValidationUtils.isValidName(user.getUserName());
+		ValidationUtils.isValidPassword(user.getPassword());
+
+		if (!usersDao.existsById(user.getId()))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		if (usersDao.existsByUserName(user.getUserName()))
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
+					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
+
+		// receive user from data base ( only user name and password valid to update )
+		User myUser = usersDao.findById(user.getId()).get();
+
+		myUser.setUserName(user.getUserName());
+		myUser.setPassword(user.getPassword());
+
+		usersDao.save(myUser);
+
+	}
+
+	/**
+	 * @param userId   Receive an user id
+	 * @param userData Receive an userData
+	 * @return This function return an user name
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public Name getUserName(long userId, UserDataMap userDataMap) throws ApplicationException {
+
+		if (userDataMap.getId() != userId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(userId);
+
+		if (!usersDao.existsById(userId))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		// receive user name
+		String name = usersDao.findById(userId).get().getUserName();
+
+		Name myName = new Name(name);
+
+		return myName;
+
+	}
 
 	/**
 	 * @param userId   Receive an user id

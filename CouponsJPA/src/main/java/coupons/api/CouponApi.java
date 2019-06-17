@@ -34,19 +34,19 @@ public class CouponApi {
 	@Autowired
 	private CouponController couponController;
 
-//	/**
-//	 * @param coupon  Receive a coupon
-//	 * @param request Receive a httpServletRequest
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@PostMapping
-//	public void createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		couponController.createCoupon(coupon, userData);
-//
-//	}
+	/**
+	 * @param coupon  Receive a coupon
+	 * @param request Receive a httpServletRequest
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@PostMapping
+	public void createCoupon(@RequestBody Coupon coupon, HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		couponController.createCoupon(coupon, userData);
+
+	}
 
 	/**
 	 * @param couponId  Receive a coupon id

@@ -1,6 +1,7 @@
 package coupons.dao;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import coupons.beans.Company;
 
@@ -10,6 +11,7 @@ import coupons.beans.Company;
  * @author Lichay
  *
  */
+@Repository
 public interface ICompaniesDao extends CrudRepository<Company, Long> {
 
 	/**

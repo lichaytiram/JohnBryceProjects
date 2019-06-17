@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,8 @@ public class User implements Serializable {
 	private String userName;
 	@Column(name = "PASSWORD", nullable = false, unique = false, length = 50)
 	private String password;
-	@Column(name = "TYPE", nullable = false, unique = false, columnDefinition = "VARCHAR(40)")
+	@Column(name = "TYPE", nullable = false, unique = false, length = 40)
+	@Enumerated(EnumType.STRING)
 	private ClientType type;
 	@Column(name = "COMPANY_ID", nullable = true, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private Long companyId;

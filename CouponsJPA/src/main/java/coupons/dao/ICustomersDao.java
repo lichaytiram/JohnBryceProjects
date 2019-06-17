@@ -3,6 +3,7 @@ package coupons.dao;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import coupons.beans.Customer;
 import coupons.exception.ApplicationException;
@@ -13,6 +14,7 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
+@Repository
 public interface ICustomersDao extends CrudRepository<Customer, Long> {
 
 //	/**

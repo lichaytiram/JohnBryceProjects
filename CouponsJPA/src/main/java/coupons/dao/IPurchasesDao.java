@@ -3,6 +3,7 @@ package coupons.dao;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import coupons.beans.Purchase;
 
@@ -12,6 +13,7 @@ import coupons.beans.Purchase;
  * @author Lichay
  *
  */
+@Repository
 public interface IPurchasesDao extends CrudRepository<Purchase, Long> {
 
 	public List<Purchase> findByCustomerId(long customerId);

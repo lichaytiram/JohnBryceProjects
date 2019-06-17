@@ -3,6 +3,7 @@ package coupons.dao;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import coupons.beans.User;
 
@@ -12,6 +13,7 @@ import coupons.beans.User;
  * @author Lichay
  *
  */
+@Repository
 public interface IUsersDao extends CrudRepository<User, Long> {
 
 	public boolean existsByUserName(String userName);

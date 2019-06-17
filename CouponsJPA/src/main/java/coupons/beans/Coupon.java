@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,7 +42,8 @@ public class Coupon implements Serializable {
 	private long id;
 	@Column(name = "COMPANY_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long companyId;
-	@Column(name = "CATEGORY", nullable = false, unique = false, columnDefinition = "VARCHAR(40)")
+	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
+	@Enumerated(EnumType.STRING)
 	private Category category;
 	@Column(name = "TITLE", nullable = false, unique = false, length = 25)
 	private String title;
