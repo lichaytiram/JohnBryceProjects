@@ -10,7 +10,7 @@ import coupons.enums.ClientType;
  */
 public class UserDataMap {
 
-	// property
+	// properties
 
 	private long id;
 	private Long companyId;

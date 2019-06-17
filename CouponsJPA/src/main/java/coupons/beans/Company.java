@@ -26,13 +26,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "coupons", "users" })
 public class Company implements Serializable {
 
-	// property
+	// properties
 
 	private static final long serialVersionUID = 7779786765840219658L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
+	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
 	@Column(name = "NAME", nullable = false, unique = true, length = 15)
 	private String name;

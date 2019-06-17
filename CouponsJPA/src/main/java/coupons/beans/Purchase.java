@@ -22,21 +22,21 @@ import javax.persistence.Table;
 @Table(name = "purchases")
 public class Purchase implements Serializable {
 
-	// property
+	// properties
 
 	private static final long serialVersionUID = 1727970319277632036L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
-	@Column(name = "CUSTOMER_ID", nullable = false, unique = false, length = 255) // UNSIGNED
+	@Column(name = "CUSTOMER_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long customerId;
-	@Column(name = "COUPON_ID", nullable = false, unique = false, length = 255) // UNSIGNED
+	@Column(name = "COUPON_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long couponId;
-	@Column(name = "AMOUNT", nullable = false, unique = false, length = 20) // UNSIGNED
+	@Column(name = "AMOUNT", nullable = false, unique = false, columnDefinition = "INT(11) UNSIGNED")
 	private int amount;
-	@Column(name = "DATE", nullable = false, unique = false, length = 255)
+	@Column(name = "DATE", nullable = false, unique = false)
 	private Date date;
 	@JoinColumn(name = "CUSTOMER", nullable = false, unique = false)
 	@ManyToOne

@@ -55,7 +55,7 @@ public class CustomerController {
 //
 //		User user = customer.getUser();
 //
-//		long id = usersDao.createUser(user); // return generate key
+//		long id = usersDao.save(user); // return generate key
 //
 //		customer.setId(id);
 //		customer.getUser().setId(id);

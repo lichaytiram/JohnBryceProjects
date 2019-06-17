@@ -10,7 +10,7 @@ import coupons.enums.ErrorType;
  */
 public class ErrorBean {
 
-	// property
+	// properties
 
 	private int statusCode;
 	private ErrorType internalMessage;

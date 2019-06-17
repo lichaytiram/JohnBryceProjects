@@ -27,13 +27,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "customers")
 public class Customer implements Serializable {
 
-	// property
+	// properties
 
 	private static final long serialVersionUID = 3898819993872121294L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
+	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
 	@Column(name = "FIRST_NAME", nullable = false, unique = false, length = 20)
 	private String firstName;

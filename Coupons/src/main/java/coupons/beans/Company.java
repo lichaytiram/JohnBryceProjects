@@ -8,7 +8,7 @@ package coupons.beans;
  */
 public class Company {
 
-	// property
+	// properties
 
 	private long id;
 	private String name;

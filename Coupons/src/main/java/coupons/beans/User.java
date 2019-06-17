@@ -11,7 +11,7 @@ import coupons.exception.ApplicationException;
  */
 public class User {
 
-	// property
+	// properties
 
 	private long id;
 	private String userName;

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Purchase {
 
-	// property
+	// properties
 
 	private long id;
 	private long customerId;

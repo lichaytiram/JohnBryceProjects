@@ -10,7 +10,7 @@ import coupons.enums.ClientType;
  */
 public class UserDataClient {
 
-	// property
+	// properties
 
 	private long id;
 	private Long companyId;

@@ -1,5 +1,7 @@
 package coupons.dao;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import coupons.beans.User;
@@ -13,6 +15,8 @@ import coupons.beans.User;
 public interface IUsersDao extends CrudRepository<User, Long> {
 
 	public boolean existsByUserName(String userName);
+
+	public User findByUserNameAndPassword(String userName, String password);
 
 //	/**
 //	 * @param user Receive an user

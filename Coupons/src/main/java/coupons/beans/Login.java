@@ -8,7 +8,7 @@ package coupons.beans;
  */
 public class Login {
 
-	// property
+	// properties
 
 	private String userName;
 	private String password;

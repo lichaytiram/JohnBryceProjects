@@ -203,35 +203,38 @@ public class UserController {
 
 	}
 
-//	/**
-//	 * @param login Receive a login (contain user name and password)
-//	 * @return This function return a client type
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public UserDataClient login(Login login) throws ApplicationException {
-//
-//		if (login == null)
-//			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
-//
-//		ValidationUtils.isValidName(login.getUserName());
-//		ValidationUtils.isValidPassword(login.getPassword());
-//
-//		if (!usersDao.existsByUserName(login.getUserName()))
-//			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
-//					false);
-//
-//		UserDataMap userDataMap = usersDao.login(login.getUserName(), login.getPassword());
-//		int token = generateEncryptedToken(login.getUserName());
-//
-//		// create user data to client
-//		UserDataClient userDataToClient = generateUserDataToClient(userDataMap.getId(), userDataMap.getCompanyId(),
-//				userDataMap.getClientType(), token);
-//
-//		cacheManager.put(token, userDataMap);
-//
-//		return userDataToClient;
-//
-//	}
+	/**
+	 * @param login Receive a login (contain user name and password)
+	 * @return This function return a client type
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public UserDataClient login(Login login) throws ApplicationException {
+
+		if (login == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		ValidationUtils.isValidName(login.getUserName());
+		ValidationUtils.isValidPassword(login.getPassword());
+
+		if (!usersDao.existsByUserName(login.getUserName()))
+			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
+					false);
+
+		User user = usersDao.findByUserNameAndPassword(login.getUserName(), login.getPassword());
+
+		UserDataMap userDataMap = new UserDataMap(user.getId(), user.getCompanyId(), user.getType());
+
+		int token = generateEncryptedToken(login.getUserName());
+
+		// create user data to client
+		UserDataClient userDataToClient = generateUserDataToClient(userDataMap.getId(), userDataMap.getCompanyId(),
+				userDataMap.getClientType(), token);
+
+		cacheManager.put(token, userDataMap);
+
+		return userDataToClient;
+
+	}
 
 	// function
 

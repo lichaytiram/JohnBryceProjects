@@ -124,16 +124,16 @@ public class UserApi {
 
 	}
 
-//	/**
-//	 * @param login Receive a login (contain user name and password)
-//	 * @return This function return a client type
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@PostMapping("/login/unsecured")
-//	public UserDataClient login(@RequestBody Login login) throws ApplicationException {
-//
-//		return userController.login(login);
-//
-//	}
+	/**
+	 * @param login Receive a login (contain user name and password)
+	 * @return This function return a client type
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@PostMapping("/login/unsecured")
+	public UserDataClient login(@RequestBody Login login) throws ApplicationException {
+
+		return userController.login(login);
+
+	}
 
 }

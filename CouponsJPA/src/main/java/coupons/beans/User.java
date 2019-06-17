@@ -24,21 +24,21 @@ import coupons.exception.ApplicationException;
 @Table(name = "users")
 public class User implements Serializable {
 
-	// property
+	// properties
 
 	private static final long serialVersionUID = 1652799167889220323L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
 	@Column(name = "USER_NAME", nullable = false, unique = true, length = 25)
 	private String userName;
 	@Column(name = "PASSWORD", nullable = false, unique = false, length = 50)
 	private String password;
-	@Column(name = "TYPE", nullable = false, unique = true, length = 50)
+	@Column(name = "TYPE", nullable = false, unique = false, columnDefinition = "VARCHAR(40)")
 	private ClientType type;
-	@Column(name = "COMPANY_ID", nullable = true, unique = false, length = 255) // UNSIGNED
+	@Column(name = "COMPANY_ID", nullable = true, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private Long companyId;
 	@JoinColumn(name = "COMPANY", nullable = true, unique = false)
 	@ManyToOne

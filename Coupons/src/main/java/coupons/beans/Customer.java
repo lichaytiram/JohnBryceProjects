@@ -8,7 +8,7 @@ package coupons.beans;
  */
 public class Customer {
 
-	// property
+	// properties
 
 	private long id;
 	private String firstName;

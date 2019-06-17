@@ -30,29 +30,29 @@ import coupons.enums.Category;
 @Table(name = "coupons")
 public class Coupon implements Serializable {
 
-	// property
+	// properties
 
 	private static final long serialVersionUID = 3463614049774120920L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "ID", nullable = false, unique = true, length = 255) // UNSIGNED
+	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
-	@Column(name = "COMPANY_ID", nullable = false, unique = false, length = 255) // UNSIGNED
+	@Column(name = "COMPANY_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long companyId;
-	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
+	@Column(name = "CATEGORY", nullable = false, unique = false, columnDefinition = "VARCHAR(40)")
 	private Category category;
 	@Column(name = "TITLE", nullable = false, unique = false, length = 25)
 	private String title;
 	@Column(name = "DESCRIPTION", nullable = true, unique = false, length = 255)
 	private String description;
-	@Column(name = "START_DATE", nullable = false, unique = true, length = 255)
+	@Column(name = "START_DATE", nullable = false, unique = true)
 	private Date startDate;
-	@Column(name = "END_DATE", nullable = false, unique = true, length = 255)
+	@Column(name = "END_DATE", nullable = false, unique = true)
 	private Date endDate;
-	@Column(name = "AMOUNT", nullable = false, unique = false, length = 200) // UNSIGNED
+	@Column(name = "AMOUNT", nullable = false, unique = false, columnDefinition = "INT(11) UNSIGNED")
 	private int amount;
-	@Column(name = "PRICE", nullable = false, unique = false, length = 255) // UNSIGNED
+	@Column(name = "PRICE", nullable = false, unique = false, columnDefinition = "DOUBLE UNSIGNED")
 	private double price;
 	@Column(name = "IMAGE", nullable = true, unique = false, length = 50)
 	private String image;
