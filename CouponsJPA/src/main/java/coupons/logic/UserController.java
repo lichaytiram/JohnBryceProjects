@@ -34,53 +34,53 @@ public class UserController {
 	@Autowired
 	private ICompaniesDao companiesDao;
 
-//	/**
-//	 * @param user     Receive an user
-//	 * @param userData Receive an userData
-//	 * @return This function return an id
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public long createUser(User user, UserDataMap userData) throws ApplicationException {
-//
-//		if (user == null)
-//			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
-//
-//		if (!userData.getClientType().name().equals("Administrator")) {
-//			if (!user.getType().name().equals("Customer"))
-//				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		}
-//
-//		ValidationUtils.isValidName(user.getUserName());
-//		ValidationUtils.isValidPassword(user.getPassword());
-//		ValidationUtils.isValidType(user.getType());
-//
-//		// check validation for create company
-//		if (user.getType().name().equals("Company")) {
-//
-//			Long companyId = user.getCompanyId();
-//
-//			ValidationUtils.isValidCompanyId(companyId);
-//
-//			if (!companiesDao.existsById(companyId))
-//				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
-//						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
-//
-//			// check validation for create customer || administrator
-//		} else if (user.getCompanyId() != null) {
-//
-//			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
-//					false);
-//
-//		}
-//
-//		if (usersDao.existsByUserName(user.getUserName()))
-//			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
-//					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
-//
-//		return usersDao.createUser(user);
-//
-//	}
+	/**
+	 * @param user     Receive an user
+	 * @param userData Receive an userData
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public long createUser(User user, UserDataMap userData) throws ApplicationException {
+
+		if (user == null)
+			throw new ApplicationException(ErrorType.EMPTY, ErrorType.EMPTY.getMessage(), false);
+
+		if (!userData.getClientType().name().equals("Administrator")) {
+			if (!user.getType().name().equals("Customer"))
+				throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		}
+
+		ValidationUtils.isValidName(user.getUserName());
+		ValidationUtils.isValidPassword(user.getPassword());
+		ValidationUtils.isValidType(user.getType());
+
+		// check validation for create company
+		if (user.getType().name().equals("Company")) {
+
+			Long companyId = user.getCompanyId();
+
+			ValidationUtils.isValidCompanyId(companyId);
+
+			if (!companiesDao.existsById(companyId))
+				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
+
+			// check validation for create customer || administrator
+		} else if (user.getCompanyId() != null) {
+
+			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
+					false);
+
+		}
+
+		if (usersDao.existsByUserName(user.getUserName()))
+			throw new ApplicationException(ErrorType.USER_IS_ALREADY_EXISTS,
+					ErrorType.USER_IS_ALREADY_EXISTS.getMessage(), false);
+
+		return usersDao.save(user).getId();
+
+	}
 
 	/**
 	 * @param userId   Receive an user id

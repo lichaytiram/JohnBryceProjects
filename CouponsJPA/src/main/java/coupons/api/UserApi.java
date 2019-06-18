@@ -35,20 +35,20 @@ public class UserApi {
 	@Autowired
 	private UserController userController;
 
-//	/**
-//	 * @param user    Receive an user
-//	 * @param request Receive a httpServletRequest
-//	 * @return This function return an id
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	@PostMapping
-//	public long createUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
-//
-//		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
-//
-//		return userController.createUser(user, userData);
-//
-//	}
+	/**
+	 * @param user    Receive an user
+	 * @param request Receive a httpServletRequest
+	 * @return This function return an id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@PostMapping
+	public long createUser(@RequestBody User user, HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return userController.createUser(user, userData);
+
+	}
 
 	/**
 	 * @param userId  Receive an user id
