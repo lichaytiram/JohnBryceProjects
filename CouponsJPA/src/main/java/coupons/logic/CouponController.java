@@ -6,12 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import coupons.beans.Company;
 import coupons.beans.Coupon;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICompaniesDao;
 import coupons.dao.ICouponsDao;
 import coupons.dao.ICustomersDao;
-import coupons.dao.IPurchasesDao;
 import coupons.enums.Category;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -28,8 +28,6 @@ public class CouponController {
 
 	@Autowired
 	private ICouponsDao couponsDao;
-	@Autowired
-	private IPurchasesDao purchasesDao;
 	@Autowired
 	private ICustomersDao customerDao;
 	@Autowired
@@ -67,6 +65,10 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
+		Company company = companyDao.findById(coupon.getCompanyId()).get();
+
+		coupon.setCompany(company);
+
 		couponsDao.save(coupon);
 
 	}
@@ -103,17 +105,6 @@ public class CouponController {
 		couponsDao.deleteById(couponId);
 
 	}
-
-//	/**
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public void deleteExpiredCoupons() throws ApplicationException {
-//
-//		purchasesDao.deleteExpiredPurchase();
-//
-//		couponsDao.deleteExpiredCoupon();
-//
-//	}
 
 	/**
 	 * @param coupon   Receive a coupon
@@ -154,6 +145,9 @@ public class CouponController {
 						ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
 		}
+
+		Company company = companyDao.findById(coupon.getCompanyId()).get();
+		coupon.setCompany(company);
 
 		couponsDao.save(coupon);
 
@@ -246,111 +240,111 @@ public class CouponController {
 
 	}
 
-//	/**
-//	 * @param companyId Receive a company id
-//	 * @param maxPrice  Receive a max price
-//	 * @param userData  Receive an userData
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice, UserDataMap userData)
-//			throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Company"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		if (userData.getCompanyId() != companyId)
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(companyId);
-//		isValidPrice(maxPrice);
-//
-//		if (!companyDao.existsById(companyId))
-//			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
-//					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return couponsDao.getCompanyCouponsByMaxPrice(companyId, maxPrice);
-//
-//	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param userData   Receive an userData
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
-//			throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Customer"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		if (customerId != userData.getId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(customerId);
-//
-//		if (!customerDao.existsById(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return couponsDao.getCustomerCouponsByCustomerId(customerId);
-//
-//	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param category   Receive a category
-//	 * @param userData   Receive an userData
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
-//			throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Customer"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		if (customerId != userData.getId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(customerId);
-//		isValidCategory(category);
-//
-//		if (!customerDao.existsById(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return couponsDao.getCustomerCouponsByCategory(customerId, category);
-//
-//	}
-//
-//	/**
-//	 * @param customerId Receive a customer id
-//	 * @param maxPrice   Receive a max price
-//	 * @param userData   Receive an userData
-//	 * @return This function return a coupon list
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
-//			throws ApplicationException {
-//
-//		if (!userData.getClientType().name().equals("Customer"))
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		if (customerId != userData.getId())
-//			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-//
-//		ValidationUtils.isValidId(customerId);
-//		isValidPrice(maxPrice);
-//
-//		if (!customerDao.existsById(customerId))
-//			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-//					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-//
-//		return couponsDao.getCustomerCouponsByMaxPrice(customerId, maxPrice);
-//
-//	}
+	/**
+	 * @param companyId Receive a company id
+	 * @param maxPrice  Receive a max price
+	 * @param userData  Receive an userData
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Company"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (userData.getCompanyId() != companyId)
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(companyId);
+		isValidPrice(maxPrice);
+
+		if (!companyDao.existsById(companyId))
+			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
+					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
+
+		return couponsDao.findByCompanyIdAndPriceLessThanEqual(companyId, maxPrice);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param userData   Receive an userData
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(customerId);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		return couponsDao.findByPurchasesCustomerId(customerId);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param category   Receive a category
+	 * @param userData   Receive an userData
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(customerId);
+		isValidCategory(category);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		return couponsDao.findByPurchasesCustomerIdAndCategory(customerId, category);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param maxPrice   Receive a max price
+	 * @param userData   Receive an userData
+	 * @return This function return a coupon list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
+			throws ApplicationException {
+
+		if (!userData.getClientType().name().equals("Customer"))
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		if (customerId != userData.getId())
+			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
+
+		ValidationUtils.isValidId(customerId);
+		isValidPrice(maxPrice);
+
+		if (!customerDao.existsById(customerId))
+			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
+					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
+
+		return couponsDao.findByPurchasesCustomerIdAndPriceLessThanEqual(customerId, maxPrice);
+
+	}
 
 	/**
 	 * @param price Receive a price

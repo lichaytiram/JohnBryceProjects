@@ -1,12 +1,14 @@
 package coupons.logic;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import coupons.beans.Coupon;
+import coupons.beans.Customer;
 import coupons.beans.Purchase;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICouponsDao;
@@ -75,7 +77,16 @@ public class PurchaseController {
 
 		coupon.setAmount(amountLeft);
 
+		// update coupon
 		couponsDao.save(coupon);
+
+		// purchase coupon
+		Customer customer = customerDao.findById(purchase.getCustomerId()).get();
+
+		purchase.setCoupon(coupon);
+		purchase.setCustomer(customer);
+		purchase.setDate(new Date());
+
 		purchasesDao.save(purchase);
 
 	}

@@ -34,15 +34,20 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
+
 	@Column(name = "USER_NAME", nullable = false, unique = true, length = 25)
 	private String userName;
+
 	@Column(name = "PASSWORD", nullable = false, unique = false, length = 50)
 	private String password;
+
 	@Column(name = "TYPE", nullable = false, unique = false, length = 40)
 	@Enumerated(EnumType.STRING)
 	private ClientType type;
+
 	@Column(name = "COMPANY_ID", nullable = true, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private Long companyId;
+
 	@JoinColumn(name = "COMPANY", nullable = true, unique = false)
 	@ManyToOne
 	private Company company;

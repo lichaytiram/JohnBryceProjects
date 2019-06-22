@@ -626,7 +626,7 @@ public class CouponsDao implements ICouponsDao {
 		try {
 			connection = JdbcUtils.getConnection();
 			preparedStatement = connection.prepareStatement(
-					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ?");
+					"SELECT * FROM purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ?");
 			preparedStatement.setLong(1, customerId);
 			resultSet = preparedStatement.executeQuery();
 
@@ -673,7 +673,7 @@ public class CouponsDao implements ICouponsDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND CATEGORY = ?");
+					"SELECT * FROM purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND CATEGORY = ?");
 			preparedStatement.setLong(1, customerId);
 			preparedStatement.setString(2, category.name());
 			resultSet = preparedStatement.executeQuery();
@@ -719,7 +719,7 @@ public class CouponsDao implements ICouponsDao {
 			connection = JdbcUtils.getConnection();
 
 			preparedStatement = connection.prepareStatement(
-					"SELECT * from purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND PRICE <= ?");
+					"SELECT * FROM purchases JOIN coupons ON coupons.ID = purchases.COUPON_ID WHERE CUSTOMER_ID = ? AND PRICE <= ?");
 			preparedStatement.setLong(1, customerId);
 			preparedStatement.setDouble(2, maxPrice);
 

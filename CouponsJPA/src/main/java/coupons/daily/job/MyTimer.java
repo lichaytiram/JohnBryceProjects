@@ -14,18 +14,6 @@ import coupons.exception.ApplicationException;
 public class MyTimer {
 
 	/**
-	 * constructor for create a show for this class
-	 * 
-	 * 
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public MyTimer() throws ApplicationException {
-
-		createTimer();
-
-	}
-
-	/**
 	 * This function create timer with task
 	 * 
 	 * @throws ApplicationException This function can throw an applicationException

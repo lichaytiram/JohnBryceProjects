@@ -34,14 +34,19 @@ public class Company implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
+
 	@Column(name = "NAME", nullable = false, unique = true, length = 15)
 	private String name;
+
 	@Column(name = "PHONE_NUMBER", nullable = false, unique = false, length = 10)
 	private String phoneNumber;
+
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
+
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Coupon> coupons;
+
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<User> users;
 

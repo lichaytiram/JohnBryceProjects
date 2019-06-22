@@ -32,17 +32,23 @@ public class Customer implements Serializable {
 	@Id
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
+
 	@Column(name = "FIRST_NAME", nullable = false, unique = false, length = 20)
 	private String firstName;
+
 	@Column(name = "LAST_NAME", nullable = true, unique = false, length = 20)
 	private String lastName;
+
 	@Column(name = "PHONE_NUMBER", nullable = false, unique = false, length = 10)
 	private String phoneNumber;
+
 	@Column(name = "EMAIL", nullable = false, unique = false, length = 25)
 	private String email;
+
 	@JoinColumn(name = "USER")
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private User user;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Purchase> purchases;

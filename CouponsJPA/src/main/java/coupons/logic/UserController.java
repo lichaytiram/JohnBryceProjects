@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import coupons.beans.Company;
 import coupons.beans.Login;
 import coupons.beans.Name;
 import coupons.beans.User;
@@ -65,6 +66,10 @@ public class UserController {
 			if (!companiesDao.existsById(companyId))
 				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
+
+			Company company = companiesDao.findById(user.getCompanyId()).get();
+
+			user.setCompany(company);
 
 			// check validation for create customer || administrator
 		} else if (user.getCompanyId() != null) {

@@ -2,8 +2,10 @@ package coupons.daily.job;
 
 import java.util.TimerTask;
 
-import coupons.exception.ApplicationException;
-import coupons.logic.CouponController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import coupons.dao.ICouponsDao;
 
 /**
  * This function create a thread class for delete expired coupons
@@ -11,33 +13,17 @@ import coupons.logic.CouponController;
  * @author Lichay
  *
  */
+@Component
 public class MyTimerTask extends TimerTask {
 
-//	private CouponController couponController;
-
-//	/**
-//	 * constructor for create a show for this class
-//	 * 
-//	 * @throws ApplicationException This function can throw an applicationException
-//	 */
-//	public MyTimerTask() throws ApplicationException {
-//
-//		couponController = new CouponController();
-//
-//	}
+	@Autowired
+	private ICouponsDao couponsDao;
 
 	@Override
 	public void run() {
 
-//		try {
-//
-//			couponController.deleteExpiredCoupons();
-//
-//		} catch (ApplicationException e) {
-//
-//			e.printStackTrace();
-//
-//		}
+		couponsDao.deleteExpiredCoupon();
+		System.out.println("still on");
 
 	}
 

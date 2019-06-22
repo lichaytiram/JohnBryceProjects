@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * This class create a purchase
@@ -30,17 +32,24 @@ public class Purchase implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
+
 	@Column(name = "CUSTOMER_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long customerId;
+
 	@Column(name = "COUPON_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long couponId;
+
 	@Column(name = "AMOUNT", nullable = false, unique = false, columnDefinition = "INT(11) UNSIGNED")
 	private int amount;
+
 	@Column(name = "DATE", nullable = false, unique = false)
+	@Temporal(TemporalType.DATE)
 	private Date date;
+
 	@JoinColumn(name = "CUSTOMER", nullable = false, unique = false)
 	@ManyToOne
 	private Customer customer;
+
 	@JoinColumn(name = "COUPON", nullable = false, unique = false)
 	@ManyToOne
 	private Coupon coupon;

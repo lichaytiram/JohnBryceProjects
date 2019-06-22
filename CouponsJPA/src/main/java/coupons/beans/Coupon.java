@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,28 +42,41 @@ public class Coupon implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
+
 	@Column(name = "COMPANY_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long companyId;
+
 	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
 	@Enumerated(EnumType.STRING)
 	private Category category;
+
 	@Column(name = "TITLE", nullable = false, unique = false, length = 25)
 	private String title;
+
 	@Column(name = "DESCRIPTION", nullable = true, unique = false, length = 255)
 	private String description;
-	@Column(name = "START_DATE", nullable = false, unique = true)
+
+	@Column(name = "START_DATE", nullable = false, unique = false)
+	@Temporal(TemporalType.DATE)
 	private Date startDate;
-	@Column(name = "END_DATE", nullable = false, unique = true)
+
+	@Column(name = "END_DATE", nullable = false, unique = false)
+	@Temporal(TemporalType.DATE)
 	private Date endDate;
+
 	@Column(name = "AMOUNT", nullable = false, unique = false, columnDefinition = "INT(11) UNSIGNED")
 	private int amount;
+
 	@Column(name = "PRICE", nullable = false, unique = false, columnDefinition = "DOUBLE UNSIGNED")
 	private double price;
+
 	@Column(name = "IMAGE", nullable = true, unique = false, length = 50)
 	private String image;
+
 	@JoinColumn(name = "COMPANY", nullable = false, unique = false)
 	@ManyToOne
 	private Company company;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "coupon", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Purchase> purchases;
