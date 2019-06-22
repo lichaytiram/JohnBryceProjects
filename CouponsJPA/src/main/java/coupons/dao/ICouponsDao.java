@@ -29,8 +29,8 @@ public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 
 	public List<Coupon> findByCompanyIdAndPriceLessThanEqual(long companyId, double maxPrice);
 
-//	@Query("SELECT c , p.id , p.amount , c.title , c.description , c.category , c.companyId , c.startDate , c.endDate , c.image from Purchase p JOIN Coupon c ON c.id = p.couponId WHERE CUSTOMER_ID = :customer_id")
-//	@Query("SELECT c , p.id , p.amount from Purchase p JOIN Coupon c ON c.id = p.couponId WHERE CUSTOMER_ID = :customer_id")
+//	@Query("SELECT c , p.id , p.amount , c.title , c.description , c.category , c.companyId , c.startDate , c.endDate , c.image FROM Purchase p JOIN Coupon c ON c.id = p.couponId WHERE CUSTOMER_ID = :customer_id")
+//	@Query("SELECT c , p.id , p.amount FROM Purchase p JOIN Coupon c ON c.id = p.couponId WHERE CUSTOMER_ID = :customer_id")
 //	public List<Coupon> findByPurchasesCustomerId(@Param("customer_id") long customerId);
 	public List<Coupon> findByPurchasesCustomerId(long customerId);
 
