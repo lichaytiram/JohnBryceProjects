@@ -282,14 +282,6 @@ public class Coupon implements Serializable {
 
 	// java persistence API
 
-	public Company getCompanyId2() {
-		return company;
-	}
-
-	public void setCompanyId2(Company companyId2) {
-		this.company = companyId2;
-	}
-
 	public Company getCompany() {
 		return company;
 	}
