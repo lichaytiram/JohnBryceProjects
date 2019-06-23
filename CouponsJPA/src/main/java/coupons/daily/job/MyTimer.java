@@ -3,6 +3,10 @@ package coupons.daily.job;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Component;
+
 import coupons.exception.ApplicationException;
 
 /**
@@ -11,6 +15,7 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
+@Component
 public class MyTimer {
 
 	/**
@@ -18,6 +23,7 @@ public class MyTimer {
 	 * 
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@PostConstruct
 	public static void createTimer() throws ApplicationException {
 
 		// Creating a task

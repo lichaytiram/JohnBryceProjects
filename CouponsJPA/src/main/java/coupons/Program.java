@@ -2,9 +2,10 @@ package coupons;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import coupons.daily.job.MyTimer;
+import coupons.dao.ICouponsDao;
 import coupons.exception.ApplicationException;
 
 @SpringBootApplication
@@ -12,8 +13,7 @@ import coupons.exception.ApplicationException;
 public class Program {
 	public static void main(String[] args) throws ApplicationException {
 
-		SpringApplication.run(Program.class, args);
+		ConfigurableApplicationContext ctx = SpringApplication.run(Program.class, args);
 
-//		MyTimer.createTimer();
 	}
 }
