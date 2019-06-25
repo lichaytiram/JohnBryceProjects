@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Coupon;
 import coupons.beans.Customer;
@@ -38,6 +41,7 @@ public class PurchaseController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void purchaseCoupon(Purchase purchase, UserDataMap userData) throws ApplicationException {
 
 		if (purchase == null)
@@ -95,6 +99,7 @@ public class PurchaseController {
 	 * @param id Receive an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deletePurchase(long id) throws ApplicationException {
 
 		ValidationUtils.isValidId(id);
@@ -113,6 +118,7 @@ public class PurchaseController {
 	 * @return This function return purchase amount
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public int getPurchaseAmount(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (userData.getClientType().name().equals("Company"))
@@ -147,6 +153,7 @@ public class PurchaseController {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Purchase> getAllPurchases(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
@@ -166,6 +173,7 @@ public class PurchaseController {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Purchase> getCustomerPurchases(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (userData.getClientType().name().equals("Customer")) {

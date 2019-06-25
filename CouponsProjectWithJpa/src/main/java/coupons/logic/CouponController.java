@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Company;
 import coupons.beans.Coupon;
@@ -38,6 +41,7 @@ public class CouponController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void createCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
 
 		if (coupon == null)
@@ -79,6 +83,7 @@ public class CouponController {
 	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCoupon(long couponId, long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Company"))
@@ -111,6 +116,7 @@ public class CouponController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void updateCoupon(Coupon coupon, UserDataMap userData) throws ApplicationException {
 
 		if (coupon == null)
@@ -158,6 +164,7 @@ public class CouponController {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getAllCoupons(UserDataMap userData) throws ApplicationException {
 
 		// only customer can see coupon list for purchase
@@ -177,6 +184,7 @@ public class CouponController {
 	 * @return This function return a coupon
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
@@ -195,6 +203,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByCompanyId(long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Company"))
@@ -220,6 +229,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category, UserDataMap userData)
 			throws ApplicationException {
 
@@ -247,6 +257,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice, UserDataMap userData)
 			throws ApplicationException {
 
@@ -273,6 +284,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
 			throws ApplicationException {
 
@@ -299,6 +311,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
 			throws ApplicationException {
 
@@ -326,6 +339,7 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
 			throws ApplicationException {
 

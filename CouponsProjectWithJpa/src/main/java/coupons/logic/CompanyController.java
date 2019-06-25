@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Company;
 import coupons.beans.UserDataMap;
@@ -29,6 +32,7 @@ public class CompanyController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void createCompany(Company company, UserDataMap userData) throws ApplicationException {
 
 		if (company == null)
@@ -58,6 +62,7 @@ public class CompanyController {
 	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCompany(long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
@@ -78,6 +83,7 @@ public class CompanyController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void updateCompany(Company company, UserDataMap userData) throws ApplicationException {
 
 		if (company == null)
@@ -116,6 +122,7 @@ public class CompanyController {
 	 * @return This function return company list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Company> getAllCompanies(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
@@ -134,6 +141,7 @@ public class CompanyController {
 	 * @return This function return a company
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Company getCompany(long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (userData.getClientType().name().equals("Customer"))

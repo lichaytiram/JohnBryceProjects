@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Customer;
 import coupons.beans.Name;
@@ -33,6 +36,7 @@ public class CustomerController {
 	 * @param customer Receive a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void createCustomer(Customer customer) throws ApplicationException {
 
 		if (customer == null)
@@ -68,6 +72,7 @@ public class CustomerController {
 	 * @param userData   Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCustomer(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))
@@ -95,6 +100,7 @@ public class CustomerController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void updateCustomer(Customer customer, UserDataMap userData) throws ApplicationException {
 
 		if (customer == null)
@@ -157,6 +163,7 @@ public class CustomerController {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Customer> getAllCustomers(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
@@ -176,6 +183,7 @@ public class CustomerController {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Name getCustomerName(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))
@@ -205,6 +213,7 @@ public class CustomerController {
 	 * @return This function return customer name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Customer getCustomer(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))

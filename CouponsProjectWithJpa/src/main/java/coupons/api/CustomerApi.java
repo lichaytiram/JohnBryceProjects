@@ -37,7 +37,6 @@ public class CustomerApi {
 	 * @param customer Receive a customer
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 4)
 	@PostMapping("/unsecured")
 	public void createCustomer(@RequestBody Customer customer) throws ApplicationException {
 
