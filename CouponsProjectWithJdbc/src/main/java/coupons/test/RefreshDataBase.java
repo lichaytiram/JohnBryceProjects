@@ -22,7 +22,7 @@ public class RefreshDataBase implements ICreate {
 
 	public RefreshDataBase() throws ApplicationException {
 		super();
-		refreshDB();
+//		refreshDB();
 	}
 
 	/**
@@ -40,7 +40,6 @@ public class RefreshDataBase implements ICreate {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		}
@@ -126,7 +125,6 @@ public class RefreshDataBase implements ICreate {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true, e);
 
 		} finally {
