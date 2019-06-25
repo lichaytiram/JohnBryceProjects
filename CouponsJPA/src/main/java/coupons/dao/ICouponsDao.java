@@ -2,10 +2,12 @@ package coupons.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Coupon;
 import coupons.enums.Category;
@@ -38,10 +40,12 @@ public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 
 	public List<Coupon> findByPurchasesCustomerIdAndPriceLessThanEqual(long customerId, double maxPrice);
 
-	@Query("SELECT CASE WHEN (COUNT(c) > 0) THEN TRUE ELSE FALSE END FROM Coupon c WHERE c.id = :coupon_id AND END_DATE > CURDATE()")
+	@Query("SELECT CASE WHEN (COUNT(c) > 0) THEN TRUE ELSE FALSE END FROM Coupon c WHERE c.id = :coupon_id AND endDate > CURDATE()")
 	public boolean isCouponValid(@Param("coupon_id") long couponId);
 
-	@Query("DELETE FROM Coupon c WHERE END_DATE < CURDATE()")
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Coupon c WHERE endDate < CURDATE()")
 	public void deleteExpiredCoupon();
 
 }

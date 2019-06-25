@@ -23,7 +23,6 @@ public class MyTimerTask extends TimerTask {
 	public void run() {
 
 		couponsDao.deleteExpiredCoupon();
-		System.out.println("still on");
 
 	}
 

@@ -5,6 +5,7 @@ import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import coupons.exception.ApplicationException;
@@ -18,16 +19,17 @@ import coupons.exception.ApplicationException;
 @Component
 public class MyTimer {
 
+	// Creating a task
+	@Autowired
+	private TimerTask task;
+
 	/**
 	 * This function create timer with task
 	 * 
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
 	@PostConstruct
-	public static void createTimer() throws ApplicationException {
-
-		// Creating a task
-		TimerTask task = new MyTimerTask();
+	public void createTimer() throws ApplicationException {
 
 		// Creating a timer
 		Timer timer = new Timer();
