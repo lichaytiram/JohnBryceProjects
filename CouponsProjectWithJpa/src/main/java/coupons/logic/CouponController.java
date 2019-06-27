@@ -164,7 +164,6 @@ public class CouponController {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getAllCoupons(UserDataMap userData) throws ApplicationException {
 
 		// only customer can see coupon list for purchase

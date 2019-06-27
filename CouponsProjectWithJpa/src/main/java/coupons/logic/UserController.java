@@ -210,7 +210,6 @@ public class UserController {
 	 * @return This function return an user list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<User> getAllUsers(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))

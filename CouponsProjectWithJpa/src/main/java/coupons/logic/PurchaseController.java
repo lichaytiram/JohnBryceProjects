@@ -153,7 +153,6 @@ public class PurchaseController {
 	 * @return This function return a purchase list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Purchase> getAllPurchases(UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator"))
