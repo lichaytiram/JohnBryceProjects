@@ -76,7 +76,7 @@ public class UserController {
 			user.setCompany(company);
 
 			// check validation for create customer || administrator
-		} else if (user.getCompany().getId() != null) {
+		} else if (user.getCompany() != null && user.getCompany().getId() != 0) {
 
 			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
 					false);
@@ -243,7 +243,12 @@ public class UserController {
 
 		User user = usersDao.findByUserNameAndPassword(login.getUserName(), login.getPassword());
 
-		UserDataMap userDataMap = new UserDataMap(user.getId(), user.getCompany().getId(), user.getType());
+		Long companyId = null;
+
+		if (user.getCompany() != null)
+			companyId = user.getCompany().getId();
+
+		UserDataMap userDataMap = new UserDataMap(user.getId(), companyId, user.getType());
 
 		int token = generateEncryptedToken(login.getUserName());
 

@@ -6,7 +6,6 @@ import java.util.TimerTask;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import coupons.exception.ApplicationException;
 
@@ -16,7 +15,7 @@ import coupons.exception.ApplicationException;
  * @author Lichay
  *
  */
-@Component
+//@Component
 public class MyTimer {
 
 	// Creating a task
