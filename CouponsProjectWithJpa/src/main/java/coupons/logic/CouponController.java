@@ -50,10 +50,10 @@ public class CouponController {
 		if (!userData.getClientType().name().equals("Company"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		if (userData.getCompanyId() != coupon.getCompanyId())
+		if (userData.getCompanyId() != coupon.getCompany().getId())
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		ValidationUtils.isValidId(coupon.getCompanyId());
+		ValidationUtils.isValidId(coupon.getCompany().getId());
 		isValidCategory(coupon.getCategory());
 		ValidationUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
@@ -65,11 +65,11 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
-		if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompanyId(), coupon.getTitle()))
+		if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompany().getId(), coupon.getTitle()))
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
-		Company company = companyDao.findById(coupon.getCompanyId()).get();
+		Company company = companyDao.findById(coupon.getCompany().getId()).get();
 
 		coupon.setCompany(company);
 
@@ -125,11 +125,11 @@ public class CouponController {
 		if (!userData.getClientType().name().equals("Company"))
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		if (userData.getCompanyId() != coupon.getCompanyId())
+		if (userData.getCompanyId() != coupon.getCompany().getId())
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(coupon.getId());
-		ValidationUtils.isValidId(coupon.getCompanyId());
+		ValidationUtils.isValidId(coupon.getCompany().getId());
 		isValidCategory(coupon.getCategory());
 		ValidationUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
@@ -145,14 +145,14 @@ public class CouponController {
 
 		if (!couponFromDataBase.getTitle().equals(coupon.getTitle())) {
 
-			if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompanyId(), coupon.getTitle()))
+			if (couponsDao.existsByCompanyIdAndTitle(coupon.getCompany().getId(), coupon.getTitle()))
 
 				throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 						ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
 		}
 
-		Company company = companyDao.findById(coupon.getCompanyId()).get();
+		Company company = companyDao.findById(coupon.getCompany().getId()).get();
 		coupon.setCompany(company);
 
 		couponsDao.save(coupon);
@@ -164,7 +164,6 @@ public class CouponController {
 	 * @return This function return coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getAllCoupons(UserDataMap userData) throws ApplicationException {
 
 		// only customer can see coupon list for purchase

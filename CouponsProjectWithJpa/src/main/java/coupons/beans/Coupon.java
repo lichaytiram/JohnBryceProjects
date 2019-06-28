@@ -43,9 +43,6 @@ public class Coupon implements Serializable {
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
 	private long id;
 
-	@Column(name = "COMPANY_ID", nullable = false, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
-	private long companyId;
-
 	@Column(name = "CATEGORY", nullable = false, unique = false, length = 40)
 	@Enumerated(EnumType.STRING)
 	private Category category;
@@ -85,53 +82,6 @@ public class Coupon implements Serializable {
 
 	/**
 	 * constructor for create a show for this class
-	 * 
-	 * @param id          Receive an id
-	 * @param companyId   Receive a company id
-	 * @param category    Receive a category
-	 * @param title       Receive a title
-	 * @param description Receive a description
-	 * @param startDate   Receive a start date
-	 * @param endDate     Receive an end date
-	 * @param amount      Receive an amount
-	 * @param price       Receive a price
-	 * @param image       Receive an image
-	 */
-	public Coupon(long id, long companyId, Category category, String title, String description, Date startDate,
-			Date endDate, int amount, double price, String image) {
-		this(companyId, category, title, description, startDate, endDate, amount, price, image);
-		this.id = id;
-	}
-
-	/**
-	 * constructor for create a show for this class
-	 * 
-	 * @param companyId   Receive a company id
-	 * @param category    Receive a category
-	 * @param title       Receive a title
-	 * @param description Receive a description
-	 * @param startDate   Receive a start date
-	 * @param endDate     Receive an end date
-	 * @param amount      Receive an amount
-	 * @param price       Receive a price
-	 * @param image       Receive an image
-	 */
-	public Coupon(long companyId, Category category, String title, String description, Date startDate, Date endDate,
-			int amount, double price, String image) {
-		super();
-		this.companyId = companyId;
-		this.category = category;
-		this.title = title;
-		this.description = description;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.amount = amount;
-		this.price = price;
-		this.image = image;
-	}
-
-	/**
-	 * constructor for create a show for this class
 	 */
 	public Coupon() {
 		super();
@@ -152,20 +102,6 @@ public class Coupon implements Serializable {
 	 */
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return This function return a company id
-	 */
-	public long getCompanyId() {
-		return companyId;
-	}
-
-	/**
-	 * @param companyId Receive a company id
-	 */
-	public void setCompanyId(long companyId) {
-		this.companyId = companyId;
 	}
 
 	/**
@@ -300,9 +236,9 @@ public class Coupon implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Coupon [id=" + getId() + ", companyId=" + getCompanyId() + ", category=" + getCategory() + ", title="
-				+ getTitle() + ", description=" + getDescription() + ", startDate=" + getStartDate() + ", endDate="
-				+ getEndDate() + ", amount=" + getAmount() + ", price=" + getPrice() + ", image=" + getImage() + "]";
+		return "Coupon [id=" + getId() + ", category=" + getCategory() + ", title=" + getTitle() + ", description="
+				+ getDescription() + ", startDate=" + getStartDate() + ", endDate=" + getEndDate() + ", amount="
+				+ getAmount() + ", price=" + getPrice() + ", image=" + getImage() + "]";
 	}
 
 }
