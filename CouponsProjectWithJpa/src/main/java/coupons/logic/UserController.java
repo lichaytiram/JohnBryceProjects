@@ -63,7 +63,7 @@ public class UserController {
 		// check validation for create company
 		if (user.getType().name().equals("Company")) {
 
-			Long companyId = user.getCompany().getId();
+			Long companyId = user.getCompanyId();
 
 			ValidationUtils.isValidCompanyId(companyId);
 
@@ -71,12 +71,12 @@ public class UserController {
 				throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 						ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
-			Company company = companiesDao.findById(user.getCompany().getId()).get();
+			Company company = companiesDao.findById(user.getCompanyId()).get();
 
 			user.setCompany(company);
 
 			// check validation for create customer || administrator
-		} else if (user.getCompany().getId() != null) {
+		} else if (user.getCompanyId() != null) {
 
 			throw new ApplicationException(ErrorType.INVALID_COMPANY_ID, ErrorType.INVALID_COMPANY_ID.getMessage(),
 					false);
@@ -243,7 +243,7 @@ public class UserController {
 
 		User user = usersDao.findByUserNameAndPassword(login.getUserName(), login.getPassword());
 
-		UserDataMap userDataMap = new UserDataMap(user.getId(), user.getCompany().getId(), user.getType());
+		UserDataMap userDataMap = new UserDataMap(user.getId(), user.getCompanyId(), user.getType());
 
 		int token = generateEncryptedToken(login.getUserName());
 

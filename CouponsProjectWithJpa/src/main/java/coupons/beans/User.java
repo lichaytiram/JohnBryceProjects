@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import coupons.enums.ClientType;
+import coupons.exception.ApplicationException;
 
 /**
  * This class create an user
@@ -44,11 +45,47 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private ClientType type;
 
+	@Column(name = "COMPANY_ID", nullable = true, unique = false, columnDefinition = "BIGINT(20) UNSIGNED")
+	private Long companyId;
+
 	@JoinColumn(name = "COMPANY", nullable = true, unique = false)
 	@ManyToOne
 	private Company company;
 
 	// constructor
+
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @param id        Receive an id
+	 * @param userName  Receive an user name
+	 * @param password  Receive a password
+	 * @param type      Receive a type
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public User(long id, String userName, String password, ClientType type, Long companyId)
+			throws ApplicationException {
+		this(userName, password, type, companyId);
+		this.id = id;
+	}
+
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @param userName  Receive an user name
+	 * @param password  Receive a password
+	 * @param type      Receive a type
+	 * @param companyId Receive a company id
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public User(String userName, String password, ClientType type, Long companyId) throws ApplicationException {
+		this();
+		this.userName = userName;
+		this.password = password;
+		this.type = type;
+		this.companyId = companyId;
+	}
 
 	/**
 	 * constructor for create a show for this class
@@ -116,6 +153,20 @@ public class User implements Serializable {
 		this.type = type;
 	}
 
+	/**
+	 * @return This function return a company id
+	 */
+	public Long getCompanyId() {
+		return companyId;
+	}
+
+	/**
+	 * @param companyId Receive a company id
+	 */
+	public void setCompanyId(Long companyId) {
+		this.companyId = companyId;
+	}
+
 	// java persistence API
 
 	public Company getCompany() {
@@ -129,7 +180,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + getId() + ", userName=" + getUserName() + ", password=" + getPassword() + ", type="
-				+ getType() + "]";
+				+ getType() + ", companyId=" + getCompanyId() + "]";
 	}
 
 }

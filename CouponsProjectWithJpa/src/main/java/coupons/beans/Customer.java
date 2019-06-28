@@ -57,6 +57,37 @@ public class Customer implements Serializable {
 
 	/**
 	 * constructor for create a show for this class
+	 * 
+	 * @param id          Receive an id
+	 * @param firstName   Receive a first name
+	 * @param lastName    Receive a last name
+	 * @param phoneNumber Receive a phone number
+	 * @param email       Receive an email
+	 */
+
+	public Customer(long id, String firstName, String lastName, String phoneNumber, String email) {
+		this(firstName, lastName, phoneNumber, email);
+		this.id = id;
+	}
+
+	/**
+	 * constructor for create a show for this class
+	 * 
+	 * @param firstName   Receive a first name
+	 * @param lastName    Receive a last name
+	 * @param phoneNumber Receive a phone number
+	 * @param email       Receive an email
+	 */
+	public Customer(String firstName, String lastName, String phoneNumber, String email) {
+		this();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+	}
+
+	/**
+	 * constructor for create a show for this class
 	 */
 	public Customer() {
 		super();
