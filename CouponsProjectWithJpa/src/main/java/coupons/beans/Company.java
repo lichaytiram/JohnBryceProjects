@@ -33,7 +33,7 @@ public class Company implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false, unique = true, columnDefinition = "BIGINT(20) UNSIGNED")
-	private long id;
+	private Long id;
 
 	@Column(name = "NAME", nullable = false, unique = true, length = 15)
 	private String name;
@@ -93,14 +93,14 @@ public class Company implements Serializable {
 	/**
 	 * @return This function return an id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id Receive an id
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

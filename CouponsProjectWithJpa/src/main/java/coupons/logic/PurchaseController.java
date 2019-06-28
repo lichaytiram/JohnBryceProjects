@@ -50,26 +50,26 @@ public class PurchaseController {
 		if (!userData.getClientType().name().equals("Customer"))
 			throw new ApplicationException(ErrorType.INVALID_ACCESS, ErrorType.INVALID_ACCESS.getMessage(), false);
 
-		if (purchase.getCustomerId() != userData.getId())
+		if (purchase.getCustomer().getId() != userData.getId())
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
-		ValidationUtils.isValidId(purchase.getCustomerId());
-		ValidationUtils.isValidId(purchase.getCouponId());
+		ValidationUtils.isValidId(purchase.getCustomer().getId());
+		ValidationUtils.isValidId(purchase.getCoupon().getId());
 		ValidationUtils.isValidAmount(purchase.getAmount());
 
-		if (!customerDao.existsById(purchase.getCustomerId()))
+		if (!customerDao.existsById(purchase.getCustomer().getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
-		if (!couponsDao.existsById(purchase.getCouponId()))
+		if (!couponsDao.existsById(purchase.getCoupon().getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		if (!couponsDao.isCouponValid(purchase.getCouponId()))
+		if (!couponsDao.isCouponValid(purchase.getCoupon().getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_OUT_OF_ORDER,
 					ErrorType.COUPON_IS_OUT_OF_ORDER.getMessage(), false);
 
-		Coupon coupon = couponsDao.findById(purchase.getCouponId()).get();
+		Coupon coupon = couponsDao.findById(purchase.getCoupon().getId()).get();
 
 		int amountOfCouponRemain = coupon.getAmount();
 
@@ -85,7 +85,7 @@ public class PurchaseController {
 		couponsDao.save(coupon);
 
 		// purchase coupon
-		Customer customer = customerDao.findById(purchase.getCustomerId()).get();
+		Customer customer = customerDao.findById(purchase.getCustomer().getId()).get();
 
 		purchase.setCoupon(coupon);
 		purchase.setCustomer(customer);
