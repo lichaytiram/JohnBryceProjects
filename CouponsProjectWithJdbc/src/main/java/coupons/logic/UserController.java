@@ -140,8 +140,8 @@ public class UserController {
 	}
 
 	/**
-	 * @param userId   Receive an user id
-	 * @param userData Receive an userData
+	 * @param userId      Receive an user id
+	 * @param userDataMap Receive an userDataMap
 	 * @return This function return an user name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */

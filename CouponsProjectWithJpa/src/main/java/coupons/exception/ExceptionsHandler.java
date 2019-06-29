@@ -19,7 +19,7 @@ public class ExceptionsHandler {
 
 	/**
 	 * @param e Receive an applicationException
-	 * @return This function return a ResponseEntity<ErrorBean>
+	 * @return This function return a ResponseEntity of ErrorBean
 	 */
 	@ExceptionHandler(ApplicationException.class)
 	public ResponseEntity<ErrorBean> handleError(ApplicationException e) {
@@ -35,7 +35,7 @@ public class ExceptionsHandler {
 
 	/**
 	 * @param e Receive a throwable
-	 * @return This function return a ResponseEntity<ErrorBean>
+	 * @return This function return a ResponseEntity of ErrorBean
 	 */
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<ErrorBean> handleError(Throwable e) {
