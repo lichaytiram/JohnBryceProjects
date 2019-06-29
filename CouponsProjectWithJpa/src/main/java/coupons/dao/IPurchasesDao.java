@@ -16,6 +16,10 @@ import coupons.beans.Purchase;
 @Repository
 public interface IPurchasesDao extends CrudRepository<Purchase, Long> {
 
+	/**
+	 * @param customerId Receive a customer id
+	 * @return This function return all purchase
+	 */
 	public List<Purchase> findByCustomerId(long customerId);
 
 }

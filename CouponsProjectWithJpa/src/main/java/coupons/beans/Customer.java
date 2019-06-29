@@ -158,10 +158,16 @@ public class Customer implements Serializable {
 
 	// java persistence API
 
+	/**
+	 * @return This function return list of purchases
+	 */
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
 
+	/**
+	 * @param purchases Receive list of purchases
+	 */
 	public void setPurchases(List<Purchase> purchases) {
 		this.purchases = purchases;
 	}

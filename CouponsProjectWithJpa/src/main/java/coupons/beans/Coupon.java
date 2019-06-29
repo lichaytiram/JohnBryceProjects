@@ -218,18 +218,30 @@ public class Coupon implements Serializable {
 
 	// java persistence API
 
+	/**
+	 * @return This function return a company
+	 */
 	public Company getCompany() {
 		return company;
 	}
 
+	/**
+	 * @param company Receive a company
+	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}
 
+	/**
+	 * @return This function return list of purchases
+	 */
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
 
+	/**
+	 * @param purchases Receive a purchases
+	 */
 	public void setPurchases(List<Purchase> purchases) {
 		this.purchases = purchases;
 	}

@@ -120,18 +120,30 @@ public class Company implements Serializable {
 
 	// java persistence API
 
+	/**
+	 * @return This function return list of coupons
+	 */
 	public List<Coupon> getCoupons() {
 		return coupons;
 	}
 
+	/**
+	 * @param coupons Receive list of coupons
+	 */
 	public void setCoupons(List<Coupon> coupons) {
 		this.coupons = coupons;
 	}
 
+	/**
+	 * @return This function return list of users
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * @param users Receive list of users
+	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}

@@ -83,7 +83,6 @@ public class CouponController {
 	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCoupon(long couponId, long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Company"))
@@ -107,6 +106,7 @@ public class CouponController {
 		if (!couponsDao.existsByIdAndCompanyId(couponId, companyId))
 			throw new ApplicationException(ErrorType.GENERAL_ERROR, ErrorType.GENERAL_ERROR.getMessage(), true);
 
+		// delete all children with cascade
 		couponsDao.deleteById(couponId);
 
 	}
@@ -183,7 +183,6 @@ public class CouponController {
 	 * @return This function return a coupon
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Coupon getCoupon(long couponId) throws ApplicationException {
 
 		ValidationUtils.isValidId(couponId);
@@ -202,7 +201,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByCompanyId(long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Company"))
@@ -228,7 +226,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByCategory(long companyId, Category category, UserDataMap userData)
 			throws ApplicationException {
 
@@ -256,7 +253,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCompanyCouponsByMaxPrice(long companyId, double maxPrice, UserDataMap userData)
 			throws ApplicationException {
 
@@ -283,7 +279,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
 			throws ApplicationException {
 
@@ -310,7 +305,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
 			throws ApplicationException {
 
@@ -338,7 +332,6 @@ public class CouponController {
 	 * @return This function return a coupon list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
 			throws ApplicationException {
 

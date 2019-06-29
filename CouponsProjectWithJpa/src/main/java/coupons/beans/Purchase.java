@@ -104,18 +104,30 @@ public class Purchase implements Serializable {
 
 	// java persistence API
 
+	/**
+	 * @return This function reutnr customer
+	 */
 	public Customer getCustomer() {
 		return customer;
 	}
 
+	/**
+	 * @param customer Receive a customer
+	 */
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
+	/**
+	 * @return This function return a coupon
+	 */
 	public Coupon getCoupon() {
 		return coupon;
 	}
 
+	/**
+	 * @param coupon Receive a coupon
+	 */
 	public void setCoupon(Coupon coupon) {
 		this.coupon = coupon;
 	}

@@ -14,14 +14,6 @@ import coupons.exception.ApplicationException;
 public class DateUtils {
 
 	/**
-	 * @param javaDate Give an util date and return sql date
-	 * @return return sql date
-	 */
-	public static java.sql.Date javaDateToSqlDate(java.util.Date javaDate) {
-		return new java.sql.Date(javaDate.getTime());
-	}
-
-	/**
 	 * @param startDate Receive a start date
 	 * @param endDate   Receive a end date
 	 * @throws ApplicationException This function can throw an applicationException

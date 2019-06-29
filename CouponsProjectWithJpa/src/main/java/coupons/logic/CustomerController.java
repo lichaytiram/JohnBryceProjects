@@ -72,7 +72,6 @@ public class CustomerController {
 	 * @param userData   Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCustomer(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))
@@ -91,6 +90,7 @@ public class CustomerController {
 			throw new ApplicationException(ErrorType.USER_IS_NOT_EXISTS, ErrorType.USER_IS_NOT_EXISTS.getMessage(),
 					false);
 
+		// delete all children with cascade
 		customerDao.deleteById(customerId);
 
 	}
@@ -182,7 +182,6 @@ public class CustomerController {
 	 * @return This function return customer list
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Name getCustomerName(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))
@@ -212,7 +211,6 @@ public class CustomerController {
 	 * @return This function return customer name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Customer getCustomer(long customerId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Customer"))

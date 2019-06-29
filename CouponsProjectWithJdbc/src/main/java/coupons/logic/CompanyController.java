@@ -40,7 +40,6 @@ public class CompanyController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void createCompany(Company company, UserDataMap userData) throws ApplicationException {
 
 		if (company == null)
@@ -148,7 +147,6 @@ public class CompanyController {
 	 * @return This function return a company
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public Company getCompany(long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (userData.getClientType().name().equals("Customer"))

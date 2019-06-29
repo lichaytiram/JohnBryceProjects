@@ -118,10 +118,16 @@ public class User implements Serializable {
 
 	// java persistence API
 
+	/**
+	 * @return This function return a company
+	 */
 	public Company getCompany() {
 		return company;
 	}
 
+	/**
+	 * @param company Receive a company
+	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}

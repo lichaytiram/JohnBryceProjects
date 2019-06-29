@@ -8,7 +8,7 @@ import coupons.enums.ErrorType;
  * @author Lichay
  *
  */
-public class ApplicationException extends Exception {
+public class ApplicationException extends RuntimeException {
 
 	private static final long serialVersionUID = -1835434097622353495L;
 

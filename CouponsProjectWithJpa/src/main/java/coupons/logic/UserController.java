@@ -32,7 +32,6 @@ public class UserController {
 
 	@Autowired
 	private ICacheManager cacheManager;
-
 	@Autowired
 	private IUsersDao usersDao;
 	@Autowired
@@ -96,7 +95,6 @@ public class UserController {
 	 * @param userData Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteUser(long userId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator")) {
@@ -159,7 +157,6 @@ public class UserController {
 	 * @return This function return an user name
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public Name getUserName(long userId, UserDataMap userDataMap) throws ApplicationException {
 
 		if (userDataMap.getId() != userId)
@@ -186,7 +183,6 @@ public class UserController {
 	 * @return This function return an user
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
 	public User getUser(long userId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Administrator")) {
@@ -228,7 +224,7 @@ public class UserController {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 5)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = true, timeout = 6)
 	public UserDataClient login(Login login) throws ApplicationException {
 
 		if (login == null)
@@ -242,6 +238,9 @@ public class UserController {
 					false);
 
 		User user = usersDao.findByUserNameAndPassword(login.getUserName(), login.getPassword());
+
+		if (user == null)
+			throw new ApplicationException(ErrorType.LOGIN_FAILED, ErrorType.LOGIN_FAILED.getMessage(), true);
 
 		Long companyId = null;
 
