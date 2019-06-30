@@ -32,7 +32,7 @@ public class MyTimer {
 	public void createTimer() throws ApplicationException {
 
 		// Creating a timer
-		Timer timer = new Timer();
+		Timer timer = new Timer("daily job");
 
 		timer.scheduleAtFixedRate(task, 0, 1000);
 
