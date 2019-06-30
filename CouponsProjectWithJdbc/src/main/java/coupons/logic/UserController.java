@@ -30,7 +30,6 @@ public class UserController {
 
 	@Autowired
 	private ICacheManager cacheManager;
-
 	@Autowired
 	private IUsersDao usersDao;
 	@Autowired

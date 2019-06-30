@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Coupon;
@@ -26,7 +28,7 @@ import coupons.utils.ValidationUtils;
  * @author Lichay
  */
 @Controller
-public class CouponController {
+public class CouponController implements TransactionManagementConfigurer {
 
 	@Autowired
 	private ICouponsDao couponsDao;
@@ -35,7 +37,7 @@ public class CouponController {
 	@Autowired
 	private ICustomersDao customersDao;
 	@Autowired
-	private ICompaniesDao companyDao;
+	private ICompaniesDao companiesDao;
 
 	/**
 	 * @param coupon   Receive a coupon
@@ -95,7 +97,7 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		if (!companyDao.isCompanyExists(companyId))
+		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -111,7 +113,7 @@ public class CouponController {
 	/**
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false)
 	public void deleteExpiredCoupons() throws ApplicationException {
 
 		purchasesDao.deleteExpiredPurchase();
@@ -212,7 +214,7 @@ public class CouponController {
 
 		ValidationUtils.isValidId(companyId);
 
-		if (!companyDao.isCompanyExists(companyId))
+		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -239,7 +241,7 @@ public class CouponController {
 		ValidationUtils.isValidId(companyId);
 		isValidCategory(category);
 
-		if (!companyDao.isCompanyExists(companyId))
+		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -266,7 +268,7 @@ public class CouponController {
 		ValidationUtils.isValidId(companyId);
 		isValidPrice(maxPrice);
 
-		if (!companyDao.isCompanyExists(companyId))
+		if (!companiesDao.isCompanyExists(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -384,5 +386,10 @@ public class CouponController {
 		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
 			throw new ApplicationException(ErrorType.INVALID_IMAGE, ErrorType.INVALID_IMAGE.getMessage(), false);
 
+	}
+
+	@Override
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return null;
 	}
 }

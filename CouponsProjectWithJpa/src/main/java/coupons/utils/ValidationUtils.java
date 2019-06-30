@@ -1,5 +1,6 @@
 package coupons.utils;
 
+import coupons.enums.Category;
 import coupons.enums.ClientType;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -119,6 +120,39 @@ public class ValidationUtils {
 
 		if (type == null)
 			throw new ApplicationException(ErrorType.INVALID_TYPE, ErrorType.INVALID_TYPE.getMessage(), false);
+
+	}
+
+	/**
+	 * @param price Receive a price
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public static void isValidPrice(double price) throws ApplicationException {
+
+		if (price <= 0)
+			throw new ApplicationException(ErrorType.INVALID_PRICE, ErrorType.INVALID_PRICE.getMessage(), false);
+
+	}
+
+	/**
+	 * @param category Receive a category
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public static void isValidCategory(Category category) throws ApplicationException {
+
+		if (category == null)
+			throw new ApplicationException(ErrorType.INVALID_CATEGORY, ErrorType.INVALID_CATEGORY.getMessage(), false);
+
+	}
+
+	/**
+	 * @param image Receive an image
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public static void isValidImage(String image) throws ApplicationException {
+
+		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
+			throw new ApplicationException(ErrorType.INVALID_IMAGE, ErrorType.INVALID_IMAGE.getMessage(), false);
 
 	}
 

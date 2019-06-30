@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import coupons.beans.Purchase;
 import coupons.beans.UserDataMap;
+import coupons.enums.Category;
 import coupons.exception.ApplicationException;
 import coupons.logic.PurchaseController;
 
@@ -100,6 +101,40 @@ public class PurchaseApi {
 		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
 
 		return purchaseController.getCustomerPurchases(customerId, userData);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param category   Receive a category
+	 * @param request    Receive a httpServletRequest
+	 * @return This function return a purchase list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/customer/category")
+	public List<Purchase> getCustomerCouponsByCategory(@RequestParam("customerId") long customerId,
+			@RequestParam("category") Category category, HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getCustomerPurchasesByCategory(customerId, category, userData);
+
+	}
+
+	/**
+	 * @param customerId Receive a customer id
+	 * @param maxPrice   Receive a max price
+	 * @param request    Receive a httpServletRequest
+	 * @return This function return a purchase list
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/customer/price")
+	public List<Purchase> getCustomerCouponsByMaxPrice(@RequestParam("customerId") long customerId,
+			@RequestParam("maxPrice") double maxPrice, HttpServletRequest request) throws ApplicationException {
+
+		UserDataMap userData = (UserDataMap) request.getAttribute("userData");
+
+		return purchaseController.getCustomerPurchasesByMaxPrice(customerId, maxPrice, userData);
 
 	}
 

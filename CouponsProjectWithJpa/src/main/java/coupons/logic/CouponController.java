@@ -14,7 +14,6 @@ import coupons.beans.Coupon;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICompaniesDao;
 import coupons.dao.ICouponsDao;
-import coupons.dao.ICustomersDao;
 import coupons.enums.Category;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
@@ -32,9 +31,7 @@ public class CouponController {
 	@Autowired
 	private ICouponsDao couponsDao;
 	@Autowired
-	private ICustomersDao customerDao;
-	@Autowired
-	private ICompaniesDao companyDao;
+	private ICompaniesDao companiesDao;
 
 	/**
 	 * @param coupon   Receive a coupon
@@ -54,12 +51,12 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(coupon.getCompany().getId());
-		isValidCategory(coupon.getCategory());
+		ValidationUtils.isValidCategory(coupon.getCategory());
 		ValidationUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		ValidationUtils.isValidAmount(coupon.getAmount());
-		isValidPrice(coupon.getPrice());
-		isValidImage(coupon.getImage());
+		ValidationUtils.isValidPrice(coupon.getPrice());
+		ValidationUtils.isValidImage(coupon.getImage());
 
 		if (couponsDao.existsById(coupon.getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
@@ -69,7 +66,7 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_ALREADY_EXISTS,
 					ErrorType.COUPON_IS_ALREADY_EXISTS.getMessage(), false);
 
-		Company company = companyDao.findById(coupon.getCompany().getId()).get();
+		Company company = companiesDao.findById(coupon.getCompany().getId()).get();
 
 		coupon.setCompany(company);
 
@@ -98,7 +95,7 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
 					false);
 
-		if (!companyDao.existsById(companyId))
+		if (!companiesDao.existsById(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -130,12 +127,12 @@ public class CouponController {
 
 		ValidationUtils.isValidId(coupon.getId());
 		ValidationUtils.isValidId(coupon.getCompany().getId());
-		isValidCategory(coupon.getCategory());
+		ValidationUtils.isValidCategory(coupon.getCategory());
 		ValidationUtils.isValidName(coupon.getTitle());
 		DateUtils.isValidDate(coupon.getStartDate(), coupon.getEndDate());
 		ValidationUtils.isValidAmount(coupon.getAmount());
-		isValidPrice(coupon.getPrice());
-		isValidImage(coupon.getImage());
+		ValidationUtils.isValidPrice(coupon.getPrice());
+		ValidationUtils.isValidImage(coupon.getImage());
 
 		if (!couponsDao.existsById(coupon.getId()))
 			throw new ApplicationException(ErrorType.COUPON_IS_NOT_EXISTS, ErrorType.COUPON_IS_NOT_EXISTS.getMessage(),
@@ -152,7 +149,7 @@ public class CouponController {
 
 		}
 
-		Company company = companyDao.findById(coupon.getCompany().getId()).get();
+		Company company = companiesDao.findById(coupon.getCompany().getId()).get();
 		coupon.setCompany(company);
 
 		couponsDao.save(coupon);
@@ -211,7 +208,7 @@ public class CouponController {
 
 		ValidationUtils.isValidId(companyId);
 
-		if (!companyDao.existsById(companyId))
+		if (!companiesDao.existsById(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -236,9 +233,9 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
-		isValidCategory(category);
+		ValidationUtils.isValidCategory(category);
 
-		if (!companyDao.existsById(companyId))
+		if (!companiesDao.existsById(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -263,9 +260,9 @@ public class CouponController {
 			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
 
 		ValidationUtils.isValidId(companyId);
-		isValidPrice(maxPrice);
+		ValidationUtils.isValidPrice(maxPrice);
 
-		if (!companyDao.existsById(companyId))
+		if (!companiesDao.existsById(companyId))
 			throw new ApplicationException(ErrorType.COMPANY_IS_NOT_EXISTS,
 					ErrorType.COMPANY_IS_NOT_EXISTS.getMessage(), false);
 
@@ -273,115 +270,4 @@ public class CouponController {
 
 	}
 
-	/**
-	 * @param customerId Receive a customer id
-	 * @param userData   Receive an userData
-	 * @return This function return a coupon list
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public List<Coupon> getCustomerCouponsByCustomerId(long customerId, UserDataMap userData)
-			throws ApplicationException {
-
-		if (!userData.getClientType().name().equals("Customer"))
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		if (customerId != userData.getId())
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		ValidationUtils.isValidId(customerId);
-
-		if (!customerDao.existsById(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-
-		return couponsDao.findByPurchasesCustomerId(customerId);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param category   Receive a category
-	 * @param userData   Receive an userData
-	 * @return This function return a coupon list
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public List<Coupon> getCustomerCouponsByCategory(long customerId, Category category, UserDataMap userData)
-			throws ApplicationException {
-
-		if (!userData.getClientType().name().equals("Customer"))
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		if (customerId != userData.getId())
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		ValidationUtils.isValidId(customerId);
-		isValidCategory(category);
-
-		if (!customerDao.existsById(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-
-		return couponsDao.findByPurchasesCustomerIdAndCategory(customerId, category);
-
-	}
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param maxPrice   Receive a max price
-	 * @param userData   Receive an userData
-	 * @return This function return a coupon list
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	public List<Coupon> getCustomerCouponsByMaxPrice(long customerId, double maxPrice, UserDataMap userData)
-			throws ApplicationException {
-
-		if (!userData.getClientType().name().equals("Customer"))
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		if (customerId != userData.getId())
-			throw new ApplicationException(ErrorType.SCAM, ErrorType.SCAM.getMessage(), true);
-
-		ValidationUtils.isValidId(customerId);
-		isValidPrice(maxPrice);
-
-		if (!customerDao.existsById(customerId))
-			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
-					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
-
-		return couponsDao.findByPurchasesCustomerIdAndPriceLessThanEqual(customerId, maxPrice);
-
-	}
-
-	/**
-	 * @param price Receive a price
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	private void isValidPrice(double price) throws ApplicationException {
-
-		if (price <= 0)
-			throw new ApplicationException(ErrorType.INVALID_PRICE, ErrorType.INVALID_PRICE.getMessage(), false);
-
-	}
-
-	/**
-	 * @param category Receive a category
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	private void isValidCategory(Category category) throws ApplicationException {
-
-		if (category == null)
-			throw new ApplicationException(ErrorType.INVALID_CATEGORY, ErrorType.INVALID_CATEGORY.getMessage(), false);
-
-	}
-
-	/**
-	 * @param image Receive an image
-	 * @throws ApplicationException This function can throw an applicationException
-	 */
-	private void isValidImage(String image) throws ApplicationException {
-
-		if (!(image.contains(".")) || image.charAt(image.length() - 1) == '.' || image.charAt(0) == '.')
-			throw new ApplicationException(ErrorType.INVALID_IMAGE, ErrorType.INVALID_IMAGE.getMessage(), false);
-
-	}
 }

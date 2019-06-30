@@ -56,26 +56,6 @@ public interface ICouponsDao extends CrudRepository<Coupon, Long> {
 	public List<Coupon> findByCompanyIdAndPriceLessThanEqual(long companyId, double maxPrice);
 
 	/**
-	 * @param customerId Receive a customer id
-	 * @return This function return list of coupons by some values
-	 */
-	public List<Coupon> findByPurchasesCustomerId(long customerId);
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param category   Receive a category
-	 * @return This function return list of coupons by some values
-	 */
-	public List<Coupon> findByPurchasesCustomerIdAndCategory(long customerId, Category category);
-
-	/**
-	 * @param customerId Receive a customer id
-	 * @param maxPrice   Receive a map price
-	 * @return This function return list of coupons by some values
-	 */
-	public List<Coupon> findByPurchasesCustomerIdAndPriceLessThanEqual(long customerId, double maxPrice);
-
-	/**
 	 * @param couponId Receive a coupon id
 	 * @return This function return true if coupon valid to purchase
 	 */

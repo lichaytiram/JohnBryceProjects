@@ -28,7 +28,7 @@ import coupons.utils.ValidationUtils;
 public class CustomerController {
 
 	@Autowired
-	private ICustomersDao customerDao;
+	private ICustomersDao customersDao;
 	@Autowired
 	private IUsersDao usersDao;
 
@@ -63,7 +63,7 @@ public class CustomerController {
 		customer.setId(id);
 		customer.getUser().setId(id);
 
-		customerDao.save(customer);
+		customersDao.save(customer);
 
 	}
 
@@ -82,7 +82,7 @@ public class CustomerController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.existsById(customerId))
+		if (!customersDao.existsById(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -91,7 +91,7 @@ public class CustomerController {
 					false);
 
 		// delete all children with cascade
-		customerDao.deleteById(customerId);
+		customersDao.deleteById(customerId);
 
 	}
 
@@ -131,7 +131,7 @@ public class CustomerController {
 		ValidationUtils.isValidPassword(userToUpdate.getPassword());
 		ValidationUtils.isValidType(userToUpdate.getType());
 
-		if (!customerDao.existsById(customer.getId()))
+		if (!customersDao.existsById(customer.getId()))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
@@ -154,7 +154,7 @@ public class CustomerController {
 
 		usersDao.save(user);
 
-		customerDao.save(customer);
+		customersDao.save(customer);
 
 	}
 
@@ -170,7 +170,7 @@ public class CustomerController {
 
 		List<Customer> customers = new ArrayList<Customer>();
 
-		customerDao.findAll().forEach(customers::add);
+		customersDao.findAll().forEach(customers::add);
 
 		return customers;
 
@@ -192,12 +192,12 @@ public class CustomerController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.existsById(customerId))
+		if (!customersDao.existsById(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
 		// return customer first name
-		String name = customerDao.findById(customerId).get().getFirstName();
+		String name = customersDao.findById(customerId).get().getFirstName();
 
 		Name myName = new Name(name);
 
@@ -221,11 +221,11 @@ public class CustomerController {
 
 		ValidationUtils.isValidId(customerId);
 
-		if (!customerDao.existsById(customerId))
+		if (!customersDao.existsById(customerId))
 			throw new ApplicationException(ErrorType.CUSTOMER_IS_NOT_EXISTS,
 					ErrorType.CUSTOMER_IS_NOT_EXISTS.getMessage(), false);
 
-		return customerDao.findById(customerId).get();
+		return customersDao.findById(customerId).get();
 
 	}
 
