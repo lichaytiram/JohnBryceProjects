@@ -56,9 +56,9 @@ public class Tree {
 					}
 
 				} else {
-					this.root = this.root.getLeft();
-					if (this.getRoot() == null) {
-						this.getRoot().setLeft(newNode);
+					focus = focus.getLeft();
+					if (focus == null) {
+						dad.setLeft(newNode);
 						return;
 					}
 				}
