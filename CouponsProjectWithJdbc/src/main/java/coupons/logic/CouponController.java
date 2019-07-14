@@ -4,11 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
-import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Coupon;
 import coupons.beans.UserDataMap;
@@ -28,7 +23,7 @@ import coupons.utils.ValidationUtils;
  * @author Lichay
  */
 @Controller
-public class CouponController implements TransactionManagementConfigurer {
+public class CouponController {
 
 	@Autowired
 	private ICouponsDao couponsDao;
@@ -81,7 +76,6 @@ public class CouponController implements TransactionManagementConfigurer {
 	 * @param userData  Receive an userData
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public void deleteCoupon(long couponId, long companyId, UserDataMap userData) throws ApplicationException {
 
 		if (!userData.getClientType().name().equals("Company"))
@@ -113,7 +107,6 @@ public class CouponController implements TransactionManagementConfigurer {
 	/**
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false)
 	public void deleteExpiredCoupons() throws ApplicationException {
 
 		purchasesDao.deleteExpiredPurchase();
@@ -388,8 +381,4 @@ public class CouponController implements TransactionManagementConfigurer {
 
 	}
 
-	@Override
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return null;
-	}
 }

@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import coupons.beans.Login;
 import coupons.beans.Name;
@@ -41,7 +38,6 @@ public class UserController {
 	 * @return This function return an id
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public long createUser(User user, UserDataMap userData) throws ApplicationException {
 
 		if (user == null)
@@ -206,7 +202,6 @@ public class UserController {
 	 * @return This function return a client type
 	 * @throws ApplicationException This function can throw an applicationException
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, readOnly = false, timeout = 5)
 	public UserDataClient login(Login login) throws ApplicationException {
 
 		if (login == null)
