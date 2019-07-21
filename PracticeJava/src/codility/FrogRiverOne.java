@@ -8,16 +8,14 @@ public class FrogRiverOne {
 
 	public static int solution(int x, int[] arr) {
 
-		int index = -1;
-
 		if (arr == null || arr.length == 0)
-			return index;
+			return -1;
 
 		for (int i = 0; i < arr.length; i++)
 			if (arr[i] == x)
-				index = i;
+				return i;
 
-		return index;
+		return -1;
 	}
 
 }

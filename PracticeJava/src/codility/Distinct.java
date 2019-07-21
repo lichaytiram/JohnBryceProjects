@@ -1,12 +1,34 @@
 package codility;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Distinct {
 
 	public static void main(String[] args) {
-		System.out.println(solution(new int[] { 1, -1, 1, 4, 1, -1, 4, 8, 8 }));
+		System.out.println(solution1(new int[] { 1, 13, 1, 1, 4, 1, 1, 4, 8, 8 }));
+		System.out.println(solution(new int[] { 1, 13, 1, 1, 4, 1, 1, 4, 8, 8 }));
 
+	}
+
+	public static int solution1(int[] arr) {
+
+		if (arr == null || arr.length == 0)
+			return 0;
+
+		Arrays.sort(arr);
+
+		int count = 1;
+
+		for (int i = 0; i < arr.length - 1; i++) {
+
+			if (arr[i] != arr[i + 1])
+				count++;
+
+		}
+
+		return count;
 	}
 
 	public static int solution(int[] arr) {
@@ -14,19 +36,16 @@ public class Distinct {
 		if (arr == null || arr.length == 0)
 			return 0;
 
-		Arrays.sort(arr);
+		Set<Integer> set = new HashSet<Integer>();
 
-		System.out.println(Arrays.toString(arr));
-		if (arr[0] != arr[1])
-			return arr[0];
+		for (int i = 0; i < arr.length; i++) {
 
-		if (arr[arr.length - 1] != arr[arr.length - 2])
-			return arr[arr.length - 1];
+			set.add(arr[i]);
 
-		for (int i = 1; i < arr.length - 1; i++) {
-			if (arr[i] != arr[i - 1] && arr[i] != arr[i + 1])
-				return arr[i];
 		}
-		return 0;
+
+		return set.size();
+
 	}
+
 }
