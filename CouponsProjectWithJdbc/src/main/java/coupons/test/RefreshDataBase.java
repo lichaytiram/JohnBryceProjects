@@ -22,7 +22,7 @@ public class RefreshDataBase implements ICreate {
 
 	public RefreshDataBase() throws ApplicationException {
 		super();
-		refreshDB();
+//		refreshDB();
 	}
 
 	/**
