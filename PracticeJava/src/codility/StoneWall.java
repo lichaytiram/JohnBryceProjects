@@ -11,16 +11,26 @@ public class StoneWall {
 		if (h == null || h.length == 0)
 			return 0;
 
-		int count = 1, currenthigh = h[0];
+		int countWalls = 1;
+		if (h.length == 1)
+			return countWalls;
 
-		for (int i = 0; i < h.length; i++) {
-			if (h[i] != currenthigh) {
-				count++;
-				currenthigh = h[i];
+		for (int i = 1; i < h.length; i++) {
+
+			if (h[i] == h[i - 1])
+				continue;
+
+			if (h[i] > h[i - 1])
+				countWalls++;
+
+			else {
+
+				
+				
 			}
 		}
 
-		return count;
+		return countWalls;
 
 	}
 }

@@ -1,5 +1,8 @@
 package codility;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FrogRiverOne {
 
 	public static void main(String[] args) {
@@ -11,11 +14,19 @@ public class FrogRiverOne {
 		if (arr == null || arr.length == 0)
 			return -1;
 
-		for (int i = 0; i < arr.length; i++)
-			if (arr[i] == x)
+		Set<Integer> set = new HashSet<Integer>();
+
+		for (int i = 0; i < arr.length; i++) {
+
+			if (arr[i] <= x)
+				set.add(arr[i]);
+
+			if (set.size() == x)
 				return i;
+		}
 
 		return -1;
+
 	}
 
 }
