@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import coupons.beans.Customer;
 import coupons.beans.Name;
 import coupons.beans.UserDataMap;
+import coupons.entities.Customer;
 import coupons.exception.ApplicationException;
 import coupons.logic.CustomerController;
 

@@ -135,5 +135,11 @@ public class UserApi {
 		return userController.login(login);
 
 	}
+	
+	@PostMapping("/logout")
+	public void logOut() throws ApplicationException {
+		
+		
+	}
 
 }

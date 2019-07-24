@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import coupons.beans.Company;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICompaniesDao;
+import coupons.entities.Company;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
 import coupons.utils.ValidationUtils;

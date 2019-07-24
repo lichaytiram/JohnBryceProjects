@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import coupons.beans.Purchase;
+import coupons.entities.Purchase;
 import coupons.enums.Category;
 
 /**

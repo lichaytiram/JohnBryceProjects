@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import coupons.beans.Coupon;
-import coupons.beans.Customer;
-import coupons.beans.Purchase;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICouponsDao;
 import coupons.dao.ICustomersDao;
 import coupons.dao.IPurchasesDao;
+import coupons.entities.Coupon;
+import coupons.entities.Customer;
+import coupons.entities.Purchase;
 import coupons.enums.Category;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;

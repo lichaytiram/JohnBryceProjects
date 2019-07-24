@@ -1,4 +1,4 @@
-package coupons.beans;
+package coupons.entities;
 
 import java.io.Serializable;
 

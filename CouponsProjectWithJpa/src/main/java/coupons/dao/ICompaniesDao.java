@@ -3,7 +3,7 @@ package coupons.dao;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import coupons.beans.Company;
+import coupons.entities.Company;
 
 /**
  * This interface will implement while running

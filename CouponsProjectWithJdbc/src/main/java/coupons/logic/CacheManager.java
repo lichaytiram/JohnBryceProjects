@@ -59,4 +59,14 @@ public class CacheManager implements ICacheManager {
 
 	}
 
+	@Override
+	public void showAll() {
+
+		for (Integer item : map.keySet()) {
+			System.out.println(item);
+			System.out.println();
+		}
+
+	}
+
 }

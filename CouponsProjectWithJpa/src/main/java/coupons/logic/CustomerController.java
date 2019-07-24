@@ -9,12 +9,12 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import coupons.beans.Customer;
 import coupons.beans.Name;
-import coupons.beans.User;
 import coupons.beans.UserDataMap;
 import coupons.dao.ICustomersDao;
 import coupons.dao.IUsersDao;
+import coupons.entities.Customer;
+import coupons.entities.User;
 import coupons.enums.ErrorType;
 import coupons.exception.ApplicationException;
 import coupons.utils.ValidationUtils;
