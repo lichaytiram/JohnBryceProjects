@@ -135,11 +135,18 @@ public class UserApi {
 		return userController.login(login);
 
 	}
-	
-	@PostMapping("/logout")
-	public void logOut() throws ApplicationException {
-		
-		
+
+	/**
+	 * @param request Receive a httpServletRequest
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	@GetMapping("/logout")
+	public void logOut(HttpServletRequest request) throws ApplicationException {
+
+		int token = (int) request.getAttribute("token");
+
+		userController.logOut(token);
+
 	}
 
 }

@@ -3,6 +3,7 @@ coupons.api
 coupons.beans
 coupons.daily.job
 coupons.dao
+coupons.entities
 coupons.enums
 coupons.exception
 coupons.filters

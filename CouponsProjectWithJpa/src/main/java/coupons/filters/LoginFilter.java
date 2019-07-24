@@ -44,13 +44,6 @@ public class LoginFilter implements Filter {
 
 			chain.doFilter(request, response); // Just continue chain.
 
-		} else if (path.startsWith("/users/logout")) {
-
-			HttpServletRequest req = (HttpServletRequest) request;
-
-			Integer token = Integer.parseInt(req.getParameter("token"));
-			cacheManager.deleteFromMap(token);
-
 		} else {
 
 			HttpServletRequest req = (HttpServletRequest) request;
@@ -61,7 +54,10 @@ public class LoginFilter implements Filter {
 
 			if (userData != null) {
 
-				request.setAttribute("userData", userData);
+				if (path.startsWith("/users/logout"))
+					request.setAttribute("token", token);
+				else
+					request.setAttribute("userData", userData);
 				chain.doFilter(request, response);
 				return;
 

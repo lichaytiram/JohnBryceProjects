@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"coupons"},{"l":"coupons.api"},{"l":"coupons.beans"},{"l":"coupons.daily.job"},{"l":"coupons.dao"},{"l":"coupons.enums"},{"l":"coupons.exception"},{"l":"coupons.filters"},{"l":"coupons.logic"},{"l":"coupons.utils"}]
+packageSearchIndex = [{"l":"coupons"},{"l":"coupons.api"},{"l":"coupons.beans"},{"l":"coupons.daily.job"},{"l":"coupons.dao"},{"l":"coupons.entities"},{"l":"coupons.enums"},{"l":"coupons.exception"},{"l":"coupons.filters"},{"l":"coupons.logic"},{"l":"coupons.utils"}]

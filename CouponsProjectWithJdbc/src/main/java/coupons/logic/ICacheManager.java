@@ -26,7 +26,5 @@ public interface ICacheManager {
 	 * @param key Receive a key and delete it from cacheManager
 	 */
 	public void deleteFromMap(Integer key);
-	
-	public void showAll();
 
 }

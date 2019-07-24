@@ -227,6 +227,16 @@ public class UserController {
 
 	}
 
+	/**
+	 * @param token Receive a token
+	 * @throws ApplicationException This function can throw an applicationException
+	 */
+	public void logOut(int token) throws ApplicationException {
+
+		cacheManager.deleteFromMap(token);
+
+	}
+
 	// function
 
 	private int generateEncryptedToken(String userName) {
