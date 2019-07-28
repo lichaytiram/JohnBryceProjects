@@ -1,5 +1,8 @@
 package codility;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StoneWall {
 
 	public static void main(String[] args) {
@@ -15,6 +18,8 @@ public class StoneWall {
 		if (h.length == 1)
 			return countWalls;
 
+		List<Integer> lowerWalls = new ArrayList<Integer>();
+
 		for (int i = 1; i < h.length; i++) {
 
 			if (h[i] == h[i - 1])
@@ -25,8 +30,20 @@ public class StoneWall {
 
 			else {
 
-				
-				
+				boolean isLower = true;
+
+				for (int row = 0; row < lowerWalls.size(); row++) {
+					if(h[i]<lowerWalls.get(row)) {
+						lowerWalls.clear();
+						lowerWalls.add(h[i]);
+						break;
+					}
+						
+				}
+				if(isLower) {
+					
+				}
+
 			}
 		}
 
