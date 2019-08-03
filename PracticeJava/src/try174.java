@@ -18,7 +18,6 @@ public class try174 {
 
 	}
 
-	
 	private static void printer(int number) {
 
 		if (number == 0)
